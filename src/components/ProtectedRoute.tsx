@@ -13,27 +13,26 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
   const router = useRouter();
   const isAuthenticated = useAppStore((state) => state.isAuthenticated);
   const isLoading = useAppStore((state) => state.isLoading);
+  const user = useAppStore((state) => state.user);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  useEffect(() => {
-    if (!isMounted) return;
-
-    if (!isLoading && !isAuthenticated) {
-      router.push('/auth/login');
-    }
-  }, [isAuthenticated, isLoading, isMounted, router]);
-
+  // While mounting or loading, show loading state
   if (!isMounted || isLoading) {
     return <LoadingState fullScreen message="Loading your data..." />;
   }
 
-  if (!isAuthenticated) {
-    return null;
+  // If not authenticated, redirect immediately
+  if (!isAuthenticated || !user) {
+    // Redirect to login
+    router.replace('/auth/login');
+    // Show loading state while redirecting
+    return <LoadingState fullScreen message="Redirecting to login..." />;
   }
 
+  // Only render children if authenticated and user exists
   return <>{children}</>;
 }
