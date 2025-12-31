@@ -78,19 +78,19 @@ export default function Home() {
   return (
     <ProtectedRoute>
       <main className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
-        <div className="container mx-auto px-3 md:px-4 lg:px-8 py-4 md:py-6 lg:py-8">
+        <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4 md:py-6 lg:py-8">
         {/* Welcome Section */}
-        <div className="mb-6 md:mb-8">
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-1">Dashboard</h1>
-          <p className="text-slate-300 text-xs md:text-sm">Your complete financial management dashboard</p>
+        <div className="mb-4 sm:mb-6 md:mb-8">
+          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-1">Dashboard</h1>
+          <p className="text-slate-300 text-xs sm:text-sm">Your complete financial management dashboard</p>
         </div>
 
         {/* Key Financial Metrics - Compact Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3 mb-6 md:mb-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4 mb-4 sm:mb-6 md:mb-8">
           {/* This Month Income */}
-          <div className="bg-gradient-to-br from-green-900 to-green-800 rounded-lg p-3 md:p-4 text-white border border-green-700">
+          <div className="bg-gradient-to-br from-green-900 to-green-800 rounded-lg p-2 sm:p-3 md:p-4 text-white border border-green-700">
             <p className="text-green-200 text-xs mb-1 font-medium">This Month Income</p>
-            <p className="text-lg md:text-2xl font-bold">₹{(thisMonthIncome / 1000).toFixed(0)}K</p>
+            <p className="text-base sm:text-lg md:text-2xl font-bold">₹{(thisMonthIncome / 1000).toFixed(0)}K</p>
             <p className="text-xs text-green-300 mt-1">{income.filter(i => {
               const d = new Date(i.date);
               const now = new Date();
@@ -99,9 +99,9 @@ export default function Home() {
           </div>
 
           {/* This Month Expenses */}
-          <div className="bg-gradient-to-br from-red-900 to-red-800 rounded-lg p-3 md:p-4 text-white border border-red-700">
+          <div className="bg-gradient-to-br from-red-900 to-red-800 rounded-lg p-2 sm:p-3 md:p-4 text-white border border-red-700">
             <p className="text-red-200 text-xs mb-1 font-medium">This Month Expenses</p>
-            <p className="text-lg md:text-2xl font-bold">₹{(thisMonthExpenses / 1000).toFixed(0)}K</p>
+            <p className="text-base sm:text-lg md:text-2xl font-bold">₹{(thisMonthExpenses / 1000).toFixed(0)}K</p>
             <p className="text-xs text-red-300 mt-1">{expenses.filter(e => {
               const d = new Date(e.date);
               const now = new Date();
@@ -110,9 +110,9 @@ export default function Home() {
           </div>
 
           {/* Cash Flow */}
-          <div className={`bg-gradient-to-br ${cashFlow >= 0 ? 'from-blue-900 to-blue-800 border-blue-700' : 'from-orange-900 to-orange-800 border-orange-700'} rounded-lg p-3 md:p-4 text-white border`}>
+          <div className={`bg-gradient-to-br ${cashFlow >= 0 ? 'from-blue-900 to-blue-800 border-blue-700' : 'from-orange-900 to-orange-800 border-orange-700'} rounded-lg p-2 sm:p-3 md:p-4 text-white border`}>
             <p className={`${cashFlow >= 0 ? 'text-blue-200' : 'text-orange-200'} text-xs mb-1 font-medium`}>Cash Flow</p>
-            <p className={`text-lg md:text-2xl font-bold ${cashFlow >= 0 ? 'text-green-300' : 'text-red-300'}`}>
+            <p className={`text-base sm:text-lg md:text-2xl font-bold ${cashFlow >= 0 ? 'text-green-300' : 'text-red-300'}`}>
               ₹{(cashFlow / 1000).toFixed(0)}K
             </p>
             <p className={`text-xs mt-1 ${cashFlow >= 0 ? 'text-blue-300' : 'text-orange-300'}`}>
@@ -121,28 +121,28 @@ export default function Home() {
           </div>
 
           {/* Net Worth */}
-          <div className="bg-gradient-to-br from-purple-900 to-purple-800 rounded-lg p-3 md:p-4 text-white border border-purple-700">
+          <div className="bg-gradient-to-br from-purple-900 to-purple-800 rounded-lg p-2 sm:p-3 md:p-4 text-white border border-purple-700">
             <p className="text-purple-200 text-xs mb-1 font-medium">Net Worth</p>
-            <p className="text-lg md:text-2xl font-bold">₹{((totalCurrentValue + totalGoalSaved - totalExpenses) / 1000).toFixed(0)}K</p>
+            <p className="text-base sm:text-lg md:text-2xl font-bold">₹{((totalCurrentValue + totalGoalSaved - totalExpenses) / 1000).toFixed(0)}K</p>
             <p className="text-xs text-purple-300 mt-1">Assets + Goals</p>
           </div>
         </div>
 
         {/* Secondary Metrics - 2x2 on mobile, 3 cols on desktop */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 mb-6 md:mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3 md:gap-4 mb-4 sm:mb-6 md:mb-8">
           {/* Budget Status */}
           {currentBudget && (
-            <div className={`rounded-lg p-3 md:p-4 border ${
+            <div className={`rounded-lg p-2 sm:p-3 md:p-4 border ${
               budgetAdherence > 100
                 ? 'bg-red-900 border-red-700'
                 : budgetAdherence > 80
                 ? 'bg-yellow-900 border-yellow-700'
                 : 'bg-slate-800 border-slate-700'
             }`}>
-              <p className="text-slate-300 text-xs md:text-sm font-medium mb-2">Budget Status</p>
+              <p className="text-slate-300 text-xs font-medium mb-2">Budget Status</p>
               <div className="mb-2">
                 <div className="flex justify-between mb-1">
-                  <span className="text-white font-semibold text-sm">₹{(thisMonthExpenses / 1000).toFixed(0)}K</span>
+                  <span className="text-white font-semibold text-xs sm:text-sm">₹{(thisMonthExpenses / 1000).toFixed(0)}K</span>
                   <span className="text-slate-400 text-xs">/ ₹{(currentBudget.totalBudget / 1000).toFixed(0)}K</span>
                 </div>
                 <div className="w-full bg-slate-700 rounded-full h-1.5">
@@ -183,12 +183,12 @@ export default function Home() {
 
           {/* Investment Performance */}
           {investments.length > 0 && (
-            <div className="bg-slate-800 rounded-lg p-3 md:p-4 border border-slate-700">
-              <p className="text-slate-300 text-xs md:text-sm font-medium mb-2">Investment Performance</p>
+            <div className="bg-slate-800 rounded-lg p-2 sm:p-3 md:p-4 border border-slate-700">
+              <p className="text-slate-300 text-xs font-medium mb-2">Investment Performance</p>
               <div className="space-y-1">
                 <div>
                   <p className="text-slate-400 text-xs">Current Value</p>
-                  <p className="text-white font-semibold text-sm">₹{(totalCurrentValue / 1000).toFixed(0)}K</p>
+                  <p className="text-white font-semibold text-xs sm:text-sm">₹{(totalCurrentValue / 1000).toFixed(0)}K</p>
                 </div>
                 <div>
                   <p className={`text-xs font-semibold ${investmentGain >= 0 ? 'text-green-400' : 'text-red-400'}`}>
@@ -201,11 +201,11 @@ export default function Home() {
 
           {/* Goals Progress */}
           {goals.length > 0 && (
-            <div className="bg-slate-800 rounded-lg p-3 md:p-4 border border-slate-700">
-              <p className="text-slate-300 text-xs md:text-sm font-medium mb-2">Goals Progress</p>
+            <div className="bg-slate-800 rounded-lg p-2 sm:p-3 md:p-4 border border-slate-700">
+              <p className="text-slate-300 text-xs font-medium mb-2">Goals Progress</p>
               <div className="mb-2">
                 <div className="flex justify-between mb-1">
-                  <span className="text-white font-semibold text-sm">₹{(totalGoalSaved / 1000).toFixed(0)}K</span>
+                  <span className="text-white font-semibold text-xs sm:text-sm">₹{(totalGoalSaved / 1000).toFixed(0)}K</span>
                   <span className="text-slate-400 text-xs">/ ₹{(totalGoalTarget / 1000).toFixed(0)}K</span>
                 </div>
                 <div className="w-full bg-slate-700 rounded-full h-1.5">
@@ -223,13 +223,13 @@ export default function Home() {
         </div>
 
         {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 md:gap-4 mb-6 md:mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 sm:gap-3 md:gap-4 mb-4 sm:mb-6 md:mb-8">
           {/* Recent Expenses Section */}
           <div className="lg:col-span-2">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-3 md:mb-4 gap-2">
-              <h2 className="text-lg md:text-xl font-bold text-white">Recent Transactions</h2>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2 sm:mb-3 md:mb-4 gap-2">
+              <h2 className="text-base sm:text-lg md:text-xl font-bold text-white">Recent Transactions</h2>
               <Link href="/expenses">
-                <button className="bg-blue-600 hover:bg-blue-700 text-white px-3 md:px-4 py-2 rounded-lg transition font-semibold text-xs md:text-sm whitespace-nowrap">
+                <button className="bg-blue-600 hover:bg-blue-700 text-white px-2 sm:px-3 md:px-4 py-2 rounded-lg transition font-semibold text-xs md:text-sm whitespace-nowrap">
                   + Add Expense
                 </button>
               </Link>
@@ -238,10 +238,10 @@ export default function Home() {
           </div>
 
           {/* Expense Breakdown Pie Chart */}
-          <div className="bg-slate-800 rounded-lg p-3 md:p-4 border border-slate-700">
-            <h3 className="text-sm md:text-base font-bold text-white mb-3">Expense Breakdown</h3>
+          <div className="bg-slate-800 rounded-lg p-2 sm:p-3 md:p-4 border border-slate-700">
+            <h3 className="text-xs sm:text-sm md:text-base font-bold text-white mb-2 md:mb-3">Expense Breakdown</h3>
             {expenses.length > 0 ? (
-              <ResponsiveContainer width="100%" height={180}>
+              <ResponsiveContainer width="100%" height={150}>
                 <PieChart>
                   <Pie
                     data={(() => {
@@ -259,7 +259,7 @@ export default function Home() {
                     cy="50%"
                     labelLine={false}
                     label={({ name, value }) => `${name}: ₹${value}`}
-                    outerRadius={60}
+                    outerRadius={50}
                     fill="#8884d8"
                     dataKey="value"
                   >
@@ -279,7 +279,7 @@ export default function Home() {
                 </PieChart>
               </ResponsiveContainer>
             ) : (
-              <div className="h-48 flex items-center justify-center text-slate-400">
+              <div className="h-40 flex items-center justify-center text-slate-400 text-xs">
                 No expense data available
               </div>
             )}
@@ -287,12 +287,12 @@ export default function Home() {
         </div>
 
         {/* Charts Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 sm:gap-3 md:gap-4 mb-4 sm:mb-6 md:mb-8">
           {/* Income vs Expense Comparison */}
-          <div className="bg-slate-800 rounded-lg p-4 md:p-6 border border-slate-700">
-            <h3 className="text-base md:text-lg font-bold text-white mb-4">Income vs Expense Trend</h3>
+          <div className="bg-slate-800 rounded-lg p-2 sm:p-3 md:p-4 border border-slate-700">
+            <h3 className="text-xs sm:text-sm md:text-base font-bold text-white mb-2 md:mb-4">Income vs Expense Trend</h3>
             {income.length > 0 || expenses.length > 0 ? (
-              <ResponsiveContainer width="100%" height={250}>
+              <ResponsiveContainer width="100%" height={200}>
                 <BarChart
                   data={(() => {
                     const months: { [key: string]: { income: number; expense: number } } = {};
@@ -334,17 +334,17 @@ export default function Home() {
                 </BarChart>
               </ResponsiveContainer>
             ) : (
-              <div className="h-64 flex items-center justify-center text-slate-400">
+              <div className="h-52 flex items-center justify-center text-slate-400 text-xs">
                 No data available
               </div>
             )}
           </div>
 
           {/* 6-Month Spending Trend */}
-          <div className="bg-slate-800 rounded-lg p-4 md:p-6 border border-slate-700">
-            <h3 className="text-base md:text-lg font-bold text-white mb-4">6-Month Spending Trend</h3>
+          <div className="bg-slate-800 rounded-lg p-2 sm:p-3 md:p-4 border border-slate-700">
+            <h3 className="text-xs sm:text-sm md:text-base font-bold text-white mb-2 md:mb-4">6-Month Spending Trend</h3>
             {expenses.length > 0 ? (
-              <ResponsiveContainer width="100%" height={250}>
+              <ResponsiveContainer width="100%" height={200}>
                 <LineChart
                   data={(() => {
                     const months: { [key: string]: number } = {};
@@ -385,7 +385,7 @@ export default function Home() {
                 </LineChart>
               </ResponsiveContainer>
             ) : (
-              <div className="h-64 flex items-center justify-center text-slate-400">
+              <div className="h-52 flex items-center justify-center text-slate-400 text-xs">
                 No expense data available
               </div>
             )}
@@ -393,12 +393,12 @@ export default function Home() {
         </div>
 
         {/* Additional Charts */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 sm:gap-3 md:gap-4 mb-4 sm:mb-6 md:mb-8">
           {/* Income Sources */}
           {income.length > 0 && (
-            <div className="bg-slate-800 rounded-lg p-4 md:p-6 border border-slate-700">
-              <h3 className="text-base md:text-lg font-bold text-white mb-4">Income Sources</h3>
-              <ResponsiveContainer width="100%" height={200}>
+            <div className="bg-slate-800 rounded-lg p-2 sm:p-3 md:p-4 border border-slate-700">
+              <h3 className="text-xs sm:text-sm md:text-base font-bold text-white mb-2 md:mb-4">Income Sources</h3>
+              <ResponsiveContainer width="100%" height={160}>
                 <PieChart>
                   <Pie
                     data={(() => {
@@ -415,7 +415,7 @@ export default function Home() {
                     cy="50%"
                     labelLine={false}
                     label={({ name, value }) => `${name}: ₹${value}`}
-                    outerRadius={60}
+                    outerRadius={50}
                     fill="#8884d8"
                     dataKey="value"
                   >
@@ -438,9 +438,9 @@ export default function Home() {
 
           {/* Investment Performance */}
           {investments.length > 0 && (
-            <div className="bg-slate-800 rounded-lg p-4 md:p-6 border border-slate-700">
-              <h3 className="text-base md:text-lg font-bold text-white mb-4">Investment Performance</h3>
-              <ResponsiveContainer width="100%" height={200}>
+            <div className="bg-slate-800 rounded-lg p-2 sm:p-3 md:p-4 border border-slate-700">
+              <h3 className="text-xs sm:text-sm md:text-base font-bold text-white mb-2 md:mb-4">Investment Performance</h3>
+              <ResponsiveContainer width="100%" height={160}>
                 <BarChart
                   data={investments.map((inv) => ({
                     name: inv.name.substring(0, 10),

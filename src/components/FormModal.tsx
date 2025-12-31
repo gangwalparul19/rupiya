@@ -57,23 +57,23 @@ export default function FormModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-3 md:p-4 z-50">
-      <div className={`bg-gray-800 rounded-lg ${maxHeight} overflow-y-auto w-full max-w-md`}>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-2 sm:p-3 md:p-4 z-50">
+      <div className={`bg-gray-800 rounded-lg ${maxHeight} overflow-y-auto w-full max-w-sm`}>
         {/* Header */}
-        <div className="p-4 md:p-6 sticky top-0 bg-gray-800 border-b border-gray-700">
-          <h2 className="text-xl md:text-2xl font-bold text-white">{title}</h2>
+        <div className="p-3 sm:p-4 md:p-6 sticky top-0 bg-gray-800 border-b border-gray-700">
+          <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white">{title}</h2>
         </div>
 
         {/* Form */}
-        <form onSubmit={onSubmit} className="p-4 md:p-6 space-y-4">
+        <form onSubmit={onSubmit} className="p-3 sm:p-4 md:p-6 space-y-3 sm:space-y-4">
           {children}
 
           {/* Footer Buttons */}
-          <div className="flex gap-2 pt-4 border-t border-gray-700">
+          <div className="flex gap-2 pt-3 sm:pt-4 border-t border-gray-700">
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-3 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium text-sm"
+              className="flex-1 px-2 sm:px-3 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium text-xs sm:text-sm"
               disabled={isLoading}
               aria-label={`${cancelText} ${title.toLowerCase()}`}
             >
@@ -81,7 +81,7 @@ export default function FormModal({
             </button>
             <button
               type="submit"
-              className="flex-1 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 px-2 sm:px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium text-xs sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={isLoading}
               aria-label={submitText}
             >

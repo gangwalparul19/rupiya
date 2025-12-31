@@ -92,16 +92,16 @@ export default function Navigation() {
     <>
       {/* Header */}
       <header className="bg-slate-800 border-b border-slate-700 sticky top-0 z-40">
-        <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+        <div className="container mx-auto px-3 sm:px-4 py-2 sm:py-3 flex justify-between items-center gap-2 sm:gap-4">
           {/* Logo */}
           <Link href="/" className="flex items-center hover:opacity-80 transition-opacity flex-shrink-0">
             <Image
               src="/logo.png"
               alt="Rupiya Logo"
-              width={60}
-              height={60}
-              sizes="(max-width: 640px) 64px, (max-width: 768px) 80px, 96px"
-              className="h-16 w-auto sm:h-20 md:h-24 object-contain"
+              width={40}
+              height={40}
+              sizes="(max-width: 640px) 40px, (max-width: 768px) 48px, 60px"
+              className="h-10 w-auto sm:h-12 md:h-14 object-contain"
               priority
             />
           </Link>
@@ -112,25 +112,25 @@ export default function Navigation() {
               if ('submenu' in item && item.submenu) {
                 return (
                   <div key={item.label} className="group relative">
-                    <button className="flex items-center gap-2 px-4 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition font-medium">
-                      <span className="text-lg">{item.icon}</span>
-                      <span className="text-sm">{item.label}</span>
+                    <button className="flex items-center gap-1 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition font-medium text-sm">
+                      <span className="text-base">{item.icon}</span>
+                      <span className="hidden lg:inline">{item.label}</span>
                       <span className="text-xs ml-1">▼</span>
                     </button>
                     {/* Dropdown Menu */}
-                    <div className="absolute left-0 mt-0 w-56 bg-slate-700 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 border border-slate-600">
+                    <div className="absolute left-0 mt-0 w-48 bg-slate-700 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 border border-slate-600">
                       <div className="py-2">
                         {item.submenu.map((subitem: any, idx) => (
                           <Link
                             key={subitem.href}
                             href={subitem.href}
-                            className={`flex items-center gap-3 px-4 py-2.5 text-sm transition ${
+                            className={`flex items-center gap-2 px-3 py-2 text-xs transition ${
                               isActive(subitem.href)
                                 ? 'bg-blue-600 text-white'
                                 : 'text-slate-300 hover:text-white hover:bg-slate-600'
                             } ${idx === 0 ? 'rounded-t-lg' : ''} ${idx === item.submenu.length - 1 ? 'rounded-b-lg' : ''}`}
                           >
-                            <span className="text-base">{subitem.icon}</span>
+                            <span className="text-sm">{subitem.icon}</span>
                             <span className="flex-1">{subitem.label}</span>
                           </Link>
                         ))}
@@ -144,40 +144,40 @@ export default function Navigation() {
           </nav>
 
           {/* Right Side - Profile & Hamburger */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-3">
             {isAuthenticated && user && (
-              <div className="relative">
+              <div className="relative hidden sm:block">
                 <button
                   onClick={() => setIsProfileOpen(!isProfileOpen)}
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition"
+                  className="flex items-center gap-2 px-2 sm:px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition text-sm"
                 >
                   <span>👤</span>
-                  <span className="hidden sm:inline text-sm">{userProfile?.displayName || user.email?.split('@')[0]}</span>
+                  <span className="hidden md:inline text-xs">{userProfile?.displayName || user.email?.split('@')[0]}</span>
                 </button>
 
                 {/* Profile Dropdown */}
                 {isProfileOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-slate-700 rounded-lg shadow-lg z-50">
+                  <div className="absolute right-0 mt-2 w-40 bg-slate-700 rounded-lg shadow-lg z-50">
                     <Link
                       href="/profile"
                       onClick={() => setIsProfileOpen(false)}
-                      className="block px-4 py-2 text-white hover:bg-slate-600 rounded-t-lg border-b border-slate-600"
+                      className="block px-3 py-2 text-white hover:bg-slate-600 rounded-t-lg border-b border-slate-600 text-xs"
                     >
-                      👤 Profile Settings
+                      👤 Profile
                     </Link>
                     <Link
                       href="/payment-methods"
                       onClick={() => setIsProfileOpen(false)}
-                      className="block px-4 py-2 text-white hover:bg-slate-600 border-b border-slate-600"
+                      className="block px-3 py-2 text-white hover:bg-slate-600 border-b border-slate-600 text-xs"
                     >
-                      💳 Payment Methods
+                      💳 Payment
                     </Link>
                     <button
                       onClick={() => {
                         handleLogout();
                         setIsProfileOpen(false);
                       }}
-                      className="w-full text-left px-4 py-2 text-red-400 hover:bg-slate-600 rounded-b-lg"
+                      className="w-full text-left px-3 py-2 text-red-400 hover:bg-slate-600 rounded-b-lg text-xs"
                     >
                       🚪 Logout
                     </button>
@@ -188,7 +188,7 @@ export default function Navigation() {
 
             {!isAuthenticated && (
               <Link href="/auth/login">
-                <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition">
+                <button className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg transition text-xs sm:text-sm font-medium">
                   Sign In
                 </button>
               </Link>
