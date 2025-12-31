@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { useMemo } from 'react';
 import { useAppStore } from '@/lib/store';
 import ProtectedRoute from '@/components/ProtectedRoute';
