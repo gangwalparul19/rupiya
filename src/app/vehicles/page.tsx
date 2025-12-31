@@ -45,7 +45,6 @@ export default function VehiclesPage() {
     mileageEfficiency?: number;
   }>>>({});
 
-  // Filter vehicles
   const filteredVehicles = useMemo(() => {
     return vehicles.filter((vehicle) => {
       const matchesSearch = vehicle.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -105,7 +104,6 @@ export default function VehiclesPage() {
       const history = vehicleFuelHistory[selectedVehicleForFuel] || [];
       let mileageEfficiency: number | undefined;
 
-      // Calculate mileage efficiency if there's a previous entry
       if (history.length > 0) {
         const lastEntry = history[0];
         const kmDriven = currentKm - lastEntry.currentKm;
@@ -129,7 +127,6 @@ export default function VehiclesPage() {
         ],
       }));
 
-      // Add fuel cost as expense if cost is provided
       if (cost > 0) {
         const vehicleName = vehicles.find((v) => v.id === selectedVehicleForFuel)?.name || 'Vehicle';
         addExpense({
@@ -289,24 +286,24 @@ export default function VehiclesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 p-4 md:p-8">
+    <div className="min-h-screen bg-gray-950 p-3 sm:p-4 md:p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">Vehicle Management</h1>
-          <p className="text-gray-400">Manage your vehicles and track maintenance</p>
+        <div className="mb-6 md:mb-8">
+          <h1 className="heading-page">🚗 Vehicle Management</h1>
+          <p className="text-secondary">Manage your vehicles and track maintenance</p>
         </div>
 
         {/* KPI Cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-2 gap-3 md:gap-4 mb-8">
-          <div className="bg-gray-800 p-4 md:p-6 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs md:text-sm mb-2">Total Vehicles</p>
+        <div className="grid-responsive-2 mb-6 md:mb-8">
+          <div className="card">
+            <p className="text-tertiary text-xs md:text-sm mb-2">Total Vehicles</p>
             <p className="text-2xl md:text-3xl font-bold text-blue-400">{kpiStats.totalVehicles}</p>
           </div>
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-3 mb-6">
+        <div className="flex gap-2 sm:gap-3 md:gap-4 mb-6">
           <button
             onClick={() => {
               setShowModalInline(true);
@@ -317,13 +314,13 @@ export default function VehiclesPage() {
                 currentMileage: '',
               });
             }}
-            className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            className="btn btn-primary flex-1"
           >
             + Add Vehicle
           </button>
           <button
             onClick={handleExportCSV}
-            className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+            className="btn btn-success flex-1"
           >
             ↓ Export CSV
           </button>
@@ -336,19 +333,19 @@ export default function VehiclesPage() {
             placeholder="Search by name, type, or registration number..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
+            className="form-input w-full"
           />
         </div>
 
         {/* Add Vehicle Modal - Inline */}
         {showModalInline && (
-          <div className="bg-gray-800 rounded-lg p-6 mb-8 border border-gray-700">
-            <h2 className="text-2xl font-bold text-white mb-4">Add Vehicle</h2>
+          <div className="card mb-6 md:mb-8">
+            <h2 className="heading-section mb-4">Add Vehicle</h2>
 
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3 md:gap-4">
+                <div className="form-group">
+                  <label className="form-label">
                     Vehicle Name <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -357,13 +354,13 @@ export default function VehiclesPage() {
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="e.g., Honda City, Maruti Swift"
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                    className="form-input"
                     required
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                <div className="form-group">
+                  <label className="form-label">
                     Vehicle Type <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -372,13 +369,13 @@ export default function VehiclesPage() {
                     value={formData.type}
                     onChange={handleChange}
                     placeholder="e.g., Car, Bike, Truck"
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                    className="form-input"
                     required
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                <div className="form-group">
+                  <label className="form-label">
                     Registration Number <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -387,13 +384,13 @@ export default function VehiclesPage() {
                     value={formData.registrationNumber}
                     onChange={handleChange}
                     placeholder="e.g., MH01AB1234"
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                    className="form-input"
                     required
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                <div className="form-group">
+                  <label className="form-label">
                     Current Mileage (Optional)
                   </label>
                   <input
@@ -402,14 +399,14 @@ export default function VehiclesPage() {
                     value={formData.currentMileage}
                     onChange={handleChange}
                     placeholder="e.g., 50000"
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                    className="form-input"
                     step="0.1"
                     min="0"
                   />
                 </div>
               </div>
 
-              <div className="flex gap-3 pt-4 border-t border-gray-700">
+              <div className="flex gap-2 sm:gap-3 pt-4 border-t border-gray-700">
                 <button
                   type="button"
                   onClick={() => {
@@ -421,14 +418,14 @@ export default function VehiclesPage() {
                       currentMileage: '',
                     });
                   }}
-                  className="flex-1 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium"
+                  className="btn btn-secondary flex-1"
                   disabled={isLoading}
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50"
+                  className="btn btn-primary flex-1 disabled:opacity-50"
                   disabled={isLoading}
                 >
                   {isLoading ? 'Adding...' : 'Add Vehicle'}
@@ -440,20 +437,20 @@ export default function VehiclesPage() {
 
         {/* Vehicles Grid */}
         {filteredVehicles.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          <div className="grid-responsive-3 mb-6 md:mb-8">
             {filteredVehicles.map((vehicle) => (
-              <div key={vehicle.id} className="bg-gray-800 rounded-lg p-6 hover:bg-gray-700 transition-colors">
+              <div key={vehicle.id} className="card">
                 <div className="mb-4">
-                  <h3 className="text-xl font-bold text-white">{vehicle.name}</h3>
-                  <p className="text-sm text-gray-400 mt-1">{vehicle.type}</p>
-                  <p className="text-sm text-gray-500 mt-2">Reg: {vehicle.registrationNumber}</p>
+                  <h3 className="text-lg md:text-xl font-bold text-white">{vehicle.name}</h3>
+                  <p className="text-xs md:text-sm text-secondary mt-1">{vehicle.type}</p>
+                  <p className="text-xs md:text-sm text-tertiary mt-2">Reg: {vehicle.registrationNumber}</p>
                   {vehicleFuelHistory[vehicle.id] && vehicleFuelHistory[vehicle.id].length > 0 && (
                     <div className="mt-3 space-y-1">
-                      <p className="text-sm text-blue-400">
+                      <p className="text-xs md:text-sm text-blue-400">
                         Current KM: {vehicleFuelHistory[vehicle.id][0]?.currentKm.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
                       </p>
                       {vehicleFuelHistory[vehicle.id]?.[0]?.mileageEfficiency && (
-                        <p className="text-sm text-green-400">
+                        <p className="text-xs md:text-sm text-green-400">
                           Efficiency: {vehicleFuelHistory[vehicle.id]?.[0]?.mileageEfficiency?.toFixed(2)} km/L
                         </p>
                       )}
@@ -464,7 +461,7 @@ export default function VehiclesPage() {
                 <div className="flex gap-2 pt-4 border-t border-gray-700">
                   <button
                     onClick={() => handleEdit(vehicle)}
-                    className="flex-1 px-3 py-2 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+                    className="btn btn-primary btn-small flex-1"
                   >
                     Edit
                   </button>
@@ -473,7 +470,7 @@ export default function VehiclesPage() {
                       setSelectedVehicleForFuel(vehicle.id);
                       setShowFuelModal(true);
                     }}
-                    className="flex-1 px-3 py-2 text-sm bg-purple-600 text-white rounded hover:bg-purple-700 transition-colors"
+                    className="btn btn-secondary btn-small flex-1"
                   >
                     ⛽ Fuel
                   </button>
@@ -482,13 +479,13 @@ export default function VehiclesPage() {
                       setSelectedVehicleForExpense(vehicle.id);
                       setShowExpenseModal(true);
                     }}
-                    className="flex-1 px-3 py-2 text-sm bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
+                    className="btn btn-success btn-small flex-1"
                   >
                     + Expense
                   </button>
                   <button
                     onClick={() => handleDelete(vehicle.id)}
-                    className="flex-1 px-3 py-2 text-sm bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+                    className="btn btn-danger btn-small flex-1"
                   >
                     Delete
                   </button>
@@ -497,8 +494,8 @@ export default function VehiclesPage() {
             ))}
           </div>
         ) : (
-          <div className="bg-gray-800 rounded-lg p-8 text-center">
-            <p className="text-gray-400">
+          <div className="card text-center">
+            <p className="text-secondary">
               {vehicles.length === 0 ? 'No vehicles yet. Add one to get started!' : 'No vehicles match your search.'}
             </p>
           </div>
@@ -506,8 +503,8 @@ export default function VehiclesPage() {
 
         {/* Summary */}
         {filteredVehicles.length > 0 && (
-          <div className="bg-gray-800 rounded-lg p-4">
-            <p className="text-gray-300">
+          <div className="card">
+            <p className="text-secondary">
               Showing <span className="font-semibold text-white">{filteredVehicles.length}</span> of{' '}
               <span className="font-semibold text-white">{vehicles.length}</span> vehicles
             </p>
@@ -518,17 +515,16 @@ export default function VehiclesPage() {
       {/* Modals */}
       {showFuelModal && selectedVehicleForFuel && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-gray-800 rounded-lg p-6 max-w-md w-full max-h-[90vh] overflow-y-auto">
-            <h2 className="text-2xl font-bold text-white mb-4">⛽ Fuel Entry</h2>
+          <div className="bg-gray-800 rounded-lg p-4 sm:p-6 max-w-md w-full max-h-[90vh] overflow-y-auto">
+            <h2 className="heading-section mb-4">⛽ Fuel Entry</h2>
 
-            {/* Fuel History */}
             {vehicleFuelHistory[selectedVehicleForFuel] && vehicleFuelHistory[selectedVehicleForFuel].length > 0 && (
               <div className="mb-6 bg-gray-700 rounded-lg p-4">
-                <h3 className="text-sm font-semibold text-gray-300 mb-3">Recent Fuel Entries</h3>
+                <h3 className="text-xs md:text-sm font-semibold text-gray-300 mb-3">Recent Fuel Entries</h3>
                 <div className="space-y-3 max-h-48 overflow-y-auto">
                   {vehicleFuelHistory[selectedVehicleForFuel].slice(0, 5).map((entry, idx) => (
                     <div key={idx} className="bg-gray-600 rounded p-2">
-                      <div className="flex justify-between text-sm">
+                      <div className="flex justify-between text-xs md:text-sm">
                         <div>
                           <p className="text-white font-medium">{entry.currentKm.toLocaleString('en-IN', { maximumFractionDigits: 0 })} km</p>
                           <p className="text-gray-300 text-xs">{entry.date}</p>
@@ -547,10 +543,9 @@ export default function VehiclesPage() {
               </div>
             )}
 
-            {/* Add Fuel Form */}
             <form onSubmit={handleAddFuel} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+              <div className="form-group">
+                <label className="form-label">
                   Current Odometer (km) <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -559,15 +554,15 @@ export default function VehiclesPage() {
                   value={fuelFormData.currentKm}
                   onChange={handleFuelChange}
                   placeholder="e.g., 50000"
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                  className="form-input"
                   step="0.1"
                   min="0"
                   required
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+              <div className="form-group">
+                <label className="form-label">
                   Fuel Amount (Liters) <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -576,51 +571,51 @@ export default function VehiclesPage() {
                   value={fuelFormData.fuelAmount}
                   onChange={handleFuelChange}
                   placeholder="e.g., 40"
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                  className="form-input"
                   step="0.01"
                   min="0"
                   required
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Cost (Optional)</label>
+              <div className="form-group">
+                <label className="form-label">Cost (Optional)</label>
                 <input
                   type="number"
                   name="cost"
                   value={fuelFormData.cost}
                   onChange={handleFuelChange}
                   placeholder="e.g., 2000"
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                  className="form-input"
                   step="0.01"
                   min="0"
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Date</label>
+              <div className="form-group">
+                <label className="form-label">Date</label>
                 <input
                   type="date"
                   name="date"
                   value={fuelFormData.date}
                   onChange={handleFuelChange}
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                  className="form-input"
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Notes (Optional)</label>
+              <div className="form-group">
+                <label className="form-label">Notes (Optional)</label>
                 <textarea
                   name="notes"
                   value={fuelFormData.notes}
                   onChange={handleFuelChange}
                   placeholder="e.g., Full tank, Premium fuel"
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 resize-none"
+                  className="form-textarea"
                   rows={2}
                 />
               </div>
 
-              <div className="flex gap-3 pt-4 border-t border-gray-700">
+              <div className="flex gap-2 sm:gap-3 pt-4 border-t border-gray-700">
                 <button
                   type="button"
                   onClick={() => {
@@ -634,13 +629,13 @@ export default function VehiclesPage() {
                       notes: '',
                     });
                   }}
-                  className="flex-1 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium"
+                  className="btn btn-secondary flex-1"
                 >
                   Close
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                  className="btn btn-primary flex-1"
                 >
                   Record Fuel
                 </button>
@@ -651,12 +646,12 @@ export default function VehiclesPage() {
       )}
       {showExpenseModal && selectedVehicleForExpense && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-gray-800 rounded-lg p-6 max-w-md w-full">
-            <h2 className="text-2xl font-bold text-white mb-4">Add Expense</h2>
+          <div className="bg-gray-800 rounded-lg p-4 sm:p-6 max-w-md w-full">
+            <h2 className="heading-section mb-4">Add Expense</h2>
 
             <form onSubmit={handleAddExpense} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+              <div className="form-group">
+                <label className="form-label">
                   Description <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -665,13 +660,13 @@ export default function VehiclesPage() {
                   value={expenseFormData.description}
                   onChange={handleExpenseChange}
                   placeholder="e.g., Oil change, Tire replacement"
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                  className="form-input"
                   required
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+              <div className="form-group">
+                <label className="form-label">
                   Amount <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -682,18 +677,18 @@ export default function VehiclesPage() {
                   placeholder="0.00"
                   step="0.01"
                   min="0"
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                  className="form-input"
                   required
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Category</label>
+              <div className="form-group">
+                <label className="form-label">Category</label>
                 <select
                   name="category"
                   value={expenseFormData.category}
                   onChange={handleExpenseChange}
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                  className="form-select"
                 >
                   <option value="maintenance">Maintenance</option>
                   <option value="fuel">Fuel</option>
@@ -703,13 +698,13 @@ export default function VehiclesPage() {
                 </select>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Payment Method</label>
+              <div className="form-group">
+                <label className="form-label">Payment Method</label>
                 <select
                   name="paymentMethod"
                   value={expenseFormData.paymentMethod}
                   onChange={handleExpenseChange}
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                  className="form-select"
                 >
                   <option value="cash">Cash</option>
                   <option value="card">Card</option>
@@ -719,7 +714,7 @@ export default function VehiclesPage() {
                 </select>
               </div>
 
-              <div className="flex gap-3 pt-4 border-t border-gray-700">
+              <div className="flex gap-2 sm:gap-3 pt-4 border-t border-gray-700">
                 <button
                   type="button"
                   onClick={() => {
@@ -732,13 +727,13 @@ export default function VehiclesPage() {
                       paymentMethod: 'cash',
                     });
                   }}
-                  className="flex-1 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium"
+                  className="btn btn-secondary flex-1"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                  className="btn btn-primary flex-1"
                 >
                   Add Expense
                 </button>

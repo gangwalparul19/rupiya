@@ -145,40 +145,40 @@ export default function ExpenseSplittingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 p-4 md:p-8">
+    <div className="min-h-screen bg-gray-950 p-3 sm:p-4 md:p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">Expense Splitting</h1>
-          <p className="text-gray-400">Split expenses with friends and track settlements</p>
+        <div className="mb-6 md:mb-8">
+          <h1 className="heading-page">💸 Expense Splitting</h1>
+          <p className="text-secondary">Split expenses with friends and track settlements</p>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-3 mb-6">
+        <div className="flex flex-col md:flex-row gap-2 sm:gap-3 md:gap-4 mb-6">
           <button
             onClick={() => setIsAddModalOpen(true)}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            className="btn btn-primary"
           >
             + Split Expense
           </button>
           <button
             onClick={handleExportCSV}
-            className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+            className="btn btn-success"
           >
             ↓ Export CSV
           </button>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-4 mb-6">
+        <div className="flex flex-col md:flex-row gap-2 sm:gap-3 md:gap-4 mb-6">
           <input
             type="text"
             placeholder="Search split expenses..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
+            className="form-input flex-1"
           />
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value as 'all' | 'pending' | 'settled' | 'partial')}
-            className="px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
+            className="form-select"
           >
             <option value="all">All Status</option>
             <option value="pending">Pending</option>
@@ -190,53 +190,53 @@ export default function ExpenseSplittingPage() {
         {/* Add Modal */}
         {isAddModalOpen && (
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-gray-800 rounded-lg p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-              <h2 className="text-2xl font-bold text-white mb-4">Create Split Expense</h2>
+            <div className="bg-gray-800 rounded-lg p-4 sm:p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+              <h2 className="heading-section mb-4">Create Split Expense</h2>
 
               <form onSubmit={handleAddSplit} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Description</label>
+                <div className="form-group">
+                  <label className="form-label">Description</label>
                   <input
                     type="text"
                     value={formData.description}
                     onChange={(e) => setFormData((prev) => ({ ...prev, description: e.target.value }))}
                     placeholder="e.g., Dinner at restaurant"
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                    className="form-input"
                     required
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Total Amount</label>
+                <div className="form-group">
+                  <label className="form-label">Total Amount</label>
                   <input
                     type="number"
                     value={formData.totalAmount}
                     onChange={(e) => setFormData((prev) => ({ ...prev, totalAmount: e.target.value }))}
                     placeholder="0.00"
                     step="0.01"
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                    className="form-input"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Participants</label>
+                  <label className="form-label mb-3">Participants</label>
                   <div className="space-y-3">
                     {formData.participants.map((participant, index) => (
-                      <div key={index} className="flex gap-2">
+                      <div key={index} className="flex gap-2 sm:gap-3">
                         <input
                           type="text"
                           value={participant.name}
                           onChange={(e) => handleParticipantChange(index, 'name', e.target.value)}
                           placeholder="Name"
-                          className="flex-1 px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                          className="flex-1 form-input"
                         />
                         <input
                           type="email"
                           value={participant.email}
                           onChange={(e) => handleParticipantChange(index, 'email', e.target.value)}
                           placeholder="Email (optional)"
-                          className="flex-1 px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                          className="flex-1 form-input"
                         />
                         <input
                           type="number"
@@ -244,13 +244,13 @@ export default function ExpenseSplittingPage() {
                           onChange={(e) => handleParticipantChange(index, 'amount', e.target.value)}
                           placeholder="Amount (optional)"
                           step="0.01"
-                          className="flex-1 px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                          className="flex-1 form-input"
                         />
                         {formData.participants.length > 1 && (
                           <button
                             type="button"
                             onClick={() => handleRemoveParticipant(index)}
-                            className="px-3 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+                            className="btn btn-danger btn-small"
                           >
                             Remove
                           </button>
@@ -261,23 +261,23 @@ export default function ExpenseSplittingPage() {
                   <button
                     type="button"
                     onClick={handleAddParticipant}
-                    className="mt-3 px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600 transition-colors text-sm"
+                    className="mt-3 px-3 md:px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600 transition-colors text-xs md:text-sm"
                   >
                     + Add Participant
                   </button>
                 </div>
 
-                <div className="flex gap-3 pt-4">
+                <div className="flex gap-2 sm:gap-3 pt-4">
                   <button
                     type="submit"
-                    className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                    className="btn btn-primary flex-1"
                   >
                     Create Split
                   </button>
                   <button
                     type="button"
                     onClick={() => setIsAddModalOpen(false)}
-                    className="flex-1 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium"
+                    className="btn btn-secondary flex-1"
                   >
                     Cancel
                   </button>
@@ -288,7 +288,7 @@ export default function ExpenseSplittingPage() {
         )}
 
         {filteredExpenses.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid-responsive-3">
             {filteredExpenses.map((expense) => {
               const date = expense.date instanceof Date ? expense.date.toLocaleDateString() : new Date(expense.date).toLocaleDateString();
               const statusColor = {
@@ -298,24 +298,24 @@ export default function ExpenseSplittingPage() {
               };
 
               return (
-                <div key={expense.id} className="bg-gray-800 rounded-lg p-6">
+                <div key={expense.id} className="card">
                   <div className="flex items-start justify-between mb-4">
                     <div>
-                      <h3 className="text-lg font-bold text-white">{expense.description}</h3>
-                      <p className="text-xs text-gray-400 mt-1">{date}</p>
+                      <h3 className="text-lg md:text-xl font-bold text-white">{expense.description}</h3>
+                      <p className="text-xs md:text-sm text-tertiary mt-1">{date}</p>
                     </div>
                     <span className={`text-xs px-2 py-1 rounded text-white font-medium ${statusColor[expense.status]}`}>
                       {expense.status}
                     </span>
                   </div>
 
-                  <div className="space-y-2 mb-4 text-sm text-gray-300">
+                  <div className="space-y-2 mb-4 text-xs md:text-sm text-secondary">
                     <p>
-                      <span className="text-gray-400">Total:</span> ₹
+                      <span className="text-tertiary">Total:</span> ₹
                       {expense.totalAmount.toLocaleString('en-IN', { maximumFractionDigits: 2 })}
                     </p>
                     <p>
-                      <span className="text-gray-400">Participants:</span> {expense.participants.length}
+                      <span className="text-tertiary">Participants:</span> {expense.participants.length}
                     </p>
                   </div>
 
@@ -341,14 +341,14 @@ export default function ExpenseSplittingPage() {
                             expense.totalAmount
                           )
                         }
-                        className="flex-1 px-3 py-2 text-sm bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
+                        className="btn btn-success btn-small flex-1"
                       >
                         Settle
                       </button>
                     )}
                     <button
                       onClick={() => handleDelete(expense.id)}
-                      className="flex-1 px-3 py-2 text-sm bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+                      className="btn btn-danger btn-small flex-1"
                     >
                       Delete
                     </button>
@@ -358,8 +358,8 @@ export default function ExpenseSplittingPage() {
             })}
           </div>
         ) : (
-          <div className="bg-gray-800 rounded-lg p-8 text-center">
-            <p className="text-gray-400">
+          <div className="card text-center">
+            <p className="text-secondary">
               {splitExpenses.length === 0
                 ? 'No split expenses yet. Create one to get started!'
                 : 'No split expenses match your search.'}
@@ -368,8 +368,8 @@ export default function ExpenseSplittingPage() {
         )}
 
         {filteredExpenses.length > 0 && (
-          <div className="mt-6 bg-gray-800 rounded-lg p-4">
-            <p className="text-gray-300">
+          <div className="card mt-6">
+            <p className="text-secondary">
               Showing <span className="font-semibold text-white">{filteredExpenses.length}</span> of{' '}
               <span className="font-semibold text-white">{splitExpenses.length}</span> split expenses
             </p>

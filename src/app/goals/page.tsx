@@ -224,18 +224,18 @@ export default function GoalsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 p-3 md:p-4">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
+      <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-3">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-white mb-1">🎯 Goals</h1>
-            <p className="text-gray-400 text-xs md:text-sm">Track and manage your financial goals</p>
+            <h1 className="heading-page">🎯 Goals</h1>
+            <p className="text-secondary">Track and manage your financial goals</p>
           </div>
           <div className="flex gap-2 w-full md:w-auto">
             <button
               onClick={() => setShowAnalytics(!showAnalytics)}
-              className="flex-1 md:flex-none bg-purple-600 hover:bg-purple-700 px-3 md:px-4 py-2 md:py-3 rounded-lg font-semibold transition whitespace-nowrap text-xs md:text-sm"
+              className="flex-1 md:flex-none btn btn-secondary"
               aria-label={showAnalytics ? 'Hide analytics' : 'Show analytics'}
             >
               {showAnalytics ? '📊 Hide' : '📊 Analytics'}
@@ -253,7 +253,7 @@ export default function GoalsPage() {
                   notes: '',
                 });
               }}
-              className="flex-1 md:flex-none bg-blue-600 hover:bg-blue-700 px-3 md:px-4 py-2 md:py-3 rounded-lg font-semibold transition whitespace-nowrap text-xs md:text-sm"
+              className="flex-1 md:flex-none btn btn-primary"
               aria-label="Add new goal"
             >
               + Add
@@ -262,24 +262,24 @@ export default function GoalsPage() {
         </div>
 
         {/* KPI Cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3 mb-6 md:mb-8">
-          <div className="bg-gray-800 p-3 md:p-4 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs mb-1">Total Goals</p>
+        <div className="grid-responsive-4 mb-6 md:mb-8">
+          <div className="card">
+            <p className="text-slate-400 text-xs mb-1">Total Goals</p>
             <p className="text-lg md:text-2xl font-bold text-blue-400">{kpiStats.totalGoals}</p>
           </div>
 
-          <div className="bg-gray-800 p-3 md:p-4 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs mb-1">Completed</p>
+          <div className="card">
+            <p className="text-slate-400 text-xs mb-1">Completed</p>
             <p className="text-lg md:text-2xl font-bold text-green-400">{kpiStats.completedGoals}</p>
           </div>
 
-          <div className="bg-gray-800 p-3 md:p-4 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs mb-1">Total Target</p>
+          <div className="card">
+            <p className="text-slate-400 text-xs mb-1">Total Target</p>
             <p className="text-lg md:text-2xl font-bold text-purple-400">{abbreviateNumber(kpiStats.totalTarget)}</p>
           </div>
 
-          <div className="bg-gray-800 p-3 md:p-4 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs mb-1">Total Saved</p>
+          <div className="card">
+            <p className="text-slate-400 text-xs mb-1">Total Saved</p>
             <p className="text-lg md:text-2xl font-bold text-green-500">{abbreviateNumber(kpiStats.totalSaved)}</p>
           </div>
         </div>
@@ -357,7 +357,7 @@ export default function GoalsPage() {
               return (
                 <div
                   key={goal.id}
-                  className="bg-gray-800 p-3 md:p-4 rounded-lg border border-gray-700 hover:border-gray-600 transition"
+                  className="card hover:border-slate-600"
                 >
                   {/* Card Header */}
                   <div className="flex justify-between items-start mb-2">

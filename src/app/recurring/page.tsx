@@ -7,7 +7,6 @@ import { useToast } from '@/lib/toastContext';
 export default function RecurringTransactionsPage() {
   const { recurringTransactions, addRecurringTransaction, removeRecurringTransaction, updateRecurringTransaction } = useAppStore();
   const { success, error } = useToast();
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [showModalInline, setShowModalInline] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -87,7 +86,6 @@ export default function RecurringTransactionsPage() {
       endDate: '',
       isActive: true,
     });
-    setIsAddModalOpen(false);
   };
 
   const handleEditRecurring = (id: string) => {
@@ -190,41 +188,41 @@ export default function RecurringTransactionsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 p-4 md:p-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">Recurring Transactions</h1>
-          <p className="text-gray-400">Set up and manage recurring expenses and income</p>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
+      <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
+        <div className="mb-6 md:mb-8">
+          <h1 className="heading-page">🔄 Recurring Transactions</h1>
+          <p className="text-secondary">Set up and manage recurring expenses and income</p>
         </div>
 
         {/* KPI Cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-8">
-          <div className="bg-gray-800 p-4 md:p-6 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs md:text-sm mb-2">Total Recurring</p>
-            <p className="text-2xl md:text-3xl font-bold text-blue-400">{kpiStats.totalRecurring}</p>
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3 mb-6 md:mb-8">
+          <div className="card">
+            <p className="text-slate-400 text-xs mb-1">Total Recurring</p>
+            <p className="text-lg md:text-2xl font-bold text-blue-400">{kpiStats.totalRecurring}</p>
           </div>
 
-          <div className="bg-gray-800 p-4 md:p-6 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs md:text-sm mb-2">Active</p>
-            <p className="text-2xl md:text-3xl font-bold text-green-400">{kpiStats.activeRecurring}</p>
+          <div className="card">
+            <p className="text-slate-400 text-xs mb-1">Active</p>
+            <p className="text-lg md:text-2xl font-bold text-green-400">{kpiStats.activeRecurring}</p>
           </div>
 
-          <div className="bg-gray-800 p-4 md:p-6 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs md:text-sm mb-2">Total Expenses</p>
-            <p className="text-2xl md:text-3xl font-bold text-red-400">
+          <div className="card">
+            <p className="text-slate-400 text-xs mb-1">Total Expenses</p>
+            <p className="text-lg md:text-2xl font-bold text-red-400">
               ₹{kpiStats.totalExpenseAmount.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
             </p>
           </div>
 
-          <div className="bg-gray-800 p-4 md:p-6 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs md:text-sm mb-2">Total Income</p>
-            <p className="text-2xl md:text-3xl font-bold text-green-500">
+          <div className="card">
+            <p className="text-slate-400 text-xs mb-1">Total Income</p>
+            <p className="text-lg md:text-2xl font-bold text-green-500">
               ₹{kpiStats.totalIncomeAmount.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
             </p>
           </div>
         </div>
 
-        <div className="flex gap-3 mb-6">
+        <div className="flex gap-2 md:gap-3 mb-6 md:mb-8">
           <button
             onClick={() => {
               setShowModalInline(true);
@@ -240,30 +238,30 @@ export default function RecurringTransactionsPage() {
                 isActive: true,
               });
             }}
-            className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            className="flex-1 btn btn-primary"
           >
             + Add Recurring
           </button>
           <button
             onClick={handleExportCSV}
-            className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+            className="flex-1 btn btn-success"
           >
             ↓ Export CSV
           </button>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-4 mb-6">
+        <div className="flex flex-col md:flex-row gap-2 md:gap-3 mb-6 md:mb-8">
           <input
             type="text"
             placeholder="Search recurring transactions..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
+            className="flex-1 form-input"
           />
           <select
             value={filterType}
             onChange={(e) => setFilterType(e.target.value as 'all' | 'expense' | 'income')}
-            className="px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
+            className="form-select md:w-40"
           >
             <option value="all">All Types</option>
             <option value="expense">Expenses</option>
@@ -271,174 +269,30 @@ export default function RecurringTransactionsPage() {
           </select>
         </div>
 
-        {/* Add/Edit Modal - Fixed Position */}
-        {isAddModalOpen || editingId ? (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-gray-800 rounded-lg p-6 max-w-md w-full max-h-[90vh] overflow-y-auto">
-              <h2 className="text-2xl font-bold text-white mb-4">
-                {editingId ? 'Edit Recurring Transaction' : 'Add Recurring Transaction'}
-              </h2>
-
-              <form onSubmit={editingId ? handleSaveEdit : handleAddRecurring} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Description</label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="e.g., Monthly Rent"
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Amount</label>
-                  <input
-                    type="number"
-                    name="amount"
-                    value={formData.amount}
-                    onChange={handleChange}
-                    placeholder="0.00"
-                    step="0.01"
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Type</label>
-                  <select
-                    name="type"
-                    value={formData.type}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
-                  >
-                    <option value="expense">Expense</option>
-                    <option value="income">Income</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Frequency</label>
-                  <select
-                    name="frequency"
-                    value={formData.frequency}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
-                  >
-                    <option value="daily">Daily</option>
-                    <option value="weekly">Weekly</option>
-                    <option value="monthly">Monthly</option>
-                    <option value="yearly">Yearly</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Category</label>
-                  <input
-                    type="text"
-                    name="category"
-                    value={formData.category}
-                    onChange={handleChange}
-                    placeholder="e.g., Rent"
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Start Date</label>
-                  <input
-                    type="date"
-                    name="startDate"
-                    value={formData.startDate}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">End Date (Optional)</label>
-                  <input
-                    type="date"
-                    name="endDate"
-                    value={formData.endDate}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
-                  />
-                </div>
-
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    name="isActive"
-                    checked={formData.isActive}
-                    onChange={handleChange}
-                    className="w-4 h-4 rounded"
-                  />
-                  <label className="ml-2 text-sm font-medium text-gray-300">Active</label>
-                </div>
-
-                <div className="flex gap-3 pt-4">
-                  <button
-                    type="submit"
-                    className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
-                  >
-                    {editingId ? 'Update' : 'Add'} Transaction
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsAddModalOpen(false);
-                      setEditingId(null);
-                      setFormData({
-                        name: '',
-                        amount: '',
-                        type: 'expense',
-                        frequency: 'monthly',
-                        category: '',
-                        startDate: new Date().toISOString().split('T')[0],
-                        endDate: '',
-                        isActive: true,
-                      });
-                    }}
-                    className="flex-1 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        ) : null}
-
         {/* Add/Edit Modal - Inline */}
         {showModalInline && (
-          <div className="bg-gray-800 rounded-lg p-6 mb-8 border border-gray-700">
-            <h2 className="text-2xl font-bold text-white mb-4">
+          <div className="card mb-6 md:mb-8">
+            <h2 className="heading-section mb-4">
               {editingId ? 'Edit Recurring Transaction' : 'Add Recurring Transaction'}
             </h2>
 
             <form onSubmit={editingId ? handleSaveEdit : handleAddRecurring} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Description</label>
+                  <label className="form-label">Description</label>
                   <input
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="e.g., Monthly Rent"
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                    className="form-input"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Amount</label>
+                  <label className="form-label">Amount</label>
                   <input
                     type="number"
                     name="amount"
@@ -446,18 +300,18 @@ export default function RecurringTransactionsPage() {
                     onChange={handleChange}
                     placeholder="0.00"
                     step="0.01"
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                    className="form-input"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Type</label>
+                  <label className="form-label">Type</label>
                   <select
                     name="type"
                     value={formData.type}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                    className="form-select"
                   >
                     <option value="expense">Expense</option>
                     <option value="income">Income</option>
@@ -465,12 +319,12 @@ export default function RecurringTransactionsPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Frequency</label>
+                  <label className="form-label">Frequency</label>
                   <select
                     name="frequency"
                     value={formData.frequency}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                    className="form-select"
                   >
                     <option value="daily">Daily</option>
                     <option value="weekly">Weekly</option>
@@ -480,38 +334,38 @@ export default function RecurringTransactionsPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Category</label>
+                  <label className="form-label">Category</label>
                   <input
                     type="text"
                     name="category"
                     value={formData.category}
                     onChange={handleChange}
                     placeholder="e.g., Rent"
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                    className="form-input"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Start Date</label>
+                  <label className="form-label">Start Date</label>
                   <input
                     type="date"
                     name="startDate"
                     value={formData.startDate}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                    className="form-input"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">End Date (Optional)</label>
+                  <label className="form-label">End Date (Optional)</label>
                   <input
                     type="date"
                     name="endDate"
                     value={formData.endDate}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                    className="form-input"
                   />
                 </div>
 
@@ -523,14 +377,14 @@ export default function RecurringTransactionsPage() {
                     onChange={handleChange}
                     className="w-4 h-4 rounded"
                   />
-                  <label className="ml-2 text-sm font-medium text-gray-300">Active</label>
+                  <label className="ml-2 text-sm font-medium text-slate-300">Active</label>
                 </div>
               </div>
 
-              <div className="flex gap-3 pt-4">
+              <div className="flex gap-2 md:gap-3 pt-4">
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                  className="flex-1 btn btn-primary"
                 >
                   {editingId ? 'Update' : 'Add'} Transaction
                 </button>
@@ -550,7 +404,7 @@ export default function RecurringTransactionsPage() {
                       isActive: true,
                     });
                   }}
-                  className="flex-1 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium"
+                  className="flex-1 btn btn-secondary"
                 >
                   Cancel
                 </button>
@@ -560,7 +414,7 @@ export default function RecurringTransactionsPage() {
         )}
 
         {filteredTransactions.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid-responsive-3 mb-6 md:mb-8">
             {filteredTransactions.map((transaction) => {
               const startDate = transaction.startDate instanceof Date 
                 ? transaction.startDate.toLocaleDateString() 
@@ -574,14 +428,12 @@ export default function RecurringTransactionsPage() {
               return (
                 <div
                   key={transaction.id}
-                  className={`rounded-lg p-6 transition-opacity ${
-                    transaction.isActive ? 'bg-gray-800' : 'bg-gray-800 opacity-60'
-                  }`}
+                  className={`card ${!transaction.isActive ? 'opacity-60' : ''}`}
                 >
                   <div className="flex items-start justify-between mb-4">
                     <div>
-                      <h3 className="text-lg font-bold text-white">{transaction.name}</h3>
-                      <p className="text-xs text-gray-400 mt-1">{transaction.category}</p>
+                      <h3 className="text-base md:text-lg font-bold text-white">{transaction.name}</h3>
+                      <p className="text-xs text-slate-400 mt-1">{transaction.category}</p>
                     </div>
                     <span
                       className={`text-xs px-2 py-1 rounded font-medium ${
@@ -594,42 +446,42 @@ export default function RecurringTransactionsPage() {
                     </span>
                   </div>
 
-                  <div className="space-y-2 mb-4 text-sm text-gray-300">
+                  <div className="space-y-2 mb-4 text-xs md:text-sm text-slate-300">
                     <p>
-                      <span className="text-gray-400">Amount:</span> ₹
+                      <span className="text-slate-400">Amount:</span> ₹
                       {transaction.amount.toLocaleString('en-IN', { maximumFractionDigits: 2 })}
                     </p>
                     <p>
-                      <span className="text-gray-400">Frequency:</span> {transaction.frequency}
+                      <span className="text-slate-400">Frequency:</span> {transaction.frequency}
                     </p>
                     <p>
-                      <span className="text-gray-400">Start:</span> {startDate}
+                      <span className="text-slate-400">Start:</span> {startDate}
                     </p>
                     <p>
-                      <span className="text-gray-400">End:</span> {endDate}
+                      <span className="text-slate-400">End:</span> {endDate}
                     </p>
                   </div>
 
-                  <div className="flex gap-2 pt-4 border-t border-gray-700">
+                  <div className="flex gap-2 pt-4 border-t border-slate-700">
                     <button
                       onClick={() => handleToggleActive(transaction.id, transaction.isActive)}
-                      className={`flex-1 px-3 py-2 text-sm rounded transition-colors ${
+                      className={`flex-1 btn btn-small ${
                         transaction.isActive
-                          ? 'bg-yellow-600 hover:bg-yellow-700 text-white'
-                          : 'bg-green-600 hover:bg-green-700 text-white'
-                      }`}
+                          ? 'bg-yellow-600 hover:bg-yellow-700'
+                          : 'bg-green-600 hover:bg-green-700'
+                      } text-white`}
                     >
                       {transaction.isActive ? 'Pause' : 'Resume'}
                     </button>
                     <button
                       onClick={() => handleEditRecurring(transaction.id)}
-                      className="flex-1 px-3 py-2 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+                      className="flex-1 btn btn-primary btn-small"
                     >
                       Edit
                     </button>
                     <button
                       onClick={() => handleDelete(transaction.id)}
-                      className="flex-1 px-3 py-2 text-sm bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+                      className="flex-1 btn btn-danger btn-small"
                     >
                       Delete
                     </button>
@@ -639,8 +491,8 @@ export default function RecurringTransactionsPage() {
             })}
           </div>
         ) : (
-          <div className="bg-gray-800 rounded-lg p-8 text-center">
-            <p className="text-gray-400">
+          <div className="card text-center py-8 md:py-12">
+            <p className="text-slate-400 text-sm md:text-base">
               {recurringTransactions.length === 0
                 ? 'No recurring transactions yet. Create one to get started!'
                 : 'No recurring transactions match your search.'}
@@ -649,8 +501,8 @@ export default function RecurringTransactionsPage() {
         )}
 
         {filteredTransactions.length > 0 && (
-          <div className="mt-6 bg-gray-800 rounded-lg p-4">
-            <p className="text-gray-300">
+          <div className="card">
+            <p className="text-slate-300 text-xs md:text-sm">
               Showing <span className="font-semibold text-white">{filteredTransactions.length}</span> of{' '}
               <span className="font-semibold text-white">{recurringTransactions.length}</span> recurring transactions
             </p>

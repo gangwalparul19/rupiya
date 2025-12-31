@@ -278,33 +278,33 @@ export default function BudgetsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 p-3 md:p-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
+      <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
         {/* Header */}
         <div className="mb-6 md:mb-8">
-          <h1 className="text-2xl md:text-4xl font-bold text-white mb-1 md:mb-2">Budget Management</h1>
-          <p className="text-xs md:text-base text-gray-400">Create and track your monthly budgets</p>
+          <h1 className="heading-page">Budget Management</h1>
+          <p className="text-secondary">Create and track your monthly budgets</p>
         </div>
 
         {/* KPI Cards - Mobile optimized */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 mb-6 md:mb-8">
-          <div className="bg-gray-800 p-3 md:p-6 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs mb-1 md:mb-2">Total Budgets</p>
+        <div className="grid-responsive-4 mb-6 md:mb-8">
+          <div className="card">
+            <p className="text-slate-400 text-xs mb-1 md:mb-2">Total Budgets</p>
             <p className="text-xl md:text-3xl font-bold text-blue-400">{kpiStats.totalBudgets}</p>
           </div>
 
-          <div className="bg-gray-800 p-3 md:p-6 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs mb-1 md:mb-2">Total Budget</p>
+          <div className="card">
+            <p className="text-slate-400 text-xs mb-1 md:mb-2">Total Budget</p>
             <p className="text-xl md:text-3xl font-bold text-green-400">{abbreviateNumber(kpiStats.totalBudgetAmount)}</p>
           </div>
 
-          <div className="bg-gray-800 p-3 md:p-6 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs mb-1 md:mb-2">Total Spent</p>
+          <div className="card">
+            <p className="text-slate-400 text-xs mb-1 md:mb-2">Total Spent</p>
             <p className="text-xl md:text-3xl font-bold text-red-400">{abbreviateNumber(kpiStats.totalSpent)}</p>
           </div>
 
-          <div className="bg-gray-800 p-3 md:p-6 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs mb-1 md:mb-2">Remaining</p>
+          <div className="card">
+            <p className="text-slate-400 text-xs mb-1 md:mb-2">Remaining</p>
             <p className={`text-xl md:text-3xl font-bold ${kpiStats.remaining >= 0 ? 'text-green-500' : 'text-red-500'}`}>
               {abbreviateNumber(kpiStats.remaining)}
             </p>
@@ -509,14 +509,14 @@ export default function BudgetsPage() {
         ) : filteredBudgets.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
             {filteredBudgets.map((budget) => (
-              <div key={budget.id} className="bg-gray-800 rounded-lg border border-gray-700 p-3 md:p-4">
+              <div key={budget.id} className="card">
                 <div className="flex justify-between items-start mb-3">
                   <div>
-                    <p className="text-xs md:text-sm text-gray-400">Month</p>
+                    <p className="text-xs md:text-sm text-slate-400">Month</p>
                     <p className="text-base md:text-lg font-bold text-white">{budget.month}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-xs md:text-sm text-gray-400">Total</p>
+                    <p className="text-xs md:text-sm text-slate-400">Total</p>
                     <p className="text-base md:text-lg font-bold text-green-400">{abbreviateNumber(budget.totalBudget)}</p>
                   </div>
                 </div>

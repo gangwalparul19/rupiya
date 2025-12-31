@@ -24,7 +24,7 @@ export default function Navigation() {
       icon: '💸',
       submenu: [
         { href: '/expenses', label: 'Expenses', icon: '💰' },
-        { href: '/income', label: 'Income', icon: '�' },
+        { href: '/income', label: 'Income', icon: '📊' },
         { href: '/recurring', label: 'Recurring', icon: '🔄' },
       ],
     },
@@ -92,15 +92,15 @@ export default function Navigation() {
     <>
       {/* Header */}
       <header className="bg-slate-800 border-b border-slate-700 sticky top-0 z-40">
-        <div className="container mx-auto px-3 sm:px-4 py-2 sm:py-3 flex justify-between items-center gap-2 sm:gap-4">
+        <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 flex justify-between items-center h-14 sm:h-16 md:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center hover:opacity-80 transition-opacity flex-shrink-0">
             <Image
               src="/logo.png"
               alt="Rupiya Logo"
-              width={40}
-              height={40}
-              sizes="(max-width: 640px) 40px, (max-width: 768px) 48px, 60px"
+              width={48}
+              height={48}
+              sizes="(max-width: 640px) 48px, (max-width: 1024px) 56px, 64px"
               className="h-10 w-auto sm:h-12 md:h-14 object-contain"
               priority
             />
@@ -112,14 +112,14 @@ export default function Navigation() {
               if ('submenu' in item && item.submenu) {
                 return (
                   <div key={item.label} className="group relative">
-                    <button className="flex items-center gap-1 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition font-medium text-sm">
+                    <button className="flex items-center gap-1 px-3 py-2 rounded-md text-slate-300 hover:text-white hover:bg-slate-700 transition font-medium text-sm">
                       <span className="text-base">{item.icon}</span>
-                      <span className="hidden lg:inline">{item.label}</span>
+                      <span className="hidden lg:inline text-sm">{item.label}</span>
                       <span className="text-xs ml-1">▼</span>
                     </button>
                     {/* Dropdown Menu */}
-                    <div className="absolute left-0 mt-0 w-48 bg-slate-700 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 border border-slate-600">
-                      <div className="py-2">
+                    <div className="absolute left-0 mt-0 w-44 bg-slate-700 rounded-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 border border-slate-600">
+                      <div className="py-1">
                         {item.submenu.map((subitem: any, idx) => (
                           <Link
                             key={subitem.href}
@@ -128,7 +128,7 @@ export default function Navigation() {
                               isActive(subitem.href)
                                 ? 'bg-blue-600 text-white'
                                 : 'text-slate-300 hover:text-white hover:bg-slate-600'
-                            } ${idx === 0 ? 'rounded-t-lg' : ''} ${idx === item.submenu.length - 1 ? 'rounded-b-lg' : ''}`}
+                            } ${idx === 0 ? 'rounded-t-md' : ''} ${idx === item.submenu.length - 1 ? 'rounded-b-md' : ''}`}
                           >
                             <span className="text-sm">{subitem.icon}</span>
                             <span className="flex-1">{subitem.label}</span>
@@ -149,7 +149,7 @@ export default function Navigation() {
               <div className="relative hidden sm:block">
                 <button
                   onClick={() => setIsProfileOpen(!isProfileOpen)}
-                  className="flex items-center gap-2 px-2 sm:px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition text-sm"
+                  className="flex items-center gap-2 px-2 sm:px-3 py-2 rounded-md text-slate-300 hover:text-white hover:bg-slate-700 transition text-xs sm:text-sm"
                 >
                   <span>👤</span>
                   <span className="hidden md:inline text-xs">{userProfile?.displayName || user.email?.split('@')[0]}</span>
@@ -157,11 +157,11 @@ export default function Navigation() {
 
                 {/* Profile Dropdown */}
                 {isProfileOpen && (
-                  <div className="absolute right-0 mt-2 w-40 bg-slate-700 rounded-lg shadow-lg z-50">
+                  <div className="absolute right-0 mt-2 w-40 bg-slate-700 rounded-md shadow-lg z-50">
                     <Link
                       href="/profile"
                       onClick={() => setIsProfileOpen(false)}
-                      className="block px-3 py-2 text-white hover:bg-slate-600 rounded-t-lg border-b border-slate-600 text-xs"
+                      className="block px-3 py-2 text-white hover:bg-slate-600 rounded-t-md border-b border-slate-600 text-xs"
                     >
                       👤 Profile
                     </Link>
@@ -177,7 +177,7 @@ export default function Navigation() {
                         handleLogout();
                         setIsProfileOpen(false);
                       }}
-                      className="w-full text-left px-3 py-2 text-red-400 hover:bg-slate-600 rounded-b-lg text-xs"
+                      className="w-full text-left px-3 py-2 text-red-400 hover:bg-slate-600 rounded-b-md text-xs"
                     >
                       🚪 Logout
                     </button>
@@ -188,7 +188,7 @@ export default function Navigation() {
 
             {!isAuthenticated && (
               <Link href="/auth/login">
-                <button className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg transition text-xs sm:text-sm font-medium">
+                <button className="bg-blue-600 hover:bg-blue-700 text-white px-2 sm:px-3 py-1.5 sm:py-2 rounded-md transition text-xs sm:text-sm font-medium">
                   Sign In
                 </button>
               </Link>
@@ -197,11 +197,11 @@ export default function Navigation() {
             {/* Hamburger Menu Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden text-white p-2 hover:bg-slate-700 rounded-lg transition"
+              className="md:hidden text-white p-2 hover:bg-slate-700 rounded-md transition"
               aria-label="Toggle menu"
             >
               <svg
-                className="w-6 h-6"
+                className="w-5 h-5 sm:w-6 sm:h-6"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -229,17 +229,17 @@ export default function Navigation() {
         {/* Mobile Navigation */}
         {isOpen && (
           <nav className="md:hidden bg-slate-700 border-t border-slate-600">
-            <div className="container mx-auto px-4 py-4 space-y-2">
+            <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-3 space-y-1">
               {navItems.map((item) => {
                 if ('submenu' in item && item.submenu) {
                   return (
                     <div key={item.label}>
                       <button
                         onClick={() => toggleSubmenu(item.label)}
-                        className="w-full flex items-center justify-between px-4 py-3 rounded-lg text-slate-300 hover:text-white hover:bg-slate-600 transition font-medium"
+                        className="w-full flex items-center justify-between px-3 py-2 rounded-md text-slate-300 hover:text-white hover:bg-slate-600 transition font-medium text-sm"
                       >
-                        <div className="flex items-center gap-3">
-                          <span className="text-xl">{item.icon}</span>
+                        <div className="flex items-center gap-2">
+                          <span className="text-lg">{item.icon}</span>
                           <span>{item.label}</span>
                         </div>
                         <span className={`text-xs transition transform ${expandedMenu === item.label ? 'rotate-180' : ''}`}>
@@ -247,7 +247,7 @@ export default function Navigation() {
                         </span>
                       </button>
                       {expandedMenu === item.label && (
-                        <div className="bg-slate-600 rounded-lg mx-2 my-2 overflow-hidden border border-slate-500">
+                        <div className="bg-slate-600 rounded-md mx-2 my-1 overflow-hidden border border-slate-500">
                           {item.submenu.map((subitem: any) => (
                             <Link
                               key={subitem.href}
@@ -256,7 +256,7 @@ export default function Navigation() {
                                 setIsOpen(false);
                                 setExpandedMenu(null);
                               }}
-                              className={`flex items-center gap-3 px-6 py-3 text-sm transition ${
+                              className={`flex items-center gap-2 px-4 py-2 text-xs transition ${
                                 isActive(subitem.href)
                                   ? 'bg-blue-600 text-white'
                                   : 'text-slate-300 hover:text-white hover:bg-slate-500'

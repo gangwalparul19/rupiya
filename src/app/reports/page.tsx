@@ -82,12 +82,11 @@ export default function ReportsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white p-3 md:p-4 lg:p-8">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
+      <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
         <div className="mb-6 md:mb-8">
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-1">📑 Financial Reports</h1>
-          <p className="text-slate-400 text-xs md:text-sm">Comprehensive financial insights and analysis</p>
+          <h1 className="heading-page">📑 Financial Reports</h1>
+          <p className="text-secondary">Comprehensive financial insights and analysis</p>
         </div>
 
         {/* Month Selector - Compact */}
@@ -96,31 +95,31 @@ export default function ReportsPage() {
             type="month"
             value={selectedMonth}
             onChange={(e) => setSelectedMonth(e.target.value)}
-            className="w-full md:w-48 bg-slate-800 border border-slate-700 rounded px-3 md:px-4 py-2 text-white text-sm md:text-base"
+            className="w-full md:w-48 form-input"
           />
         </div>
 
         {/* Key Metrics - Compact Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 mb-6 md:mb-8">
-          <div className="bg-slate-800 p-3 md:p-4 rounded-lg border border-slate-700">
+          <div className="card">
             <p className="text-slate-400 text-xs mb-1">Net Worth</p>
             <p className={`text-lg md:text-2xl font-bold ${netWorth >= 0 ? 'text-green-400' : 'text-red-400'}`}>
               ₹{formatCompact(netWorth)}
             </p>
           </div>
-          <div className="bg-slate-800 p-3 md:p-4 rounded-lg border border-slate-700">
+          <div className="card">
             <p className="text-slate-400 text-xs mb-1">Cash Flow</p>
             <p className={`text-lg md:text-2xl font-bold ${cashFlow >= 0 ? 'text-green-400' : 'text-red-400'}`}>
               ₹{formatCompact(cashFlow)}
             </p>
           </div>
-          <div className="bg-slate-800 p-3 md:p-4 rounded-lg border border-slate-700">
+          <div className="card">
             <p className="text-slate-400 text-xs mb-1">Savings Rate</p>
             <p className={`text-lg md:text-2xl font-bold ${savingsRate >= 0 ? 'text-green-400' : 'text-red-400'}`}>
               {savingsRate.toFixed(0)}%
             </p>
           </div>
-          <div className="bg-slate-800 p-3 md:p-4 rounded-lg border border-slate-700">
+          <div className="card">
             <p className="text-slate-400 text-xs mb-1">Inv. Return</p>
             <p className={`text-lg md:text-2xl font-bold ${investmentReturn >= 0 ? 'text-green-400' : 'text-red-400'}`}>
               {investmentReturn.toFixed(1)}%
@@ -131,9 +130,9 @@ export default function ReportsPage() {
         {/* Summary Cards Grid - 2x2 on mobile, 4x1 on desktop */}
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3 mb-6 md:mb-8">
           {/* Income */}
-          <div className="bg-slate-800 p-3 md:p-4 rounded-lg border border-slate-700">
-            <h4 className="text-sm md:text-base font-bold mb-3">💵 Income</h4>
-            <p className="text-green-400 text-lg md:text-xl font-bold">₹{formatCompact(totalIncome)}</p>
+          <div className="card">
+            <h4 className="text-xs md:text-sm font-bold mb-3">💵 Income</h4>
+            <p className="text-green-400 text-base md:text-lg font-bold">₹{formatCompact(totalIncome)}</p>
             <div className="w-full bg-slate-700 rounded-full h-1.5 mt-2">
               <div
                 className="h-1.5 rounded-full bg-green-500"
@@ -145,9 +144,9 @@ export default function ReportsPage() {
           </div>
 
           {/* Expense */}
-          <div className="bg-slate-800 p-3 md:p-4 rounded-lg border border-slate-700">
-            <h4 className="text-sm md:text-base font-bold mb-3">💰 Expense</h4>
-            <p className="text-red-400 text-lg md:text-xl font-bold">₹{formatCompact(totalExpenses)}</p>
+          <div className="card">
+            <h4 className="text-xs md:text-sm font-bold mb-3">💰 Expense</h4>
+            <p className="text-red-400 text-base md:text-lg font-bold">₹{formatCompact(totalExpenses)}</p>
             <div className="w-full bg-slate-700 rounded-full h-1.5 mt-2">
               <div
                 className="h-1.5 rounded-full bg-red-500"
@@ -159,25 +158,25 @@ export default function ReportsPage() {
           </div>
 
           {/* Investment Summary */}
-          <div className="bg-slate-800 p-3 md:p-4 rounded-lg border border-slate-700">
-            <h4 className="text-sm md:text-base font-bold mb-3">📈 Invested</h4>
-            <p className="text-blue-400 text-lg md:text-xl font-bold">₹{formatCompact(totalInvested)}</p>
+          <div className="card">
+            <h4 className="text-xs md:text-sm font-bold mb-3">📈 Invested</h4>
+            <p className="text-blue-400 text-base md:text-lg font-bold">₹{formatCompact(totalInvested)}</p>
             <p className="text-xs text-slate-400 mt-1">{investments.length} investments</p>
           </div>
 
           {/* Goals Summary */}
-          <div className="bg-slate-800 p-3 md:p-4 rounded-lg border border-slate-700">
-            <h4 className="text-sm md:text-base font-bold mb-3">🎯 Goals</h4>
-            <p className="text-purple-400 text-lg md:text-xl font-bold">{goalsProgress.toFixed(0)}%</p>
+          <div className="card">
+            <h4 className="text-xs md:text-sm font-bold mb-3">🎯 Goals</h4>
+            <p className="text-purple-400 text-base md:text-lg font-bold">{goalsProgress.toFixed(0)}%</p>
             <p className="text-xs text-slate-400 mt-1">₹{formatCompact(totalGoalSaved)} saved</p>
           </div>
         </div>
 
         {/* Detailed Breakdowns */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-6 md:mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3 mb-6 md:mb-8">
           {/* Expense Breakdown */}
-          <div className="bg-slate-800 p-3 md:p-4 rounded-lg border border-slate-700">
-            <h3 className="text-sm md:text-base font-bold mb-3">💰 Expense Breakdown</h3>
+          <div className="card">
+            <h3 className="text-xs md:text-sm font-bold mb-3">💰 Expense Breakdown</h3>
             {Object.keys(expensesByCategory).length === 0 ? (
               <p className="text-slate-400 text-xs md:text-sm">No expenses this month</p>
             ) : (
@@ -209,8 +208,8 @@ export default function ReportsPage() {
           </div>
 
           {/* Income Breakdown */}
-          <div className="bg-slate-800 p-3 md:p-4 rounded-lg border border-slate-700">
-            <h3 className="text-sm md:text-base font-bold mb-3">💵 Income Breakdown</h3>
+          <div className="card">
+            <h3 className="text-xs md:text-sm font-bold mb-3">💵 Income Breakdown</h3>
             {Object.keys(incomeBySource).length === 0 ? (
               <p className="text-slate-400 text-xs md:text-sm">No income this month</p>
             ) : (
@@ -245,8 +244,8 @@ export default function ReportsPage() {
         {/* Charts Section */}
         <div className="space-y-4 md:space-y-6">
           {/* 6-Month Trend */}
-          <div className="bg-slate-800 p-3 md:p-4 rounded-lg border border-slate-700">
-            <h3 className="text-sm md:text-base font-bold text-white mb-3">📊 6-Month Trend</h3>
+          <div className="card">
+            <h3 className="text-xs md:text-sm font-bold text-white mb-3">📊 6-Month Trend</h3>
             {income.length > 0 || expenses.length > 0 ? (
               <ResponsiveContainer width="100%" height={200}>
                 <LineChart
@@ -298,8 +297,8 @@ export default function ReportsPage() {
           </div>
 
           {/* Category Trends */}
-          <div className="bg-slate-800 p-3 md:p-4 rounded-lg border border-slate-700">
-            <h3 className="text-sm md:text-base font-bold text-white mb-3">📈 Category Trends</h3>
+          <div className="card">
+            <h3 className="text-xs md:text-sm font-bold text-white mb-3">📈 Category Trends</h3>
             {expenses.length > 0 ? (
               <ResponsiveContainer width="100%" height={200}>
                 <BarChart

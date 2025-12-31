@@ -38,16 +38,16 @@ export default function ProfilePage() {
 
   return (
     <ProtectedRoute>
-      <main className="min-h-screen bg-slate-900 p-4 md:p-8">
-        <div className="max-w-2xl mx-auto">
+      <main className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
+        <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
           {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-white mb-2">Profile</h1>
-            <p className="text-slate-400">Manage your account settings</p>
+          <div className="mb-6 md:mb-8">
+            <h1 className="heading-page">Profile</h1>
+            <p className="text-secondary">Manage your account settings</p>
           </div>
 
           {/* Profile Card */}
-          <div className="bg-slate-800 rounded-lg p-8 mb-6">
+          <div className="card max-w-2xl">
             <div className="flex items-center gap-6 mb-8">
               {user.photoURL ? (
                 <img
@@ -71,23 +71,17 @@ export default function ProfilePage() {
             {/* Account Info */}
             <div className="space-y-4 mb-8">
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-1">
-                  Email Address
-                </label>
+                <label className="form-label">Email Address</label>
                 <p className="text-white">{user.email}</p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-1">
-                  Display Name
-                </label>
+                <label className="form-label">Display Name</label>
                 <p className="text-white">{user.displayName || 'Not set'}</p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300 mb-1">
-                  Account Created
-                </label>
+                <label className="form-label">Account Created</label>
                 <p className="text-white">
                   {user.metadata?.creationTime
                     ? new Date(user.metadata.creationTime).toLocaleDateString()
@@ -102,7 +96,7 @@ export default function ProfilePage() {
               <button
                 onClick={handleLogout}
                 disabled={isLoggingOut}
-                className="w-full px-4 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg transition font-medium disabled:opacity-50"
+                className="btn btn-danger w-full"
               >
                 {isLoggingOut ? 'Logging out...' : 'Logout'}
               </button>
@@ -110,7 +104,7 @@ export default function ProfilePage() {
           </div>
 
           {/* Info Box */}
-          <div className="bg-blue-600 bg-opacity-20 border border-blue-600 rounded-lg p-4">
+          <div className="bg-blue-600 bg-opacity-20 border border-blue-600 rounded-lg p-4 max-w-2xl mt-6">
             <p className="text-blue-200 text-sm">
               💡 Your data is securely stored in Firebase and synced across all your devices.
             </p>

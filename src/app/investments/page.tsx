@@ -202,47 +202,47 @@ export default function InvestmentsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 p-3 md:p-4">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
+      <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-3">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-white mb-1">📈 Investments</h1>
-            <p className="text-gray-400 text-xs md:text-sm">Manage your investment portfolio</p>
+            <h1 className="heading-page">📈 Investments</h1>
+            <p className="text-secondary">Manage your investment portfolio</p>
           </div>
           <div className="flex gap-2 w-full md:w-auto">
             <button
               onClick={() => setShowAnalytics(!showAnalytics)}
-              className="flex-1 md:flex-none bg-purple-600 hover:bg-purple-700 px-3 md:px-4 py-2 md:py-3 rounded-lg font-semibold transition whitespace-nowrap text-xs md:text-sm"
+              className="flex-1 md:flex-none btn btn-secondary"
             >
               {showAnalytics ? '📊 Hide' : '📊 Analytics'}
             </button>
             <button
               onClick={() => setIsAddModalOpen(true)}
-              className="flex-1 md:flex-none bg-blue-600 hover:bg-blue-700 px-3 md:px-4 py-2 md:py-3 rounded-lg font-semibold transition whitespace-nowrap text-xs md:text-sm"
+              className="flex-1 md:flex-none btn btn-primary"
             >
               + Add
             </button>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3 mb-6 md:mb-8">
-          <div className="bg-gray-800 p-3 md:p-4 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs mb-1">Total</p>
+        <div className="grid-responsive-4 mb-6 md:mb-8">
+          <div className="card">
+            <p className="text-slate-400 text-xs mb-1">Total</p>
             <p className="text-lg md:text-2xl font-bold text-blue-400">{kpiStats.totalInvestments}</p>
           </div>
 
-          <div className="bg-gray-800 p-3 md:p-4 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs mb-1">Invested</p>
+          <div className="card">
+            <p className="text-slate-400 text-xs mb-1">Invested</p>
             <p className="text-lg md:text-2xl font-bold text-purple-400">₹{(kpiStats.totalInvested / 100000).toFixed(1)}L</p>
           </div>
 
-          <div className="bg-gray-800 p-3 md:p-4 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs mb-1">Current</p>
+          <div className="card">
+            <p className="text-slate-400 text-xs mb-1">Current</p>
             <p className="text-lg md:text-2xl font-bold text-blue-500">₹{(kpiStats.totalCurrentValue / 100000).toFixed(1)}L</p>
           </div>
 
-          <div className="bg-gray-800 p-3 md:p-4 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs mb-1">Gain/Loss</p>
+          <div className="card">
+            <p className="text-slate-400 text-xs mb-1">Gain/Loss</p>
             <p className={`text-lg md:text-2xl font-bold ${kpiStats.totalGainLoss >= 0 ? 'text-green-400' : 'text-red-400'}`}>
               ₹{(kpiStats.totalGainLoss / 100000).toFixed(1)}L
             </p>
@@ -252,13 +252,13 @@ export default function InvestmentsPage() {
         <div className="flex gap-2 mb-4 md:mb-6 flex-wrap">
           <button
             onClick={handleExportCSV}
-            className="bg-green-600 hover:bg-green-700 text-white px-3 md:px-4 py-2 rounded-lg transition font-semibold text-xs md:text-sm"
+            className="btn btn-success"
           >
             📥 CSV
           </button>
           <button
             onClick={handleExportTXT}
-            className="bg-purple-600 hover:bg-purple-700 text-white px-3 md:px-4 py-2 rounded-lg transition font-semibold text-xs md:text-sm"
+            className="btn btn-secondary"
           >
             📥 TXT
           </button>
@@ -270,12 +270,12 @@ export default function InvestmentsPage() {
             placeholder="Search investments..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="px-3 md:px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 text-xs md:text-sm"
+            className="form-input"
           />
           <select
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
-            className="px-3 md:px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-blue-500 text-xs md:text-sm"
+            className="form-select"
           >
             <option value="">All Types</option>
             {investmentTypes.map((type) => (
@@ -304,12 +304,12 @@ export default function InvestmentsPage() {
               return (
                 <div
                   key={investment.id}
-                  className="bg-gray-800 p-3 md:p-4 rounded-lg border border-gray-700 hover:border-gray-600 transition"
+                  className="card hover:border-slate-600"
                 >
                   <div className="flex justify-between items-start mb-2">
                     <div className="flex-1 min-w-0">
                       <p className="font-semibold text-white text-sm md:text-base truncate">{investment.name}</p>
-                      <p className="text-xs text-gray-400 mt-0.5">{investment.type.replace('_', ' ').toUpperCase()}</p>
+                      <p className="text-xs text-slate-400 mt-0.5">{investment.type.replace('_', ' ').toUpperCase()}</p>
                     </div>
                     <div className="text-right flex-shrink-0 ml-2">
                       <p className="text-base md:text-lg font-bold text-blue-400">₹{(investment.currentValue / 100000).toFixed(1)}L</p>
@@ -321,29 +321,29 @@ export default function InvestmentsPage() {
 
                   <div className="grid grid-cols-2 gap-2 mb-3 text-xs md:text-sm">
                     <div>
-                      <p className="text-gray-400">Initial</p>
+                      <p className="text-slate-400">Initial</p>
                       <p className="text-white font-semibold">₹{(investment.initialAmount / 100000).toFixed(1)}L</p>
                     </div>
                     <div>
-                      <p className={`text-gray-400`}>Gain/Loss</p>
+                      <p className={`text-slate-400`}>Gain/Loss</p>
                       <p className={`font-semibold ${gainLoss >= 0 ? 'text-green-400' : 'text-red-400'}`}>
                         ₹{(gainLoss / 100000).toFixed(1)}L
                       </p>
                     </div>
                   </div>
 
-                  <p className="text-xs text-gray-400 mb-2">Purchased: {purchaseDate}</p>
+                  <p className="text-xs text-slate-400 mb-2">Purchased: {purchaseDate}</p>
 
                   <div className="flex gap-2">
                     <button
                       onClick={() => handleEdit(investment)}
-                      className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-2 md:px-3 py-1 rounded transition text-xs md:text-sm"
+                      className="btn btn-primary flex-1"
                     >
                       Edit
                     </button>
                     <button
                       onClick={() => handleDelete(investment.id)}
-                      className="flex-1 bg-red-600 hover:bg-red-700 text-white px-2 md:px-3 py-1 rounded transition text-xs md:text-sm"
+                      className="btn btn-danger flex-1"
                     >
                       Delete
                     </button>
@@ -352,7 +352,7 @@ export default function InvestmentsPage() {
               );
             })
           ) : (
-            <div className="bg-gray-800 p-6 md:p-8 rounded-lg border border-gray-700 text-center text-gray-400">
+            <div className="card text-center text-slate-400">
               <p className="text-sm md:text-base">{investments.length === 0 ? 'No investments yet' : 'No investments match your search'}</p>
             </div>
           )}

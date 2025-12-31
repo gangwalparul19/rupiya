@@ -36,7 +36,6 @@ export default function HousesPage() {
     paymentMethod: 'cash' as const,
   });
 
-  // Filter houses
   const filteredHouses = useMemo(() => {
     return houses.filter((house) => {
       const matchesSearch = house.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -233,34 +232,34 @@ export default function HousesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 p-4 md:p-8">
+    <div className="min-h-screen bg-gray-950 p-3 sm:p-4 md:p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">House Management</h1>
-          <p className="text-gray-400">Manage your properties and track house-related expenses</p>
+        <div className="mb-6 md:mb-8">
+          <h1 className="heading-page">🏠 House Management</h1>
+          <p className="text-secondary">Manage your properties and track house-related expenses</p>
         </div>
 
         {/* KPI Cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 mb-8">
-          <div className="bg-gray-800 p-4 md:p-6 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs md:text-sm mb-2">Total Houses</p>
+        <div className="grid-responsive-3 mb-6 md:mb-8">
+          <div className="card">
+            <p className="text-tertiary text-xs md:text-sm mb-2">Total Houses</p>
             <p className="text-2xl md:text-3xl font-bold text-blue-400">{kpiStats.totalHouses}</p>
           </div>
 
-          <div className="bg-gray-800 p-4 md:p-6 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs md:text-sm mb-2">Owned</p>
+          <div className="card">
+            <p className="text-tertiary text-xs md:text-sm mb-2">Owned</p>
             <p className="text-2xl md:text-3xl font-bold text-green-400">{kpiStats.ownedCount}</p>
           </div>
 
-          <div className="bg-gray-800 p-4 md:p-6 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs md:text-sm mb-2">Rented</p>
+          <div className="card">
+            <p className="text-tertiary text-xs md:text-sm mb-2">Rented</p>
             <p className="text-2xl md:text-3xl font-bold text-purple-400">{kpiStats.rentedCount}</p>
           </div>
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-3 mb-6">
+        <div className="flex gap-2 sm:gap-3 md:gap-4 mb-6">
           <button
             onClick={() => {
               setShowModalInline(true);
@@ -270,31 +269,31 @@ export default function HousesPage() {
                 address: '',
               });
             }}
-            className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            className="btn btn-primary flex-1"
           >
             + Add House
           </button>
           <button
             onClick={handleExportCSV}
-            className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+            className="btn btn-success flex-1"
           >
             ↓ Export CSV
           </button>
         </div>
 
         {/* Search and Filter */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3 md:gap-4 mb-6">
           <input
             type="text"
             placeholder="Search by name or address..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
+            className="form-input"
           />
           <select
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
-            className="px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
+            className="form-select"
           >
             <option value="">All Types</option>
             <option value="owned">Owned</option>
@@ -304,13 +303,13 @@ export default function HousesPage() {
 
         {/* Add House Modal - Inline */}
         {showModalInline && (
-          <div className="bg-gray-800 rounded-lg p-6 mb-8 border border-gray-700">
-            <h2 className="text-2xl font-bold text-white mb-4">Add House</h2>
+          <div className="card mb-6 md:mb-8">
+            <h2 className="heading-section mb-4">Add House</h2>
 
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3 md:gap-4">
+                <div className="form-group">
+                  <label className="form-label">
                     House Name <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -319,20 +318,20 @@ export default function HousesPage() {
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="e.g., Main House, Apartment"
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                    className="form-input"
                     required
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                <div className="form-group">
+                  <label className="form-label">
                     Type <span className="text-red-500">*</span>
                   </label>
                   <select
                     name="type"
                     value={formData.type}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                    className="form-select"
                     required
                   >
                     <option value="owned">Owned</option>
@@ -341,8 +340,8 @@ export default function HousesPage() {
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+              <div className="form-group">
+                <label className="form-label">
                   Address <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -351,12 +350,12 @@ export default function HousesPage() {
                   value={formData.address}
                   onChange={handleChange}
                   placeholder="Full address"
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                  className="form-input"
                   required
                 />
               </div>
 
-              <div className="flex gap-3 pt-4 border-t border-gray-700">
+              <div className="flex gap-2 sm:gap-3 pt-4 border-t border-gray-700">
                 <button
                   type="button"
                   onClick={() => {
@@ -367,14 +366,14 @@ export default function HousesPage() {
                       address: '',
                     });
                   }}
-                  className="flex-1 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium"
+                  className="btn btn-secondary flex-1"
                   disabled={isLoading}
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50"
+                  className="btn btn-primary flex-1 disabled:opacity-50"
                   disabled={isLoading}
                 >
                   {isLoading ? 'Adding...' : 'Add House'}
@@ -386,15 +385,15 @@ export default function HousesPage() {
 
         {/* Houses Grid */}
         {filteredHouses.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          <div className="grid-responsive-3 mb-6 md:mb-8">
             {filteredHouses.map((house) => (
-              <div key={house.id} className="bg-gray-800 rounded-lg p-6 hover:bg-gray-700 transition-colors">
+              <div key={house.id} className="card">
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <h3 className="text-xl font-bold text-white">{house.name}</h3>
-                    <p className="text-sm text-gray-400 mt-1">{house.address}</p>
+                    <h3 className="text-lg md:text-xl font-bold text-white">{house.name}</h3>
+                    <p className="text-xs md:text-sm text-secondary mt-1">{house.address}</p>
                   </div>
-                  <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                  <span className={`px-2 sm:px-3 py-1 rounded-full text-xs font-semibold ${
                     house.type === 'owned' ? 'bg-green-900 text-green-200' : 'bg-blue-900 text-blue-200'
                   }`}>
                     {house.type.charAt(0).toUpperCase() + house.type.slice(1)}
@@ -404,7 +403,7 @@ export default function HousesPage() {
                 <div className="flex gap-2 pt-4 border-t border-gray-700">
                   <button
                     onClick={() => handleEdit(house)}
-                    className="flex-1 px-3 py-2 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+                    className="btn btn-primary btn-small flex-1"
                   >
                     Edit
                   </button>
@@ -413,7 +412,7 @@ export default function HousesPage() {
                       setSelectedHouseForExpense(house.id);
                       setShowExpenseModal(true);
                     }}
-                    className="flex-1 px-3 py-2 text-sm bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
+                    className="btn btn-success btn-small flex-1"
                   >
                     + Expense
                   </button>
@@ -423,14 +422,14 @@ export default function HousesPage() {
                         setSelectedHouseForIncome(house.id);
                         setShowIncomeModal(true);
                       }}
-                      className="flex-1 px-3 py-2 text-sm bg-purple-600 text-white rounded hover:bg-purple-700 transition-colors"
+                      className="btn btn-secondary btn-small flex-1"
                     >
                       + Income
                     </button>
                   )}
                   <button
                     onClick={() => handleDelete(house.id)}
-                    className="flex-1 px-3 py-2 text-sm bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+                    className="btn btn-danger btn-small flex-1"
                   >
                     Delete
                   </button>
@@ -439,8 +438,8 @@ export default function HousesPage() {
             ))}
           </div>
         ) : (
-          <div className="bg-gray-800 rounded-lg p-8 text-center">
-            <p className="text-gray-400">
+          <div className="card text-center">
+            <p className="text-secondary">
               {houses.length === 0 ? 'No houses yet. Add one to get started!' : 'No houses match your search.'}
             </p>
           </div>
@@ -448,8 +447,8 @@ export default function HousesPage() {
 
         {/* Summary */}
         {filteredHouses.length > 0 && (
-          <div className="bg-gray-800 rounded-lg p-4">
-            <p className="text-gray-300">
+          <div className="card">
+            <p className="text-secondary">
               Showing <span className="font-semibold text-white">{filteredHouses.length}</span> of{' '}
               <span className="font-semibold text-white">{houses.length}</span> houses
             </p>
@@ -460,12 +459,12 @@ export default function HousesPage() {
       {/* Modals */}
       {showExpenseModal && selectedHouseForExpense && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-gray-800 rounded-lg p-6 max-w-md w-full">
-            <h2 className="text-2xl font-bold text-white mb-4">Add Expense</h2>
+          <div className="bg-gray-800 rounded-lg p-4 sm:p-6 max-w-md w-full">
+            <h2 className="heading-section mb-4">Add Expense</h2>
 
             <form onSubmit={handleAddExpense} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+              <div className="form-group">
+                <label className="form-label">
                   Description <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -474,13 +473,13 @@ export default function HousesPage() {
                   value={expenseFormData.description}
                   onChange={handleExpenseChange}
                   placeholder="e.g., Repair, Maintenance, Utilities"
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                  className="form-input"
                   required
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+              <div className="form-group">
+                <label className="form-label">
                   Amount <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -491,18 +490,18 @@ export default function HousesPage() {
                   placeholder="0.00"
                   step="0.01"
                   min="0"
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                  className="form-input"
                   required
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Category</label>
+              <div className="form-group">
+                <label className="form-label">Category</label>
                 <select
                   name="category"
                   value={expenseFormData.category}
                   onChange={handleExpenseChange}
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                  className="form-select"
                 >
                   <option value="maintenance">Maintenance</option>
                   <option value="utilities">Utilities</option>
@@ -512,13 +511,13 @@ export default function HousesPage() {
                 </select>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Payment Method</label>
+              <div className="form-group">
+                <label className="form-label">Payment Method</label>
                 <select
                   name="paymentMethod"
                   value={expenseFormData.paymentMethod}
                   onChange={handleExpenseChange}
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                  className="form-select"
                 >
                   <option value="cash">Cash</option>
                   <option value="card">Card</option>
@@ -528,7 +527,7 @@ export default function HousesPage() {
                 </select>
               </div>
 
-              <div className="flex gap-3 pt-4 border-t border-gray-700">
+              <div className="flex gap-2 sm:gap-3 pt-4 border-t border-gray-700">
                 <button
                   type="button"
                   onClick={() => {
@@ -541,13 +540,13 @@ export default function HousesPage() {
                       paymentMethod: 'cash',
                     });
                   }}
-                  className="flex-1 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium"
+                  className="btn btn-secondary flex-1"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                  className="btn btn-primary flex-1"
                 >
                   Add Expense
                 </button>
@@ -558,12 +557,12 @@ export default function HousesPage() {
       )}
       {showIncomeModal && selectedHouseForIncome && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-gray-800 rounded-lg p-6 max-w-md w-full">
-            <h2 className="text-2xl font-bold text-white mb-4">Add Income</h2>
+          <div className="bg-gray-800 rounded-lg p-4 sm:p-6 max-w-md w-full">
+            <h2 className="heading-section mb-4">Add Income</h2>
 
             <form onSubmit={handleAddIncome} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+              <div className="form-group">
+                <label className="form-label">
                   Description <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -572,13 +571,13 @@ export default function HousesPage() {
                   value={incomeFormData.description}
                   onChange={handleIncomeChange}
                   placeholder="e.g., Rental income, Lease payment"
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                  className="form-input"
                   required
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+              <div className="form-group">
+                <label className="form-label">
                   Amount <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -589,18 +588,18 @@ export default function HousesPage() {
                   placeholder="0.00"
                   step="0.01"
                   min="0"
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                  className="form-input"
                   required
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Source</label>
+              <div className="form-group">
+                <label className="form-label">Source</label>
                 <select
                   name="source"
                   value={incomeFormData.source}
                   onChange={handleIncomeChange}
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                  className="form-select"
                 >
                   <option value="salary">Salary</option>
                   <option value="freelance">Freelance</option>
@@ -611,13 +610,13 @@ export default function HousesPage() {
                 </select>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Payment Method</label>
+              <div className="form-group">
+                <label className="form-label">Payment Method</label>
                 <select
                   name="paymentMethod"
                   value={incomeFormData.paymentMethod}
                   onChange={handleIncomeChange}
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                  className="form-select"
                 >
                   <option value="cash">Cash</option>
                   <option value="card">Card</option>
@@ -627,7 +626,7 @@ export default function HousesPage() {
                 </select>
               </div>
 
-              <div className="flex gap-3 pt-4 border-t border-gray-700">
+              <div className="flex gap-2 sm:gap-3 pt-4 border-t border-gray-700">
                 <button
                   type="button"
                   onClick={() => {
@@ -640,13 +639,13 @@ export default function HousesPage() {
                       paymentMethod: 'cash',
                     });
                   }}
-                  className="flex-1 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium"
+                  className="btn btn-secondary flex-1"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                  className="btn btn-primary flex-1"
                 >
                   Add Income
                 </button>

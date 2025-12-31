@@ -94,35 +94,35 @@ export default function LoginPage() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center px-3 sm:px-4 py-4">
       <div className="w-full max-w-sm">
-        <div className="bg-slate-700 rounded-lg p-6 sm:p-8 text-white">
+        <div className="card">
           {/* Header */}
-          <div className="text-center mb-6 sm:mb-8">
-            <h1 className="text-3xl sm:text-4xl font-bold mb-1 sm:mb-2">💰 Rupiya</h1>
-            <p className="text-slate-300 text-sm sm:text-base">Smart Expense Tracker</p>
+          <div className="text-center mb-6 md:mb-8">
+            <h1 className="text-3xl sm:text-4xl font-bold mb-1 sm:mb-2 text-white">💰 Rupiya</h1>
+            <p className="text-secondary">Smart Expense Tracker</p>
           </div>
 
           {/* Sign In Form */}
           <form onSubmit={handleEmailLogin} className="space-y-3 sm:space-y-4 mb-6">
-            <div>
-              <label className="block text-xs sm:text-sm font-medium mb-1">Email</label>
+            <div className="form-group">
+              <label className="form-label">Email</label>
               <input
                 type="email"
                 placeholder="your@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-slate-600 rounded px-3 sm:px-4 py-2 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                className="form-input"
                 required
               />
             </div>
 
-            <div>
-              <label className="block text-xs sm:text-sm font-medium mb-1">Password</label>
+            <div className="form-group">
+              <label className="form-label">Password</label>
               <input
                 type="password"
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-slate-600 rounded px-3 sm:px-4 py-2 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                className="form-input"
                 required
               />
             </div>
@@ -136,7 +136,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition font-bold disabled:opacity-50 text-sm sm:text-base"
+              className="btn btn-primary w-full"
             >
               {isLoading ? 'Signing in...' : 'Sign In'}
             </button>
@@ -159,7 +159,7 @@ export default function LoginPage() {
           <button
             onClick={handleGoogleLogin}
             disabled={isLoading}
-            className="w-full bg-white hover:bg-slate-100 text-slate-900 py-2 rounded-lg transition font-bold flex items-center justify-center gap-2 disabled:opacity-50 text-xs sm:text-sm"
+            className="btn btn-secondary w-full flex items-center justify-center gap-2"
           >
             <svg className="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24">
               <path

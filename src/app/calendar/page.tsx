@@ -215,32 +215,32 @@ export default function CalendarPage() {
   const monthName = currentMonth.toLocaleString('default', { month: 'long', year: 'numeric' });
 
   return (
-    <div className="min-h-screen bg-gray-950 p-3 md:p-8">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
+      <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
         <div className="mb-6 md:mb-8">
-          <h1 className="text-2xl md:text-4xl font-bold text-white mb-1 md:mb-2">Calendar & Reminders</h1>
-          <p className="text-xs md:text-base text-gray-400">Track bills, events, and financial milestones</p>
+          <h1 className="heading-page">Calendar & Reminders</h1>
+          <p className="text-secondary">Track bills, events, and financial milestones</p>
         </div>
 
         {/* Action Buttons - Always visible */}
-        <div className="flex gap-2 md:gap-3 mb-6 sticky bottom-0 md:static bg-gray-950 p-3 md:p-0 -mx-3 md:mx-0 z-40">
+        <div className="flex gap-2 md:gap-3 mb-6 sticky bottom-0 md:static bg-slate-900 p-3 md:p-0 -mx-3 md:mx-0 z-40">
           <button
             onClick={() => setIsEventModalOpen(true)}
-            className="flex-1 px-3 md:px-4 py-2 text-xs md:text-base bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            className="flex-1 btn btn-primary"
             aria-label="Add new calendar event"
           >
             + Event
           </button>
           <button
             onClick={() => setIsBillModalOpen(true)}
-            className="flex-1 px-3 md:px-4 py-2 text-xs md:text-base bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors font-medium"
+            className="flex-1 btn btn-secondary"
             aria-label="Add new bill reminder"
           >
             + Bill
           </button>
           <button
             onClick={() => setViewMode(viewMode === 'calendar' ? 'list' : 'calendar')}
-            className="flex-1 px-3 md:px-4 py-2 text-xs md:text-base bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors font-medium"
+            className="flex-1 btn btn-secondary"
             aria-label={`Switch to ${viewMode === 'calendar' ? 'list' : 'calendar'} view`}
           >
             {viewMode === 'calendar' ? '📋' : '📅'}
@@ -441,11 +441,11 @@ export default function CalendarPage() {
         {isPageLoading ? (
           <SkeletonLoader type="table" count={1} className="mb-6" />
         ) : viewMode === 'calendar' && (
-          <div className="bg-gray-800 rounded-lg p-3 md:p-6 mb-6">
+          <div className="card mb-6">
             <div className="flex items-center justify-between mb-4 md:mb-6 gap-2">
               <button
                 onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1))}
-                className="px-2 md:px-4 py-1 md:py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors font-medium text-xs md:text-base"
+                className="btn btn-secondary"
                 aria-label="Go to previous month"
               >
                 ← Prev
@@ -453,7 +453,7 @@ export default function CalendarPage() {
               <h2 className="text-lg md:text-2xl font-bold text-white text-center flex-1">{monthName}</h2>
               <button
                 onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1))}
-                className="px-2 md:px-4 py-1 md:py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors font-medium text-xs md:text-base"
+                className="btn btn-secondary"
                 aria-label="Go to next month"
               >
                 Next →
@@ -514,17 +514,17 @@ export default function CalendarPage() {
         {/* List View */}
         {viewMode === 'list' && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6 mb-6">
-            <div className="bg-gray-800 rounded-lg p-3 md:p-6">
-              <h3 className="text-base md:text-lg font-bold text-white mb-3">Upcoming Events</h3>
+            <div className="card">
+              <h3 className="heading-section">Upcoming Events</h3>
               {monthEvents.length > 0 ? (
                 <div className="space-y-2">
                   {monthEvents.slice(0, 8).map((event) => {
                     const eventDate = event.date instanceof Date ? event.date : new Date(event.date);
                     return (
-                      <div key={event.id} className="bg-gray-700 rounded p-2 md:p-3 flex justify-between items-start gap-2">
+                      <div key={event.id} className="bg-slate-700 rounded p-2 md:p-3 flex justify-between items-start gap-2">
                         <div className="flex-1 min-w-0">
                           <p className="font-semibold text-white text-xs md:text-sm truncate">{event.title}</p>
-                          <p className="text-xs text-gray-400">{eventDate.toLocaleDateString()}</p>
+                          <p className="text-xs text-slate-400">{eventDate.toLocaleDateString()}</p>
                         </div>
                         <button
                           onClick={() => handleDeleteEventClick(event.id, event.title)}
@@ -538,22 +538,22 @@ export default function CalendarPage() {
                   })}
                 </div>
               ) : (
-                <p className="text-gray-400 text-xs md:text-sm">No events this month</p>
+                <p className="text-slate-400 text-xs md:text-sm">No events this month</p>
               )}
             </div>
 
-            <div className="bg-gray-800 rounded-lg p-3 md:p-6">
-              <h3 className="text-base md:text-lg font-bold text-white mb-3">Upcoming Bills</h3>
+            <div className="card">
+              <h3 className="heading-section">Upcoming Bills</h3>
               {monthBills.length > 0 ? (
                 <div className="space-y-2">
                   {monthBills.slice(0, 8).map((bill) => {
                     const billDate = bill.dueDate instanceof Date ? bill.dueDate : new Date(bill.dueDate);
                     return (
-                      <div key={bill.id} className="bg-gray-700 rounded p-2 md:p-3 flex justify-between items-start gap-2">
+                      <div key={bill.id} className="bg-slate-700 rounded p-2 md:p-3 flex justify-between items-start gap-2">
                         <div className="flex-1 min-w-0">
                           <p className="font-semibold text-white text-xs md:text-sm truncate">{bill.name}</p>
                           <p className="text-xs text-orange-400">₹{bill.amount.toLocaleString('en-IN', { maximumFractionDigits: 2 })}</p>
-                          <p className="text-xs text-gray-400">{billDate.toLocaleDateString()}</p>
+                          <p className="text-xs text-slate-400">{billDate.toLocaleDateString()}</p>
                         </div>
                         <button
                           onClick={() => handleDeleteBillClick(bill.id, bill.name)}
@@ -567,7 +567,7 @@ export default function CalendarPage() {
                   })}
                 </div>
               ) : (
-                <p className="text-gray-400 text-xs md:text-sm">No bills this month</p>
+                <p className="text-slate-400 text-xs md:text-sm">No bills this month</p>
               )}
             </div>
           </div>

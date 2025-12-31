@@ -174,24 +174,24 @@ export default function IncomePage() {
   const sortedIncome = [...incomeList].reverse();
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white p-3 md:p-4">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
+      <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-3">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold mb-1">💵 Income</h1>
-            <p className="text-slate-400 text-xs md:text-sm">Track all your income sources</p>
+            <h1 className="heading-page">💵 Income</h1>
+            <p className="text-secondary">Track all your income sources</p>
           </div>
           <div className="flex gap-2 w-full md:w-auto">
             <button 
               onClick={() => setShowAnalytics(!showAnalytics)} 
-              className="flex-1 md:flex-none bg-purple-600 hover:bg-purple-700 px-3 md:px-4 py-2 md:py-3 rounded-lg font-semibold transition whitespace-nowrap text-xs md:text-sm"
+              className="flex-1 md:flex-none btn btn-secondary"
               aria-label={showAnalytics ? 'Hide analytics' : 'Show analytics'}
             >
               {showAnalytics ? '📊 Hide' : '📊 Analytics'}
             </button>
             <button 
               onClick={() => setIsModalOpen(true)} 
-              className="flex-1 md:flex-none bg-green-600 hover:bg-green-700 px-3 md:px-4 py-2 md:py-3 rounded-lg font-semibold transition whitespace-nowrap text-xs md:text-sm"
+              className="flex-1 md:flex-none btn btn-primary"
               aria-label="Add new income"
             >
               + Add
@@ -200,16 +200,16 @@ export default function IncomePage() {
         </div>
 
         {!showAnalytics && (
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3 mb-6 md:mb-8">
-            <div className="bg-slate-800 p-3 md:p-4 rounded-lg border border-slate-700">
+          <div className="grid-responsive-3 mb-6 md:mb-8">
+            <div className="card">
               <p className="text-slate-400 text-xs mb-1">Total Income</p>
               <p className="text-lg md:text-2xl font-bold text-green-400">₹{(totalIncome / 1000).toFixed(0)}K</p>
             </div>
-            <div className="bg-slate-800 p-3 md:p-4 rounded-lg border border-slate-700">
+            <div className="card">
               <p className="text-slate-400 text-xs mb-1">Entries</p>
               <p className="text-lg md:text-2xl font-bold text-blue-400">{incomeList.length}</p>
             </div>
-            <div className="bg-slate-800 p-3 md:p-4 rounded-lg border border-slate-700 col-span-2 lg:col-span-1">
+            <div className="card col-span-2 lg:col-span-1">
               <p className="text-slate-400 text-xs mb-1">Average</p>
               <p className="text-lg md:text-2xl font-bold text-purple-400">₹{incomeList.length > 0 ? (totalIncome / incomeList.length).toLocaleString('en-IN', { maximumFractionDigits: 0 }) : '0'}</p>
             </div>

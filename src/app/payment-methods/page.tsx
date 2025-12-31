@@ -100,12 +100,12 @@ export default function PaymentMethodsPage() {
 
   return (
     <ProtectedRoute>
-      <main className="min-h-screen bg-slate-900 p-4 md:p-8">
-        <div className="max-w-6xl mx-auto">
+      <main className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
+        <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
           {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">Payment Methods</h1>
-            <p className="text-slate-400 text-sm md:text-base">Manage your cards, UPI, bank accounts, and wallets</p>
+          <div className="mb-6 md:mb-8">
+            <h1 className="heading-page">Payment Methods</h1>
+            <p className="text-secondary">Manage your cards, UPI, bank accounts, and wallets</p>
           </div>
 
           {/* Tabs - Mobile optimized */}

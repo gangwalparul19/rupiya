@@ -1,8 +1,14 @@
 @import "tailwindcss";
+@import "../styles/layout.css";
 
 :root {
   --background: #0f172a;
   --foreground: #ffffff;
+  --surface: #1e293b;
+  --card: #334155;
+  --border: #475569;
+  --text-secondary: #cbd5e1;
+  --text-tertiary: #94a3b8;
 }
 
 @theme inline {
@@ -22,14 +28,21 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+}
+
+@media (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  font-size: 16px;
-  line-height: 1.5;
+  line-height: 1.6;
+  letter-spacing: 0.3px;
 }
 
 /* Mobile viewport fixes */
@@ -39,13 +52,6 @@ body {
     padding-right: max(0px, env(safe-area-inset-right));
     padding-top: max(0px, env(safe-area-inset-top));
     padding-bottom: max(0px, env(safe-area-inset-bottom));
-  }
-}
-
-/* Responsive text sizing */
-@media (max-width: 640px) {
-  body {
-    font-size: 14px;
   }
 }
 
@@ -59,29 +65,4 @@ body {
 /* Disable transitions on page load */
 .no-transition * {
   transition: none !important;
-}
-
-/* Focus styles for accessibility */
-:focus-visible {
-  outline: 2px solid #3b82f6;
-  outline-offset: 2px;
-}
-
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #1e293b;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #475569;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
 }

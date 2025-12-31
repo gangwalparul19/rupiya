@@ -143,17 +143,17 @@ ${
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 p-3 md:p-4">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
+      <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
         <div className="mb-6 md:mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-white mb-1">Analytics & Reports</h1>
-          <p className="text-gray-400 text-xs md:text-sm">Comprehensive financial analysis</p>
+          <h1 className="heading-page">📊 Analytics & Reports</h1>
+          <p className="text-secondary">Comprehensive financial analysis</p>
         </div>
 
         <div className="mb-6">
           <button
             onClick={handleExportReport}
-            className="w-full md:w-auto px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium text-sm"
+            className="w-full md:w-auto btn btn-success"
           >
             📄 Export Report
           </button>
@@ -183,10 +183,10 @@ ${
         </div>
 
         {/* Detailed Analytics - Stacked on mobile */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-6 md:mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3 mb-6 md:mb-8">
           {/* Expenses by Category */}
-          <div className="bg-gray-800 rounded-lg p-3 md:p-4">
-            <h3 className="text-sm md:text-base font-bold text-white mb-3">Expenses by Category</h3>
+          <div className="card">
+            <h3 className="text-xs md:text-sm font-bold text-white mb-3">Expenses by Category</h3>
             <div className="space-y-2">
               {Object.entries(analytics.expensesByCategory)
                 .sort(([, a], [, b]) => b - a)
@@ -196,10 +196,10 @@ ${
                   return (
                     <div key={category}>
                       <div className="flex justify-between mb-1">
-                        <span className="text-xs text-gray-300 truncate">{category}</span>
+                        <span className="text-xs text-slate-300 truncate">{category}</span>
                         <span className="text-xs font-semibold text-white ml-2">{percentage.toFixed(0)}%</span>
                       </div>
-                      <div className="w-full bg-gray-700 rounded-full h-1.5">
+                      <div className="w-full bg-slate-700 rounded-full h-1.5">
                         <div className="bg-red-500 h-1.5 rounded-full" style={{ width: `${percentage}%` }} />
                       </div>
                     </div>
@@ -209,8 +209,8 @@ ${
           </div>
 
           {/* Income by Source */}
-          <div className="bg-gray-800 rounded-lg p-3 md:p-4">
-            <h3 className="text-sm md:text-base font-bold text-white mb-3">Income by Source</h3>
+          <div className="card">
+            <h3 className="text-xs md:text-sm font-bold text-white mb-3">Income by Source</h3>
             <div className="space-y-2">
               {Object.entries(analytics.incomeBySource)
                 .sort(([, a], [, b]) => b - a)
@@ -220,10 +220,10 @@ ${
                   return (
                     <div key={source}>
                       <div className="flex justify-between mb-1">
-                        <span className="text-xs text-gray-300 truncate">{source}</span>
+                        <span className="text-xs text-slate-300 truncate">{source}</span>
                         <span className="text-xs font-semibold text-white ml-2">{percentage.toFixed(0)}%</span>
                       </div>
-                      <div className="w-full bg-gray-700 rounded-full h-1.5">
+                      <div className="w-full bg-slate-700 rounded-full h-1.5">
                         <div className="bg-green-500 h-1.5 rounded-full" style={{ width: `${percentage}%` }} />
                       </div>
                     </div>
@@ -234,47 +234,47 @@ ${
         </div>
 
         {/* Investment & Goals */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-6 md:mb-8">
-          <div className="bg-gray-800 rounded-lg p-3 md:p-4">
-            <h3 className="text-sm md:text-base font-bold text-white mb-3">Investment Performance</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3 mb-6 md:mb-8">
+          <div className="card">
+            <h3 className="text-xs md:text-sm font-bold text-white mb-3">Investment Performance</h3>
             <div className="space-y-2">
               <div>
-                <p className="text-xs text-gray-400">Total Invested</p>
-                <p className="text-base md:text-lg font-bold text-white">{formatAmount(analytics.totalInvested)}</p>
+                <p className="text-xs text-slate-400">Total Invested</p>
+                <p className="text-sm md:text-base font-bold text-white">{formatAmount(analytics.totalInvested)}</p>
               </div>
               <div>
-                <p className="text-xs text-gray-400">Current Value</p>
-                <p className="text-base md:text-lg font-bold text-white">{formatAmount(analytics.totalCurrentValue)}</p>
+                <p className="text-xs text-slate-400">Current Value</p>
+                <p className="text-sm md:text-base font-bold text-white">{formatAmount(analytics.totalCurrentValue)}</p>
               </div>
               <div>
-                <p className="text-xs text-gray-400">Gain/Loss</p>
-                <p className={`text-base md:text-lg font-bold ${analytics.investmentGain >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                <p className="text-xs text-slate-400">Gain/Loss</p>
+                <p className={`text-sm md:text-base font-bold ${analytics.investmentGain >= 0 ? 'text-green-400' : 'text-red-400'}`}>
                   {formatAmount(analytics.investmentGain)}
                 </p>
               </div>
               <div>
-                <p className="text-xs text-gray-400">Return %</p>
-                <p className={`text-base md:text-lg font-bold ${parseFloat(analytics.investmentReturn) >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+                <p className="text-xs text-slate-400">Return %</p>
+                <p className={`text-sm md:text-base font-bold ${parseFloat(analytics.investmentReturn) >= 0 ? 'text-green-400' : 'text-red-400'}`}>
                   {analytics.investmentReturn}%
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="bg-gray-800 rounded-lg p-3 md:p-4">
-            <h3 className="text-sm md:text-base font-bold text-white mb-3">Goals Progress</h3>
+          <div className="card">
+            <h3 className="text-xs md:text-sm font-bold text-white mb-3">Goals Progress</h3>
             <div className="space-y-2">
               <div>
-                <p className="text-xs text-gray-400">Total Target</p>
-                <p className="text-base md:text-lg font-bold text-white">{formatAmount(analytics.totalGoalTarget)}</p>
+                <p className="text-xs text-slate-400">Total Target</p>
+                <p className="text-sm md:text-base font-bold text-white">{formatAmount(analytics.totalGoalTarget)}</p>
               </div>
               <div>
-                <p className="text-xs text-gray-400">Total Saved</p>
-                <p className="text-base md:text-lg font-bold text-white">{formatAmount(analytics.totalGoalSaved)}</p>
+                <p className="text-xs text-slate-400">Total Saved</p>
+                <p className="text-sm md:text-base font-bold text-white">{formatAmount(analytics.totalGoalSaved)}</p>
               </div>
               <div>
-                <p className="text-xs text-gray-400">Progress</p>
-                <div className="w-full bg-gray-700 rounded-full h-2 mt-1">
+                <p className="text-xs text-slate-400">Progress</p>
+                <div className="w-full bg-slate-700 rounded-full h-2 mt-1">
                   <div className="bg-blue-500 h-2 rounded-full" style={{ width: `${Math.min(parseFloat(analytics.goalProgress), 100)}%` }} />
                 </div>
                 <p className="text-sm font-bold text-white mt-1">{analytics.goalProgress}%</p>
@@ -284,25 +284,25 @@ ${
         </div>
 
         {/* Budget Analysis */}
-        <div className="bg-gray-800 rounded-lg p-3 md:p-4 mb-6 md:mb-8">
-          <h3 className="text-sm md:text-base font-bold text-white mb-3">Budget Analysis</h3>
+        <div className="card mb-6 md:mb-8">
+          <h3 className="text-xs md:text-sm font-bold text-white mb-3">Budget Analysis</h3>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             <div>
-              <p className="text-xs text-gray-400">Total Budget</p>
-              <p className="text-base md:text-lg font-bold text-white">{formatAmount(analytics.totalBudget)}</p>
+              <p className="text-xs text-slate-400">Total Budget</p>
+              <p className="text-sm md:text-base font-bold text-white">{formatAmount(analytics.totalBudget)}</p>
             </div>
             <div>
-              <p className="text-xs text-gray-400">Spent</p>
-              <p className="text-base md:text-lg font-bold text-white">{formatAmount(analytics.totalExpenses)}</p>
+              <p className="text-xs text-slate-400">Spent</p>
+              <p className="text-sm md:text-base font-bold text-white">{formatAmount(analytics.totalExpenses)}</p>
             </div>
             <div>
-              <p className="text-xs text-gray-400">Utilization</p>
-              <p className={`text-base md:text-lg font-bold ${parseFloat(analytics.budgetUtilization) < 80 ? 'text-green-400' : parseFloat(analytics.budgetUtilization) < 100 ? 'text-yellow-400' : 'text-red-400'}`}>
+              <p className="text-xs text-slate-400">Utilization</p>
+              <p className={`text-sm md:text-base font-bold ${parseFloat(analytics.budgetUtilization) < 80 ? 'text-green-400' : parseFloat(analytics.budgetUtilization) < 100 ? 'text-yellow-400' : 'text-red-400'}`}>
                 {analytics.budgetUtilization}%
               </p>
             </div>
           </div>
-          <div className="w-full bg-gray-700 rounded-full h-2 mt-3">
+          <div className="w-full bg-slate-700 rounded-full h-2 mt-3">
             <div
               className={`h-2 rounded-full ${parseFloat(analytics.budgetUtilization) < 80 ? 'bg-green-500' : parseFloat(analytics.budgetUtilization) < 100 ? 'bg-yellow-500' : 'bg-red-500'}`}
               style={{ width: `${Math.min(parseFloat(analytics.budgetUtilization), 100)}%` }}
@@ -311,13 +311,13 @@ ${
         </div>
 
         {/* Financial Health Score */}
-        <div className="bg-gray-800 rounded-lg p-3 md:p-4">
-          <h3 className="text-sm md:text-base font-bold text-white mb-3">Financial Health Score</h3>
+        <div className="card">
+          <h3 className="text-xs md:text-sm font-bold text-white mb-3">Financial Health Score</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
-            <div className="bg-gray-700 rounded p-2 md:p-3">
-              <p className="text-xs text-gray-300 mb-1">Savings Rate</p>
-              <p className="text-sm md:text-base font-semibold text-white mb-1">{analytics.savingsRate}%</p>
-              <p className="text-xs text-gray-400">
+            <div className="bg-slate-700 rounded p-2 md:p-3">
+              <p className="text-xs text-slate-300 mb-1">Savings Rate</p>
+              <p className="text-xs md:text-sm font-semibold text-white mb-1">{analytics.savingsRate}%</p>
+              <p className="text-xs text-slate-400">
                 {parseFloat(analytics.savingsRate) > 20
                   ? '✅ Excellent'
                   : parseFloat(analytics.savingsRate) > 10
@@ -328,10 +328,10 @@ ${
               </p>
             </div>
 
-            <div className="bg-gray-700 rounded p-2 md:p-3">
-              <p className="text-xs text-gray-300 mb-1">Investment Returns</p>
-              <p className="text-sm md:text-base font-semibold text-white mb-1">{analytics.investmentReturn}%</p>
-              <p className="text-xs text-gray-400">
+            <div className="bg-slate-700 rounded p-2 md:p-3">
+              <p className="text-xs text-slate-300 mb-1">Investment Returns</p>
+              <p className="text-xs md:text-sm font-semibold text-white mb-1">{analytics.investmentReturn}%</p>
+              <p className="text-xs text-slate-400">
                 {parseFloat(analytics.investmentReturn) > 10
                   ? '✅ Strong'
                   : parseFloat(analytics.investmentReturn) > 0
@@ -340,10 +340,10 @@ ${
               </p>
             </div>
 
-            <div className="bg-gray-700 rounded p-2 md:p-3">
-              <p className="text-xs text-gray-300 mb-1">Goal Progress</p>
-              <p className="text-sm md:text-base font-semibold text-white mb-1">{analytics.goalProgress}%</p>
-              <p className="text-xs text-gray-400">
+            <div className="bg-slate-700 rounded p-2 md:p-3">
+              <p className="text-xs text-slate-300 mb-1">Goal Progress</p>
+              <p className="text-xs md:text-sm font-semibold text-white mb-1">{analytics.goalProgress}%</p>
+              <p className="text-xs text-slate-400">
                 {parseFloat(analytics.goalProgress) > 75
                   ? '✅ On Track'
                   : parseFloat(analytics.goalProgress) > 50
@@ -352,10 +352,10 @@ ${
               </p>
             </div>
 
-            <div className="bg-gray-700 rounded p-2 md:p-3">
-              <p className="text-xs text-gray-300 mb-1">Budget Control</p>
-              <p className="text-sm md:text-base font-semibold text-white mb-1">{analytics.budgetUtilization}%</p>
-              <p className="text-xs text-gray-400">
+            <div className="bg-slate-700 rounded p-2 md:p-3">
+              <p className="text-xs text-slate-300 mb-1">Budget Control</p>
+              <p className="text-xs md:text-sm font-semibold text-white mb-1">{analytics.budgetUtilization}%</p>
+              <p className="text-xs text-slate-400">
                 {parseFloat(analytics.budgetUtilization) < 80
                   ? '✅ Good'
                   : parseFloat(analytics.budgetUtilization) < 100

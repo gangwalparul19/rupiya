@@ -110,11 +110,11 @@ export default function ReceiptsPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-          <h1 className="text-2xl md:text-2xl font-bold text-white">📸 Receipt Scanning</h1>
-          <label className="bg-blue-600 hover:bg-blue-700 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg transition font-semibold cursor-pointer whitespace-nowrap text-sm md:text-base">
+    <main className="min-h-screen bg-gray-950 p-3 sm:p-4 md:p-6 lg:p-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-3 sm:gap-4">
+          <h1 className="heading-page">📸 Receipt Scanning</h1>
+          <label className="btn btn-primary cursor-pointer whitespace-nowrap">
             + Upload Receipt
             <input
               type="file"
@@ -127,40 +127,40 @@ export default function ReceiptsPage() {
         </div>
 
         {/* Info Card */}
-        <div className="bg-blue-900 border border-blue-700 rounded-lg p-4 mb-8 text-blue-100">
-          <p className="text-sm">
+        <div className="bg-blue-900 border border-blue-700 rounded-lg p-3 sm:p-4 md:p-6 mb-6 md:mb-8 text-blue-100 text-xs md:text-sm">
+          <p>
             💡 Upload receipt images to automatically extract expense details like amount, date, and
             merchant. The extracted data can be used to quickly create expenses.
           </p>
         </div>
 
         {/* Receipts Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
           {isLoading ? (
             <div className="col-span-full bg-slate-700 rounded-lg p-8 text-center text-slate-300">
               <p className="text-lg">Loading receipts...</p>
             </div>
           ) : receipts.length === 0 ? (
-            <div className="col-span-full bg-slate-700 rounded-lg p-8 text-center text-slate-300">
-              <p className="text-lg">No receipts yet</p>
-              <p className="text-sm mt-2">Upload your first receipt to get started</p>
+            <div className="col-span-full card text-center">
+              <p className="text-secondary">No receipts yet</p>
+              <p className="text-tertiary text-xs md:text-sm mt-2">Upload your first receipt to get started</p>
             </div>
           ) : (
             receipts.map((receipt) => (
               <div
                 key={receipt.id}
-                className="bg-slate-700 rounded-lg overflow-hidden hover:bg-slate-600 transition cursor-pointer"
+                className="card cursor-pointer"
                 onClick={() => {
                   setSelectedReceipt(receipt);
                   setShowExtractedData(true);
                 }}
               >
                 {/* Receipt Image Preview */}
-                <div className="bg-slate-800 h-32 md:h-40 flex items-center justify-center">
+                <div className="bg-gray-800 h-24 md:h-32 flex items-center justify-center rounded-t-lg">
                   <img
                     src={receipt.fileUrl}
                     alt={receipt.fileName}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover rounded-t-lg"
                     onError={(e) => {
                       (e.target as HTMLImageElement).src =
                         'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect fill="%23475569" width="100" height="100"/%3E%3Ctext x="50" y="50" text-anchor="middle" dy=".3em" fill="%239ca3af" font-size="12"%3E📄%3C/text%3E%3C/svg%3E';
@@ -169,15 +169,15 @@ export default function ReceiptsPage() {
                 </div>
 
                 {/* Receipt Info */}
-                <div className="p-3 md:p-4">
-                  <p className="font-semibold text-white truncate text-sm md:text-base">{receipt.fileName}</p>
-                  <p className="text-xs text-slate-400 mt-1">
+                <div className="p-2 sm:p-3 md:p-4">
+                  <p className="font-semibold text-white truncate text-xs md:text-sm">{receipt.fileName}</p>
+                  <p className="text-xs text-tertiary mt-1">
                     {new Date(receipt.uploadedAt).toLocaleDateString()}
                   </p>
 
                   {/* Extracted Data Preview */}
                   {receipt.extractedData && (
-                    <div className="mt-2 md:mt-3 bg-slate-800 rounded p-2 text-xs text-slate-300">
+                    <div className="mt-2 md:mt-3 bg-gray-700 rounded p-2 text-xs text-secondary">
                       <p>
                         💰 ₹{receipt.extractedData.amount || 'N/A'} •{' '}
                         {receipt.extractedData.merchant || 'N/A'}
@@ -207,7 +207,7 @@ export default function ReceiptsPage() {
                         e.stopPropagation();
                         handleUseExtractedData(receipt);
                       }}
-                      className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded text-xs transition"
+                      className="btn btn-primary btn-small flex-1"
                     >
                       Use Data
                     </button>
@@ -216,7 +216,7 @@ export default function ReceiptsPage() {
                         e.stopPropagation();
                         handleDeleteReceipt(receipt.id);
                       }}
-                      className="flex-1 bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded text-xs transition"
+                      className="btn btn-danger btn-small flex-1"
                     >
                       Delete
                     </button>
