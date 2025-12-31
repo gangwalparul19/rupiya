@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic';
 import { useState, useMemo } from 'react';
 import { useAppStore } from '@/lib/store';
 import { useToast } from '@/lib/toastContext';
-import ProtectedRoute from '@/components/ProtectedRoute';
+import PageWrapper from '@/components/PageWrapper';
 import ConfirmDialog from '@/components/ConfirmDialog';
 import FormModal from '@/components/FormModal';
 import SkeletonLoader from '@/components/SkeletonLoader';
@@ -218,7 +218,7 @@ export default function CalendarPage() {
   const monthName = currentMonth.toLocaleString('default', { month: 'long', year: 'numeric' });
 
   return (
-    <ProtectedRoute>
+    <PageWrapper>
       <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
       <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
         <div className="mb-6 md:mb-8">
@@ -525,7 +525,7 @@ export default function CalendarPage() {
                   {monthEvents.slice(0, 8).map((event) => {
                     const eventDate = event.date instanceof Date ? event.date : new Date(event.date);
                     return (
-    <ProtectedRoute>
+    <PageWrapper>
       <div key={event.id} className="bg-slate-700 rounded p-2 md:p-3 flex justify-between items-start gap-2">
                         <div className="flex-1 min-w-0">
                           <p className="font-semibold text-white text-xs md:text-sm truncate">{event.title}</p>
@@ -539,7 +539,7 @@ export default function CalendarPage() {
                           ✕
                         </button>
                       </div>
-    </ProtectedRoute>
+    </PageWrapper>
   );
                   })}
                 </div>
@@ -555,7 +555,7 @@ export default function CalendarPage() {
                   {monthBills.slice(0, 8).map((bill) => {
                     const billDate = bill.dueDate instanceof Date ? bill.dueDate : new Date(bill.dueDate);
                     return (
-    <ProtectedRoute>
+    <PageWrapper>
       <div key={bill.id} className="bg-slate-700 rounded p-2 md:p-3 flex justify-between items-start gap-2">
                         <div className="flex-1 min-w-0">
                           <p className="font-semibold text-white text-xs md:text-sm truncate">{bill.name}</p>
@@ -570,7 +570,7 @@ export default function CalendarPage() {
                           ✕
                         </button>
                       </div>
-    </ProtectedRoute>
+    </PageWrapper>
   );
                   })}
                 </div>
@@ -594,7 +594,8 @@ export default function CalendarPage() {
         onCancel={() => setConfirmDialog({ isOpen: false, type: 'event', id: '', title: '' })}
       />
     </div>
-    </ProtectedRoute>
+    </PageWrapper>
   );
 }
+
 

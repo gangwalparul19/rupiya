@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic';
 import { useState, useMemo } from 'react';
 import { useAppStore } from '@/lib/store';
 import { useToast } from '@/lib/toastContext';
-import ProtectedRoute from '@/components/ProtectedRoute';
+import PageWrapper from '@/components/PageWrapper';
 import EditGoalModal from '@/components/EditGoalModal';
 import GoalAnalytics from '@/components/GoalAnalytics';
 import ConfirmDialog from '@/components/ConfirmDialog';
@@ -227,7 +227,7 @@ export default function GoalsPage() {
   };
 
   return (
-    <ProtectedRoute>
+    <PageWrapper>
       <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
       <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
         {/* Header */}
@@ -359,7 +359,6 @@ export default function GoalsPage() {
                 : new Date(goal.targetDate).toLocaleDateString();
 
               return (
-    <ProtectedRoute>
       <div
                   key={goal.id}
                   className="card hover:border-slate-600"
@@ -428,8 +427,7 @@ export default function GoalsPage() {
                     </button>
                   </div>
                 </div>
-    </ProtectedRoute>
-  );
+              );
             })
           ) : (
             <div className="bg-gray-800 p-6 md:p-8 rounded-lg border border-gray-700 text-center text-gray-400">
@@ -627,7 +625,7 @@ export default function GoalsPage() {
         onCancel={() => setConfirmDialog({ isOpen: false, goalId: '', goalName: '' })}
       />
     </div>
-    </ProtectedRoute>
+    </PageWrapper>
   );
 }
 

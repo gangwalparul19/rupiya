@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useAppStore } from '@/lib/store';
 import Link from 'next/link';
-import ProtectedRoute from '@/components/ProtectedRoute';
+import PageWrapper from '@/components/PageWrapper';
 import RecentExpenses from '@/components/RecentExpenses';
 import {
   PieChart,
@@ -354,7 +354,7 @@ export default function Home() {
     : 0;
 
   return (
-    <ProtectedRoute>
+    <PageWrapper>
       <main className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
         <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
         {/* Welcome Section */}
@@ -744,6 +744,8 @@ export default function Home() {
         </div>
         </div>
       </main>
-    </ProtectedRoute>
+    </PageWrapper>
   );
 }
+
+

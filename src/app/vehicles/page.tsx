@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic';
 import { useState, useMemo } from 'react';
 import { useAppStore } from '@/lib/store';
 import { useToast } from '@/lib/toastContext';
-import ProtectedRoute from '@/components/ProtectedRoute';
+import PageWrapper from '@/components/PageWrapper';
 import EditVehicleModal from '@/components/EditVehicleModal';
 
 export default function VehiclesPage() {
@@ -289,7 +289,7 @@ export default function VehiclesPage() {
   };
 
   return (
-    <ProtectedRoute>
+    <PageWrapper>
       <div className="min-h-screen bg-gray-950 p-3 sm:p-4 md:p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
@@ -757,7 +757,8 @@ export default function VehiclesPage() {
           }}
         />
       )}
-    </ProtectedRoute>
+    </PageWrapper>
   );
 }
+
 

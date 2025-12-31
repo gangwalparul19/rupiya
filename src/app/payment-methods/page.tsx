@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic';
 import { useState } from 'react';
 import { useAppStore } from '@/lib/store';
 import { useToast } from '@/lib/toastContext';
-import ProtectedRoute from '@/components/ProtectedRoute';
+import PageWrapper from '@/components/PageWrapper';
 
 export default function PaymentMethodsPage() {
   const { cards, upiAccounts, bankAccounts, wallets, addCard, removeCard, addUPI, removeUPI, addBankAccount, removeBankAccount, addWallet, removeWallet } = useAppStore();
@@ -101,7 +101,7 @@ export default function PaymentMethodsPage() {
   };
 
   return (
-    <ProtectedRoute>
+    <PageWrapper>
       <main className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
         <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
           {/* Header */}
@@ -486,6 +486,8 @@ export default function PaymentMethodsPage() {
           )}
         </div>
       </main>
-    </ProtectedRoute>
+    </PageWrapper>
   );
 }
+
+

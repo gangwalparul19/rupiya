@@ -5,8 +5,8 @@ export const dynamic = 'force-dynamic';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAppStore } from '@/lib/store';
+import PageWrapper from '@/components/PageWrapper';
 import { logout } from '@/lib/authService';
-import ProtectedRoute from '@/components/ProtectedRoute';
 import LoadingState from '@/components/LoadingState';
 import { useToast } from '@/lib/toastContext';
 
@@ -39,7 +39,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <ProtectedRoute>
+    <PageWrapper>
       <main className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
         <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
           {/* Header */}
@@ -113,6 +113,8 @@ export default function ProfilePage() {
           </div>
         </div>
       </main>
-    </ProtectedRoute>
+    </PageWrapper>
   );
 }
+
+

@@ -5,6 +5,7 @@ export const dynamic = 'force-dynamic';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAppStore } from '@/lib/store';
+import PageWrapper from '@/components/PageWrapper';
 import { useToast } from '@/lib/toastContext';
 import AddExpenseModal from '@/components/AddExpenseModal';
 import EditExpenseModal from '@/components/EditExpenseModal';
@@ -289,7 +290,8 @@ ${sortedExpenses
   const totalExpenses = expenses.reduce((sum, e) => sum + e.amount, 0);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
+    <PageWrapper>
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
       <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-3">
@@ -541,5 +543,7 @@ ${sortedExpenses
         onCancel={() => setConfirmDialog({ isOpen: false, expenseId: '', expenseDescription: '' })}
       />
     </div>
+    </PageWrapper>
   );
 }
+

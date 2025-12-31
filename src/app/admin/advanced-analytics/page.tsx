@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import ProtectedRoute from '@/components/ProtectedRoute';
+import PageWrapper from '@/components/PageWrapper';
 import {
   getAllCohorts,
   getAllSegments,
@@ -74,18 +74,18 @@ export default function AdvancedAnalyticsPage() {
 
   if (isLoading) {
     return (
-      <ProtectedRoute>
+      <PageWrapper>
         <main className="min-h-screen bg-slate-900 p-4 md:p-8">
           <div className="flex items-center justify-center py-12">
             <div className="text-slate-400">Loading advanced analytics...</div>
           </div>
         </main>
-      </ProtectedRoute>
+      </PageWrapper>
     );
   }
 
   return (
-    <ProtectedRoute>
+    <PageWrapper>
       <main className="min-h-screen bg-slate-900 p-4 md:p-8">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
@@ -285,6 +285,8 @@ export default function AdvancedAnalyticsPage() {
           </div>
         </div>
       </main>
-    </ProtectedRoute>
+    </PageWrapper>
   );
 }
+
+

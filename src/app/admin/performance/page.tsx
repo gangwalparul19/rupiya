@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import ProtectedRoute from '@/components/ProtectedRoute';
+import PageWrapper from '@/components/PageWrapper';
 import {
   getPerformanceSummary,
   clearMetrics,
@@ -90,31 +90,31 @@ export default function PerformancePage() {
 
   if (isLoading) {
     return (
-      <ProtectedRoute>
+      <PageWrapper>
         <main className="min-h-screen bg-slate-900 p-4 md:p-8">
           <div className="flex items-center justify-center py-12">
             <div className="text-slate-400">Loading performance data...</div>
           </div>
         </main>
-      </ProtectedRoute>
+      </PageWrapper>
     );
   }
 
   if (!summary) {
     return (
-      <ProtectedRoute>
+      <PageWrapper>
         <main className="min-h-screen bg-slate-900 p-4 md:p-8">
           <div className="max-w-6xl mx-auto">
             <h1 className="text-3xl font-bold text-white mb-2">Performance Monitoring</h1>
             <p className="text-slate-400 mb-8">No performance data available yet</p>
           </div>
         </main>
-      </ProtectedRoute>
+      </PageWrapper>
     );
   }
 
   return (
-    <ProtectedRoute>
+    <PageWrapper>
       <main className="min-h-screen bg-slate-900 p-4 md:p-8">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
@@ -320,6 +320,8 @@ export default function PerformancePage() {
           </div>
         </div>
       </main>
-    </ProtectedRoute>
+    </PageWrapper>
   );
 }
+
+

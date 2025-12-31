@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -12,11 +12,22 @@ export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [expandedMenu, setExpandedMenu] = useState<string | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const user = useAppStore((state) => state.user);
   const userProfile = useAppStore((state) => state.userProfile);
   const isAuthenticated = useAppStore((state) => state.isAuthenticated);
+  const isLoading = useAppStore((state) => state.isLoading);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Don't render navigation if not authenticated or still loading
+  if (!isMounted || isLoading || !isAuthenticated) {
+    return null;
+  }
 
   const navItems = [
     {
@@ -145,54 +156,44 @@ export default function Navigation() {
 
           {/* Right Side - Profile & Hamburger */}
           <div className="flex items-center gap-2 sm:gap-3">
-            {isAuthenticated && user && (
-              <div className="relative hidden sm:block">
-                <button
-                  onClick={() => setIsProfileOpen(!isProfileOpen)}
-                  className="flex items-center gap-2 px-2 sm:px-3 py-2 rounded-md text-slate-300 hover:text-white hover:bg-slate-700 transition text-xs sm:text-sm"
-                >
-                  <span>👤</span>
-                  <span className="hidden md:inline text-xs">{userProfile?.displayName || user.email?.split('@')[0]}</span>
-                </button>
+            <div className="relative hidden sm:block">
+              <button
+                onClick={() => setIsProfileOpen(!isProfileOpen)}
+                className="flex items-center gap-2 px-2 sm:px-3 py-2 rounded-md text-slate-300 hover:text-white hover:bg-slate-700 transition text-xs sm:text-sm"
+              >
+                <span>👤</span>
+                <span className="hidden md:inline text-xs">{userProfile?.displayName || user?.email?.split('@')[0]}</span>
+              </button>
 
-                {/* Profile Dropdown */}
-                {isProfileOpen && (
-                  <div className="absolute right-0 mt-2 w-40 bg-slate-700 rounded-md shadow-lg z-50">
-                    <Link
-                      href="/profile"
-                      onClick={() => setIsProfileOpen(false)}
-                      className="block px-3 py-2 text-white hover:bg-slate-600 rounded-t-md border-b border-slate-600 text-xs"
-                    >
-                      👤 Profile
-                    </Link>
-                    <Link
-                      href="/payment-methods"
-                      onClick={() => setIsProfileOpen(false)}
-                      className="block px-3 py-2 text-white hover:bg-slate-600 border-b border-slate-600 text-xs"
-                    >
-                      💳 Payment
-                    </Link>
-                    <button
-                      onClick={() => {
-                        handleLogout();
-                        setIsProfileOpen(false);
-                      }}
-                      className="w-full text-left px-3 py-2 text-red-400 hover:bg-slate-600 rounded-b-md text-xs"
-                    >
-                      🚪 Logout
-                    </button>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {!isAuthenticated && (
-              <Link href="/auth/login">
-                <button className="bg-blue-600 hover:bg-blue-700 text-white px-2 sm:px-3 py-1.5 sm:py-2 rounded-md transition text-xs sm:text-sm font-medium">
-                  Sign In
-                </button>
-              </Link>
-            )}
+              {/* Profile Dropdown */}
+              {isProfileOpen && (
+                <div className="absolute right-0 mt-2 w-40 bg-slate-700 rounded-md shadow-lg z-50">
+                  <Link
+                    href="/profile"
+                    onClick={() => setIsProfileOpen(false)}
+                    className="block px-3 py-2 text-white hover:bg-slate-600 rounded-t-md border-b border-slate-600 text-xs"
+                  >
+                    👤 Profile
+                  </Link>
+                  <Link
+                    href="/payment-methods"
+                    onClick={() => setIsProfileOpen(false)}
+                    className="block px-3 py-2 text-white hover:bg-slate-600 border-b border-slate-600 text-xs"
+                  >
+                    💳 Payment
+                  </Link>
+                  <button
+                    onClick={() => {
+                      handleLogout();
+                      setIsProfileOpen(false);
+                    }}
+                    className="w-full text-left px-3 py-2 text-red-400 hover:bg-slate-600 rounded-b-md text-xs"
+                  >
+                    🚪 Logout
+                  </button>
+                </div>
+              )}
+            </div>
 
             {/* Hamburger Menu Button */}
             <button

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import ProtectedRoute from '@/components/ProtectedRoute';
+import PageWrapper from '@/components/PageWrapper';
 
 interface AnalyticsData {
   totalUsers: number;
@@ -58,31 +58,31 @@ export default function AnalyticsPage() {
 
   if (isLoading) {
     return (
-      <ProtectedRoute>
+      <PageWrapper>
         <main className="min-h-screen bg-gray-950 p-3 sm:p-4 md:p-6 lg:p-8">
           <div className="flex items-center justify-center py-12">
             <div className="text-gray-400">Loading analytics data...</div>
           </div>
         </main>
-      </ProtectedRoute>
+      </PageWrapper>
     );
   }
 
   if (!analyticsData) {
     return (
-      <ProtectedRoute>
+      <PageWrapper>
         <main className="min-h-screen bg-gray-950 p-3 sm:p-4 md:p-6 lg:p-8">
           <div className="max-w-6xl mx-auto">
             <h1 className="heading-page">📊 Analytics Dashboard</h1>
             <p className="text-secondary mb-8">No analytics data available yet</p>
           </div>
         </main>
-      </ProtectedRoute>
+      </PageWrapper>
     );
   }
 
   return (
-    <ProtectedRoute>
+    <PageWrapper>
       <main className="min-h-screen bg-gray-950 p-3 sm:p-4 md:p-6 lg:p-8">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
@@ -212,6 +212,8 @@ export default function AnalyticsPage() {
           </div>
         </div>
       </main>
-    </ProtectedRoute>
+    </PageWrapper>
   );
 }
+
+

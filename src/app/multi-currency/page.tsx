@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic';
 import { useState, useMemo } from 'react';
 import { useAppStore } from '@/lib/store';
 import { useToast } from '@/lib/toastContext';
-import ProtectedRoute from '@/components/ProtectedRoute';
+import PageWrapper from '@/components/PageWrapper';
 
 const SUPPORTED_CURRENCIES = [
   { code: 'INR', symbol: '₹', name: 'Indian Rupee' },
@@ -90,7 +90,7 @@ export default function MultiCurrencyPage() {
   const displayCurrencyObj = SUPPORTED_CURRENCIES.find((c) => c.code === formData.displayCurrency);
 
   return (
-    <ProtectedRoute>
+    <PageWrapper>
       <div className="min-h-screen bg-gray-950 p-3 sm:p-4 md:p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
         <div className="mb-6 md:mb-8">
@@ -303,7 +303,9 @@ export default function MultiCurrencyPage() {
         </div>
       </div>
     </div>
-    </ProtectedRoute>
+    </PageWrapper>
   );
 }
+
+
 
