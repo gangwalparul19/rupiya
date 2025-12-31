@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import { useAppStore } from '@/lib/store';
 import { useToast } from '@/lib/toastContext';
+import ProtectedRoute from '@/components/ProtectedRoute';
 import { storageService } from '@/lib/storageService';
 import { auth } from '@/lib/firebase';
 
@@ -110,7 +111,8 @@ export default function DocumentsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
+    <ProtectedRoute>
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
       <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
         <div className="mb-6 md:mb-8">
           <h1 className="heading-page">🗂️ Document Vault</h1>
@@ -275,7 +277,8 @@ export default function DocumentsPage() {
                 : new Date(doc.uploadedAt).toLocaleDateString();
 
               return (
-                <div key={doc.id} className="card">
+    <ProtectedRoute>
+      <div key={doc.id} className="card">
                   <div className="mb-4">
                     <h3 className="text-base md:text-lg font-bold text-white truncate">{doc.name}</h3>
                     <p className="text-xs text-slate-400 mt-1">{doc.type}</p>
@@ -309,7 +312,8 @@ export default function DocumentsPage() {
                     </button>
                   </div>
                 </div>
-              );
+    </ProtectedRoute>
+  );
             })}
           </div>
         ) : (
@@ -330,5 +334,7 @@ export default function DocumentsPage() {
         )}
       </div>
     </div>
+    </ProtectedRoute>
   );
 }
+

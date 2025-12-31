@@ -21,8 +21,281 @@ import {
   Line,
 } from 'recharts';
 
+function LandingPage() {
+  return (
+    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      {/* Navigation */}
+      <nav className="border-b border-slate-700 bg-slate-900/50 backdrop-blur">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+          <div className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
+            💰 Rupiya
+          </div>
+          <div className="flex gap-3">
+            <Link href="/auth/login">
+              <button className="px-4 py-2 text-slate-300 hover:text-white transition">
+                Login
+              </button>
+            </Link>
+            <Link href="/auth/signup">
+              <button className="px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white rounded-lg transition font-semibold">
+                Sign Up
+              </button>
+            </Link>
+          </div>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
+            Take Control of Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Financial Life</span>
+          </h1>
+          <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
+            Rupiya is your all-in-one personal finance management platform. Track expenses, manage budgets, invest wisely, and achieve your financial goals.
+          </p>
+          <div className="flex gap-4 justify-center flex-wrap">
+            <Link href="/auth/signup">
+              <button className="px-8 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white rounded-lg transition font-semibold text-lg">
+                Get Started Free
+              </button>
+            </Link>
+            <Link href="/auth/login">
+              <button className="px-8 py-3 border border-slate-600 hover:border-slate-400 text-white rounded-lg transition font-semibold text-lg">
+                Sign In
+              </button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">
+          Why Choose Rupiya?
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Feature 1 */}
+          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 hover:border-blue-500 transition">
+            <div className="text-4xl mb-4">📊</div>
+            <h3 className="text-xl font-bold text-white mb-2">Smart Expense Tracking</h3>
+            <p className="text-slate-300">
+              Track every rupee you spend with detailed categorization, payment methods, and receipt scanning with OCR technology.
+            </p>
+          </div>
+
+          {/* Feature 2 */}
+          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 hover:border-blue-500 transition">
+            <div className="text-4xl mb-4">💳</div>
+            <h3 className="text-xl font-bold text-white mb-2">Budget Management</h3>
+            <p className="text-slate-300">
+              Set monthly budgets by category, get real-time alerts when you're approaching limits, and stay in control of your spending.
+            </p>
+          </div>
+
+          {/* Feature 3 */}
+          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 hover:border-blue-500 transition">
+            <div className="text-4xl mb-4">📈</div>
+            <h3 className="text-xl font-bold text-white mb-2">Investment Tracking</h3>
+            <p className="text-slate-300">
+              Monitor your stocks, mutual funds, crypto, real estate, and other investments in one place with performance analytics.
+            </p>
+          </div>
+
+          {/* Feature 4 */}
+          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 hover:border-blue-500 transition">
+            <div className="text-4xl mb-4">🎯</div>
+            <h3 className="text-xl font-bold text-white mb-2">Goal Planning</h3>
+            <p className="text-slate-300">
+              Set financial goals (emergency fund, vacation, home, education) and track your progress towards achieving them.
+            </p>
+          </div>
+
+          {/* Feature 5 */}
+          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 hover:border-blue-500 transition">
+            <div className="text-4xl mb-4">💱</div>
+            <h3 className="text-xl font-bold text-white mb-2">Multi-Currency Support</h3>
+            <p className="text-slate-300">
+              Manage finances in multiple currencies with real-time exchange rates and automatic conversion capabilities.
+            </p>
+          </div>
+
+          {/* Feature 6 */}
+          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 hover:border-blue-500 transition">
+            <div className="text-4xl mb-4">👥</div>
+            <h3 className="text-xl font-bold text-white mb-2">Expense Splitting</h3>
+            <p className="text-slate-300">
+              Split expenses with friends and family, track who owes whom, and settle up easily with built-in settlement tracking.
+            </p>
+          </div>
+
+          {/* Feature 7 */}
+          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 hover:border-blue-500 transition">
+            <div className="text-4xl mb-4">📱</div>
+            <h3 className="text-xl font-bold text-white mb-2">Receipt Scanning</h3>
+            <p className="text-slate-300">
+              Scan receipts with your camera, extract expense details automatically, and organize all your bills in one place.
+            </p>
+          </div>
+
+          {/* Feature 8 */}
+          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 hover:border-blue-500 transition">
+            <div className="text-4xl mb-4">📅</div>
+            <h3 className="text-xl font-bold text-white mb-2">Calendar & Reminders</h3>
+            <p className="text-slate-300">
+              Get reminders for bill payments, recurring transactions, and goal milestones so you never miss important dates.
+            </p>
+          </div>
+
+          {/* Feature 9 */}
+          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 hover:border-blue-500 transition">
+            <div className="text-4xl mb-4">📊</div>
+            <h3 className="text-xl font-bold text-white mb-2">Advanced Analytics</h3>
+            <p className="text-slate-300">
+              Get AI-powered insights, spending trends, savings recommendations, and detailed financial reports to make better decisions.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">
+          How to Use Rupiya
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Step 1 */}
+          <div className="text-center">
+            <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-2xl font-bold text-white">1</span>
+            </div>
+            <h3 className="text-lg font-bold text-white mb-2">Create Account</h3>
+            <p className="text-slate-300">
+              Sign up with your email and create a secure account in seconds.
+            </p>
+          </div>
+
+          {/* Step 2 */}
+          <div className="text-center">
+            <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-2xl font-bold text-white">2</span>
+            </div>
+            <h3 className="text-lg font-bold text-white mb-2">Add Transactions</h3>
+            <p className="text-slate-300">
+              Log your income and expenses, or scan receipts for automatic entry.
+            </p>
+          </div>
+
+          {/* Step 3 */}
+          <div className="text-center">
+            <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-2xl font-bold text-white">3</span>
+            </div>
+            <h3 className="text-lg font-bold text-white mb-2">Set Goals</h3>
+            <p className="text-slate-300">
+              Define budgets, financial goals, and investment targets.
+            </p>
+          </div>
+
+          {/* Step 4 */}
+          <div className="text-center">
+            <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span className="text-2xl font-bold text-white">4</span>
+            </div>
+            <h3 className="text-lg font-bold text-white mb-2">Get Insights</h3>
+            <p className="text-slate-300">
+              View analytics, reports, and AI recommendations to improve finances.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Key Benefits Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">
+          Key Benefits
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="flex gap-4">
+            <div className="text-3xl flex-shrink-0">✅</div>
+            <div>
+              <h3 className="text-lg font-bold text-white mb-2">Complete Financial Overview</h3>
+              <p className="text-slate-300">See all your income, expenses, investments, and goals in one unified dashboard.</p>
+            </div>
+          </div>
+
+          <div className="flex gap-4">
+            <div className="text-3xl flex-shrink-0">✅</div>
+            <div>
+              <h3 className="text-lg font-bold text-white mb-2">Smart Budget Alerts</h3>
+              <p className="text-slate-300">Get notified when you're approaching budget limits so you can adjust spending.</p>
+            </div>
+          </div>
+
+          <div className="flex gap-4">
+            <div className="text-3xl flex-shrink-0">✅</div>
+            <div>
+              <h3 className="text-lg font-bold text-white mb-2">Investment Performance Tracking</h3>
+              <p className="text-slate-300">Monitor gains/losses across all your investments with detailed analytics.</p>
+            </div>
+          </div>
+
+          <div className="flex gap-4">
+            <div className="text-3xl flex-shrink-0">✅</div>
+            <div>
+              <h3 className="text-lg font-bold text-white mb-2">Goal Achievement Tracking</h3>
+              <p className="text-slate-300">Stay motivated by tracking progress towards your financial goals.</p>
+            </div>
+          </div>
+
+          <div className="flex gap-4">
+            <div className="text-3xl flex-shrink-0">✅</div>
+            <div>
+              <h3 className="text-lg font-bold text-white mb-2">Secure & Private</h3>
+              <p className="text-slate-300">Your financial data is encrypted and stored securely with enterprise-grade security.</p>
+            </div>
+          </div>
+
+          <div className="flex gap-4">
+            <div className="text-3xl flex-shrink-0">✅</div>
+            <div>
+              <h3 className="text-lg font-bold text-white mb-2">AI-Powered Insights</h3>
+              <p className="text-slate-300">Get personalized recommendations to optimize your spending and savings.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 text-center">
+        <div className="bg-gradient-to-r from-blue-600/20 to-cyan-600/20 border border-blue-500/30 rounded-lg p-8 md:p-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            Ready to Master Your Finances?
+          </h2>
+          <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">
+            Join thousands of users who are taking control of their financial future with Rupiya.
+          </p>
+          <Link href="/auth/signup">
+            <button className="px-8 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white rounded-lg transition font-semibold text-lg">
+              Start Your Free Account Today
+            </button>
+          </Link>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t border-slate-700 bg-slate-900/50 mt-12 md:mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-slate-400">
+          <p>&copy; 2025 Rupiya. All rights reserved. Your personal finance companion.</p>
+        </div>
+      </footer>
+    </main>
+  );
+}
+
 export default function Home() {
   const [mounted, setMounted] = useState(false);
+  const isAuthenticated = useAppStore((state) => state.isAuthenticated);
   const expenses = useAppStore((state) => state.expenses);
   const income = useAppStore((state) => state.income);
   const investments = useAppStore((state) => state.investments);
@@ -34,6 +307,11 @@ export default function Home() {
   }, []);
 
   if (!mounted) return null;
+
+  // Show landing page if not authenticated
+  if (!isAuthenticated) {
+    return <LandingPage />;
+  }
 
   // Calculate metrics
   const totalExpenses = expenses.reduce((sum, e) => sum + e.amount, 0);

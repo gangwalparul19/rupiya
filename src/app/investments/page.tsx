@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import { useAppStore } from '@/lib/store';
 import { useToast } from '@/lib/toastContext';
+import ProtectedRoute from '@/components/ProtectedRoute';
 import EditInvestmentModal from '@/components/EditInvestmentModal';
 import InvestmentAnalytics from '@/components/InvestmentAnalytics';
 
@@ -202,7 +203,8 @@ export default function InvestmentsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
+    <ProtectedRoute>
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
       <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-3">
           <div>
@@ -302,7 +304,8 @@ export default function InvestmentsPage() {
                 : new Date(investment.purchaseDate).toLocaleDateString();
 
               return (
-                <div
+    <ProtectedRoute>
+      <div
                   key={investment.id}
                   className="card hover:border-slate-600"
                 >
@@ -349,7 +352,8 @@ export default function InvestmentsPage() {
                     </button>
                   </div>
                 </div>
-              );
+    </ProtectedRoute>
+  );
             })
           ) : (
             <div className="card text-center text-slate-400">
@@ -536,5 +540,7 @@ export default function InvestmentsPage() {
         )}
       </div>
     </div>
+    </ProtectedRoute>
   );
 }
+

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAppStore } from '@/lib/store';
 import { useToast } from '@/lib/toastContext';
+import ProtectedRoute from '@/components/ProtectedRoute';
 import type { Receipt } from '@/lib/store';
 
 export default function ReceiptsPage() {
@@ -110,7 +111,8 @@ export default function ReceiptsPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-950 p-3 sm:p-4 md:p-6 lg:p-8">
+    <ProtectedRoute>
+      <main className="min-h-screen bg-gray-950 p-3 sm:p-4 md:p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-3 sm:gap-4">
           <h1 className="heading-page">📸 Receipt Scanning</h1>
@@ -240,6 +242,7 @@ export default function ReceiptsPage() {
         />
       )}
     </main>
+    </ProtectedRoute>
   );
 }
 
@@ -369,3 +372,4 @@ function ReceiptDetailModal({
     </div>
   );
 }
+

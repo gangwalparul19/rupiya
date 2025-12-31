@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import { useAppStore } from '@/lib/store';
 import { useToast } from '@/lib/toastContext';
+import ProtectedRoute from '@/components/ProtectedRoute';
 import EditVehicleModal from '@/components/EditVehicleModal';
 
 export default function VehiclesPage() {
@@ -286,7 +287,8 @@ export default function VehiclesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 p-3 sm:p-4 md:p-6 lg:p-8">
+    <ProtectedRoute>
+      <div className="min-h-screen bg-gray-950 p-3 sm:p-4 md:p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-6 md:mb-8">
@@ -511,6 +513,7 @@ export default function VehiclesPage() {
           </div>
         )}
       </div>
+    </div>
 
       {/* Modals */}
       {showFuelModal && selectedVehicleForFuel && (
@@ -752,6 +755,7 @@ export default function VehiclesPage() {
           }}
         />
       )}
-    </div>
+    </ProtectedRoute>
   );
 }
+

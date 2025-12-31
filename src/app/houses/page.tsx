@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import { useAppStore } from '@/lib/store';
 import { useToast } from '@/lib/toastContext';
+import ProtectedRoute from '@/components/ProtectedRoute';
 import EditHouseModal from '@/components/EditHouseModal';
 
 export default function HousesPage() {
@@ -232,7 +233,8 @@ export default function HousesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 p-3 sm:p-4 md:p-6 lg:p-8">
+    <ProtectedRoute>
+      <div className="min-h-screen bg-gray-950 p-3 sm:p-4 md:p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-6 md:mb-8">
@@ -455,6 +457,7 @@ export default function HousesPage() {
           </div>
         )}
       </div>
+    </div>
 
       {/* Modals */}
       {showExpenseModal && selectedHouseForExpense && (
@@ -664,6 +667,7 @@ export default function HousesPage() {
           }}
         />
       )}
-    </div>
+    </ProtectedRoute>
   );
 }
+

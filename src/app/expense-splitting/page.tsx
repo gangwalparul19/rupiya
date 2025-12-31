@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import { useAppStore } from '@/lib/store';
 import { useToast } from '@/lib/toastContext';
+import ProtectedRoute from '@/components/ProtectedRoute';
 
 export default function ExpenseSplittingPage() {
   const { splitExpenses, addSplitExpense, removeSplitExpense, updateSplitExpense, addSettlement } = useAppStore();
@@ -145,7 +146,8 @@ export default function ExpenseSplittingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 p-3 sm:p-4 md:p-6 lg:p-8">
+    <ProtectedRoute>
+      <div className="min-h-screen bg-gray-950 p-3 sm:p-4 md:p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
         <div className="mb-6 md:mb-8">
           <h1 className="heading-page">💸 Expense Splitting</h1>
@@ -377,5 +379,7 @@ export default function ExpenseSplittingPage() {
         )}
       </div>
     </div>
+    </ProtectedRoute>
   );
 }
+

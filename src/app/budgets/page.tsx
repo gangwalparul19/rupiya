@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react';
 import { useAppStore } from '@/lib/store';
 import { useToast } from '@/lib/toastContext';
+import ProtectedRoute from '@/components/ProtectedRoute';
 import EditBudgetModal from '@/components/EditBudgetModal';
 import BudgetAnalytics from '@/components/BudgetAnalytics';
 import ConfirmDialog from '@/components/ConfirmDialog';
@@ -278,7 +279,8 @@ export default function BudgetsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
+    <ProtectedRoute>
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
       <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
         {/* Header */}
         <div className="mb-6 md:mb-8">
@@ -608,6 +610,7 @@ export default function BudgetsPage() {
         onConfirm={handleConfirmDelete}
         onCancel={() => setConfirmDialog({ isOpen: false, budgetId: '', budgetMonth: '' })}
       />
-    </div>
+      </div>
+    </ProtectedRoute>
   );
 }

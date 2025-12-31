@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAppStore } from '@/lib/store';
 import { useToast } from '@/lib/toastContext';
+import ProtectedRoute from '@/components/ProtectedRoute';
 import { splitExpenseService, settlementService } from '@/lib/firebaseService';
 import type { SplitExpense } from '@/lib/store';
 
@@ -113,7 +114,8 @@ export default function SplittingPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
+    <ProtectedRoute>
+      <main className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
           <h1 className="text-2xl md:text-2xl font-bold text-white">💸 Expense Splitting</h1>
@@ -296,6 +298,7 @@ export default function SplittingPage() {
         />
       )}
     </main>
+    </ProtectedRoute>
   );
 }
 
