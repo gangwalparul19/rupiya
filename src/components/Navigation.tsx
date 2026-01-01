@@ -119,28 +119,27 @@ export default function Navigation() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-2 lg:gap-3">
             {navItems.map((item) => {
               if ('submenu' in item && item.submenu) {
                 return (
                   <div key={item.label} className="group relative">
-                    <button className="flex items-center gap-1 px-3 py-2 rounded-md text-slate-300 hover:text-white hover:bg-slate-700 transition font-medium text-sm">
+                    <button className="flex items-center gap-2 px-3 lg:px-4 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-gradient-to-br hover:from-slate-700 hover:to-slate-600 transition-all duration-200 font-medium text-sm shadow-sm hover:shadow-md" aria-label={`Toggle ${item.label} menu`}>
                       <span className="text-base">{item.icon}</span>
                       <span className="hidden lg:inline text-sm">{item.label}</span>
                       <span className="text-xs ml-1">▼</span>
                     </button>
                     {/* Dropdown Menu */}
-                    <div className="absolute left-0 mt-0 w-44 bg-slate-700 rounded-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 border border-slate-600">
+                    <div className="absolute left-0 mt-2 w-48 bg-gradient-to-br from-slate-700 to-slate-800 rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border border-slate-500 backdrop-blur-sm">
                       <div className="py-1">
                         {item.submenu.map((subitem: any, idx) => (
                           <Link
                             key={subitem.href}
                             href={subitem.href}
-                            className={`flex items-center gap-2 px-3 py-2 text-xs transition ${
-                              isActive(subitem.href)
-                                ? 'bg-blue-600 text-white'
-                                : 'text-slate-300 hover:text-white hover:bg-slate-600'
-                            } ${idx === 0 ? 'rounded-t-md' : ''} ${idx === item.submenu.length - 1 ? 'rounded-b-md' : ''}`}
+                            className={`flex items-center gap-3 px-4 py-2.5 text-sm transition-all duration-200 ${isActive(subitem.href)
+                              ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-md'
+                              : 'text-slate-300 hover:text-white hover:bg-slate-600'
+                              } ${idx === 0 ? 'rounded-t-lg' : ''} ${idx === item.submenu.length - 1 ? 'rounded-b-lg' : ''}`}
                           >
                             <span className="text-sm">{subitem.icon}</span>
                             <span className="flex-1">{subitem.label}</span>
@@ -261,11 +260,10 @@ export default function Navigation() {
                                 setIsOpen(false);
                                 setExpandedMenu(null);
                               }}
-                              className={`flex items-center gap-2 px-4 py-2 text-xs transition ${
-                                isActive(subitem.href)
-                                  ? 'bg-blue-600 text-white'
-                                  : 'text-slate-300 hover:text-white hover:bg-slate-500'
-                              }`}
+                              className={`flex items-center gap-2 px-4 py-2 text-xs transition ${isActive(subitem.href)
+                                ? 'bg-blue-600 text-white'
+                                : 'text-slate-300 hover:text-white hover:bg-slate-500'
+                                }`}
                             >
                               <span className="text-base">{subitem.icon}</span>
                               <span>{subitem.label}</span>
@@ -278,6 +276,36 @@ export default function Navigation() {
                 }
                 return null;
               })}
+
+              {/* Mobile Profile & Logout Section */}
+              <div className="border-t border-slate-600 pt-3 mt-3 space-y-1">
+                <Link
+                  href="/profile"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center gap-2 px-3 py-2 rounded-md text-slate-300 hover:text-white hover:bg-slate-600 transition font-medium text-sm"
+                >
+                  <span className="text-lg">👤</span>
+                  <span>Profile</span>
+                </Link>
+                <Link
+                  href="/payment-methods"
+                  onClick={() => setIsOpen(false)}
+                  className="flex items-center gap-2 px-3 py-2 rounded-md text-slate-300 hover:text-white hover:bg-slate-600 transition font-medium text-sm"
+                >
+                  <span className="text-lg">💳</span>
+                  <span>Payment Methods</span>
+                </Link>
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setIsOpen(false);
+                  }}
+                  className="w-full flex items-center gap-2 px-3 py-2 rounded-md text-red-400 hover:text-white hover:bg-red-600/20 transition font-medium text-sm"
+                >
+                  <span className="text-lg">🚪</span>
+                  <span>Logout</span>
+                </button>
+              </div>
             </div>
           </nav>
         )}
