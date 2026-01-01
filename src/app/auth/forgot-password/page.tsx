@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { sendPasswordResetEmail } from 'firebase/auth';
-import { auth } from '@/lib/firebase';
+import { getFirebaseAuth } from '@/lib/firebase';
 
 const validateEmail = (email: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -33,6 +33,9 @@ export default function ForgotPasswordPage() {
     setIsLoading(true);
 
     try {
+      const auth = getFirebaseAuth();
+      if (!auth) throw new Error('Firebase not initialized');
+      
       await sendPasswordResetEmail(auth, email);
       setSuccess(true);
       setEmail('');

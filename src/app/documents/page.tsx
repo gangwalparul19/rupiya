@@ -7,7 +7,7 @@ import { useAppStore } from '@/lib/store';
 import { useToast } from '@/lib/toastContext';
 import PageWrapper from '@/components/PageWrapper';
 import { storageService } from '@/lib/storageService';
-import { auth } from '@/lib/firebase';
+import { getFirebaseAuth } from '@/lib/firebase';
 
 export default function DocumentsPage() {
   const { documents, addDocument, removeDocument } = useAppStore();
@@ -69,7 +69,8 @@ export default function DocumentsPage() {
       }
 
       // Check if user is authenticated
-      if (!auth.currentUser) {
+      const auth = getFirebaseAuth();
+      if (!auth || !auth.currentUser) {
         error('You must be logged in to upload documents');
         setIsLoading(false);
         return;
