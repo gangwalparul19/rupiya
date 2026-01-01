@@ -12,198 +12,271 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.7;
+            color: #e2e8f0;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            min-height: 100vh;
         }
         
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
-            background: white;
-            padding: 40px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 20px;
         }
         
         .header {
             text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+            border-radius: 20px;
             margin-bottom: 40px;
-            border-bottom: 3px solid #2563eb;
-            padding-bottom: 20px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        
+        .logo {
+            font-size: 3em;
+            margin-bottom: 10px;
         }
         
         .header h1 {
             font-size: 3em;
-            color: #2563eb;
-            margin-bottom: 10px;
+            background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            font-weight: 800;
         }
         
         .header p {
             font-size: 1.2em;
-            color: #666;
+            color: #94a3b8;
+        }
+        
+        .nav {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(71, 85, 105, 0.3);
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+        }
+        
+        .nav h3 {
+            color: #3b82f6;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        
+        .nav ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        
+        .nav a {
+            color: #cbd5e1;
+            text-decoration: none;
+            padding: 8px 12px;
+            display: block;
+            border-radius: 8px;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+        
+        .nav a:hover {
+            background: rgba(59, 130, 246, 0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+            color: #3b82f6;
+            transform: translateX(5px);
+        }
+        
+        .section {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(71, 85, 105, 0.3);
+            transition: all 0.3s;
+        }
+        
+        .section:hover {
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 10px 40px rgba(59, 130, 246, 0.1);
         }
         
         h2 {
-            color: #2563eb;
-            margin-top: 40px;
-            margin-bottom: 20px;
-            border-left: 4px solid #2563eb;
-            padding-left: 15px;
+            color: #3b82f6;
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+            font-weight: 700;
         }
         
         h3 {
-            color: #1e40af;
-            margin-top: 25px;
+            color: #06b6d4;
+            font-size: 1.6em;
+            margin-top: 30px;
             margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        h4 {
+            color: #60a5fa;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 10px;
         }
         
         p {
             margin-bottom: 15px;
-            text-align: justify;
+            color: #cbd5e1;
+            line-height: 1.8;
         }
         
         ul, ol {
-            margin-left: 30px;
-            margin-bottom: 15px;
+            margin-left: 25px;
+            margin-bottom: 20px;
         }
         
         li {
-            margin-bottom: 10px;
-        }
-        
-        .section {
-            margin-bottom: 30px;
-            padding: 20px;
-            background: #f9fafb;
-            border-radius: 8px;
-            border-left: 4px solid #06b6d4;
+            margin-bottom: 12px;
+            color: #cbd5e1;
         }
         
         .feature-box {
-            background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border: 1px solid rgba(59, 130, 246, 0.3);
         }
         
         .feature-box h4 {
-            margin-bottom: 10px;
-            font-size: 1.1em;
+            color: #3b82f6;
+            margin-bottom: 15px;
+            font-size: 1.3em;
         }
         
         .step {
-            background: white;
-            border: 2px solid #e5e7eb;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 6px;
-            border-left: 4px solid #2563eb;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(71, 85, 105, 0.3);
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 12px;
+            border-left: 4px solid #3b82f6;
+            transition: all 0.3s;
         }
         
-        .step strong {
-            color: #2563eb;
+        .step:hover {
+            border-left-color: #06b6d4;
+            background: rgba(15, 23, 42, 0.7);
         }
         
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        
-        th {
-            background: #2563eb;
+        .step-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
             color: white;
-            padding: 12px;
-            text-align: left;
-        }
-        
-        td {
-            border: 1px solid #e5e7eb;
-            padding: 12px;
-        }
-        
-        tr:nth-child(even) {
-            background: #f9fafb;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            font-weight: bold;
+            margin-right: 15px;
         }
         
         .tip {
-            background: #fef3c7;
-            border-left: 4px solid #f59e0b;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 4px;
+            background: rgba(251, 191, 36, 0.1);
+            border-left: 4px solid #fbbf24;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        
+        .tip strong {
+            color: #fbbf24;
         }
         
         .warning {
-            background: #fee2e2;
+            background: rgba(239, 68, 68, 0.1);
             border-left: 4px solid #ef4444;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 4px;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        
+        .warning strong {
+            color: #ef4444;
         }
         
         .success {
-            background: #dcfce7;
+            background: rgba(34, 197, 94, 0.1);
             border-left: 4px solid #22c55e;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 4px;
-        }
-        
-        .toc {
-            background: #f0f9ff;
-            border: 2px solid #2563eb;
             padding: 20px;
-            border-radius: 8px;
             margin: 20px 0;
+            border-radius: 10px;
         }
         
-        .toc h3 {
-            margin-top: 0;
+        .success strong {
+            color: #22c55e;
         }
         
-        .toc ol {
-            margin-left: 20px;
-        }
-        
-        .toc li {
-            margin-bottom: 8px;
+        code {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 3px 8px;
+            border-radius: 5px;
+            color: #06b6d4;
+            font-family: 'Courier New', monospace;
+            border: 1px solid rgba(71, 85, 105, 0.3);
         }
         
         .footer {
             text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 2px solid #e5e7eb;
-            color: #666;
-            font-size: 0.9em;
+            padding: 40px 20px;
+            color: #64748b;
+            margin-top: 60px;
+            border-top: 1px solid rgba(71, 85, 105, 0.3);
         }
         
-        .download-btn {
-            display: inline-block;
-            background: #2563eb;
-            color: white;
-            padding: 12px 30px;
-            border-radius: 6px;
-            text-decoration: none;
-            margin: 20px 0;
-            font-weight: bold;
-            transition: background 0.3s;
-        }
-        
-        .download-btn:hover {
-            background: #1d4ed8;
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .section {
+                padding: 25px;
+            }
+            
+            h2 {
+                font-size: 1.8em;
+            }
+            
+            .nav ul {
+                grid-template-columns: 1fr;
+            }
         }
         
         @media print {
             body {
                 background: white;
+                color: black;
             }
-            .container {
-                box-shadow: none;
-                max-width: 100%;
+            
+            .section {
+                background: white;
+                border: 1px solid #ddd;
+            }
+            
+            .nav {
+                display: none;
             }
         }
     </style>
@@ -211,300 +284,278 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>💰 Rupiya</h1>
-            <p>Complete User Guide & Tutorial</p>
-            <p style="font-size: 0.9em; margin-top: 10px;">Smart Personal Finance Management</p>
+            <div class="logo">💰</div>
+            <h1>Rupiya User Guide</h1>
+            <p>Your Complete Guide to Smart Financial Management</p>
         </div>
 
-        <div class="toc">
-            <h3>📋 Table of Contents</h3>
-            <ol>
-                <li>Getting Started</li>
-                <li>Dashboard Overview</li>
-                <li>Expense Tracking</li>
-                <li>Budget Management</li>
-                <li>Investment Tracking</li>
-                <li>Goal Planning</li>
-                <li>Advanced Features</li>
-                <li>Tips & Best Practices</li>
-                <li>FAQ</li>
-            </ol>
-        </div>
+        <nav class="nav">
+            <h3>📑 Quick Navigation</h3>
+            <ul>
+                <li><a href="#getting-started">Getting Started</a></li>
+                <li><a href="#expenses">Expense Tracking</a></li>
+                <li><a href="#income">Income Management</a></li>
+                <li><a href="#budgets">Budget Planning</a></li>
+                <li><a href="#investments">Investment Tracking</a></li>
+                <li><a href="#goals">Financial Goals</a></li>
+                <li><a href="#reports">Reports & Analytics</a></li>
+                <li><a href="#tips">Pro Tips</a></li>
+            </ul>
+        </nav>
 
-        <h2>1. Getting Started</h2>
-        
-        <h3>Creating Your Account</h3>
-        <div class="section">
+        <section id="getting-started" class="section">
+            <h2>🚀 Getting Started</h2>
+            
+            <h3>Creating Your Account</h3>
             <div class="step">
-                <strong>Step 1: Visit the App</strong><br>
-                Go to https://rupiya.online and click the "Sign Up" button
+                <span class="step-number">1</span>
+                <strong>Visit Rupiya</strong> - Navigate to <code>https://rupiya.online</code>
             </div>
             <div class="step">
-                <strong>Step 2: Choose Sign-Up Method</strong><br>
-                • Email & Password: Enter your email and create a strong password<br>
-                • Google Sign-In: Click "Sign in with Google" for quick registration
+                <span class="step-number">2</span>
+                <strong>Sign Up</strong> - Click "Sign Up" and choose your preferred method:
+                <ul>
+                    <li>Email & Password</li>
+                    <li>Google Sign-In (Recommended for faster access)</li>
+                </ul>
             </div>
             <div class="step">
-                <strong>Step 3: Complete Profile</strong><br>
-                • Add your name<br>
-                • Set your preferred currency<br>
-                • Choose your financial goals
+                <span class="step-number">3</span>
+                <strong>Complete Profile</strong> - Add your basic information and preferences
+            </div>
+            
+            <div class="tip">
+                <strong>💡 Pro Tip:</strong> Use Google Sign-In for seamless access across devices without remembering passwords.
+            </div>
+        </section>
+
+        <section id="expenses" class="section">
+            <h2>📊 Expense Tracking</h2>
+            
+            <h3>Adding Expenses</h3>
+            <p>Track every rupee you spend with detailed categorization:</p>
+            
+            <div class="feature-box">
+                <h4>Quick Add Features</h4>
+                <ul>
+                    <li><strong>Amount:</strong> Enter the expense amount</li>
+                    <li><strong>Category:</strong> Choose from 20+ categories (Food, Transport, Shopping, etc.)</li>
+                    <li><strong>Date:</strong> Select when the expense occurred</li>
+                    <li><strong>Payment Method:</strong> Cash, Card, UPI, etc.</li>
+                    <li><strong>Description:</strong> Add notes for future reference</li>
+                    <li><strong>Receipt:</strong> Attach receipt photos</li>
+                </ul>
+            </div>
+            
+            <h3>Expense Categories</h3>
+            <ul>
+                <li>🍔 Food & Dining</li>
+                <li>🚗 Transportation</li>
+                <li>🛍️ Shopping</li>
+                <li>🏠 Housing & Utilities</li>
+                <li>💊 Healthcare</li>
+                <li>🎓 Education</li>
+                <li>🎬 Entertainment</li>
+                <li>✈️ Travel</li>
+                <li>And many more...</li>
+            </ul>
+            
+            <div class="success">
+                <strong>✅ Best Practice:</strong> Add expenses immediately after spending to maintain accurate records.
+            </div>
+        </section>
+
+        <section id="income" class="section">
+            <h2>💰 Income Management</h2>
+            
+            <h3>Recording Income</h3>
+            <p>Track all your income sources for complete financial visibility:</p>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                Navigate to <strong>Income</strong> section
             </div>
             <div class="step">
-                <strong>Step 4: Start Adding Data</strong><br>
-                • Add your first expense<br>
-                • Set up your budget<br>
-                • Create financial goals
+                <span class="step-number">2</span>
+                Click <strong>"Add Income"</strong>
             </div>
-        </div>
+            <div class="step">
+                <span class="step-number">3</span>
+                Enter details: Amount, Source, Date, Category
+            </div>
+            
+            <h3>Income Categories</h3>
+            <ul>
+                <li>💼 Salary</li>
+                <li>💵 Freelance</li>
+                <li>📈 Investments</li>
+                <li>🎁 Gifts</li>
+                <li>💸 Refunds</li>
+                <li>🏆 Bonuses</li>
+            </ul>
+        </section>
 
-        <div class="success">
-            ✅ <strong>Pro Tip:</strong> Use Google Sign-In for the quickest setup. You'll be ready to track expenses in seconds!
-        </div>
+        <section id="budgets" class="section">
+            <h2>💳 Budget Planning</h2>
+            
+            <h3>Creating Budgets</h3>
+            <p>Set spending limits for different categories to stay on track:</p>
+            
+            <div class="feature-box">
+                <h4>Budget Setup</h4>
+                <ol>
+                    <li>Go to <strong>Budgets</strong> section</li>
+                    <li>Click <strong>"Create Budget"</strong></li>
+                    <li>Select category (e.g., Food, Shopping)</li>
+                    <li>Set monthly limit</li>
+                    <li>Choose alert threshold (e.g., 80%)</li>
+                </ol>
+            </div>
+            
+            <h3>Budget Alerts</h3>
+            <p>Receive notifications when you:</p>
+            <ul>
+                <li>Reach 50% of budget</li>
+                <li>Reach 80% of budget</li>
+                <li>Exceed budget limit</li>
+            </ul>
+            
+            <div class="tip">
+                <strong>💡 Smart Budgeting:</strong> Start with the 50/30/20 rule - 50% needs, 30% wants, 20% savings.
+            </div>
+        </section>
 
-        <h2>2. Dashboard Overview</h2>
-        
-        <h3>Key Metrics</h3>
-        <div class="feature-box">
-            <h4>📊 This Month Income</h4>
-            Shows total income for the current month. Helps you track earnings from all sources.
-        </div>
-        
-        <div class="feature-box">
-            <h4>💸 This Month Expenses</h4>
-            Displays total spending for the month, broken down by category with expense count.
-        </div>
-        
-        <div class="feature-box">
-            <h4>💰 Cash Flow</h4>
-            Income minus Expenses. Shows if you're saving or spending more, with savings rate percentage.
-        </div>
-        
-        <div class="feature-box">
-            <h4>📈 Net Worth</h4>
-            Total assets + goals - liabilities. Your comprehensive financial snapshot updated in real-time.
-        </div>
+        <section id="investments" class="section">
+            <h2>📈 Investment Tracking</h2>
+            
+            <h3>Supported Investment Types</h3>
+            <ul>
+                <li><strong>Stocks:</strong> Track individual stock holdings</li>
+                <li><strong>Mutual Funds:</strong> Monitor SIPs and lump sum investments</li>
+                <li><strong>Cryptocurrency:</strong> Track crypto portfolio</li>
+                <li><strong>Fixed Deposits:</strong> Monitor FD maturity and returns</li>
+                <li><strong>Gold:</strong> Track physical and digital gold</li>
+            </ul>
+            
+            <h3>Adding Investments</h3>
+            <div class="step">
+                <span class="step-number">1</span>
+                Navigate to <strong>Investments</strong>
+            </div>
+            <div class="step">
+                <span class="step-number">2</span>
+                Click <strong>"Add Investment"</strong>
+            </div>
+            <div class="step">
+                <span class="step-number">3</span>
+                Enter: Type, Amount, Purchase Date, Current Value
+            </div>
+            
+            <div class="success">
+                <strong>✅ Track Returns:</strong> Rupiya automatically calculates your gains/losses and ROI.
+            </div>
+        </section>
 
-        <h2>3. Expense Tracking</h2>
-        
-        <h3>Adding an Expense</h3>
-        
-        <h4>Method 1: Manual Entry</h4>
-        <ol>
-            <li>Click "+ Add Expense" button</li>
-            <li>Enter amount</li>
-            <li>Select category (Food, Transport, etc.)</li>
-            <li>Choose payment method</li>
-            <li>Add date and description</li>
-            <li>Click Save</li>
-        </ol>
+        <section id="goals" class="section">
+            <h2>🎯 Financial Goals</h2>
+            
+            <h3>Setting Goals</h3>
+            <p>Create and track progress towards your financial objectives:</p>
+            
+            <div class="feature-box">
+                <h4>Goal Types</h4>
+                <ul>
+                    <li>🏠 Home Purchase</li>
+                    <li>🚗 Vehicle</li>
+                    <li>✈️ Vacation</li>
+                    <li>💍 Wedding</li>
+                    <li>🎓 Education</li>
+                    <li>🏖️ Retirement</li>
+                    <li>📱 Gadgets</li>
+                    <li>💰 Emergency Fund</li>
+                </ul>
+            </div>
+            
+            <h3>Goal Tracking</h3>
+            <ul>
+                <li>Set target amount</li>
+                <li>Define deadline</li>
+                <li>Track contributions</li>
+                <li>View progress percentage</li>
+                <li>Get milestone notifications</li>
+            </ul>
+        </section>
 
-        <h4>Method 2: Receipt Scanning</h4>
-        <ol>
-            <li>Click "Scan Receipt" option</li>
-            <li>Take photo of receipt</li>
-            <li>App extracts details automatically</li>
-            <li>Review and confirm</li>
-            <li>Click Save</li>
-        </ol>
+        <section id="reports" class="section">
+            <h2>📊 Reports & Analytics</h2>
+            
+            <h3>Available Reports</h3>
+            
+            <div class="feature-box">
+                <h4>Expense Reports</h4>
+                <ul>
+                    <li>Category-wise breakdown</li>
+                    <li>Monthly trends</li>
+                    <li>Payment method analysis</li>
+                    <li>Top spending categories</li>
+                </ul>
+            </div>
+            
+            <div class="feature-box">
+                <h4>Income Reports</h4>
+                <ul>
+                    <li>Source-wise income</li>
+                    <li>Monthly income trends</li>
+                    <li>Year-over-year comparison</li>
+                </ul>
+            </div>
+            
+            <div class="feature-box">
+                <h4>Cash Flow Analysis</h4>
+                <ul>
+                    <li>Income vs Expenses</li>
+                    <li>Savings rate</li>
+                    <li>Net worth tracking</li>
+                    <li>Financial health score</li>
+                </ul>
+            </div>
+        </section>
 
-        <div class="tip">
-            💡 <strong>Tip:</strong> Log expenses daily for accurate tracking. Don't wait until the end of the month!
-        </div>
-
-        <h3>Categories</h3>
-        <p><strong>Default Categories:</strong></p>
-        <ul>
-            <li>🍔 Food & Dining</li>
-            <li>🚗 Transport</li>
-            <li>💡 Utilities</li>
-            <li>🎬 Entertainment</li>
-            <li>🛍️ Shopping</li>
-            <li>🏥 Health</li>
-            <li>📌 Other</li>
-        </ul>
-
-        <h2>4. Budget Management</h2>
-        
-        <h3>Setting a Budget</h3>
-        <div class="step">
-            <strong>Step 1: Create Budget</strong><br>
-            1. Go to Budgets page<br>
-            2. Click "Create Budget"<br>
-            3. Select month<br>
-            4. Set total budget amount
-        </div>
-
-        <div class="step">
-            <strong>Step 2: Allocate by Category</strong><br>
-            1. Click "Add Category Budget"<br>
-            2. Select category<br>
-            3. Enter budget amount<br>
-            4. Repeat for all categories
-        </div>
-
-        <div class="step">
-            <strong>Step 3: Monitor Progress</strong><br>
-            • Green = Under budget<br>
-            • Yellow = Approaching limit (80%)<br>
-            • Red = Over budget
-        </div>
-
-        <h3>Budget Tips</h3>
-        <ul>
-            <li>✅ Start Conservative: Set realistic budgets</li>
-            <li>✅ Review Monthly: Adjust based on actual spending</li>
-            <li>✅ Track Categories: Monitor which categories exceed budget</li>
-            <li>✅ Plan Ahead: Anticipate seasonal expenses</li>
-        </ul>
-
-        <h2>5. Investment Tracking</h2>
-        
-        <h3>Adding Investments</h3>
-        <div class="step">
-            <strong>Step 1: Go to Investments</strong><br>
-            Navigate to Investments page and click "Add Investment"
-        </div>
-
-        <div class="step">
-            <strong>Step 2: Enter Details</strong><br>
-            • Investment type (Stock, Mutual Fund, Crypto, etc.)<br>
-            • Company/Asset name<br>
-            • Initial amount invested<br>
-            • Current value<br>
-            • Purchase date
-        </div>
-
-        <div class="step">
-            <strong>Step 3: Track Performance</strong><br>
-            • View gains/losses<br>
-            • See percentage returns<br>
-            • Compare against benchmarks
-        </div>
-
-        <h3>Investment Types Supported</h3>
-        <ul>
-            <li>📈 Stocks</li>
-            <li>💰 Mutual Funds</li>
-            <li>🪙 Cryptocurrency</li>
-            <li>🏠 Real Estate</li>
-            <li>💎 Gold & Precious Metals</li>
-            <li>🏦 Fixed Deposits</li>
-            <li>📊 Bonds</li>
-            <li>🎯 Other</li>
-        </ul>
-
-        <div class="tip">
-            💡 <strong>Tip:</strong> Update investment values monthly for accurate performance tracking.
-        </div>
-
-        <h2>6. Goal Planning</h2>
-        
-        <h3>Creating Financial Goals</h3>
-        <div class="step">
-            <strong>Step 1: Define Goal</strong><br>
-            1. Go to Goals page<br>
-            2. Click "Create Goal"<br>
-            3. Enter goal name (e.g., "Emergency Fund")<br>
-            4. Set target amount<br>
-            5. Choose deadline
-        </div>
-
-        <div class="step">
-            <strong>Step 2: Track Progress</strong><br>
-            • Dashboard shows progress bar<br>
-            • See how much you've saved<br>
-            • View remaining amount needed
-        </div>
-
-        <h3>Common Goals</h3>
-        <ul>
-            <li>🚨 Emergency Fund (3-6 months expenses)</li>
-            <li>🏠 Home Down Payment</li>
-            <li>🎓 Education Fund</li>
-            <li>✈️ Vacation Fund</li>
-            <li>🚗 Car Purchase</li>
-            <li>💍 Wedding Fund</li>
-            <li>🏖️ Retirement Fund</li>
-        </ul>
-
-        <h2>7. Advanced Features</h2>
-        
-        <h3>Multi-Currency Support</h3>
-        <p>Add transactions in different currencies. The app converts to your base currency automatically using live exchange rates.</p>
-
-        <h3>Expense Splitting</h3>
-        <p>Split expenses with friends and family. Track who owes whom and mark payments as settled.</p>
-
-        <h3>Recurring Transactions</h3>
-        <p>Set up recurring expenses (daily, weekly, monthly, yearly) for automatic tracking of regular payments.</p>
-
-        <h3>Reports & Analytics</h3>
-        <p>View detailed reports with expense breakdowns, income vs expense trends, and category analysis. Export as PDF or Excel.</p>
-
-        <h2>8. Tips & Best Practices</h2>
-        
-        <h3>Daily Habits</h3>
-        <ul>
-            <li>✅ Log expenses daily (don't wait)</li>
-            <li>✅ Review spending weekly</li>
-            <li>✅ Check budget status regularly</li>
-            <li>✅ Update investment values monthly</li>
-        </ul>
-
-        <h3>Best Practices</h3>
-        <ol>
-            <li><strong>Categorize Correctly:</strong> Use consistent categories and create custom ones for clarity</li>
-            <li><strong>Track Everything:</strong> Don't skip small expenses - they add up!</li>
-            <li><strong>Set Realistic Budgets:</strong> Base on historical spending with flexibility</li>
-            <li><strong>Review Regularly:</strong> Check dashboard daily, reports weekly, analyze trends monthly</li>
-            <li><strong>Use Insights:</strong> Read AI recommendations and identify spending patterns</li>
-        </ol>
-
-        <h3>Common Mistakes to Avoid</h3>
-        <div class="warning">
-            ❌ Not tracking small expenses - They add up!<br>
-            ❌ Setting unrealistic budgets - Be honest about spending<br>
-            ❌ Ignoring investment updates - Keep values current<br>
-            ❌ Not reviewing reports - Data is useless if not analyzed<br>
-            ❌ Forgetting recurring expenses - Use the recurring feature
-        </div>
-
-        <h2>9. FAQ</h2>
-        
-        <h3>Account & Security</h3>
-        <p><strong>Q: Is my data secure?</strong><br>
-        A: Yes! We use enterprise-grade encryption and follow industry best practices.</p>
-
-        <p><strong>Q: Can I change my password?</strong><br>
-        A: Yes, go to Settings → Security → Change Password</p>
-
-        <h3>Expenses & Budgets</h3>
-        <p><strong>Q: Can I edit past expenses?</strong><br>
-        A: Yes, click on any expense to edit or delete it.</p>
-
-        <p><strong>Q: What if I exceed my budget?</strong><br>
-        A: You'll get a warning. You can still add expenses but should review your spending.</p>
-
-        <h3>Investments</h3>
-        <p><strong>Q: How often should I update investment values?</strong><br>
-        A: Monthly is recommended, but update more frequently for volatile investments.</p>
-
-        <p><strong>Q: How is return percentage calculated?</strong><br>
-        A: (Current Value - Initial Amount) / Initial Amount × 100</p>
-
-        <h3>Technical</h3>
-        <p><strong>Q: What devices can I use?</strong><br>
-        A: Desktop, tablet, and mobile browsers. Also available as PWA app.</p>
-
-        <p><strong>Q: Can I install as an app?</strong><br>
-        A: Yes! Click the install button in the navigation bar.</p>
+        <section id="tips" class="section">
+            <h2>💡 Pro Tips</h2>
+            
+            <h3>Daily Habits</h3>
+            <ul>
+                <li>✅ Log expenses immediately</li>
+                <li>✅ Review daily spending before bed</li>
+                <li>✅ Check budget status</li>
+                <li>✅ Categorize all transactions</li>
+            </ul>
+            
+            <h3>Weekly Habits</h3>
+            <ul>
+                <li>📊 Review weekly reports</li>
+                <li>💰 Update investment values</li>
+                <li>🎯 Check goal progress</li>
+                <li>📝 Plan next week's budget</li>
+            </ul>
+            
+            <h3>Monthly Habits</h3>
+            <ul>
+                <li>📈 Analyze monthly trends</li>
+                <li>💳 Review and adjust budgets</li>
+                <li>🎯 Update financial goals</li>
+                <li>💾 Export data for records</li>
+            </ul>
+            
+            <div class="tip">
+                <strong>💡 Golden Rule:</strong> Consistency is key! Regular tracking leads to better financial decisions.
+            </div>
+        </section>
 
         <div class="footer">
-            <p><strong>Rupiya - Your Personal Finance Companion</strong></p>
+            <p><strong>Need Help?</strong> Contact us at support@rupiya.online</p>
             <p>© 2025 Rupiya. All rights reserved.</p>
-            <p>For support: support@rupiya.online</p>
-            <p style="margin-top: 20px; font-size: 0.8em;">Version 1.0.0 | Last Updated: January 2025</p>
         </div>
     </div>
 </body>
