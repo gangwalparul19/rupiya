@@ -25,21 +25,21 @@ import {
 
 function LandingPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <main className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
       {/* Navigation */}
-      <nav className="border-b border-slate-700 bg-slate-900/50 backdrop-blur sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <div className="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
+      <nav className="border-b border-slate-800 bg-slate-950/80 backdrop-blur-md sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex justify-between items-center">
+          <div className="text-xl sm:text-2xl font-bold text-white">
             💰 Rupiya
           </div>
           <div className="flex gap-2 sm:gap-3">
             <Link href="/auth/login">
-              <button className="px-3 sm:px-4 py-2 text-slate-300 hover:text-white transition text-sm sm:text-base font-medium">
+              <button className="px-4 sm:px-5 py-2 text-slate-300 hover:text-white transition text-sm font-medium">
                 Login
               </button>
             </Link>
             <Link href="/auth/signup">
-              <button className="px-3 sm:px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white rounded-lg transition font-semibold text-sm sm:text-base">
+              <button className="px-4 sm:px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition font-semibold text-sm">
                 Sign Up
               </button>
             </Link>
@@ -48,87 +48,84 @@ function LandingPage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="w-full px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-28 lg:py-36">
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 sm:mb-8 md:mb-10 leading-tight">
+      <section className="w-full px-4 sm:px-6 lg:px-8 py-20 sm:py-28 md:py-32 lg:py-40">
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 sm:mb-8 leading-tight">
             Smart Money Management
           </h1>
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-slate-300 mb-8 sm:mb-10 md:mb-12 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-slate-400 mb-10 sm:mb-12 max-w-2xl mx-auto leading-relaxed">
             Track expenses, manage budgets, and achieve financial goals with AI-powered insights.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center flex-wrap">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/auth/signup">
-              <button className="w-full sm:w-auto px-8 sm:px-10 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition text-sm sm:text-base">
+              <button className="w-full sm:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transition">
                 Get Started Free
               </button>
             </Link>
-            <a href="/rupiya-guide.html" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto px-8 sm:px-10 py-3 sm:py-4 border-2 border-slate-500 hover:border-slate-300 text-white rounded-lg font-semibold hover:bg-slate-800/50 transition text-sm sm:text-base text-center">
+            <a href="/rupiya-guide.html" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto px-8 py-3 border border-slate-600 hover:border-slate-400 text-white rounded-lg font-semibold hover:bg-slate-800/50 transition text-center">
               📥 User Guide
-            </a>
-            <a href="/MAXIMIZING_RUPIYA.html" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto px-8 sm:px-10 py-3 sm:py-4 border-2 border-cyan-500 hover:border-cyan-300 text-white rounded-lg font-semibold hover:bg-cyan-800/50 transition text-sm sm:text-base text-center">
-              🚀 Maximize Tips
             </a>
           </div>
         </div>
       </section>
 
-      {/* Core Features Section */}
-      <section className="w-full px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-28 lg:py-36 bg-slate-800/20">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center mb-10 sm:mb-14 md:mb-18 lg:mb-20">
-            Core Features
+      {/* Features Section */}
+      <section className="w-full px-4 sm:px-6 lg:px-8 py-20 sm:py-28 md:py-32 lg:py-40 bg-slate-900/50">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white text-center mb-16 sm:mb-20">
+            Powerful Features
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
-            {/* Card 1 */}
-            <div className="bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-xl p-8 sm:p-10 hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 h-full flex flex-col">
-              <div className="text-5xl sm:text-6xl mb-6">📊</div>
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-4">Expense Tracking</h3>
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed flex-grow">
-                Categorize and track every expense with detailed analytics.
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Feature 1 */}
+            <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-8 hover:border-blue-500/50 transition-all duration-300">
+              <div className="text-4xl mb-4">📊</div>
+              <h3 className="text-xl font-bold text-white mb-3">Expense Tracking</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Categorize and track every expense with detailed analytics and insights.
               </p>
             </div>
 
-            {/* Card 2 */}
-            <div className="bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-xl p-8 sm:p-10 hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 h-full flex flex-col">
-              <div className="text-5xl sm:text-6xl mb-6">💳</div>
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-4">Budget Management</h3>
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed flex-grow">
+            {/* Feature 2 */}
+            <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-8 hover:border-blue-500/50 transition-all duration-300">
+              <div className="text-4xl mb-4">💳</div>
+              <h3 className="text-xl font-bold text-white mb-3">Budget Management</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
                 Set budgets and get alerts when approaching limits.
               </p>
             </div>
 
-            {/* Card 3 */}
-            <div className="bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-xl p-8 sm:p-10 hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 h-full flex flex-col">
-              <div className="text-5xl sm:text-6xl mb-6">📈</div>
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-4">Investment Tracking</h3>
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed flex-grow">
+            {/* Feature 3 */}
+            <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-8 hover:border-blue-500/50 transition-all duration-300">
+              <div className="text-4xl mb-4">📈</div>
+              <h3 className="text-xl font-bold text-white mb-3">Investment Tracking</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
                 Monitor stocks, mutual funds, and crypto in one place.
               </p>
             </div>
 
-            {/* Card 4 */}
-            <div className="bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-xl p-8 sm:p-10 hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 h-full flex flex-col">
-              <div className="text-5xl sm:text-6xl mb-6">🎯</div>
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-4">Goal Planning</h3>
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed flex-grow">
+            {/* Feature 4 */}
+            <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-8 hover:border-blue-500/50 transition-all duration-300">
+              <div className="text-4xl mb-4">🎯</div>
+              <h3 className="text-xl font-bold text-white mb-3">Goal Planning</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
                 Set and track financial goals with progress visualization.
               </p>
             </div>
 
-            {/* Card 5 */}
-            <div className="bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-xl p-8 sm:p-10 hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 h-full flex flex-col">
-              <div className="text-5xl sm:text-6xl mb-6">💱</div>
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-4">Multi-Currency</h3>
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed flex-grow">
+            {/* Feature 5 */}
+            <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-8 hover:border-blue-500/50 transition-all duration-300">
+              <div className="text-4xl mb-4">💱</div>
+              <h3 className="text-xl font-bold text-white mb-3">Multi-Currency</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
                 Manage finances in multiple currencies with live rates.
               </p>
             </div>
 
-            {/* Card 6 */}
-            <div className="bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-xl p-8 sm:p-10 hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 h-full flex flex-col">
-              <div className="text-5xl sm:text-6xl mb-6">🤖</div>
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-4">AI Insights</h3>
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed flex-grow">
+            {/* Feature 6 */}
+            <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-8 hover:border-blue-500/50 transition-all duration-300">
+              <div className="text-4xl mb-4">🤖</div>
+              <h3 className="text-xl font-bold text-white mb-3">AI Insights</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">
                 Get personalized recommendations to optimize spending.
               </p>
             </div>
@@ -136,42 +133,42 @@ function LandingPage() {
         </div>
       </section>
 
-      {/* How It Works Section */}
-      <section className="w-full px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-28 lg:py-36">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white text-center mb-10 sm:mb-14 md:mb-18 lg:mb-20">
+      {/* How It Works */}
+      <section className="w-full px-4 sm:px-6 lg:px-8 py-20 sm:py-28 md:py-32 lg:py-40">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white text-center mb-16 sm:mb-20">
             Get Started in 3 Steps
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-10 md:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Step 1 */}
-            <div className="text-center flex flex-col items-center">
-              <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center mb-6 sm:mb-8 shadow-lg">
-                <span className="text-3xl sm:text-4xl font-bold text-white">1</span>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                <span className="text-2xl font-bold text-white">1</span>
               </div>
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">Sign Up</h3>
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+              <h3 className="text-lg font-bold text-white mb-2">Sign Up</h3>
+              <p className="text-slate-400 text-sm">
                 Create your account in seconds with email or Google.
               </p>
             </div>
 
             {/* Step 2 */}
-            <div className="text-center flex flex-col items-center">
-              <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center mb-6 sm:mb-8 shadow-lg">
-                <span className="text-3xl sm:text-4xl font-bold text-white">2</span>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                <span className="text-2xl font-bold text-white">2</span>
               </div>
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">Add Data</h3>
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+              <h3 className="text-lg font-bold text-white mb-2">Add Data</h3>
+              <p className="text-slate-400 text-sm">
                 Log expenses, income, and investments easily.
               </p>
             </div>
 
             {/* Step 3 */}
-            <div className="text-center flex flex-col items-center">
-              <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center mb-6 sm:mb-8 shadow-lg">
-                <span className="text-3xl sm:text-4xl font-bold text-white">3</span>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                <span className="text-2xl font-bold text-white">3</span>
               </div>
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-3 sm:mb-4">Get Insights</h3>
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
+              <h3 className="text-lg font-bold text-white mb-2">Get Insights</h3>
+              <p className="text-slate-400 text-sm">
                 View analytics and optimize your finances.
               </p>
             </div>
@@ -180,59 +177,26 @@ function LandingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="w-full px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-28 lg:py-36 bg-slate-800/20">
-        <div className="max-w-7xl mx-auto">
-          <div className="bg-gradient-to-r from-blue-600/20 to-cyan-600/20 border border-blue-500/30 rounded-2xl p-10 sm:p-14 md:p-18 lg:p-20 text-center">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 sm:mb-8 md:mb-10">
-              Ready to Take Control?
-            </h2>
-            <p className="text-slate-300 mb-8 sm:mb-10 md:mb-12 max-w-2xl mx-auto text-sm sm:text-base md:text-lg leading-relaxed">
-              Join thousands managing their finances smarter with Rupiya.
-            </p>
-            <Link href="/auth/signup">
-              <button className="px-8 sm:px-10 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition text-sm sm:text-base">
-                Start Free Today
-              </button>
-            </Link>
-          </div>
+      <section className="w-full px-4 sm:px-6 lg:px-8 py-20 sm:py-28 md:py-32 lg:py-40 bg-slate-900/50">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6">
+            Ready to Take Control?
+          </h2>
+          <p className="text-slate-400 mb-10 text-base sm:text-lg">
+            Join thousands managing their finances smarter with Rupiya.
+          </p>
+          <Link href="/auth/signup">
+            <button className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transition">
+              Start Free Today
+            </button>
+          </Link>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-slate-700 bg-slate-900/50 mt-16 sm:mt-20 md:mt-28 lg:mt-36">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-18 md:py-20">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 sm:gap-12 md:gap-14 mb-12 sm:mb-16">
-            <div>
-              <h4 className="text-white font-bold mb-4">Rupiya</h4>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                Smart personal finance management.
-              </p>
-            </div>
-            <div>
-              <h4 className="text-white font-bold mb-4">Product</h4>
-              <ul className="space-y-3 text-slate-400 text-sm">
-                <li><a href="#" className="hover:text-white transition">Features</a></li>
-                <li><a href="#" className="hover:text-white transition">Pricing</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-bold mb-4">Company</h4>
-              <ul className="space-y-3 text-slate-400 text-sm">
-                <li><a href="#" className="hover:text-white transition">About</a></li>
-                <li><a href="#" className="hover:text-white transition">Blog</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white font-bold mb-4">Legal</h4>
-              <ul className="space-y-3 text-slate-400 text-sm">
-                <li><a href="#" className="hover:text-white transition">Privacy</a></li>
-                <li><a href="#" className="hover:text-white transition">Terms</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-slate-700 pt-10 text-center text-slate-400 text-sm">
-            <p>&copy; 2025 Rupiya. All rights reserved.</p>
-          </div>
+      {/* Footer - Minimal */}
+      <footer className="border-t border-slate-800 bg-slate-950/80 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-slate-500 text-sm">
+          <p>&copy; 2025 Rupiya. All rights reserved.</p>
         </div>
       </footer>
     </main>
