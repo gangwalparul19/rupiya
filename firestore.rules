@@ -1,292 +1,36 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    
-    // ============================================
-    // HELPER FUNCTIONS
-    // ============================================
-    
-    // Check if user is authenticated
+    // Helper function to check if user is authenticated
     function isAuthenticated() {
       return request.auth != null;
     }
     
-    // Check if user owns the resource
+    // Helper function to check if user owns the document
     function isOwner(userId) {
       return request.auth.uid == userId;
     }
     
-    // Check if user is admin (optional - can be extended)
-    function isAdmin() {
-      return request.auth.token.admin == true;
-    }
-    
-    // Validate email format
-    function isValidEmail(email) {
-      return email.matches('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$');
-    }
-    
-    // Validate amount is positive
-    function isPositiveAmount(amount) {
-      return amount > 0;
-    }
-    
-    // Validate date is not in future
-    function isNotFutureDate(date) {
-      return date <= now;
-    }
-    
-    // ============================================
-    // USER PROFILE COLLECTION
-    // ============================================
-    
+    // User profile and all subcollections
     match /users/{userId} {
-      // Allow users to read/write their own profile
-      allow read, write: if isAuthenticated() && isOwner(userId);
+      // User can read/write their own profile
+      allow read, write: if isOwner(userId);
       
-      // ============================================
-      // EXPENSES SUBCOLLECTION
-      // ============================================
-      
-      match /expenses/{expenseId} {
-        // Allow users to read/write their own expenses
-        allow read, write: if isAuthenticated() && isOwner(userId);
-        
-        // Validate expense data on write
-        allow write: if isAuthenticated() && isOwner(userId) &&
-          request.resource.data.keys().hasAll(['description', 'amount', 'category', 'date']) &&
-          isPositiveAmount(request.resource.data.amount) &&
-          isNotFutureDate(request.resource.data.date);
-      }
-      
-      // ============================================
-      // INCOME SUBCOLLECTION
-      // ============================================
-      
-      match /income/{incomeId} {
-        // Allow users to read/write their own income
-        allow read, write: if isAuthenticated() && isOwner(userId);
-        
-        // Validate income data on write
-        allow write: if isAuthenticated() && isOwner(userId) &&
-          request.resource.data.keys().hasAll(['description', 'amount', 'source', 'date']) &&
-          isPositiveAmount(request.resource.data.amount) &&
-          isNotFutureDate(request.resource.data.date);
-      }
-      
-      // ============================================
-      // BUDGETS SUBCOLLECTION
-      // ============================================
-      
-      match /budgets/{budgetId} {
-        // Allow users to read/write their own budgets
-        allow read, write: if isAuthenticated() && isOwner(userId);
-        
-        // Validate budget data on write
-        allow write: if isAuthenticated() && isOwner(userId) &&
-          request.resource.data.keys().hasAll(['month', 'totalBudget']) &&
-          isPositiveAmount(request.resource.data.totalBudget);
-      }
-      
-      // ============================================
-      // INVESTMENTS SUBCOLLECTION
-      // ============================================
-      
-      match /investments/{investmentId} {
-        // Allow users to read/write their own investments
-        allow read, write: if isAuthenticated() && isOwner(userId);
-        
-        // Validate investment data on write
-        allow write: if isAuthenticated() && isOwner(userId) &&
-          request.resource.data.keys().hasAll(['name', 'type', 'initialAmount', 'currentValue']) &&
-          isPositiveAmount(request.resource.data.initialAmount) &&
-          isPositiveAmount(request.resource.data.currentValue);
-      }
-      
-      // ============================================
-      // GOALS SUBCOLLECTION
-      // ============================================
-      
-      match /goals/{goalId} {
-        // Allow users to read/write their own goals
-        allow read, write: if isAuthenticated() && isOwner(userId);
-        
-        // Validate goal data on write
-        allow write: if isAuthenticated() && isOwner(userId) &&
-          request.resource.data.keys().hasAll(['name', 'targetAmount', 'currentAmount', 'category']) &&
-          isPositiveAmount(request.resource.data.targetAmount);
-      }
-      
-      // ============================================
-      // HOUSES SUBCOLLECTION
-      // ============================================
-      
-      match /houses/{houseId} {
-        // Allow users to read/write their own houses
-        allow read, write: if isAuthenticated() && isOwner(userId);
-        
-        // Validate house data on write
-        allow write: if isAuthenticated() && isOwner(userId) &&
-          request.resource.data.keys().hasAll(['name', 'type', 'address']);
-      }
-      
-      // ============================================
-      // VEHICLES SUBCOLLECTION
-      // ============================================
-      
-      match /vehicles/{vehicleId} {
-        // Allow users to read/write their own vehicles
-        allow read, write: if isAuthenticated() && isOwner(userId);
-        
-        // Validate vehicle data on write
-        allow write: if isAuthenticated() && isOwner(userId) &&
-          request.resource.data.keys().hasAll(['name', 'type', 'registrationNumber']);
-      }
-      
-      // ============================================
-      // NOTES SUBCOLLECTION
-      // ============================================
-      
-      match /notes/{noteId} {
-        // Allow users to read/write their own notes
-        allow read, write: if isAuthenticated() && isOwner(userId);
-        
-        // Validate note data on write
-        allow write: if isAuthenticated() && isOwner(userId) &&
-          request.resource.data.keys().hasAll(['title', 'content']);
-      }
-      
-      // ============================================
-      // DOCUMENTS SUBCOLLECTION
-      // ============================================
-      
-      match /documents/{documentId} {
-        // Allow users to read/write their own documents
-        allow read, write: if isAuthenticated() && isOwner(userId);
-        
-        // Validate document data on write
-        allow write: if isAuthenticated() && isOwner(userId) &&
-          request.resource.data.keys().hasAll(['name', 'type', 'url']);
-      }
-      
-      // ============================================
-      // CATEGORIES SUBCOLLECTION
-      // ============================================
-      
-      match /categories/{categoryId} {
-        // Allow users to read/write their own categories
-        allow read, write: if isAuthenticated() && isOwner(userId);
-        
-        // Validate category data on write
-        allow write: if isAuthenticated() && isOwner(userId) &&
-          request.resource.data.keys().hasAll(['name', 'type']);
-      }
-      
-      // ============================================
-      // RECURRING TRANSACTIONS SUBCOLLECTION
-      // ============================================
-      
-      match /recurringTransactions/{transactionId} {
-        // Allow users to read/write their own recurring transactions
-        allow read, write: if isAuthenticated() && isOwner(userId);
-        
-        // Validate recurring transaction data on write
-        allow write: if isAuthenticated() && isOwner(userId) &&
-          request.resource.data.keys().hasAll(['name', 'amount', 'frequency', 'type']) &&
-          isPositiveAmount(request.resource.data.amount);
-      }
-      
-      // ============================================
-      // PAYMENT METHODS SUBCOLLECTIONS
-      // ============================================
-      
-      // Cards
-      match /cards/{cardId} {
-        allow read, write: if isAuthenticated() && isOwner(userId);
-        
-        allow write: if isAuthenticated() && isOwner(userId) &&
-          request.resource.data.keys().hasAll(['cardNumber', 'cardholderName', 'expiryDate']);
-      }
-      
-      // UPI Accounts
-      match /upiAccounts/{upiId} {
-        allow read, write: if isAuthenticated() && isOwner(userId);
-        
-        allow write: if isAuthenticated() && isOwner(userId) &&
-          request.resource.data.keys().hasAll(['upiId', 'name']);
-      }
-      
-      // Bank Accounts
-      match /bankAccounts/{bankId} {
-        allow read, write: if isAuthenticated() && isOwner(userId);
-        
-        allow write: if isAuthenticated() && isOwner(userId) &&
-          request.resource.data.keys().hasAll(['accountNumber', 'bankName', 'accountHolder']);
-      }
-      
-      // Wallets
-      match /wallets/{walletId} {
-        allow read, write: if isAuthenticated() && isOwner(userId);
-        
-        allow write: if isAuthenticated() && isOwner(userId) &&
-          request.resource.data.keys().hasAll(['name', 'balance']) &&
-          request.resource.data.balance >= 0;
-      }
-      
-      // ============================================
-      // ADVANCED FEATURES SUBCOLLECTIONS
-      // ============================================
-      
-      // Expense Splitting
-      match /splitExpenses/{splitId} {
-        allow read, write: if isAuthenticated() && isOwner(userId);
-        
-        allow write: if isAuthenticated() && isOwner(userId) &&
-          request.resource.data.keys().hasAll(['description', 'totalAmount', 'participants']) &&
-          isPositiveAmount(request.resource.data.totalAmount);
-      }
-      
-      // Settlements
-      match /settlements/{settlementId} {
-        allow read, write: if isAuthenticated() && isOwner(userId);
-        
-        allow write: if isAuthenticated() && isOwner(userId) &&
-          request.resource.data.keys().hasAll(['from', 'to', 'amount', 'status']) &&
-          isPositiveAmount(request.resource.data.amount);
-      }
-      
-      // Calendar Events
-      match /calendarEvents/{eventId} {
-        allow read, write: if isAuthenticated() && isOwner(userId);
-        
-        allow write: if isAuthenticated() && isOwner(userId) &&
-          request.resource.data.keys().hasAll(['title', 'date', 'type']);
-      }
-      
-      // Bill Reminders
-      match /billReminders/{reminderId} {
-        allow read, write: if isAuthenticated() && isOwner(userId);
-        
-        allow write: if isAuthenticated() && isOwner(userId) &&
-          request.resource.data.keys().hasAll(['title', 'dueDate', 'amount']) &&
-          isPositiveAmount(request.resource.data.amount);
-      }
-      
-      // ============================================
-      // DENY ALL OTHER ACCESS
-      // ============================================
-      
+      // All subcollections (expenses, income, budgets, goals, etc.)
       match /{document=**} {
-        allow read, write: if false;
+        allow read, write: if isOwner(userId);
       }
     }
     
-    // ============================================
-    // DENY ALL ROOT LEVEL ACCESS
-    // ============================================
+    // Public data collection (if needed for shared features)
+    match /public/{document=**} {
+      allow read: if true;
+      allow write: if isAuthenticated();
+    }
     
-    match /{document=**} {
-      allow read, write: if false;
+    // Admin collection (for system data)
+    match /admin/{document=**} {
+      allow read, write: if false; // Restrict to Firebase Admin SDK only
     }
   }
 }

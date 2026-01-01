@@ -1,239 +1,35 @@
 rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
-    
-    // ============================================
-    // HELPER FUNCTIONS
-    // ============================================
-    
-    // Check if user is authenticated
+    // Helper function to check if user is authenticated
     function isAuthenticated() {
       return request.auth != null;
     }
     
-    // Check if user owns the resource
+    // Helper function to check if user owns the file
     function isOwner(userId) {
       return request.auth.uid == userId;
     }
     
-    // Check if user is admin
-    function isAdmin() {
-      return request.auth.token.admin == true;
+    // User's private files
+    match /users/{userId}/{allPaths=**} {
+      allow read, write: if isOwner(userId);
     }
     
-    // Validate file size (max 10MB)
-    function isValidFileSize() {
-      return request.resource.size <= 10 * 1024 * 1024;
-    }
-    
-    // Validate image file types
-    function isValidImageType() {
-      return request.resource.contentType.matches('image/(jpeg|jpg|png|gif|webp)');
-    }
-    
-    // Validate document file types (includes images, PDFs, Office docs, and text)
-    function isValidDocumentType() {
-      return request.resource.contentType.matches('(image/(jpeg|jpg|png|gif|webp)|application/(pdf|msword|vnd.openxmlformats-officedocument.wordprocessingml.document|vnd.ms-excel|vnd.openxmlformats-officedocument.spreadsheetml.sheet)|text/plain)');
-    }
-    
-    // Validate any file type
-    function isValidFileType() {
-      return request.resource.contentType.matches('(image/.*|application/(pdf|msword|vnd.openxmlformats-officedocument.wordprocessingml.document|vnd.ms-excel|vnd.openxmlformats-officedocument.spreadsheetml.sheet)|text/plain)');
-    }
-    
-    // Get user ID from path
-    function getUserIdFromPath() {
-      return resource.name.split('/')[0];
-    }
-    
-    // ============================================
-    // USER PROFILE PICTURES
-    // ============================================
-    
-    match /users/{userId}/profile/{allPaths=**} {
-      // Allow authenticated users to read their own profile pictures
-      allow read: if isAuthenticated() && isOwner(userId);
-      
-      // Allow authenticated users to upload/update their own profile pictures
-      allow write: if isAuthenticated() && isOwner(userId) &&
-        isValidFileSize() &&
-        isValidImageType();
-      
-      // Allow deletion of own profile pictures
-      allow delete: if isAuthenticated() && isOwner(userId);
-    }
-    
-    // ============================================
-    // DOCUMENT VAULT
-    // ============================================
-    
-    match /users/{userId}/documents/{documentId}/{allPaths=**} {
-      // Allow authenticated users to read their own documents
-      allow read: if isAuthenticated() && isOwner(userId);
-      
-      // Allow authenticated users to upload/update their own documents
-      allow write: if isAuthenticated() && isOwner(userId) &&
-        isValidFileSize() &&
-        isValidDocumentType();
-      
-      // Allow deletion of own documents
-      allow delete: if isAuthenticated() && isOwner(userId);
-    }
-    
-    // ============================================
-    // EXPENSE RECEIPTS
-    // ============================================
-    
-    match /users/{userId}/expenses/{expenseId}/{allPaths=**} {
-      // Allow authenticated users to read their own expense receipts
-      allow read: if isAuthenticated() && isOwner(userId);
-      
-      // Allow authenticated users to upload/update their own expense receipts
-      allow write: if isAuthenticated() && isOwner(userId) &&
-        isValidFileSize() &&
-        isValidImageType();
-      
-      // Allow deletion of own expense receipts
-      allow delete: if isAuthenticated() && isOwner(userId);
-    }
-    
-    // ============================================
-    // INVESTMENT DOCUMENTS
-    // ============================================
-    
-    match /users/{userId}/investments/{investmentId}/{allPaths=**} {
-      // Allow authenticated users to read their own investment documents
-      allow read: if isAuthenticated() && isOwner(userId);
-      
-      // Allow authenticated users to upload/update their own investment documents
-      allow write: if isAuthenticated() && isOwner(userId) &&
-        isValidFileSize() &&
-        isValidDocumentType();
-      
-      // Allow deletion of own investment documents
-      allow delete: if isAuthenticated() && isOwner(userId);
-    }
-    
-    // ============================================
-    // HOUSE DOCUMENTS
-    // ============================================
-    
-    match /users/{userId}/houses/{houseId}/{allPaths=**} {
-      // Allow authenticated users to read their own house documents
-      allow read: if isAuthenticated() && isOwner(userId);
-      
-      // Allow authenticated users to upload/update their own house documents
-      allow write: if isAuthenticated() && isOwner(userId) &&
-        isValidFileSize() &&
-        isValidDocumentType();
-      
-      // Allow deletion of own house documents
-      allow delete: if isAuthenticated() && isOwner(userId);
-    }
-    
-    // ============================================
-    // VEHICLE DOCUMENTS
-    // ============================================
-    
-    match /users/{userId}/vehicles/{vehicleId}/{allPaths=**} {
-      // Allow authenticated users to read their own vehicle documents
-      allow read: if isAuthenticated() && isOwner(userId);
-      
-      // Allow authenticated users to upload/update their own vehicle documents
-      allow write: if isAuthenticated() && isOwner(userId) &&
-        isValidFileSize() &&
-        isValidDocumentType();
-      
-      // Allow deletion of own vehicle documents
-      allow delete: if isAuthenticated() && isOwner(userId);
-    }
-    
-    // ============================================
-    // GOAL IMAGES
-    // ============================================
-    
-    match /users/{userId}/goals/{goalId}/{allPaths=**} {
-      // Allow authenticated users to read their own goal images
-      allow read: if isAuthenticated() && isOwner(userId);
-      
-      // Allow authenticated users to upload/update their own goal images
-      allow write: if isAuthenticated() && isOwner(userId) &&
-        isValidFileSize() &&
-        isValidImageType();
-      
-      // Allow deletion of own goal images
-      allow delete: if isAuthenticated() && isOwner(userId);
-    }
-    
-    // ============================================
-    // EXPORTED REPORTS
-    // ============================================
-    
-    match /users/{userId}/exports/{exportId}/{allPaths=**} {
-      // Allow authenticated users to read their own exported reports
-      allow read: if isAuthenticated() && isOwner(userId);
-      
-      // Allow authenticated users to upload/update their own exported reports
-      allow write: if isAuthenticated() && isOwner(userId) &&
-        isValidFileSize();
-      
-      // Allow deletion of own exported reports
-      allow delete: if isAuthenticated() && isOwner(userId);
-    }
-    
-    // ============================================
-    // BACKUPS
-    // ============================================
-    
-    match /users/{userId}/backups/{backupId}/{allPaths=**} {
-      // Allow authenticated users to read their own backups
-      allow read: if isAuthenticated() && isOwner(userId);
-      
-      // Allow authenticated users to upload/update their own backups
-      allow write: if isAuthenticated() && isOwner(userId) &&
-        isValidFileSize();
-      
-      // Allow deletion of own backups
-      allow delete: if isAuthenticated() && isOwner(userId);
-    }
-    
-    // ============================================
-    // TEMPORARY FILES
-    // ============================================
-    
-    match /users/{userId}/temp/{tempId}/{allPaths=**} {
-      // Allow authenticated users to read their own temporary files
-      allow read: if isAuthenticated() && isOwner(userId);
-      
-      // Allow authenticated users to upload/update their own temporary files
-      allow write: if isAuthenticated() && isOwner(userId) &&
-        isValidFileSize();
-      
-      // Allow deletion of own temporary files
-      allow delete: if isAuthenticated() && isOwner(userId);
-    }
-    
-    // ============================================
-    // PUBLIC ASSETS (Optional - for app assets)
-    // ============================================
-    
+    // Public files (accessible to all, writable by authenticated users)
     match /public/{allPaths=**} {
-      // Allow anyone to read public assets
       allow read: if true;
-      
-      // Allow only admins to write public assets
-      allow write: if isAuthenticated() && isAdmin();
-      
-      // Allow only admins to delete public assets
-      allow delete: if isAuthenticated() && isAdmin();
+      allow write: if isAuthenticated();
     }
     
-    // ============================================
-    // DENY ALL OTHER ACCESS
-    // ============================================
+    // Temporary uploads (auto-cleanup after 24 hours)
+    match /temp/{userId}/{allPaths=**} {
+      allow read, write: if isOwner(userId);
+    }
     
+    // Deny everything else
     match /{allPaths=**} {
-      allow read, write, delete: if false;
+      allow read, write: if false;
     }
   }
 }

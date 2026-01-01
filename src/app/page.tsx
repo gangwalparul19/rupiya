@@ -219,17 +219,15 @@ function LandingPage() {
                 {/* Gradient Glow Effect */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
                 
-                {/* Icon with Gradient Background */}
-                <div className="relative mb-4 sm:mb-6">
-                  <div className={`inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br ${feature.gradient} shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                {/* Icon and Title on Same Line */}
+                <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+                  <div className={`inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br ${feature.gradient} shadow-lg group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
                     <span className="text-2xl sm:text-3xl">{feature.icon}</span>
                   </div>
+                  <h3 className="text-base sm:text-lg lg:text-xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-300 transition-all duration-300">
+                    {feature.title}
+                  </h3>
                 </div>
-                
-                {/* Content */}
-                <h3 className="text-base sm:text-xl lg:text-2xl font-bold text-white mb-2 sm:mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-300 transition-all duration-300">
-                  {feature.title}
-                </h3>
                 <p className="text-slate-400 text-xs sm:text-sm lg:text-base leading-relaxed mb-3 sm:mb-0">
                   {feature.description}
                 </p>
@@ -295,21 +293,24 @@ function LandingPage() {
                 
                 {/* Card */}
                 <div className="relative z-10 bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700 hover:border-blue-500/50 rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/10">
+                {/* Step Number, Icon, and Title on Same Line */}
+                <div className="flex items-start gap-3 sm:gap-4 mb-3 sm:mb-4">
                   {/* Step Number Badge */}
-                  <div className="relative inline-flex items-center justify-center mb-4 sm:mb-6">
+                  <div className="relative inline-flex items-center justify-center flex-shrink-0">
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-full opacity-20 blur-xl group-hover:opacity-30 transition-opacity"></div>
-                    <div className="relative w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300">
-                      <span className="text-lg sm:text-xl lg:text-2xl font-bold text-white">{item.step}</span>
+                    <div className="relative w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                      <span className="text-sm sm:text-base font-bold text-white">{item.step}</span>
                     </div>
                   </div>
                   
-                  {/* Icon */}
-                  <div className="text-3xl sm:text-4xl lg:text-5xl mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300">
-                    {item.icon}
+                  {/* Icon and Title */}
+                  <div className="flex items-center gap-2 sm:gap-3 flex-1">
+                    <div className="text-2xl sm:text-3xl group-hover:scale-110 transition-transform duration-300">
+                      {item.icon}
+                    </div>
+                    <h3 className="text-base sm:text-lg lg:text-xl font-bold text-white">{item.title}</h3>
                   </div>
-                  
-                  {/* Content */}
-                  <h3 className="text-base sm:text-lg lg:text-2xl font-bold text-white mb-2 sm:mb-3 lg:mb-4">{item.title}</h3>
+                </div>
                   <p className="text-slate-400 text-xs sm:text-sm lg:text-base leading-relaxed">{item.description}</p>
                 </div>
               </div>
