@@ -88,6 +88,16 @@ export const loginWithGoogle = async () => {
     if (!auth || !db) throw new Error('Firebase not initialized');
     
     const provider = new GoogleAuthProvider();
+    
+    // Add scopes for better user data
+    provider.addScope('profile');
+    provider.addScope('email');
+    
+    // Set custom parameters for better UX
+    provider.setCustomParameters({
+      prompt: 'select_account'
+    });
+    
     const userCredential = await signInWithPopup(auth, provider);
     const user = userCredential.user;
 
@@ -109,8 +119,10 @@ export const loginWithGoogle = async () => {
     }
 
     return user;
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error logging in with Google:', error);
+    console.error('Error Code:', error.code);
+    console.error('Error Message:', error.message);
     throw error;
   }
 };

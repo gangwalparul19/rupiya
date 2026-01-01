@@ -85,7 +85,26 @@ export default function LoginPage() {
       await loginWithGoogle();
       router.push('/');
     } catch (err: any) {
-      setError('Failed to sign in with Google. Please try again.');
+      console.error('Google Sign-in Error:', err);
+      const errorCode = err.code || '';
+      const errorMessage = err.message || '';
+      
+      // Provide specific error messages based on error code
+      let displayError = 'Failed to sign in with Google. Please try again.';
+      
+      if (errorCode === 'auth/popup-closed-by-user') {
+        displayError = 'Sign-in popup was closed. Please try again.';
+      } else if (errorCode === 'auth/popup-blocked-by-browser') {
+        displayError = 'Sign-in popup was blocked by your browser. Please allow popups and try again.';
+      } else if (errorCode === 'auth/cancelled-popup-request') {
+        displayError = 'Sign-in was cancelled. Please try again.';
+      } else if (errorCode === 'auth/invalid-api-key') {
+        displayError = 'Firebase configuration error. Please contact support.';
+      } else if (errorMessage.includes('OAuth')) {
+        displayError = 'Google OAuth is not properly configured. Please contact support.';
+      }
+      
+      setError(displayError);
     } finally {
       setIsLoading(false);
     }

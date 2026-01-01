@@ -25,19 +25,19 @@ function LandingPage() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
       {/* Navigation */}
-      <nav className="border-b border-slate-700 bg-slate-900/50 backdrop-blur">
+      <nav className="border-b border-slate-700 bg-slate-900/50 backdrop-blur sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <div className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
+          <div className="text-2xl sm:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
             💰 Rupiya
           </div>
-          <div className="flex gap-3">
+          <div className="flex gap-2 sm:gap-3">
             <Link href="/auth/login">
-              <button className="px-4 py-2 text-slate-300 hover:text-white transition">
+              <button className="px-3 sm:px-4 py-2 text-slate-300 hover:text-white transition text-sm sm:text-base font-medium">
                 Login
               </button>
             </Link>
             <Link href="/auth/signup">
-              <button className="px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white rounded-lg transition font-semibold">
+              <button className="px-3 sm:px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white rounded-lg transition font-semibold text-sm sm:text-base">
                 Sign Up
               </button>
             </Link>
@@ -46,22 +46,22 @@ function LandingPage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24 lg:py-32">
+        <div className="text-center mb-12 md:mb-16">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6 leading-tight">
             Take Control of Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Financial Life</span>
           </h1>
-          <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
-            Rupiya is your all-in-one personal finance management platform. Track expenses, manage budgets, invest wisely, and achieve your financial goals.
+          <p className="text-base sm:text-lg md:text-xl text-slate-300 mb-8 md:mb-10 max-w-3xl mx-auto leading-relaxed">
+            Rupiya is your all-in-one personal finance management platform. Track expenses, manage budgets, invest wisely, and achieve your financial goals with powerful analytics and AI insights.
           </p>
-          <div className="flex gap-4 justify-center flex-wrap">
+          <div className="flex gap-3 sm:gap-4 justify-center flex-wrap">
             <Link href="/auth/signup">
-              <button className="px-8 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white rounded-lg transition font-semibold text-lg">
+              <button className="px-6 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white rounded-lg transition font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transform hover:scale-105">
                 Get Started Free
               </button>
             </Link>
             <Link href="/auth/login">
-              <button className="px-8 py-3 border border-slate-600 hover:border-slate-400 text-white rounded-lg transition font-semibold text-lg">
+              <button className="px-6 sm:px-8 py-2.5 sm:py-3 border-2 border-slate-500 hover:border-slate-300 text-white rounded-lg transition font-semibold text-base sm:text-lg hover:bg-slate-800/50">
                 Sign In
               </button>
             </Link>
@@ -70,88 +70,88 @@ function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 lg:py-24">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white text-center mb-12 md:mb-16">
           Why Choose Rupiya?
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {/* Feature 1 */}
-          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 hover:border-blue-500 transition">
-            <div className="text-4xl mb-4">📊</div>
-            <h3 className="text-xl font-bold text-white mb-2">Smart Expense Tracking</h3>
-            <p className="text-slate-300">
+          <div className="group bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700 hover:border-blue-500/50 rounded-lg p-6 sm:p-8 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 transform hover:-translate-y-1">
+            <div className="text-4xl sm:text-5xl mb-4 group-hover:scale-110 transition-transform">📊</div>
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-3">Smart Expense Tracking</h3>
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
               Track every rupee you spend with detailed categorization, payment methods, and receipt scanning with OCR technology.
             </p>
           </div>
 
           {/* Feature 2 */}
-          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 hover:border-blue-500 transition">
-            <div className="text-4xl mb-4">💳</div>
-            <h3 className="text-xl font-bold text-white mb-2">Budget Management</h3>
-            <p className="text-slate-300">
+          <div className="group bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700 hover:border-blue-500/50 rounded-lg p-6 sm:p-8 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 transform hover:-translate-y-1">
+            <div className="text-4xl sm:text-5xl mb-4 group-hover:scale-110 transition-transform">💳</div>
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-3">Budget Management</h3>
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
               Set monthly budgets by category, get real-time alerts when you're approaching limits, and stay in control of your spending.
             </p>
           </div>
 
           {/* Feature 3 */}
-          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 hover:border-blue-500 transition">
-            <div className="text-4xl mb-4">📈</div>
-            <h3 className="text-xl font-bold text-white mb-2">Investment Tracking</h3>
-            <p className="text-slate-300">
+          <div className="group bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700 hover:border-blue-500/50 rounded-lg p-6 sm:p-8 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 transform hover:-translate-y-1">
+            <div className="text-4xl sm:text-5xl mb-4 group-hover:scale-110 transition-transform">📈</div>
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-3">Investment Tracking</h3>
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
               Monitor your stocks, mutual funds, crypto, real estate, and other investments in one place with performance analytics.
             </p>
           </div>
 
           {/* Feature 4 */}
-          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 hover:border-blue-500 transition">
-            <div className="text-4xl mb-4">🎯</div>
-            <h3 className="text-xl font-bold text-white mb-2">Goal Planning</h3>
-            <p className="text-slate-300">
+          <div className="group bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700 hover:border-blue-500/50 rounded-lg p-6 sm:p-8 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 transform hover:-translate-y-1">
+            <div className="text-4xl sm:text-5xl mb-4 group-hover:scale-110 transition-transform">🎯</div>
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-3">Goal Planning</h3>
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
               Set financial goals (emergency fund, vacation, home, education) and track your progress towards achieving them.
             </p>
           </div>
 
           {/* Feature 5 */}
-          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 hover:border-blue-500 transition">
-            <div className="text-4xl mb-4">💱</div>
-            <h3 className="text-xl font-bold text-white mb-2">Multi-Currency Support</h3>
-            <p className="text-slate-300">
+          <div className="group bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700 hover:border-blue-500/50 rounded-lg p-6 sm:p-8 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 transform hover:-translate-y-1">
+            <div className="text-4xl sm:text-5xl mb-4 group-hover:scale-110 transition-transform">💱</div>
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-3">Multi-Currency Support</h3>
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
               Manage finances in multiple currencies with real-time exchange rates and automatic conversion capabilities.
             </p>
           </div>
 
           {/* Feature 6 */}
-          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 hover:border-blue-500 transition">
-            <div className="text-4xl mb-4">👥</div>
-            <h3 className="text-xl font-bold text-white mb-2">Expense Splitting</h3>
-            <p className="text-slate-300">
+          <div className="group bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700 hover:border-blue-500/50 rounded-lg p-6 sm:p-8 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 transform hover:-translate-y-1">
+            <div className="text-4xl sm:text-5xl mb-4 group-hover:scale-110 transition-transform">👥</div>
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-3">Expense Splitting</h3>
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
               Split expenses with friends and family, track who owes whom, and settle up easily with built-in settlement tracking.
             </p>
           </div>
 
           {/* Feature 7 */}
-          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 hover:border-blue-500 transition">
-            <div className="text-4xl mb-4">📱</div>
-            <h3 className="text-xl font-bold text-white mb-2">Receipt Scanning</h3>
-            <p className="text-slate-300">
+          <div className="group bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700 hover:border-blue-500/50 rounded-lg p-6 sm:p-8 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 transform hover:-translate-y-1">
+            <div className="text-4xl sm:text-5xl mb-4 group-hover:scale-110 transition-transform">📱</div>
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-3">Receipt Scanning</h3>
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
               Scan receipts with your camera, extract expense details automatically, and organize all your bills in one place.
             </p>
           </div>
 
           {/* Feature 8 */}
-          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 hover:border-blue-500 transition">
-            <div className="text-4xl mb-4">📅</div>
-            <h3 className="text-xl font-bold text-white mb-2">Calendar & Reminders</h3>
-            <p className="text-slate-300">
+          <div className="group bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700 hover:border-blue-500/50 rounded-lg p-6 sm:p-8 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 transform hover:-translate-y-1">
+            <div className="text-4xl sm:text-5xl mb-4 group-hover:scale-110 transition-transform">📅</div>
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-3">Calendar & Reminders</h3>
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
               Get reminders for bill payments, recurring transactions, and goal milestones so you never miss important dates.
             </p>
           </div>
 
           {/* Feature 9 */}
-          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-6 hover:border-blue-500 transition">
-            <div className="text-4xl mb-4">📊</div>
-            <h3 className="text-xl font-bold text-white mb-2">Advanced Analytics</h3>
-            <p className="text-slate-300">
+          <div className="group bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700 hover:border-blue-500/50 rounded-lg p-6 sm:p-8 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 transform hover:-translate-y-1">
+            <div className="text-4xl sm:text-5xl mb-4 group-hover:scale-110 transition-transform">🤖</div>
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-3">AI-Powered Insights</h3>
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
               Get AI-powered insights, spending trends, savings recommendations, and detailed financial reports to make better decisions.
             </p>
           </div>
@@ -159,51 +159,51 @@ function LandingPage() {
       </section>
 
       {/* How It Works Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 lg:py-24">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white text-center mb-12 md:mb-16">
           How to Use Rupiya
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
           {/* Step 1 */}
-          <div className="text-center">
-            <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl font-bold text-white">1</span>
+          <div className="text-center group">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform shadow-lg">
+              <span className="text-2xl sm:text-3xl font-bold text-white">1</span>
             </div>
-            <h3 className="text-lg font-bold text-white mb-2">Create Account</h3>
-            <p className="text-slate-300">
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Create Account</h3>
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
               Sign up with your email and create a secure account in seconds.
             </p>
           </div>
 
           {/* Step 2 */}
-          <div className="text-center">
-            <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl font-bold text-white">2</span>
+          <div className="text-center group">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform shadow-lg">
+              <span className="text-2xl sm:text-3xl font-bold text-white">2</span>
             </div>
-            <h3 className="text-lg font-bold text-white mb-2">Add Transactions</h3>
-            <p className="text-slate-300">
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Add Transactions</h3>
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
               Log your income and expenses, or scan receipts for automatic entry.
             </p>
           </div>
 
           {/* Step 3 */}
-          <div className="text-center">
-            <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl font-bold text-white">3</span>
+          <div className="text-center group">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform shadow-lg">
+              <span className="text-2xl sm:text-3xl font-bold text-white">3</span>
             </div>
-            <h3 className="text-lg font-bold text-white mb-2">Set Goals</h3>
-            <p className="text-slate-300">
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Set Goals</h3>
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
               Define budgets, financial goals, and investment targets.
             </p>
           </div>
 
           {/* Step 4 */}
-          <div className="text-center">
-            <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl font-bold text-white">4</span>
+          <div className="text-center group">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform shadow-lg">
+              <span className="text-2xl sm:text-3xl font-bold text-white">4</span>
             </div>
-            <h3 className="text-lg font-bold text-white mb-2">Get Insights</h3>
-            <p className="text-slate-300">
+            <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Get Insights</h3>
+            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
               View analytics, reports, and AI recommendations to improve finances.
             </p>
           </div>
@@ -211,72 +211,72 @@ function LandingPage() {
       </section>
 
       {/* Key Benefits Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-12">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 lg:py-24">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white text-center mb-12 md:mb-16">
           Key Benefits
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="flex gap-4">
-            <div className="text-3xl flex-shrink-0">✅</div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+          <div className="flex gap-4 sm:gap-6 group">
+            <div className="text-3xl sm:text-4xl flex-shrink-0 group-hover:scale-125 transition-transform">✅</div>
             <div>
-              <h3 className="text-lg font-bold text-white mb-2">Complete Financial Overview</h3>
-              <p className="text-slate-300">See all your income, expenses, investments, and goals in one unified dashboard.</p>
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Complete Financial Overview</h3>
+              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">See all your income, expenses, investments, and goals in one unified dashboard.</p>
             </div>
           </div>
 
-          <div className="flex gap-4">
-            <div className="text-3xl flex-shrink-0">✅</div>
+          <div className="flex gap-4 sm:gap-6 group">
+            <div className="text-3xl sm:text-4xl flex-shrink-0 group-hover:scale-125 transition-transform">✅</div>
             <div>
-              <h3 className="text-lg font-bold text-white mb-2">Smart Budget Alerts</h3>
-              <p className="text-slate-300">Get notified when you're approaching budget limits so you can adjust spending.</p>
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Smart Budget Alerts</h3>
+              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">Get notified when you're approaching budget limits so you can adjust spending.</p>
             </div>
           </div>
 
-          <div className="flex gap-4">
-            <div className="text-3xl flex-shrink-0">✅</div>
+          <div className="flex gap-4 sm:gap-6 group">
+            <div className="text-3xl sm:text-4xl flex-shrink-0 group-hover:scale-125 transition-transform">✅</div>
             <div>
-              <h3 className="text-lg font-bold text-white mb-2">Investment Performance Tracking</h3>
-              <p className="text-slate-300">Monitor gains/losses across all your investments with detailed analytics.</p>
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Investment Performance Tracking</h3>
+              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">Monitor gains/losses across all your investments with detailed analytics.</p>
             </div>
           </div>
 
-          <div className="flex gap-4">
-            <div className="text-3xl flex-shrink-0">✅</div>
+          <div className="flex gap-4 sm:gap-6 group">
+            <div className="text-3xl sm:text-4xl flex-shrink-0 group-hover:scale-125 transition-transform">✅</div>
             <div>
-              <h3 className="text-lg font-bold text-white mb-2">Goal Achievement Tracking</h3>
-              <p className="text-slate-300">Stay motivated by tracking progress towards your financial goals.</p>
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Goal Achievement Tracking</h3>
+              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">Stay motivated by tracking progress towards your financial goals.</p>
             </div>
           </div>
 
-          <div className="flex gap-4">
-            <div className="text-3xl flex-shrink-0">✅</div>
+          <div className="flex gap-4 sm:gap-6 group">
+            <div className="text-3xl sm:text-4xl flex-shrink-0 group-hover:scale-125 transition-transform">🔒</div>
             <div>
-              <h3 className="text-lg font-bold text-white mb-2">Secure & Private</h3>
-              <p className="text-slate-300">Your financial data is encrypted and stored securely with enterprise-grade security.</p>
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Secure & Private</h3>
+              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">Your financial data is encrypted and stored securely with enterprise-grade security.</p>
             </div>
           </div>
 
-          <div className="flex gap-4">
-            <div className="text-3xl flex-shrink-0">✅</div>
+          <div className="flex gap-4 sm:gap-6 group">
+            <div className="text-3xl sm:text-4xl flex-shrink-0 group-hover:scale-125 transition-transform">🤖</div>
             <div>
-              <h3 className="text-lg font-bold text-white mb-2">AI-Powered Insights</h3>
-              <p className="text-slate-300">Get personalized recommendations to optimize your spending and savings.</p>
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">AI-Powered Insights</h3>
+              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">Get personalized recommendations to optimize your spending and savings.</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 text-center">
-        <div className="bg-gradient-to-r from-blue-600/20 to-cyan-600/20 border border-blue-500/30 rounded-lg p-8 md:p-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 lg:py-24 text-center">
+        <div className="bg-gradient-to-r from-blue-600/20 via-cyan-600/20 to-blue-600/20 border border-blue-500/30 hover:border-blue-500/50 rounded-lg sm:rounded-xl p-8 sm:p-12 md:p-16 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">
             Ready to Master Your Finances?
           </h2>
-          <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">
-            Join thousands of users who are taking control of their financial future with Rupiya.
+          <p className="text-base sm:text-lg md:text-xl text-slate-300 mb-8 md:mb-10 max-w-3xl mx-auto leading-relaxed">
+            Join thousands of users who are taking control of their financial future with Rupiya. Start your free account today and get instant access to all features.
           </p>
           <Link href="/auth/signup">
-            <button className="px-8 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white rounded-lg transition font-semibold text-lg">
+            <button className="px-8 sm:px-10 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white rounded-lg transition font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transform hover:scale-105">
               Start Your Free Account Today
             </button>
           </Link>
@@ -284,9 +284,41 @@ function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-slate-700 bg-slate-900/50 mt-12 md:mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center text-slate-400">
-          <p>&copy; 2025 Rupiya. All rights reserved. Your personal finance companion.</p>
+      <footer className="border-t border-slate-700 bg-slate-900/50 backdrop-blur mt-12 md:mt-16 lg:mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <h4 className="text-white font-bold mb-4">Rupiya</h4>
+              <p className="text-slate-400 text-sm">Your personal finance companion for smarter money management.</p>
+            </div>
+            <div>
+              <h4 className="text-white font-bold mb-4">Features</h4>
+              <ul className="space-y-2 text-slate-400 text-sm">
+                <li><a href="#" className="hover:text-white transition">Expense Tracking</a></li>
+                <li><a href="#" className="hover:text-white transition">Budget Management</a></li>
+                <li><a href="#" className="hover:text-white transition">Investment Tracking</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-white font-bold mb-4">Company</h4>
+              <ul className="space-y-2 text-slate-400 text-sm">
+                <li><a href="#" className="hover:text-white transition">About Us</a></li>
+                <li><a href="#" className="hover:text-white transition">Blog</a></li>
+                <li><a href="#" className="hover:text-white transition">Contact</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-white font-bold mb-4">Legal</h4>
+              <ul className="space-y-2 text-slate-400 text-sm">
+                <li><a href="#" className="hover:text-white transition">Privacy Policy</a></li>
+                <li><a href="#" className="hover:text-white transition">Terms of Service</a></li>
+                <li><a href="#" className="hover:text-white transition">Security</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-slate-700 pt-8 text-center text-slate-400 text-sm">
+            <p>&copy; 2025 Rupiya. All rights reserved. Your personal finance companion.</p>
+          </div>
         </div>
       </footer>
     </main>
