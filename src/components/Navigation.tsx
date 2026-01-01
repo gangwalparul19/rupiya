@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
 import { useAppStore } from '@/lib/store';
 import { logout } from '@/lib/authService';
+import PWAInstallButton from './PWAInstallButton';
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -154,8 +155,11 @@ export default function Navigation() {
             })}
           </nav>
 
-          {/* Right Side - Profile & Hamburger */}
+          {/* Right Side - Profile, Install Button & Hamburger */}
           <div className="flex items-center gap-2 sm:gap-3">
+            {/* PWA Install Button */}
+            <PWAInstallButton />
+
             <div className="relative hidden sm:block">
               <button
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
