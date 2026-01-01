@@ -489,48 +489,86 @@ export default function Home() {
 
   return (
     <PageWrapper>
-      <main className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
-        <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
-          <div className="mb-6 md:mb-8">
-            <h1 className="heading-page">Dashboard</h1>
-            <p className="text-secondary">Your complete financial management dashboard</p>
+      <main className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-850 to-slate-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 md:py-10">
+          {/* Header with fade-in animation */}
+          <div className="mb-8 md:mb-10 animate-fade-in">
+            <h1 className="heading-page text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent mb-2">Dashboard</h1>
+            <p className="text-slate-400 text-base md:text-lg">Your complete financial management dashboard</p>
           </div>
 
-          <div className="grid-responsive-4 mb-6 md:mb-8">
-            <div className="card bg-gradient-to-br from-green-900 to-green-800 border-green-700">
-              <p className="text-green-200 text-xs mb-1 font-medium">This Month Income</p>
-              <p className="text-lg md:text-2xl font-bold text-white">₹{(thisMonthIncome / 1000).toFixed(0)}K</p>
-              <p className="text-xs text-green-300 mt-1">{income.filter(i => {
+          {/* KPI Cards with staggered animation */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8 md:mb-10">
+            <div className="card bg-gradient-to-br from-green-500/20 via-green-600/20 to-green-700/20 border-green-500/30 hover:border-green-400/50 backdrop-blur-sm animate-slide-in-left" style={{ animationDelay: '0ms' }}>
+              <div className="flex items-start justify-between mb-3">
+                <div>
+                  <p className="text-green-300/80 text-xs md:text-sm mb-1 font-medium uppercase tracking-wide">Income</p>
+                  <p className="text-2xl md:text-3xl lg:text-4xl font-bold text-white bg-gradient-to-r from-green-300 to-green-100 bg-clip-text text-transparent">₹{(thisMonthIncome / 1000).toFixed(1)}K</p>
+                </div>
+                <div className="bg-green-500/20 p-2 md:p-3 rounded-lg">
+                  <svg className="w-5 h-5 md:w-6 md:h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                  </svg>
+                </div>
+              </div>
+              <p className="text-xs md:text-sm text-green-300/60">{income.filter(i => {
                 const d = new Date(i.date);
                 const now = new Date();
                 return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
-              }).length} entries</p>
+              }).length} transactions this month</p>
             </div>
 
-            <div className="card bg-gradient-to-br from-red-900 to-red-800 border-red-700">
-              <p className="text-red-200 text-xs mb-1 font-medium">This Month Expenses</p>
-              <p className="text-lg md:text-2xl font-bold text-white">₹{(thisMonthExpenses / 1000).toFixed(0)}K</p>
-              <p className="text-xs text-red-300 mt-1">{expenses.filter(e => {
+            <div className="card bg-gradient-to-br from-red-500/20 via-red-600/20 to-red-700/20 border-red-500/30 hover:border-red-400/50 backdrop-blur-sm animate-slide-in-left" style={{ animationDelay: '100ms' }}>
+              <div className="flex items-start justify-between mb-3">
+                <div>
+                  <p className="text-red-300/80 text-xs md:text-sm mb-1 font-medium uppercase tracking-wide">Expenses</p>
+                  <p className="text-2xl md:text-3xl lg:text-4xl font-bold text-white bg-gradient-to-r from-red-300 to-red-100 bg-clip-text text-transparent">₹{(thisMonthExpenses / 1000).toFixed(1)}K</p>
+                </div>
+                <div className="bg-red-500/20 p-2 md:p-3 rounded-lg">
+                  <svg className="w-5 h-5 md:w-6 md:h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
+                  </svg>
+                </div>
+              </div>
+              <p className="text-xs md:text-sm text-red-300/60">{expenses.filter(e => {
                 const d = new Date(e.date);
                 const now = new Date();
                 return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
-              }).length} entries</p>
+              }).length} transactions this month</p>
             </div>
 
-            <div className={`card bg-gradient-to-br ${cashFlow >= 0 ? 'from-blue-900 to-blue-800 border-blue-700' : 'from-orange-900 to-orange-800 border-orange-700'}`}>
-              <p className={`${cashFlow >= 0 ? 'text-blue-200' : 'text-orange-200'} text-xs mb-1 font-medium`}>Cash Flow</p>
-              <p className={`text-lg md:text-2xl font-bold ${cashFlow >= 0 ? 'text-green-300' : 'text-red-300'}`}>
-                ₹{(cashFlow / 1000).toFixed(0)}K
-              </p>
-              <p className={`text-xs mt-1 ${cashFlow >= 0 ? 'text-blue-300' : 'text-orange-300'}`}>
-                {savingsRate.toFixed(0)}% saved
+            <div className={`card bg-gradient-to-br ${cashFlow >= 0 ? 'from-blue-500/20 via-blue-600/20 to-blue-700/20 border-blue-500/30 hover:border-blue-400/50' : 'from-orange-500/20 via-orange-600/20 to-orange-700/20 border-orange-500/30 hover:border-orange-400/50'} backdrop-blur-sm animate-slide-in-left`} style={{ animationDelay: '200ms' }}>
+              <div className="flex items-start justify-between mb-3">
+                <div>
+                  <p className={`${cashFlow >= 0 ? 'text-blue-300/80' : 'text-orange-300/80'} text-xs md:text-sm mb-1 font-medium uppercase tracking-wide`}>Cash Flow</p>
+                  <p className={`text-2xl md:text-3xl lg:text-4xl font-bold ${cashFlow >= 0 ? 'text-green-300' : 'text-red-300'}`}>
+                    {cashFlow >= 0 ? '+' : ''}₹{(cashFlow / 1000).toFixed(1)}K
+                  </p>
+                </div>
+                <div className={`${cashFlow >= 0 ? 'bg-blue-500/20' : 'bg-orange-500/20'} p-2 md:p-3 rounded-lg`}>
+                  <svg className={`w-5 h-5 md:w-6 md:h-6 ${cashFlow >= 0 ? 'text-blue-400' : 'text-orange-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+              </div>
+              <p className={`text-xs md:text-sm ${cashFlow >= 0 ? 'text-blue-300/60' : 'text-orange-300/60'}`}>
+                {savingsRate.toFixed(1)}% savings rate
               </p>
             </div>
 
-            <div className="card bg-gradient-to-br from-purple-900 to-purple-800 border-purple-700">
-              <p className="text-purple-200 text-xs mb-1 font-medium">Net Worth</p>
-              <p className="text-lg md:text-2xl font-bold text-white">₹{((thisMonthIncome - thisMonthExpenses) / 1000).toFixed(0)}K</p>
-              <p className="text-xs text-purple-300 mt-1">Assets + Goals</p>
+            <div className="card bg-gradient-to-br from-purple-500/20 via-purple-600/20 to-purple-700/20 border-purple-500/30 hover:border-purple-400/50 backdrop-blur-sm animate-slide-in-left" style={{ animationDelay: '300ms' }}>
+              <div className="flex items-start justify-between mb-3">
+                <div>
+                  <p className="text-purple-300/80 text-xs md:text-sm mb-1 font-medium uppercase tracking-wide">Net Worth</p>
+                  <p className="text-2xl md:text-3xl lg:text-4xl font-bold text-white bg-gradient-to-r from-purple-300 to-purple-100 bg-clip-text text-transparent">₹{((thisMonthIncome - thisMonthExpenses) / 1000).toFixed(1)}K</p>
+                </div>
+                <div className="bg-purple-500/20 p-2 md:p-3 rounded-lg">
+                  <svg className="w-5 h-5 md:w-6 md:h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 00-2-2m0 0h2a2 2 0 012 2v6a2 2 0 01-2 2h-2a2 2 0 01-2-2v-6z" />
+                  </svg>
+                </div>
+              </div>
+              <p className="text-xs md:text-sm text-purple-300/60">Total assets + goals</p>
             </div>
           </div>
 
@@ -550,10 +588,13 @@ export default function Home() {
               <RecentExpenses />
             </div>
 
-            <div className="card">
-              <h3 className="heading-section">Expense Breakdown</h3>
+            <div className="card space-y-4">
+              <div>
+                <h3 className="text-lg md:text-xl font-bold text-white">Expense Breakdown</h3>
+                <p className="text-slate-400 text-sm mt-1">Category distribution</p>
+              </div>
               {expenses.length > 0 ? (
-                <ResponsiveContainer width="100%" height={150}>
+                <ResponsiveContainer width="100%" height={200}>
                   <PieChart>
                     <Pie
                       data={(() => {
@@ -571,7 +612,7 @@ export default function Home() {
                       cy="50%"
                       labelLine={false}
                       label={({ name, value }) => `${name}: ₹${value}`}
-                      outerRadius={50}
+                      outerRadius={70}
                       fill="#8884d8"
                       dataKey="value"
                     >
@@ -591,16 +632,23 @@ export default function Home() {
                   </PieChart>
                 </ResponsiveContainer>
               ) : (
-                <div className="h-40 flex items-center justify-center text-slate-400 text-xs">
-                  No expense data available
+                <div className="h-48 flex flex-col items-center justify-center text-slate-400">
+                  <svg className="w-12 h-12 mb-2 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2" />
+                  </svg>
+                  <p className="text-sm">No expense data available</p>
                 </div>
               )}
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 sm:gap-3 md:gap-4 mb-6 md:mb-8">
-            <div className="card">
-              <h3 className="heading-section">Income vs Expense Trend</h3>
+          {/* Charts Grid with animation */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 animate-slide-in-right">
+            <div className="card space-y-4">
+              <div>
+                <h3 className="text-lg md:text-xl font-bold text-white">Income vs Expense Trend</h3>
+                <p className="text-slate-400 text-sm mt-1">Last 6 months comparison</p>
+              </div>
               {income.length > 0 || expenses.length > 0 ? (
                 <ResponsiveContainer width="100%" height={200}>
                   <BarChart
@@ -650,8 +698,11 @@ export default function Home() {
               )}
             </div>
 
-            <div className="card">
-              <h3 className="heading-section">6-Month Spending Trend</h3>
+            <div className="card space-y-4">
+              <div>
+                <h3 className="text-lg md:text-xl font-bold text-white">6-Month Spending Trend</h3>
+                <p className="text-slate-400 text-sm mt-1">Monthly expense pattern</p>
+              </div>
               {expenses.length > 0 ? (
                 <ResponsiveContainer width="100%" height={200}>
                   <LineChart
@@ -692,14 +743,17 @@ export default function Home() {
                   </LineChart>
                 </ResponsiveContainer>
               ) : (
-                <div className="h-52 flex items-center justify-center text-slate-400 text-xs">
-                  No data available
+                <div className="h-52 flex flex-col items-center justify-center text-slate-400">
+                  <svg className="w-12 h-12 mb-2 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
+                  </svg>
+                  <p className="text-sm">No data available</p>
                 </div>
               )}
             </div>
           </div>
         </div>
-      </main>
-    </PageWrapper>
+    </main>
+    </PageWrapper >
   );
 }
