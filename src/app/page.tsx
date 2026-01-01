@@ -48,19 +48,18 @@ function LandingPage() {
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled ? 'bg-slate-950/95 backdrop-blur-xl border-b border-slate-800 shadow-lg' : 'bg-transparent'
       }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <div className="flex justify-between items-center">
-            <div className="flex items-center gap-3 group cursor-pointer">
-              <div className="relative w-10 h-10 transition-transform duration-300 group-hover:scale-110">
-                <Image 
-                  src="/logo.png" 
-                  alt="Rupiya Logo" 
-                  width={40} 
-                  height={40}
-                  className="object-contain"
-                />
-              </div>
-              <span className="text-2xl font-bold text-white tracking-tight">Rupiya</span>
+            {/* Logo Only - No Text */}
+            <div className="relative h-12 w-auto transition-transform duration-300 hover:scale-105 cursor-pointer">
+              <Image 
+                src="/logo.png" 
+                alt="Rupiya" 
+                width={120} 
+                height={48}
+                className="object-contain h-12 w-auto"
+                priority
+              />
             </div>
             <div className="flex gap-3">
               <Link href="/auth/login">
@@ -161,8 +160,8 @@ function LandingPage() {
             </p>
           </div>
 
-          {/* Feature Cards - 1 per row on mobile, 2 on tablet, 3 on desktop */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {/* Feature Cards - 2 per row on mobile, 2 on tablet, 3 on desktop */}
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {[
               {
                 icon: '📊',
@@ -215,28 +214,28 @@ function LandingPage() {
             ].map((feature, index) => (
               <div
                 key={index}
-                className={`group relative bg-gradient-to-br ${feature.bgGradient} backdrop-blur-sm border ${feature.borderColor} rounded-2xl p-8 sm:p-10 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl cursor-pointer overflow-hidden`}
+                className={`group relative bg-gradient-to-br ${feature.bgGradient} backdrop-blur-sm border ${feature.borderColor} rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-10 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl cursor-pointer overflow-hidden`}
               >
                 {/* Gradient Glow Effect */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
                 
                 {/* Icon with Gradient Background */}
-                <div className="relative mb-6">
-                  <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.gradient} shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                    <span className="text-3xl">{feature.icon}</span>
+                <div className="relative mb-4 sm:mb-6">
+                  <div className={`inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br ${feature.gradient} shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                    <span className="text-2xl sm:text-3xl">{feature.icon}</span>
                   </div>
                 </div>
                 
                 {/* Content */}
-                <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-300 transition-all duration-300">
+                <h3 className="text-base sm:text-xl lg:text-2xl font-bold text-white mb-2 sm:mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-300 transition-all duration-300">
                   {feature.title}
                 </h3>
-                <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
+                <p className="text-slate-400 text-xs sm:text-sm lg:text-base leading-relaxed mb-3 sm:mb-0">
                   {feature.description}
                 </p>
                 
-                {/* Arrow Icon */}
-                <div className="mt-6 flex items-center text-slate-500 group-hover:text-blue-400 transition-colors duration-300">
+                {/* Arrow Icon - Hidden on mobile */}
+                <div className="hidden sm:flex mt-4 lg:mt-6 items-center text-slate-500 group-hover:text-blue-400 transition-colors duration-300">
                   <span className="text-sm font-medium mr-2">Learn more</span>
                   <svg className="w-4 h-4 transform group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -249,23 +248,23 @@ function LandingPage() {
       </section>
 
       {/* How It Works */}
-      <section className="relative py-24 sm:py-32 lg:py-40 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-900/50 to-transparent">
+      <section className="relative py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-900/50 to-transparent">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
-          <div className="text-center mb-16 sm:mb-24">
-            <div className="inline-block px-4 py-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full mb-6">
-              <span className="text-cyan-400 text-sm font-semibold">HOW IT WORKS</span>
+          <div className="text-center mb-12 sm:mb-16 lg:mb-20">
+            <div className="inline-block px-4 py-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full mb-4 sm:mb-6">
+              <span className="text-cyan-400 text-xs sm:text-sm font-semibold">HOW IT WORKS</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6 leading-tight px-4">
               Get Started in Minutes
             </h2>
-            <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base lg:text-lg text-slate-400 max-w-2xl mx-auto px-4">
               Three simple steps to financial clarity
             </p>
           </div>
 
-          {/* Steps - 1 per row on mobile, 3 on desktop */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+          {/* Steps - 2 per row on mobile, 3 on desktop */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
             {[
               { 
                 step: '01', 
@@ -289,29 +288,29 @@ function LandingPage() {
               <div key={index} className="relative group">
                 {/* Connecting Line - Desktop Only */}
                 {index < 2 && (
-                  <div className="hidden md:block absolute top-20 left-1/2 w-full h-0.5 z-0">
+                  <div className="hidden md:block absolute top-16 left-1/2 w-full h-0.5 z-0">
                     <div className="w-full h-full bg-gradient-to-r from-blue-500/50 via-cyan-500/50 to-transparent"></div>
                   </div>
                 )}
                 
                 {/* Card */}
-                <div className="relative z-10 bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700 hover:border-blue-500/50 rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/10">
+                <div className="relative z-10 bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700 hover:border-blue-500/50 rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/10">
                   {/* Step Number Badge */}
-                  <div className="relative inline-flex items-center justify-center mb-6">
+                  <div className="relative inline-flex items-center justify-center mb-4 sm:mb-6">
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-full opacity-20 blur-xl group-hover:opacity-30 transition-opacity"></div>
-                    <div className="relative w-20 h-20 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300">
-                      <span className="text-2xl font-bold text-white">{item.step}</span>
+                    <div className="relative w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300">
+                      <span className="text-lg sm:text-xl lg:text-2xl font-bold text-white">{item.step}</span>
                     </div>
                   </div>
                   
                   {/* Icon */}
-                  <div className="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <div className="text-3xl sm:text-4xl lg:text-5xl mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300">
                     {item.icon}
                   </div>
                   
                   {/* Content */}
-                  <h3 className="text-2xl font-bold text-white mb-4">{item.title}</h3>
-                  <p className="text-slate-400 leading-relaxed">{item.description}</p>
+                  <h3 className="text-base sm:text-lg lg:text-2xl font-bold text-white mb-2 sm:mb-3 lg:mb-4">{item.title}</h3>
+                  <p className="text-slate-400 text-xs sm:text-sm lg:text-base leading-relaxed">{item.description}</p>
                 </div>
               </div>
             ))}
