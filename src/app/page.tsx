@@ -146,75 +146,102 @@ function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section className="relative py-32 px-4 sm:px-6 lg:px-8">
+      <section className="relative py-24 sm:py-32 lg:py-40 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6">
+          {/* Section Header */}
+          <div className="text-center mb-16 sm:mb-20">
+            <div className="inline-block px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full mb-6">
+              <span className="text-blue-400 text-sm font-semibold">FEATURES</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               Everything You Need
             </h2>
-            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
               Powerful features designed to give you complete control over your financial life
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Feature Cards - 1 per row on mobile, 2 on tablet, 3 on desktop */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {[
               {
                 icon: '📊',
                 title: 'Expense Tracking',
                 description: 'Categorize and track every expense with detailed analytics and real-time insights.',
-                color: 'from-blue-500/10 to-cyan-500/10',
-                border: 'border-blue-500/20'
+                gradient: 'from-blue-600 to-cyan-600',
+                bgGradient: 'from-blue-500/5 to-cyan-500/5',
+                borderColor: 'border-blue-500/20 hover:border-blue-500/40'
               },
               {
                 icon: '💳',
                 title: 'Smart Budgets',
                 description: 'Set intelligent budgets with AI-powered recommendations and instant alerts.',
-                color: 'from-purple-500/10 to-pink-500/10',
-                border: 'border-purple-500/20'
+                gradient: 'from-purple-600 to-pink-600',
+                bgGradient: 'from-purple-500/5 to-pink-500/5',
+                borderColor: 'border-purple-500/20 hover:border-purple-500/40'
               },
               {
                 icon: '📈',
                 title: 'Investment Tracking',
                 description: 'Monitor stocks, mutual funds, and crypto portfolios in real-time.',
-                color: 'from-green-500/10 to-emerald-500/10',
-                border: 'border-green-500/20'
+                gradient: 'from-green-600 to-emerald-600',
+                bgGradient: 'from-green-500/5 to-emerald-500/5',
+                borderColor: 'border-green-500/20 hover:border-green-500/40'
               },
               {
                 icon: '🎯',
                 title: 'Goal Planning',
                 description: 'Set financial goals and track progress with visual milestones.',
-                color: 'from-orange-500/10 to-red-500/10',
-                border: 'border-orange-500/20'
+                gradient: 'from-orange-600 to-red-600',
+                bgGradient: 'from-orange-500/5 to-red-500/5',
+                borderColor: 'border-orange-500/20 hover:border-orange-500/40'
               },
               {
                 icon: '💱',
                 title: 'Multi-Currency',
                 description: 'Manage finances across currencies with live exchange rates.',
-                color: 'from-cyan-500/10 to-blue-500/10',
-                border: 'border-cyan-500/20'
+                gradient: 'from-cyan-600 to-blue-600',
+                bgGradient: 'from-cyan-500/5 to-blue-500/5',
+                borderColor: 'border-cyan-500/20 hover:border-cyan-500/40'
               },
               {
                 icon: '🤖',
                 title: 'AI Insights',
                 description: 'Get personalized recommendations to optimize your spending patterns.',
-                color: 'from-violet-500/10 to-purple-500/10',
-                border: 'border-violet-500/20'
+                gradient: 'from-violet-600 to-purple-600',
+                bgGradient: 'from-violet-500/5 to-purple-500/5',
+                borderColor: 'border-violet-500/20 hover:border-violet-500/40'
               }
             ].map((feature, index) => (
               <div
                 key={index}
-                className={`group relative bg-gradient-to-br ${feature.color} border ${feature.border} rounded-2xl p-8 hover:scale-105 transition-all duration-300 hover:shadow-2xl cursor-pointer`}
-                style={{ animationDelay: `${index * 100}ms` }}
+                className={`group relative bg-gradient-to-br ${feature.bgGradient} backdrop-blur-sm border ${feature.borderColor} rounded-2xl p-8 sm:p-10 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl cursor-pointer overflow-hidden`}
               >
-                <div className="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                  {feature.icon}
-                </div>
-                <h3 className="text-xl font-bold text-white mb-3">{feature.title}</h3>
-                <p className="text-slate-400 text-sm leading-relaxed">{feature.description}</p>
+                {/* Gradient Glow Effect */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
                 
-                {/* Hover Effect */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white/0 to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl"></div>
+                {/* Icon with Gradient Background */}
+                <div className="relative mb-6">
+                  <div className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.gradient} shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                    <span className="text-3xl">{feature.icon}</span>
+                  </div>
+                </div>
+                
+                {/* Content */}
+                <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-slate-300 transition-all duration-300">
+                  {feature.title}
+                </h3>
+                <p className="text-slate-400 text-sm sm:text-base leading-relaxed">
+                  {feature.description}
+                </p>
+                
+                {/* Arrow Icon */}
+                <div className="mt-6 flex items-center text-slate-500 group-hover:text-blue-400 transition-colors duration-300">
+                  <span className="text-sm font-medium mr-2">Learn more</span>
+                  <svg className="w-4 h-4 transform group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
               </div>
             ))}
           </div>
@@ -222,38 +249,70 @@ function LandingPage() {
       </section>
 
       {/* How It Works */}
-      <section className="relative py-32 px-4 sm:px-6 lg:px-8 bg-slate-900/30">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6">
+      <section className="relative py-24 sm:py-32 lg:py-40 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-900/50 to-transparent">
+        <div className="max-w-6xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center mb-16 sm:mb-24">
+            <div className="inline-block px-4 py-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full mb-6">
+              <span className="text-cyan-400 text-sm font-semibold">HOW IT WORKS</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
               Get Started in Minutes
             </h2>
-            <p className="text-lg text-slate-400">
+            <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto">
               Three simple steps to financial clarity
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Steps - 1 per row on mobile, 3 on desktop */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
             {[
-              { step: '01', title: 'Sign Up', description: 'Create your account with email or Google in seconds' },
-              { step: '02', title: 'Add Data', description: 'Import or manually add your financial transactions' },
-              { step: '03', title: 'Get Insights', description: 'View analytics and optimize your finances with AI' }
+              { 
+                step: '01', 
+                title: 'Sign Up', 
+                description: 'Create your account with email or Google in seconds',
+                icon: '👤'
+              },
+              { 
+                step: '02', 
+                title: 'Add Data', 
+                description: 'Import or manually add your financial transactions',
+                icon: '📝'
+              },
+              { 
+                step: '03', 
+                title: 'Get Insights', 
+                description: 'View analytics and optimize your finances with AI',
+                icon: '📊'
+              }
             ].map((item, index) => (
-              <div key={index} className="relative text-center group">
-                {/* Connecting Line */}
+              <div key={index} className="relative group">
+                {/* Connecting Line - Desktop Only */}
                 {index < 2 && (
-                  <div className="hidden md:block absolute top-16 left-1/2 w-full h-0.5 bg-gradient-to-r from-blue-500/50 to-transparent"></div>
+                  <div className="hidden md:block absolute top-20 left-1/2 w-full h-0.5 z-0">
+                    <div className="w-full h-full bg-gradient-to-r from-blue-500/50 via-cyan-500/50 to-transparent"></div>
+                  </div>
                 )}
                 
-                <div className="relative inline-flex items-center justify-center w-32 h-32 mb-6 mx-auto">
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-full opacity-20 group-hover:opacity-30 transition-opacity blur-xl"></div>
-                  <div className="relative w-24 h-24 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300">
-                    <span className="text-3xl font-bold text-white">{item.step}</span>
+                {/* Card */}
+                <div className="relative z-10 bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700 hover:border-blue-500/50 rounded-2xl p-8 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/10">
+                  {/* Step Number Badge */}
+                  <div className="relative inline-flex items-center justify-center mb-6">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-full opacity-20 blur-xl group-hover:opacity-30 transition-opacity"></div>
+                    <div className="relative w-20 h-20 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300">
+                      <span className="text-2xl font-bold text-white">{item.step}</span>
+                    </div>
                   </div>
+                  
+                  {/* Icon */}
+                  <div className="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                    {item.icon}
+                  </div>
+                  
+                  {/* Content */}
+                  <h3 className="text-2xl font-bold text-white mb-4">{item.title}</h3>
+                  <p className="text-slate-400 leading-relaxed">{item.description}</p>
                 </div>
-                
-                <h3 className="text-2xl font-bold text-white mb-3">{item.title}</h3>
-                <p className="text-slate-400">{item.description}</p>
               </div>
             ))}
           </div>
