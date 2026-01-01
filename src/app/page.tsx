@@ -45,279 +45,174 @@ function LandingPage() {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-24 lg:py-32">
-        <div className="text-center mb-12 md:mb-16">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 md:mb-6 leading-tight">
-            Take Control of Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Financial Life</span>
+      {/* Hero Section - Clean & Simple */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+        <div className="text-center">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 md:mb-6">
+            Smart Money Management
           </h1>
-          <p className="text-base sm:text-lg md:text-xl text-slate-300 mb-8 md:mb-10 max-w-3xl mx-auto leading-relaxed">
-            Rupiya is your all-in-one personal finance management platform. Track expenses, manage budgets, invest wisely, and achieve your financial goals with powerful analytics and AI insights.
+          <p className="text-base sm:text-lg text-slate-300 mb-8 max-w-2xl mx-auto">
+            Track expenses, manage budgets, and achieve financial goals with AI-powered insights.
           </p>
           <div className="flex gap-3 sm:gap-4 justify-center flex-wrap">
             <Link href="/auth/signup">
-              <button className="px-6 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white rounded-lg transition font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transform hover:scale-105">
+              <button className="px-6 sm:px-8 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition">
                 Get Started Free
               </button>
             </Link>
-            <Link href="/auth/login">
-              <button className="px-6 sm:px-8 py-2.5 sm:py-3 border-2 border-slate-500 hover:border-slate-300 text-white rounded-lg transition font-semibold text-base sm:text-lg hover:bg-slate-800/50">
-                Sign In
-              </button>
-            </Link>
+            <a href="/rupiya-guide.html" target="_blank" className="px-6 sm:px-8 py-3 border-2 border-slate-500 hover:border-slate-300 text-white rounded-lg font-semibold hover:bg-slate-800/50 transition flex items-center gap-2">
+              📥 User Guide
+            </a>
+            <a href="/MAXIMIZING_RUPIYA.html" target="_blank" className="px-6 sm:px-8 py-3 border-2 border-cyan-500 hover:border-cyan-300 text-white rounded-lg font-semibold hover:bg-cyan-800/50 transition flex items-center gap-2">
+              🚀 Maximize Tips
+            </a>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 lg:py-24">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white text-center mb-12 md:mb-16">
-          Why Choose Rupiya?
+      {/* Core Features - Card Based */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+        <h2 className="text-3xl sm:text-4xl font-bold text-white text-center mb-12">
+          Core Features
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-          {/* Feature 1 */}
-          <div className="group bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700 hover:border-blue-500/50 rounded-lg p-6 sm:p-8 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 transform hover:-translate-y-1">
-            <div className="text-4xl sm:text-5xl mb-4 group-hover:scale-110 transition-transform">📊</div>
-            <h3 className="text-lg sm:text-xl font-bold text-white mb-3">Smart Expense Tracking</h3>
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              Track every rupee you spend with detailed categorization, payment methods, and receipt scanning with OCR technology.
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Card 1 */}
+          <div className="bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-xl p-8 hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10">
+            <div className="text-5xl mb-4">📊</div>
+            <h3 className="text-xl font-bold text-white mb-3">Expense Tracking</h3>
+            <p className="text-slate-300 text-sm leading-relaxed">
+              Categorize and track every expense with detailed analytics.
             </p>
           </div>
 
-          {/* Feature 2 */}
-          <div className="group bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700 hover:border-blue-500/50 rounded-lg p-6 sm:p-8 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 transform hover:-translate-y-1">
-            <div className="text-4xl sm:text-5xl mb-4 group-hover:scale-110 transition-transform">💳</div>
-            <h3 className="text-lg sm:text-xl font-bold text-white mb-3">Budget Management</h3>
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              Set monthly budgets by category, get real-time alerts when you're approaching limits, and stay in control of your spending.
+          {/* Card 2 */}
+          <div className="bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-xl p-8 hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10">
+            <div className="text-5xl mb-4">💳</div>
+            <h3 className="text-xl font-bold text-white mb-3">Budget Management</h3>
+            <p className="text-slate-300 text-sm leading-relaxed">
+              Set budgets and get alerts when approaching limits.
             </p>
           </div>
 
-          {/* Feature 3 */}
-          <div className="group bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700 hover:border-blue-500/50 rounded-lg p-6 sm:p-8 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 transform hover:-translate-y-1">
-            <div className="text-4xl sm:text-5xl mb-4 group-hover:scale-110 transition-transform">📈</div>
-            <h3 className="text-lg sm:text-xl font-bold text-white mb-3">Investment Tracking</h3>
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              Monitor your stocks, mutual funds, crypto, real estate, and other investments in one place with performance analytics.
+          {/* Card 3 */}
+          <div className="bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-xl p-8 hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10">
+            <div className="text-5xl mb-4">📈</div>
+            <h3 className="text-xl font-bold text-white mb-3">Investment Tracking</h3>
+            <p className="text-slate-300 text-sm leading-relaxed">
+              Monitor stocks, mutual funds, and crypto in one place.
             </p>
           </div>
 
-          {/* Feature 4 */}
-          <div className="group bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700 hover:border-blue-500/50 rounded-lg p-6 sm:p-8 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 transform hover:-translate-y-1">
-            <div className="text-4xl sm:text-5xl mb-4 group-hover:scale-110 transition-transform">🎯</div>
-            <h3 className="text-lg sm:text-xl font-bold text-white mb-3">Goal Planning</h3>
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              Set financial goals (emergency fund, vacation, home, education) and track your progress towards achieving them.
+          {/* Card 4 */}
+          <div className="bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-xl p-8 hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10">
+            <div className="text-5xl mb-4">🎯</div>
+            <h3 className="text-xl font-bold text-white mb-3">Goal Planning</h3>
+            <p className="text-slate-300 text-sm leading-relaxed">
+              Set and track financial goals with progress visualization.
             </p>
           </div>
 
-          {/* Feature 5 */}
-          <div className="group bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700 hover:border-blue-500/50 rounded-lg p-6 sm:p-8 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 transform hover:-translate-y-1">
-            <div className="text-4xl sm:text-5xl mb-4 group-hover:scale-110 transition-transform">💱</div>
-            <h3 className="text-lg sm:text-xl font-bold text-white mb-3">Multi-Currency Support</h3>
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              Manage finances in multiple currencies with real-time exchange rates and automatic conversion capabilities.
+          {/* Card 5 */}
+          <div className="bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-xl p-8 hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10">
+            <div className="text-5xl mb-4">💱</div>
+            <h3 className="text-xl font-bold text-white mb-3">Multi-Currency</h3>
+            <p className="text-slate-300 text-sm leading-relaxed">
+              Manage finances in multiple currencies with live rates.
             </p>
           </div>
 
-          {/* Feature 6 */}
-          <div className="group bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700 hover:border-blue-500/50 rounded-lg p-6 sm:p-8 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 transform hover:-translate-y-1">
-            <div className="text-4xl sm:text-5xl mb-4 group-hover:scale-110 transition-transform">👥</div>
-            <h3 className="text-lg sm:text-xl font-bold text-white mb-3">Expense Splitting</h3>
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              Split expenses with friends and family, track who owes whom, and settle up easily with built-in settlement tracking.
-            </p>
-          </div>
-
-          {/* Feature 7 */}
-          <div className="group bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700 hover:border-blue-500/50 rounded-lg p-6 sm:p-8 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 transform hover:-translate-y-1">
-            <div className="text-4xl sm:text-5xl mb-4 group-hover:scale-110 transition-transform">📱</div>
-            <h3 className="text-lg sm:text-xl font-bold text-white mb-3">Receipt Scanning</h3>
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              Scan receipts with your camera, extract expense details automatically, and organize all your bills in one place.
-            </p>
-          </div>
-
-          {/* Feature 8 */}
-          <div className="group bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700 hover:border-blue-500/50 rounded-lg p-6 sm:p-8 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 transform hover:-translate-y-1">
-            <div className="text-4xl sm:text-5xl mb-4 group-hover:scale-110 transition-transform">📅</div>
-            <h3 className="text-lg sm:text-xl font-bold text-white mb-3">Calendar & Reminders</h3>
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              Get reminders for bill payments, recurring transactions, and goal milestones so you never miss important dates.
-            </p>
-          </div>
-
-          {/* Feature 9 */}
-          <div className="group bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700 hover:border-blue-500/50 rounded-lg p-6 sm:p-8 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 transform hover:-translate-y-1">
-            <div className="text-4xl sm:text-5xl mb-4 group-hover:scale-110 transition-transform">🤖</div>
-            <h3 className="text-lg sm:text-xl font-bold text-white mb-3">AI-Powered Insights</h3>
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              Get AI-powered insights, spending trends, savings recommendations, and detailed financial reports to make better decisions.
+          {/* Card 6 */}
+          <div className="bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 rounded-xl p-8 hover:border-blue-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10">
+            <div className="text-5xl mb-4">🤖</div>
+            <h3 className="text-xl font-bold text-white mb-3">AI Insights</h3>
+            <p className="text-slate-300 text-sm leading-relaxed">
+              Get personalized recommendations to optimize spending.
             </p>
           </div>
         </div>
       </section>
 
-      {/* How It Works Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 lg:py-24">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white text-center mb-12 md:mb-16">
-          How to Use Rupiya
+      {/* How It Works */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 bg-slate-800/30 rounded-2xl">
+        <h2 className="text-3xl sm:text-4xl font-bold text-white text-center mb-12">
+          Get Started in 3 Steps
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-          {/* Step 1 */}
-          <div className="text-center group">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform shadow-lg">
-              <span className="text-2xl sm:text-3xl font-bold text-white">1</span>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="text-center">
+            <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+              <span className="text-2xl font-bold text-white">1</span>
             </div>
-            <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Create Account</h3>
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              Sign up with your email and create a secure account in seconds.
-            </p>
+            <h3 className="text-lg font-bold text-white mb-2">Sign Up</h3>
+            <p className="text-slate-300 text-sm">Create your account in seconds with email or Google.</p>
           </div>
 
-          {/* Step 2 */}
-          <div className="text-center group">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform shadow-lg">
-              <span className="text-2xl sm:text-3xl font-bold text-white">2</span>
+          <div className="text-center">
+            <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+              <span className="text-2xl font-bold text-white">2</span>
             </div>
-            <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Add Transactions</h3>
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              Log your income and expenses, or scan receipts for automatic entry.
-            </p>
+            <h3 className="text-lg font-bold text-white mb-2">Add Data</h3>
+            <p className="text-slate-300 text-sm">Log expenses, income, and investments easily.</p>
           </div>
 
-          {/* Step 3 */}
-          <div className="text-center group">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform shadow-lg">
-              <span className="text-2xl sm:text-3xl font-bold text-white">3</span>
+          <div className="text-center">
+            <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+              <span className="text-2xl font-bold text-white">3</span>
             </div>
-            <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Set Goals</h3>
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              Define budgets, financial goals, and investment targets.
-            </p>
-          </div>
-
-          {/* Step 4 */}
-          <div className="text-center group">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform shadow-lg">
-              <span className="text-2xl sm:text-3xl font-bold text-white">4</span>
-            </div>
-            <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Get Insights</h3>
-            <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
-              View analytics, reports, and AI recommendations to improve finances.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Key Benefits Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 lg:py-24">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white text-center mb-12 md:mb-16">
-          Key Benefits
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-          <div className="flex gap-4 sm:gap-6 group">
-            <div className="text-3xl sm:text-4xl flex-shrink-0 group-hover:scale-125 transition-transform">✅</div>
-            <div>
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Complete Financial Overview</h3>
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">See all your income, expenses, investments, and goals in one unified dashboard.</p>
-            </div>
-          </div>
-
-          <div className="flex gap-4 sm:gap-6 group">
-            <div className="text-3xl sm:text-4xl flex-shrink-0 group-hover:scale-125 transition-transform">✅</div>
-            <div>
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Smart Budget Alerts</h3>
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">Get notified when you're approaching budget limits so you can adjust spending.</p>
-            </div>
-          </div>
-
-          <div className="flex gap-4 sm:gap-6 group">
-            <div className="text-3xl sm:text-4xl flex-shrink-0 group-hover:scale-125 transition-transform">✅</div>
-            <div>
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Investment Performance Tracking</h3>
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">Monitor gains/losses across all your investments with detailed analytics.</p>
-            </div>
-          </div>
-
-          <div className="flex gap-4 sm:gap-6 group">
-            <div className="text-3xl sm:text-4xl flex-shrink-0 group-hover:scale-125 transition-transform">✅</div>
-            <div>
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Goal Achievement Tracking</h3>
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">Stay motivated by tracking progress towards your financial goals.</p>
-            </div>
-          </div>
-
-          <div className="flex gap-4 sm:gap-6 group">
-            <div className="text-3xl sm:text-4xl flex-shrink-0 group-hover:scale-125 transition-transform">🔒</div>
-            <div>
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">Secure & Private</h3>
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">Your financial data is encrypted and stored securely with enterprise-grade security.</p>
-            </div>
-          </div>
-
-          <div className="flex gap-4 sm:gap-6 group">
-            <div className="text-3xl sm:text-4xl flex-shrink-0 group-hover:scale-125 transition-transform">🤖</div>
-            <div>
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">AI-Powered Insights</h3>
-              <p className="text-slate-300 text-sm sm:text-base leading-relaxed">Get personalized recommendations to optimize your spending and savings.</p>
-            </div>
+            <h3 className="text-lg font-bold text-white mb-2">Get Insights</h3>
+            <p className="text-slate-300 text-sm">View analytics and optimize your finances.</p>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 lg:py-24 text-center">
-        <div className="bg-gradient-to-r from-blue-600/20 via-cyan-600/20 to-blue-600/20 border border-blue-500/30 hover:border-blue-500/50 rounded-lg sm:rounded-xl p-8 sm:p-12 md:p-16 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6">
-            Ready to Master Your Finances?
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 text-center">
+        <div className="bg-gradient-to-r from-blue-600/20 to-cyan-600/20 border border-blue-500/30 rounded-2xl p-12">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+            Ready to Take Control?
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-slate-300 mb-8 md:mb-10 max-w-3xl mx-auto leading-relaxed">
-            Join thousands of users who are taking control of their financial future with Rupiya. Start your free account today and get instant access to all features.
+          <p className="text-slate-300 mb-8 max-w-xl mx-auto">
+            Join thousands managing their finances smarter with Rupiya.
           </p>
           <Link href="/auth/signup">
-            <button className="px-8 sm:px-10 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white rounded-lg transition font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transform hover:scale-105">
-              Start Your Free Account Today
+            <button className="px-8 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition">
+              Start Free Today
             </button>
           </Link>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-slate-700 bg-slate-900/50 backdrop-blur mt-12 md:mt-16 lg:mt-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+      <footer className="border-t border-slate-700 bg-slate-900/50 mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-8">
             <div>
               <h4 className="text-white font-bold mb-4">Rupiya</h4>
-              <p className="text-slate-400 text-sm">Your personal finance companion for smarter money management.</p>
+              <p className="text-slate-400 text-sm">Smart personal finance management.</p>
             </div>
             <div>
-              <h4 className="text-white font-bold mb-4">Features</h4>
+              <h4 className="text-white font-bold mb-4">Product</h4>
               <ul className="space-y-2 text-slate-400 text-sm">
-                <li><a href="#" className="hover:text-white transition">Expense Tracking</a></li>
-                <li><a href="#" className="hover:text-white transition">Budget Management</a></li>
-                <li><a href="#" className="hover:text-white transition">Investment Tracking</a></li>
+                <li><a href="#" className="hover:text-white transition">Features</a></li>
+                <li><a href="#" className="hover:text-white transition">Pricing</a></li>
               </ul>
             </div>
             <div>
               <h4 className="text-white font-bold mb-4">Company</h4>
               <ul className="space-y-2 text-slate-400 text-sm">
-                <li><a href="#" className="hover:text-white transition">About Us</a></li>
+                <li><a href="#" className="hover:text-white transition">About</a></li>
                 <li><a href="#" className="hover:text-white transition">Blog</a></li>
-                <li><a href="#" className="hover:text-white transition">Contact</a></li>
               </ul>
             </div>
             <div>
               <h4 className="text-white font-bold mb-4">Legal</h4>
               <ul className="space-y-2 text-slate-400 text-sm">
-                <li><a href="#" className="hover:text-white transition">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-white transition">Terms of Service</a></li>
-                <li><a href="#" className="hover:text-white transition">Security</a></li>
+                <li><a href="#" className="hover:text-white transition">Privacy</a></li>
+                <li><a href="#" className="hover:text-white transition">Terms</a></li>
               </ul>
             </div>
           </div>
           <div className="border-t border-slate-700 pt-8 text-center text-slate-400 text-sm">
-            <p>&copy; 2025 Rupiya. All rights reserved. Your personal finance companion.</p>
+            <p>&copy; 2025 Rupiya. All rights reserved.</p>
           </div>
         </div>
       </footer>
@@ -395,9 +290,8 @@ export default function Home() {
           <p className="text-secondary">Your complete financial management dashboard</p>
         </div>
 
-        {/* Key Financial Metrics - Compact Cards */}
+        {/* Key Financial Metrics */}
         <div className="grid-responsive-4 mb-6 md:mb-8">
-          {/* This Month Income */}
           <div className="card bg-gradient-to-br from-green-900 to-green-800 border-green-700">
             <p className="text-green-200 text-xs mb-1 font-medium">This Month Income</p>
             <p className="text-lg md:text-2xl font-bold text-white">₹{(thisMonthIncome / 1000).toFixed(0)}K</p>
@@ -408,7 +302,6 @@ export default function Home() {
             }).length} entries</p>
           </div>
 
-          {/* This Month Expenses */}
           <div className="card bg-gradient-to-br from-red-900 to-red-800 border-red-700">
             <p className="text-red-200 text-xs mb-1 font-medium">This Month Expenses</p>
             <p className="text-lg md:text-2xl font-bold text-white">₹{(thisMonthExpenses / 1000).toFixed(0)}K</p>
@@ -419,7 +312,6 @@ export default function Home() {
             }).length} entries</p>
           </div>
 
-          {/* Cash Flow */}
           <div className={`card bg-gradient-to-br ${cashFlow >= 0 ? 'from-blue-900 to-blue-800 border-blue-700' : 'from-orange-900 to-orange-800 border-orange-700'}`}>
             <p className={`${cashFlow >= 0 ? 'text-blue-200' : 'text-orange-200'} text-xs mb-1 font-medium`}>Cash Flow</p>
             <p className={`text-lg md:text-2xl font-bold ${cashFlow >= 0 ? 'text-green-300' : 'text-red-300'}`}>
@@ -430,7 +322,6 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Net Worth */}
           <div className="card bg-gradient-to-br from-purple-900 to-purple-800 border-purple-700">
             <p className="text-purple-200 text-xs mb-1 font-medium">Net Worth</p>
             <p className="text-lg md:text-2xl font-bold text-white">₹{((totalCurrentValue + totalGoalSaved - totalExpenses) / 1000).toFixed(0)}K</p>
@@ -438,9 +329,8 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Secondary Metrics - 2x2 on mobile, 3 cols on desktop */}
+        {/* Secondary Metrics */}
         <div className="grid-responsive-3 mb-6 md:mb-8">
-          {/* Budget Status */}
           {currentBudget && (
             <div className={`card ${
               budgetAdherence > 100
@@ -491,7 +381,6 @@ export default function Home() {
             </div>
           )}
 
-          {/* Investment Performance */}
           {investments.length > 0 && (
             <div className="card">
               <p className="text-slate-300 text-xs font-medium mb-2">Investment Performance</p>
@@ -509,7 +398,6 @@ export default function Home() {
             </div>
           )}
 
-          {/* Goals Progress */}
           {goals.length > 0 && (
             <div className="card">
               <p className="text-slate-300 text-xs font-medium mb-2">Goals Progress</p>
@@ -534,7 +422,6 @@ export default function Home() {
 
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 sm:gap-3 md:gap-4 mb-6 md:mb-8">
-          {/* Recent Expenses Section */}
           <div className="lg:col-span-2">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 md:mb-4 gap-2">
               <h2 className="heading-section">Recent Transactions</h2>
@@ -547,7 +434,6 @@ export default function Home() {
             <RecentExpenses />
           </div>
 
-          {/* Expense Breakdown Pie Chart */}
           <div className="card">
             <h3 className="heading-section">Expense Breakdown</h3>
             {expenses.length > 0 ? (
@@ -598,7 +484,6 @@ export default function Home() {
 
         {/* Charts Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 sm:gap-3 md:gap-4 mb-6 md:mb-8">
-          {/* Income vs Expense Comparison */}
           <div className="card">
             <h3 className="heading-section">Income vs Expense Trend</h3>
             {income.length > 0 || expenses.length > 0 ? (
@@ -650,7 +535,6 @@ export default function Home() {
             )}
           </div>
 
-          {/* 6-Month Spending Trend */}
           <div className="card">
             <h3 className="heading-section">6-Month Spending Trend</h3>
             {expenses.length > 0 ? (
@@ -687,97 +571,20 @@ export default function Home() {
                     type="monotone"
                     dataKey="amount"
                     stroke="#f59e0b"
-                    strokeWidth={2}
                     dot={{ fill: '#f59e0b', r: 4 }}
                     activeDot={{ r: 6 }}
-                    name="Spending"
                   />
                 </LineChart>
               </ResponsiveContainer>
             ) : (
               <div className="h-52 flex items-center justify-center text-slate-400 text-xs">
-                No expense data available
+                No data available
               </div>
             )}
           </div>
-        </div>
-
-        {/* Additional Charts */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 sm:gap-3 md:gap-4 mb-6 md:mb-8">
-          {/* Income Sources */}
-          {income.length > 0 && (
-            <div className="card">
-              <h3 className="heading-section">Income Sources</h3>
-              <ResponsiveContainer width="100%" height={160}>
-                <PieChart>
-                  <Pie
-                    data={(() => {
-                      const sources: { [key: string]: number } = {};
-                      income.forEach((inc) => {
-                        sources[inc.source] = (sources[inc.source] || 0) + inc.amount;
-                      });
-                      return Object.entries(sources).map(([name, value]) => ({
-                        name: name.charAt(0).toUpperCase() + name.slice(1),
-                        value,
-                      }));
-                    })()}
-                    cx="50%"
-                    cy="50%"
-                    labelLine={false}
-                    label={({ name, value }) => `${name}: ₹${value}`}
-                    outerRadius={50}
-                    fill="#8884d8"
-                    dataKey="value"
-                  >
-                    {[
-                      '#22c55e',
-                      '#06b6d4',
-                      '#3b82f6',
-                      '#8b5cf6',
-                      '#ec4899',
-                      '#f59e0b',
-                    ].map((color, index) => (
-                      <Cell key={`cell-${index}`} fill={color} />
-                    ))}
-                  </Pie>
-                  <Tooltip formatter={(value) => `₹${value}`} />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-          )}
-
-          {/* Investment Performance */}
-          {investments.length > 0 && (
-            <div className="card">
-              <h3 className="heading-section">Investment Performance</h3>
-              <ResponsiveContainer width="100%" height={160}>
-                <BarChart
-                  data={investments.map((inv) => ({
-                    name: inv.name.substring(0, 10),
-                    initial: inv.initialAmount,
-                    current: inv.currentValue,
-                  }))}
-                  margin={{ top: 20, right: 30, left: 0, bottom: 20 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" stroke="#475569" />
-                  <XAxis dataKey="name" stroke="#94a3b8" />
-                  <YAxis stroke="#94a3b8" />
-                  <Tooltip
-                    formatter={(value) => `₹${value}`}
-                    contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #475569' }}
-                  />
-                  <Legend />
-                  <Bar dataKey="initial" fill="#94a3b8" name="Initial" />
-                  <Bar dataKey="current" fill="#22c55e" name="Current" />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          )}
         </div>
         </div>
       </main>
     </PageWrapper>
   );
 }
-
-
