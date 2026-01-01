@@ -45,40 +45,27 @@ function LandingPage() {
       </div>
 
       {/* Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-slate-950/95 backdrop-blur-xl border-b border-slate-800 shadow-lg' : 'bg-transparent'
-      }`}>
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-slate-950/95 backdrop-blur-xl border-b border-slate-800 shadow-lg' : 'bg-transparent'
+        }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-          <div className="flex justify-between items-center">
-            {/* Logo Only - No Text */}
+          <div className="flex justify-center items-center">
+            {/* Logo Only - Centered */}
             <div className="relative h-12 w-auto transition-transform duration-300 hover:scale-105 cursor-pointer">
-              <Image 
-                src="/logo.png" 
-                alt="Rupiya" 
-                width={120} 
+              <Image
+                src="/logo.png"
+                alt="Rupiya"
+                width={120}
                 height={48}
                 className="object-contain h-12 w-auto"
                 priority
               />
-            </div>
-            <div className="flex gap-3">
-              <Link href="/auth/login">
-                <button className="px-5 py-2 text-slate-300 hover:text-white transition-all duration-300 text-sm font-medium hover:bg-slate-800/50 rounded-lg">
-                  Login
-                </button>
-              </Link>
-              <Link href="/auth/signup">
-                <button className="px-6 py-2 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white rounded-lg transition-all duration-300 font-semibold text-sm shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-105">
-                  Sign Up
-                </button>
-              </Link>
             </div>
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-20">
+      <section className="relative flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-24 pb-12">
         <div className="max-w-5xl mx-auto text-center z-10">
           {/* Animated Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full mb-8 animate-fade-in">
@@ -95,22 +82,14 @@ function LandingPage() {
             </span>
           </h1>
 
-          <p className="text-lg sm:text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed animate-slide-up delay-100">
+          <p className="text-lg sm:text-xl text-slate-400 mb-8 max-w-2xl mx-auto leading-relaxed animate-slide-up delay-100">
             Take control of your finances with intelligent tracking, budgeting, and AI-powered insights. Built for modern professionals.
           </p>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slide-up delay-200">
-            <Link href="/auth/signup">
-              <button className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white rounded-xl font-semibold text-base shadow-2xl shadow-blue-500/30 hover:shadow-blue-500/50 transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2">
-                Get Started Free
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </button>
-            </Link>
+          {/* View Guide Button */}
+          <div className="flex justify-center mb-8 animate-slide-up delay-200">
             <a href="/rupiya-guide.html" target="_blank" rel="noopener noreferrer">
-              <button className="w-full sm:w-auto px-8 py-4 border-2 border-slate-700 hover:border-slate-500 text-white rounded-xl font-semibold text-base hover:bg-slate-800/50 transition-all duration-300 flex items-center justify-center gap-2">
+              <button className="px-8 py-3 border-2 border-slate-700 hover:border-blue-500 text-white rounded-xl font-semibold text-base hover:bg-slate-800/50 transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                 </svg>
@@ -120,32 +99,65 @@ function LandingPage() {
           </div>
 
           {/* Stats */}
-          <div className="grid grid-cols-3 gap-8 mt-20 max-w-2xl mx-auto animate-slide-up delay-300">
-            <div className="text-center">
-              <div className="text-3xl sm:text-4xl font-bold text-white mb-2">10K+</div>
-              <div className="text-sm text-slate-400">Active Users</div>
+          <div className="grid grid-cols-3 gap-6 sm:gap-8 max-w-2xl mx-auto mb-8 animate-slide-up delay-300">
+            <div className="text-center transform hover:scale-110 transition-transform duration-300">
+              <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-2 animate-pulse-slow">10K+</div>
+              <div className="text-xs sm:text-sm text-slate-400">Active Users</div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl sm:text-4xl font-bold text-white mb-2">₹50Cr+</div>
-              <div className="text-sm text-slate-400">Tracked</div>
+            <div className="text-center transform hover:scale-110 transition-transform duration-300">
+              <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent mb-2 animate-pulse-slow">₹50Cr+</div>
+              <div className="text-xs sm:text-sm text-slate-400">Tracked</div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl sm:text-4xl font-bold text-white mb-2">4.9★</div>
-              <div className="text-sm text-slate-400">Rating</div>
+            <div className="text-center transform hover:scale-110 transition-transform duration-300">
+              <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent mb-2 animate-pulse-slow">4.9★</div>
+              <div className="text-xs sm:text-sm text-slate-400">Rating</div>
             </div>
           </div>
-        </div>
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-          <svg className="w-6 h-6 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
+          {/* Call to Action - Login & Sign Up - PROMINENT */}
+          <div className="relative animate-slide-up delay-400">
+            {/* Glowing Background Effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-cyan-600/20 blur-3xl animate-pulse-glow"></div>
+
+            <div className="relative bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-xl border-2 border-blue-500/30 rounded-2xl p-6 sm:p-8 max-w-2xl mx-auto shadow-2xl">
+              <div className="text-center mb-6">
+                <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2 animate-fade-in">
+                  Ready to Transform Your Finances?
+                </h3>
+                <p className="text-slate-300 text-sm sm:text-base">
+                  Join thousands of users managing their money smarter
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-stretch">
+                <Link href="/auth/signup" className="flex-1 sm:flex-initial">
+                  <button className="w-full px-10 py-5 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white rounded-xl font-bold text-lg sm:text-xl shadow-2xl shadow-blue-500/40 hover:shadow-blue-500/60 transition-all duration-300 hover:scale-105 transform flex items-center justify-center gap-3 group animate-shimmer">
+                    <span className="relative z-10">Sign Up Free</span>
+                    <svg className="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </button>
+                </Link>
+                <Link href="/auth/login" className="flex-1 sm:flex-initial">
+                  <button className="w-full px-10 py-5 border-2 border-slate-600 hover:border-blue-500 bg-slate-800/50 hover:bg-slate-700/50 text-white rounded-xl font-bold text-lg sm:text-xl transition-all duration-300 hover:scale-105 transform flex items-center justify-center gap-3">
+                    <span>Login</span>
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                    </svg>
+                  </button>
+                </Link>
+              </div>
+
+              <p className="text-center text-slate-400 text-xs sm:text-sm mt-4">
+                No credit card required • Free forever • Cancel anytime
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="relative py-24 sm:py-32 lg:py-40 px-4 sm:px-6 lg:px-8">
+      <section className="relative py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-16 sm:mb-20">
@@ -218,7 +230,7 @@ function LandingPage() {
               >
                 {/* Gradient Glow Effect */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}></div>
-                
+
                 {/* Icon and Title on Same Line */}
                 <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
                   <div className={`inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br ${feature.gradient} shadow-lg group-hover:scale-110 transition-transform duration-300 flex-shrink-0`}>
@@ -231,7 +243,7 @@ function LandingPage() {
                 <p className="text-slate-400 text-xs sm:text-sm lg:text-base leading-relaxed mb-3 sm:mb-0">
                   {feature.description}
                 </p>
-                
+
                 {/* Arrow Icon - Hidden on mobile */}
                 <div className="hidden sm:flex mt-4 lg:mt-6 items-center text-slate-500 group-hover:text-blue-400 transition-colors duration-300">
                   <span className="text-sm font-medium mr-2">Learn more</span>
@@ -246,7 +258,7 @@ function LandingPage() {
       </section>
 
       {/* How It Works */}
-      <section className="relative py-16 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-900/50 to-transparent">
+      <section className="relative py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-900/50 to-transparent">
         <div className="max-w-6xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-12 sm:mb-16 lg:mb-20">
@@ -264,21 +276,21 @@ function LandingPage() {
           {/* Steps - 2 per row on mobile, 3 on desktop */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
             {[
-              { 
-                step: '01', 
-                title: 'Sign Up', 
+              {
+                step: '01',
+                title: 'Sign Up',
                 description: 'Create your account with email or Google in seconds',
                 icon: '👤'
               },
-              { 
-                step: '02', 
-                title: 'Add Data', 
+              {
+                step: '02',
+                title: 'Add Data',
                 description: 'Import or manually add your financial transactions',
                 icon: '📝'
               },
-              { 
-                step: '03', 
-                title: 'Get Insights', 
+              {
+                step: '03',
+                title: 'Get Insights',
                 description: 'View analytics and optimize your finances with AI',
                 icon: '📊'
               }
@@ -290,55 +302,31 @@ function LandingPage() {
                     <div className="w-full h-full bg-gradient-to-r from-blue-500/50 via-cyan-500/50 to-transparent"></div>
                   </div>
                 )}
-                
+
                 {/* Card */}
                 <div className="relative z-10 bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700 hover:border-blue-500/50 rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/10">
-                {/* Step Number, Icon, and Title on Same Line */}
-                <div className="flex items-start gap-3 sm:gap-4 mb-3 sm:mb-4">
-                  {/* Step Number Badge */}
-                  <div className="relative inline-flex items-center justify-center flex-shrink-0">
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-full opacity-20 blur-xl group-hover:opacity-30 transition-opacity"></div>
-                    <div className="relative w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                      <span className="text-sm sm:text-base font-bold text-white">{item.step}</span>
+                  {/* Step Number, Icon, and Title on Same Line */}
+                  <div className="flex items-start gap-3 sm:gap-4 mb-3 sm:mb-4">
+                    {/* Step Number Badge */}
+                    <div className="relative inline-flex items-center justify-center flex-shrink-0">
+                      <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-full opacity-20 blur-xl group-hover:opacity-30 transition-opacity"></div>
+                      <div className="relative w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <span className="text-sm sm:text-base font-bold text-white">{item.step}</span>
+                      </div>
+                    </div>
+
+                    {/* Icon and Title */}
+                    <div className="flex items-center gap-2 sm:gap-3 flex-1">
+                      <div className="text-2xl sm:text-3xl group-hover:scale-110 transition-transform duration-300">
+                        {item.icon}
+                      </div>
+                      <h3 className="text-base sm:text-lg lg:text-xl font-bold text-white">{item.title}</h3>
                     </div>
                   </div>
-                  
-                  {/* Icon and Title */}
-                  <div className="flex items-center gap-2 sm:gap-3 flex-1">
-                    <div className="text-2xl sm:text-3xl group-hover:scale-110 transition-transform duration-300">
-                      {item.icon}
-                    </div>
-                    <h3 className="text-base sm:text-lg lg:text-xl font-bold text-white">{item.title}</h3>
-                  </div>
-                </div>
                   <p className="text-slate-400 text-xs sm:text-sm lg:text-base leading-relaxed">{item.description}</p>
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="relative py-32 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="relative bg-gradient-to-br from-blue-600/20 to-cyan-600/20 border border-blue-500/30 rounded-3xl p-12 sm:p-16 overflow-hidden">
-            {/* Background Glow */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 blur-3xl"></div>
-            
-            <div className="relative z-10">
-              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6">
-                Ready to Take Control?
-              </h2>
-              <p className="text-lg text-slate-300 mb-10 max-w-2xl mx-auto">
-                Join thousands of users managing their finances smarter with Rupiya
-              </p>
-              <Link href="/auth/signup">
-                <button className="px-10 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white rounded-xl font-bold text-lg shadow-2xl shadow-blue-500/30 hover:shadow-blue-500/50 transition-all duration-300 hover:scale-105">
-                  Start Free Today
-                </button>
-              </Link>
-            </div>
           </div>
         </div>
       </section>
@@ -385,6 +373,51 @@ function LandingPage() {
           animation: slide-up 0.8s ease-out;
         }
         
+        @keyframes shimmer {
+          0% {
+            background-position: -200% center;
+          }
+          100% {
+            background-position: 200% center;
+          }
+        }
+        
+        .animate-shimmer {
+          background: linear-gradient(90deg, #2563eb 0%, #06b6d4 50%, #2563eb 100%);
+          background-size: 200% auto;
+          animation: shimmer 3s linear infinite;
+        }
+        
+        @keyframes pulse-slow {
+          0%, 100% {
+            opacity: 1;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 0.8;
+            transform: scale(1.05);
+          }
+        }
+        
+        .animate-pulse-slow {
+          animation: pulse-slow 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-glow {
+          0%, 100% {
+            opacity: 0.3;
+            transform: scale(1);
+          }
+          50% {
+            opacity: 0.5;
+            transform: scale(1.1);
+          }
+        }
+        
+        .animate-pulse-glow {
+          animation: pulse-glow 4s ease-in-out infinite;
+        }
+        
         .delay-100 {
           animation-delay: 0.1s;
         }
@@ -395,6 +428,10 @@ function LandingPage() {
         
         .delay-300 {
           animation-delay: 0.3s;
+        }
+        
+        .delay-400 {
+          animation-delay: 0.4s;
         }
         
         .delay-500 {
@@ -566,19 +603,19 @@ export default function Home() {
                   <BarChart
                     data={(() => {
                       const months: { [key: string]: { income: number; expense: number } } = {};
-                      
+
                       income.forEach((inc) => {
                         const month = inc.date.toISOString().slice(0, 7);
                         if (!months[month]) months[month] = { income: 0, expense: 0 };
                         months[month].income += inc.amount;
                       });
-                      
+
                       expenses.forEach((exp) => {
                         const month = exp.date.toISOString().slice(0, 7);
                         if (!months[month]) months[month] = { income: 0, expense: 0 };
                         months[month].expense += exp.amount;
                       });
-                      
+
                       return Object.entries(months)
                         .sort()
                         .slice(-6)
@@ -617,12 +654,12 @@ export default function Home() {
                   <LineChart
                     data={(() => {
                       const months: { [key: string]: number } = {};
-                      
+
                       expenses.forEach((exp) => {
                         const month = exp.date.toISOString().slice(0, 7);
                         months[month] = (months[month] || 0) + exp.amount;
                       });
-                      
+
                       return Object.entries(months)
                         .sort()
                         .slice(-6)
