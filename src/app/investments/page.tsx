@@ -6,11 +6,18 @@ import { useState, useMemo } from 'react';
 import { useAppStore } from '@/lib/store';
 import { useToast } from '@/lib/toastContext';
 import PageWrapper from '@/components/PageWrapper';
+import { investmentService } from '@/lib/firebaseService';
 import EditInvestmentModal from '@/components/EditInvestmentModal';
 import InvestmentAnalytics from '@/components/InvestmentAnalytics';
+import FormModal from '@/components/FormModal';
+import FormField from '@/components/FormField';
+import FormInput from '@/components/FormInput';
+import FormSelect from '@/components/FormSelect';
+import FormTextarea from '@/components/FormTextarea';
+import FormActions from '@/components/FormActions';
 
 export default function InvestmentsPage() {
-  const { investments, removeInvestment, addInvestment } = useAppStore();
+  const { investments, removeInvestment, addInvestment, user } = useAppStore();
   const { success, error } = useToast();
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -79,6 +86,12 @@ export default function InvestmentsPage() {
         return;
       }
 
+      if (!user) {
+        error('User not authenticated');
+        setIsLoading(false);
+        return;
+      }
+
       const initialAmount = parseFloat(formData.initialAmount);
       const currentValue = parseFloat(formData.currentValue);
       const quantity = formData.quantity ? parseFloat(formData.quantity) : 1;
@@ -90,7 +103,7 @@ export default function InvestmentsPage() {
         return;
       }
 
-      const newInvestment = {
+      const investmentId = await investmentService.create({
         id: `investment_${Date.now()}`,
         name: formData.name,
         type: formData.type,
@@ -100,9 +113,19 @@ export default function InvestmentsPage() {
         quantity,
         unitPrice,
         notes: formData.notes || undefined,
-      };
+      }, user.uid);
 
-      addInvestment(newInvestment);
+      addInvestment({
+        id: investmentId,
+        name: formData.name,
+        type: formData.type,
+        initialAmount,
+        currentValue,
+        purchaseDate: new Date(formData.purchaseDate),
+        quantity,
+        unitPrice,
+        notes: formData.notes || undefined,
+      });
       success('Investment added successfully');
 
       setFormData({
@@ -127,8 +150,22 @@ export default function InvestmentsPage() {
 
   const handleDelete = (id: string) => {
     if (confirm('Are you sure you want to delete this investment?')) {
-      removeInvestment(id);
-      success('Investment deleted successfully');
+      if (!user) {
+        error('User not authenticated');
+        return;
+      }
+
+      const deleteInvestment = async () => {
+        try {
+          await investmentService.delete(user.uid, id);
+          removeInvestment(id);
+          success('Investment deleted successfully');
+        } catch (err) {
+          error('Failed to delete investment');
+        }
+      };
+
+      deleteInvestment();
     }
   };
 
@@ -368,55 +405,42 @@ export default function InvestmentsPage() {
         </div>
 
         {isAddModalOpen && (
-          <div className="mb-6 md:mb-8 w-full animate-slide-up">
-            <div className="card p-4 md:p-6 border-2 border-blue-500/50 bg-gradient-to-br from-slate-800/95 to-slate-900/95 w-full max-w-2xl mx-auto">
-              <div className="border-b border-slate-700 pb-4 mb-4 flex justify-between items-center">
-                <h2 className="text-xl md:text-2xl font-bold text-white">Add Investment</h2>
-                <button
-                  onClick={() => {
-                    setIsAddModalOpen(false);
-                    setFormData({
-                      name: '',
-                      type: 'stock',
-                      initialAmount: '',
-                      currentValue: '',
-                      purchaseDate: new Date().toISOString().split('T')[0],
-                      quantity: '',
-                      unitPrice: '',
-                      notes: '',
-                    });
-                  }}
-                  className="text-slate-400 hover:text-white text-2xl"
-                >
-                  ✕
-                </button>
-              </div>
+          <FormModal
+            isOpen={isAddModalOpen}
+            title="Add Investment"
+            onClose={() => {
+              setIsAddModalOpen(false);
+              setFormData({
+                name: '',
+                type: 'stock',
+                initialAmount: '',
+                currentValue: '',
+                purchaseDate: new Date().toISOString().split('T')[0],
+                quantity: '',
+                unitPrice: '',
+                notes: '',
+              });
+            }}
+            maxWidth="lg"
+          >
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <FormField label="Name" required>
+                <FormInput
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  placeholder="e.g., Apple Stock"
+                  onChange={handleChange}
+                  required
+                />
+              </FormField>
 
-              <form onSubmit={handleSubmit} className="space-y-3">
-                <div>
-                  <label className="block text-xs md:text-sm font-medium text-gray-300 mb-1">
-                    Name <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="e.g., Apple Stock"
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-xs md:text-sm"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs md:text-sm font-medium text-gray-300 mb-1">
-                    Type <span className="text-red-500">*</span>
-                  </label>
-                  <select
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <FormField label="Type" required>
+                  <FormSelect
                     name="type"
                     value={formData.type}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500 text-xs md:text-sm"
                     required
                   >
                     {investmentTypes.map((type) => (
@@ -424,133 +448,105 @@ export default function InvestmentsPage() {
                         {type.replace('_', ' ').toUpperCase()}
                       </option>
                     ))}
-                  </select>
-                </div>
+                  </FormSelect>
+                </FormField>
 
-                <div>
-                  <label className="block text-xs md:text-sm font-medium text-gray-300 mb-1">
-                    Purchase Date <span className="text-red-500">*</span>
-                  </label>
-                  <input
+                <FormField label="Purchase Date" required>
+                  <FormInput
                     type="date"
                     name="purchaseDate"
                     value={formData.purchaseDate}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500 text-xs md:text-sm"
                     required
                   />
-                </div>
+                </FormField>
+              </div>
 
-                <div className="grid grid-cols-2 gap-2">
-                  <div>
-                    <label className="block text-xs md:text-sm font-medium text-gray-300 mb-1">
-                      Initial <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="number"
-                      name="initialAmount"
-                      value={formData.initialAmount}
-                      onChange={handleChange}
-                      placeholder="Amount"
-                      className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-xs md:text-sm"
-                      step="0.01"
-                      min="0"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs md:text-sm font-medium text-gray-300 mb-1">
-                      Current <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="number"
-                      name="currentValue"
-                      value={formData.currentValue}
-                      onChange={handleChange}
-                      placeholder="Value"
-                      className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-xs md:text-sm"
-                      step="0.01"
-                      min="0"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-2">
-                  <div>
-                    <label className="block text-xs md:text-sm font-medium text-gray-300 mb-1">Quantity</label>
-                    <input
-                      type="number"
-                      name="quantity"
-                      value={formData.quantity}
-                      onChange={handleChange}
-                      placeholder="Units"
-                      className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-xs md:text-sm"
-                      step="0.01"
-                      min="0"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs md:text-sm font-medium text-gray-300 mb-1">Unit Price</label>
-                    <input
-                      type="number"
-                      name="unitPrice"
-                      value={formData.unitPrice}
-                      onChange={handleChange}
-                      placeholder="Price"
-                      className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-xs md:text-sm"
-                      step="0.01"
-                      min="0"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs md:text-sm font-medium text-gray-300 mb-1">Notes</label>
-                  <textarea
-                    name="notes"
-                    value={formData.notes}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <FormField label="Initial Amount" required>
+                  <FormInput
+                    type="number"
+                    name="initialAmount"
+                    value={formData.initialAmount}
+                    placeholder="Amount"
                     onChange={handleChange}
-                    placeholder="Add notes..."
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 resize-none text-xs md:text-sm"
-                    rows={2}
+                    step="0.01"
+                    min="0"
+                    required
                   />
-                </div>
+                </FormField>
 
-                <div className="flex gap-2 pt-3 border-t border-gray-700">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsAddModalOpen(false);
-                      setFormData({
-                        name: '',
-                        type: 'stock',
-                        initialAmount: '',
-                        currentValue: '',
-                        purchaseDate: new Date().toISOString().split('T')[0],
-                        quantity: '',
-                        unitPrice: '',
-                        notes: '',
-                      });
-                    }}
-                    className="flex-1 px-3 py-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition font-medium text-xs md:text-sm disabled:opacity-50"
-                    disabled={isLoading}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="flex-1 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium text-xs md:text-sm disabled:opacity-50"
-                    disabled={isLoading}
-                  >
-                    {isLoading ? 'Adding...' : 'Add'}
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
+                <FormField label="Current Value" required>
+                  <FormInput
+                    type="number"
+                    name="currentValue"
+                    value={formData.currentValue}
+                    placeholder="Value"
+                    onChange={handleChange}
+                    step="0.01"
+                    min="0"
+                    required
+                  />
+                </FormField>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <FormField label="Quantity">
+                  <FormInput
+                    type="number"
+                    name="quantity"
+                    value={formData.quantity}
+                    placeholder="Units"
+                    onChange={handleChange}
+                    step="0.01"
+                    min="0"
+                  />
+                </FormField>
+
+                <FormField label="Unit Price">
+                  <FormInput
+                    type="number"
+                    name="unitPrice"
+                    value={formData.unitPrice}
+                    placeholder="Price"
+                    onChange={handleChange}
+                    step="0.01"
+                    min="0"
+                  />
+                </FormField>
+              </div>
+
+              <FormField label="Notes">
+                <FormTextarea
+                  name="notes"
+                  value={formData.notes}
+                  onChange={handleChange}
+                  placeholder="Add notes..."
+                  rows={3}
+                />
+              </FormField>
+
+              <FormActions
+                onSubmit={() => {}}
+                onCancel={() => {
+                  setIsAddModalOpen(false);
+                  setFormData({
+                    name: '',
+                    type: 'stock',
+                    initialAmount: '',
+                    currentValue: '',
+                    purchaseDate: new Date().toISOString().split('T')[0],
+                    quantity: '',
+                    unitPrice: '',
+                    notes: '',
+                  });
+                }}
+                submitLabel="Add Investment"
+                cancelLabel="Cancel"
+                isLoading={isLoading}
+              />
+            </form>
+          </FormModal>
         )}
 
         {selectedInvestment && (

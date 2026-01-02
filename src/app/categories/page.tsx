@@ -9,17 +9,19 @@ import PageWrapper from '@/components/PageWrapper';
 import ConfirmDialog from '@/components/ConfirmDialog';
 import SkeletonLoader from '@/components/SkeletonLoader';
 import { validateName } from '@/lib/validation';
+import { categoryService } from '@/lib/firebaseService';
 
 const EMOJI_OPTIONS = ['🍔', '🚗', '💡', '🎬', '🛍️', '⚕️', '📚', '✈️', '🏠', '💰', '🎮', '🍕', '🏋️', '🎵', '🌍'];
 const COLOR_OPTIONS = ['bg-red-600', 'bg-blue-600', 'bg-green-600', 'bg-yellow-600', 'bg-purple-600', 'bg-pink-600', 'bg-indigo-600', 'bg-cyan-600'];
 
 export default function CategoriesPage() {
-  const { categories, addCategory, removeCategory, updateCategory } = useAppStore();
+  const { categories, addCategory, removeCategory, updateCategory, user } = useAppStore();
   const { success, error } = useToast();
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [isPageLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [confirmDialog, setConfirmDialog] = useState({
     isOpen: false,
     categoryId: '',
@@ -56,7 +58,7 @@ export default function CategoriesPage() {
     }
   };
 
-  const handleAddCategory = (e: React.FormEvent) => {
+  const handleAddCategory = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Validate
@@ -71,24 +73,46 @@ export default function CategoriesPage() {
       return;
     }
 
-    addCategory({
-      id: `cat_${Date.now()}`,
-      name: formData.name,
-      emoji: formData.emoji,
-      color: formData.color,
-      type: formData.type,
-      createdAt: new Date(),
-    });
+    if (!user) {
+      error('User not authenticated');
+      return;
+    }
 
-    success('Category added successfully');
-    setFormData({
-      name: '',
-      emoji: '🍔',
-      color: 'bg-blue-600',
-      type: 'expense',
-    });
-    setErrors({});
-    setIsAddModalOpen(false);
+    setIsLoading(true);
+    try {
+      const categoryId = await categoryService.create({
+        id: `cat_${Date.now()}`,
+        name: formData.name,
+        emoji: formData.emoji,
+        color: formData.color,
+        type: formData.type,
+        createdAt: new Date(),
+      }, user.uid);
+
+      addCategory({
+        id: categoryId,
+        name: formData.name,
+        emoji: formData.emoji,
+        color: formData.color,
+        type: formData.type,
+        createdAt: new Date(),
+      });
+
+      success('Category added successfully');
+      setFormData({
+        name: '',
+        emoji: '🍔',
+        color: 'bg-blue-600',
+        type: 'expense',
+      });
+      setErrors({});
+      setIsAddModalOpen(false);
+    } catch (err) {
+      console.error('Error adding category:', err);
+      error('Failed to add category');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleEditCategory = (id: string) => {
@@ -105,7 +129,7 @@ export default function CategoriesPage() {
     }
   };
 
-  const handleSaveEdit = (e: React.FormEvent) => {
+  const handleSaveEdit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Validate
@@ -115,23 +139,44 @@ export default function CategoriesPage() {
       return;
     }
 
+    if (!user) {
+      error('User not authenticated');
+      return;
+    }
+
     if (editingId) {
-      updateCategory(editingId, {
-        name: formData.name,
-        emoji: formData.emoji,
-        color: formData.color,
-        type: formData.type,
-      });
-      success('Category updated successfully');
-      setEditingId(null);
-      setFormData({
-        name: '',
-        emoji: '🍔',
-        color: 'bg-blue-600',
-        type: 'expense',
-      });
-      setErrors({});
-      setIsAddModalOpen(false);
+      setIsLoading(true);
+      try {
+        await categoryService.update(user.uid, editingId, {
+          name: formData.name,
+          emoji: formData.emoji,
+          color: formData.color,
+          type: formData.type,
+        });
+
+        updateCategory(editingId, {
+          name: formData.name,
+          emoji: formData.emoji,
+          color: formData.color,
+          type: formData.type,
+        });
+
+        success('Category updated successfully');
+        setEditingId(null);
+        setFormData({
+          name: '',
+          emoji: '🍔',
+          color: 'bg-blue-600',
+          type: 'expense',
+        });
+        setErrors({});
+        setIsAddModalOpen(false);
+      } catch (err) {
+        console.error('Error updating category:', err);
+        error('Failed to update category');
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -143,11 +188,25 @@ export default function CategoriesPage() {
     });
   };
 
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
+    if (!user) {
+      error('User not authenticated');
+      return;
+    }
+
     if (confirmDialog.categoryId) {
-      removeCategory(confirmDialog.categoryId);
-      success('Category deleted successfully');
-      setConfirmDialog({ isOpen: false, categoryId: '', categoryName: '' });
+      setIsLoading(true);
+      try {
+        await categoryService.delete(user.uid, confirmDialog.categoryId);
+        removeCategory(confirmDialog.categoryId);
+        success('Category deleted successfully');
+        setConfirmDialog({ isOpen: false, categoryId: '', categoryName: '' });
+      } catch (err) {
+        console.error('Error deleting category:', err);
+        error('Failed to delete category');
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -300,11 +359,11 @@ export default function CategoriesPage() {
                 <div className="flex gap-2 pt-4 border-t border-slate-700">
                   <button
                     type="submit"
-                    disabled={!!errors.name || !formData.name}
+                    disabled={!!errors.name || !formData.name || isLoading}
                     className="flex-1 btn btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
                     aria-label={editingId ? `Update ${formData.name} category` : 'Add new category'}
                   >
-                    {editingId ? 'Update' : 'Add'} Category
+                    {isLoading ? 'Saving...' : editingId ? 'Update' : 'Add'} Category
                   </button>
                   <button
                     type="button"
@@ -319,7 +378,8 @@ export default function CategoriesPage() {
                       });
                       setErrors({});
                     }}
-                    className="flex-1 btn btn-secondary"
+                    disabled={isLoading}
+                    className="flex-1 btn btn-secondary disabled:opacity-50 disabled:cursor-not-allowed"
                     aria-label="Cancel"
                   >
                     Cancel

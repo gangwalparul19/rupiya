@@ -316,7 +316,7 @@ ${sortedExpenses
           </div>
         </div>
 
-        {/* Stats Cards - 2 col mobile, 3 col desktop */}
+        {/* Stats Cards - 3 col mobile, 3 col desktop */}
         {!showAnalytics && (
           <div className="grid-responsive-3 gap-6 mb-section">
             <div className="card">
@@ -327,7 +327,7 @@ ${sortedExpenses
               <p className="text-slate-400 text-xs mb-1">Entries</p>
               <p className="text-lg md:text-2xl font-bold text-blue-400">{expenses.length}</p>
             </div>
-            <div className="card col-span-2 lg:col-span-1">
+            <div className="card">
               <p className="text-slate-400 text-xs mb-1">Average</p>
               <p className="text-lg md:text-2xl font-bold text-purple-400">
                 ₹{expenses.length > 0 ? (totalExpenses / expenses.length).toLocaleString('en-IN', { maximumFractionDigits: 0 }) : '0'}

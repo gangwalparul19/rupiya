@@ -7,9 +7,10 @@ import { useAppStore } from '@/lib/store';
 import { useToast } from '@/lib/toastContext';
 import PageWrapper from '@/components/PageWrapper';
 import EditVehicleModal from '@/components/EditVehicleModal';
+import { vehicleService } from '@/lib/firebaseService';
 
 export default function VehiclesPage() {
-  const { vehicles, removeVehicle, addVehicle, addExpense } = useAppStore();
+  const { vehicles, removeVehicle, addVehicle, addExpense, user } = useAppStore();
   const { success, error } = useToast();
   const [showModalInline, setShowModalInline] = useState(false);
   const [showExpenseModal, setShowExpenseModal] = useState(false);
@@ -218,20 +219,31 @@ export default function VehiclesPage() {
         return;
       }
 
-      const newVehicle = {
+      if (!user) {
+        error('User not authenticated');
+        setIsLoading(false);
+        return;
+      }
+
+      const vehicleId = await vehicleService.create({
         id: `vehicle_${Date.now()}`,
         name: formData.name,
         type: formData.type,
         registrationNumber: formData.registrationNumber,
-      };
+      }, user.uid);
 
-      addVehicle(newVehicle);
+      addVehicle({
+        id: vehicleId,
+        name: formData.name,
+        type: formData.type,
+        registrationNumber: formData.registrationNumber,
+      });
       success('Vehicle added successfully');
 
       if (formData.currentMileage) {
         setVehicleFuelHistory((prev) => ({
           ...prev,
-          [newVehicle.id]: [
+          [vehicleId]: [
             {
               currentKm: parseFloat(formData.currentMileage),
               fuelAmount: 0,
@@ -259,10 +271,21 @@ export default function VehiclesPage() {
     }
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (confirm('Are you sure you want to delete this vehicle?')) {
-      removeVehicle(id);
-      success('Vehicle deleted successfully');
+      if (!user) {
+        error('User not authenticated');
+        return;
+      }
+
+      try {
+        await vehicleService.delete(user.uid, id);
+        removeVehicle(id);
+        success('Vehicle deleted successfully');
+      } catch (err) {
+        console.error('Error deleting vehicle:', err);
+        error('Failed to delete vehicle');
+      }
     }
   };
 

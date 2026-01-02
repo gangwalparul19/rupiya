@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useAppStore } from '@/lib/store';
 import PageWrapper from '@/components/PageWrapper';
 import { useToast } from '@/lib/toastContext';
+import { documentService } from '@/lib/firebaseService';
 import type { Receipt } from '@/lib/store';
 
 export default function ReceiptsPage() {
@@ -55,9 +56,18 @@ export default function ReceiptsPage() {
       // Mock OCR extraction (in production, use Tesseract.js or API)
       const extractedData = await mockOCRExtraction(file);
 
-      // Save receipt to local store
-      const receiptId = Date.now().toString();
+      // Save receipt to Firebase
+      const receiptId = await documentService.create({
+        id: Date.now().toString(),
+        fileName: file.name,
+        fileUrl: URL.createObjectURL(file),
+        uploadedAt: new Date(),
+        extractedData,
+        status: 'processed',
+        createdAt: new Date(),
+      } as any, user.uid);
 
+      // Add to local store
       addReceipt({
         id: receiptId,
         fileName: file.name,
@@ -95,7 +105,9 @@ export default function ReceiptsPage() {
     if (!user) return;
 
     try {
-      // Just remove from local store
+      // Delete from Firebase
+      await documentService.delete(user.uid, receiptId);
+      // Remove from local store
       removeReceipt(receiptId);
       success('Receipt deleted successfully');
     } catch (error) {

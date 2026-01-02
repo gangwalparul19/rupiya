@@ -6,9 +6,10 @@ import { useState, useMemo } from 'react';
 import { useAppStore } from '@/lib/store';
 import { useToast } from '@/lib/toastContext';
 import PageWrapper from '@/components/PageWrapper';
+import { noteService } from '@/lib/firebaseService';
 
 export default function NotesPage() {
-  const { notes, removeNote, updateNote, addNote } = useAppStore();
+  const { notes, removeNote, updateNote, addNote, user } = useAppStore();
   const { success, error } = useToast();
   const [showModalInline, setShowModalInline] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -57,8 +58,21 @@ export default function NotesPage() {
         return;
       }
 
-      addNote({
+      if (!user) {
+        error('User not authenticated');
+        setIsLoading(false);
+        return;
+      }
+
+      const noteId = await noteService.create({
         id: `note_${Date.now()}`,
+        title: formData.title,
+        content: formData.content,
+        date: new Date(),
+      }, user.uid);
+
+      addNote({
+        id: noteId,
         title: formData.title,
         content: formData.content,
         date: new Date(),
@@ -78,21 +92,44 @@ export default function NotesPage() {
     }
   };
 
-  const handleSaveEdit = (id: string) => {
+  const handleSaveEdit = async (id: string) => {
     if (!editContent.trim()) {
       error('Content cannot be empty');
       return;
     }
-    updateNote(id, { content: editContent });
-    success('Note updated successfully');
-    setEditingId(null);
-    setEditContent('');
+
+    if (!user) {
+      error('User not authenticated');
+      return;
+    }
+
+    try {
+      await noteService.update(user.uid, id, { content: editContent });
+      updateNote(id, { content: editContent });
+      success('Note updated successfully');
+      setEditingId(null);
+      setEditContent('');
+    } catch (err) {
+      console.error('Error updating note:', err);
+      error('Failed to update note');
+    }
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (confirm('Are you sure you want to delete this note?')) {
-      removeNote(id);
-      success('Note deleted successfully');
+      if (!user) {
+        error('User not authenticated');
+        return;
+      }
+
+      try {
+        await noteService.delete(user.uid, id);
+        removeNote(id);
+        success('Note deleted successfully');
+      } catch (err) {
+        console.error('Error deleting note:', err);
+        error('Failed to delete note');
+      }
     }
   };
 

@@ -6,9 +6,10 @@ import { useState } from 'react';
 import { useAppStore } from '@/lib/store';
 import { useToast } from '@/lib/toastContext';
 import PageWrapper from '@/components/PageWrapper';
+import { cardService, upiService, bankAccountService, walletService } from '@/lib/firebaseService';
 
 export default function PaymentMethodsPage() {
-  const { cards, upiAccounts, bankAccounts, wallets, addCard, removeCard, addUPI, removeUPI, addBankAccount, removeBankAccount, addWallet, removeWallet } = useAppStore();
+  const { cards, upiAccounts, bankAccounts, wallets, addCard, removeCard, addUPI, removeUPI, addBankAccount, removeBankAccount, addWallet, removeWallet, user } = useAppStore();
   const { showToast } = useToast();
   const [activeTab, setActiveTab] = useState<'cards' | 'upi' | 'bank' | 'wallet'>('cards');
   const [expandedForm, setExpandedForm] = useState(false);
@@ -33,71 +34,142 @@ export default function PaymentMethodsPage() {
     }));
   };
 
-  const handleAddCard = (e: React.FormEvent) => {
+  const handleAddCard = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.cardName || !formData.cardNumber) {
       showToast('Please fill in all required fields', 'error');
       return;
     }
-    addCard({
-      id: `card_${Date.now()}`,
-      cardName: formData.cardName,
-      cardNumber: formData.cardNumber,
-    });
-    showToast('Card added successfully', 'success');
-    setFormData({ ...formData, cardName: '', cardNumber: '' });
-    setExpandedForm(false);
+
+    if (!user) {
+      showToast('User not authenticated', 'error');
+      return;
+    }
+
+    try {
+      const cardId = await cardService.create({
+        id: `card_${Date.now()}`,
+        cardName: formData.cardName,
+        cardNumber: formData.cardNumber,
+      }, user.uid);
+
+      addCard({
+        id: cardId,
+        cardName: formData.cardName,
+        cardNumber: formData.cardNumber,
+      });
+      showToast('Card added successfully', 'success');
+      setFormData({ ...formData, cardName: '', cardNumber: '' });
+      setExpandedForm(false);
+    } catch (err) {
+      console.error('Error adding card:', err);
+      showToast('Failed to add card', 'error');
+    }
   };
 
-  const handleAddUPI = (e: React.FormEvent) => {
+  const handleAddUPI = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.upiName || !formData.upiHandle) {
       showToast('Please fill in all required fields', 'error');
       return;
     }
-    addUPI({
-      id: `upi_${Date.now()}`,
-      upiName: formData.upiName,
-      upiHandle: formData.upiHandle,
-    });
-    showToast('UPI account added successfully', 'success');
-    setFormData({ ...formData, upiName: '', upiHandle: '' });
-    setExpandedForm(false);
+
+    if (!user) {
+      showToast('User not authenticated', 'error');
+      return;
+    }
+
+    try {
+      const upiId = await upiService.create({
+        id: `upi_${Date.now()}`,
+        upiName: formData.upiName,
+        upiHandle: formData.upiHandle,
+      }, user.uid);
+
+      addUPI({
+        id: upiId,
+        upiName: formData.upiName,
+        upiHandle: formData.upiHandle,
+      });
+      showToast('UPI account added successfully', 'success');
+      setFormData({ ...formData, upiName: '', upiHandle: '' });
+      setExpandedForm(false);
+    } catch (err) {
+      console.error('Error adding UPI:', err);
+      showToast('Failed to add UPI', 'error');
+    }
   };
 
-  const handleAddBank = (e: React.FormEvent) => {
+  const handleAddBank = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.bankName || !formData.accountNumber || !formData.ifscCode) {
       showToast('Please fill in all required fields', 'error');
       return;
     }
-    addBankAccount({
-      id: `bank_${Date.now()}`,
-      bankName: formData.bankName,
-      accountNumber: formData.accountNumber,
-      ifscCode: formData.ifscCode,
-    });
-    showToast('Bank account added successfully', 'success');
-    setFormData({ ...formData, bankName: '', accountNumber: '', ifscCode: '' });
-    setExpandedForm(false);
+
+    if (!user) {
+      showToast('User not authenticated', 'error');
+      return;
+    }
+
+    try {
+      const bankId = await bankAccountService.create({
+        id: `bank_${Date.now()}`,
+        bankName: formData.bankName,
+        accountNumber: formData.accountNumber,
+        ifscCode: formData.ifscCode,
+      }, user.uid);
+
+      addBankAccount({
+        id: bankId,
+        bankName: formData.bankName,
+        accountNumber: formData.accountNumber,
+        ifscCode: formData.ifscCode,
+      });
+      showToast('Bank account added successfully', 'success');
+      setFormData({ ...formData, bankName: '', accountNumber: '', ifscCode: '' });
+      setExpandedForm(false);
+    } catch (err) {
+      console.error('Error adding bank account:', err);
+      showToast('Failed to add bank account', 'error');
+    }
   };
 
-  const handleAddWallet = (e: React.FormEvent) => {
+  const handleAddWallet = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.walletName) {
       showToast('Please fill in all required fields', 'error');
       return;
     }
-    addWallet({
-      id: `wallet_${Date.now()}`,
-      name: formData.walletName,
-      type: formData.walletType,
-      balance: formData.walletBalance ? parseFloat(formData.walletBalance) : 0,
-      createdAt: new Date(),
-    });
-    showToast('Wallet added successfully', 'success');
-    setFormData({ ...formData, walletName: '', walletBalance: '' });
-    setExpandedForm(false);
+
+    if (!user) {
+      showToast('User not authenticated', 'error');
+      return;
+    }
+
+    try {
+      const walletId = await walletService.create({
+        id: `wallet_${Date.now()}`,
+        name: formData.walletName,
+        type: formData.walletType,
+        balance: formData.walletBalance ? parseFloat(formData.walletBalance) : 0,
+        createdAt: new Date(),
+      }, user.uid);
+
+      addWallet({
+        id: walletId,
+        name: formData.walletName,
+        type: formData.walletType,
+        balance: formData.walletBalance ? parseFloat(formData.walletBalance) : 0,
+        createdAt: new Date(),
+      });
+      showToast('Wallet added successfully', 'success');
+      setFormData({ ...formData, walletName: '', walletBalance: '' });
+      setExpandedForm(false);
+    } catch (err) {
+      console.error('Error adding wallet:', err);
+      showToast('Failed to add wallet', 'error');
+    }
   };
 
   return (
@@ -228,10 +300,20 @@ export default function PaymentMethodsPage() {
                     </div>
                     <p className="text-slate-300 font-mono tracking-widest mb-6">•••• •••• •••• {card.cardNumber}</p>
                     <button
-                      onClick={() => {
+                      onClick={async () => {
                         if (confirm('Are you sure you want to delete this card?')) {
-                          removeCard(card.id);
-                          showToast('Card deleted', 'success');
+                          if (!user) {
+                            showToast('User not authenticated', 'error');
+                            return;
+                          }
+                          try {
+                            await cardService.delete(user.uid, card.id);
+                            removeCard(card.id);
+                            showToast('Card deleted', 'success');
+                          } catch (err) {
+                            console.error('Error deleting card:', err);
+                            showToast('Failed to delete card', 'error');
+                          }
                         }
                       }}
                       className="w-full btn btn-danger btn-small"
@@ -307,10 +389,20 @@ export default function PaymentMethodsPage() {
                     </div>
                     <p className="text-slate-300 text-sm mb-6 truncate">{upi.upiHandle}</p>
                     <button
-                      onClick={() => {
+                      onClick={async () => {
                         if (confirm('Are you sure you want to delete this UPI handle?')) {
-                          removeUPI(upi.id);
-                          showToast('UPI deleted', 'success');
+                          if (!user) {
+                            showToast('User not authenticated', 'error');
+                            return;
+                          }
+                          try {
+                            await upiService.delete(user.uid, upi.id);
+                            removeUPI(upi.id);
+                            showToast('UPI deleted', 'success');
+                          } catch (err) {
+                            console.error('Error deleting UPI:', err);
+                            showToast('Failed to delete UPI', 'error');
+                          }
                         }
                       }}
                       className="w-full btn btn-danger btn-small"
@@ -400,10 +492,20 @@ export default function PaymentMethodsPage() {
                     <p className="text-slate-300 font-mono tracking-widest mb-1">•••• {bank.accountNumber}</p>
                     <p className="text-slate-400 text-xs mb-6 uppercase tracking-wider">{bank.ifscCode}</p>
                     <button
-                      onClick={() => {
+                      onClick={async () => {
                         if (confirm('Are you sure you want to delete this bank account?')) {
-                          removeBankAccount(bank.id);
-                          showToast('Bank account deleted', 'success');
+                          if (!user) {
+                            showToast('User not authenticated', 'error');
+                            return;
+                          }
+                          try {
+                            await bankAccountService.delete(user.uid, bank.id);
+                            removeBankAccount(bank.id);
+                            showToast('Bank account deleted', 'success');
+                          } catch (err) {
+                            console.error('Error deleting bank account:', err);
+                            showToast('Failed to delete bank account', 'error');
+                          }
                         }
                       }}
                       className="w-full btn btn-danger btn-small"
@@ -497,10 +599,20 @@ export default function PaymentMethodsPage() {
                       <p className="text-green-400 text-lg font-bold mb-6">₹{wallet.balance.toLocaleString('en-IN')}</p>
                     )}
                     <button
-                      onClick={() => {
+                      onClick={async () => {
                         if (confirm('Are you sure you want to delete this wallet?')) {
-                          removeWallet(wallet.id);
-                          showToast('Wallet deleted', 'success');
+                          if (!user) {
+                            showToast('User not authenticated', 'error');
+                            return;
+                          }
+                          try {
+                            await walletService.delete(user.uid, wallet.id);
+                            removeWallet(wallet.id);
+                            showToast('Wallet deleted', 'success');
+                          } catch (err) {
+                            console.error('Error deleting wallet:', err);
+                            showToast('Failed to delete wallet', 'error');
+                          }
                         }
                       }}
                       className="w-full btn btn-danger btn-small"

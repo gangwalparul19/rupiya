@@ -7,6 +7,11 @@ import { useAppStore } from '@/lib/store';
 import { useToast } from '@/lib/toastContext';
 import PageWrapper from '@/components/PageWrapper';
 import { houseHelpService, houseHelpPaymentService, expenseService } from '@/lib/firebaseService';
+import FormModal from '@/components/FormModal';
+import FormField from '@/components/FormField';
+import FormInput from '@/components/FormInput';
+import FormSelect from '@/components/FormSelect';
+import FormActions from '@/components/FormActions';
 
 export default function HouseHelpPage() {
     const { user, houseHelps, houseHelpPayments, addHouseHelp, removeHouseHelp, addHouseHelpPayment, addExpense } = useAppStore();
@@ -242,31 +247,28 @@ export default function HouseHelpPage() {
 
                 {/* Add Help Inline Form */}
                 {showAddHelpModal && (
-                    <div className="card mb-block animate-slide-up border-blue-500/30">
-                        <div className="flex justify-between items-center mb-6">
-                            <h2 className="text-xl font-bold text-white">Add House Help</h2>
-                            <button onClick={() => setShowAddHelpModal(false)} className="text-slate-400 hover:text-white transition-colors">✕</button>
-                        </div>
-
+                    <FormModal
+                        isOpen={showAddHelpModal}
+                        title="Add House Help"
+                        onClose={() => setShowAddHelpModal(false)}
+                        maxWidth="lg"
+                    >
                         <form onSubmit={handleAddHelp} className="space-y-4">
+                            <FormField label="Full Name" required>
+                                <FormInput
+                                    type="text"
+                                    placeholder="e.g., Mina Devi"
+                                    value={helpFormData.name}
+                                    onChange={e => setHelpFormData({ ...helpFormData, name: e.target.value })}
+                                    required
+                                />
+                            </FormField>
+
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div className="form-group">
-                                    <label className="form-label">Full Name</label>
-                                    <input
-                                        type="text"
-                                        required
-                                        placeholder="e.g., Mina Devi"
-                                        value={helpFormData.name}
-                                        onChange={e => setHelpFormData({ ...helpFormData, name: e.target.value })}
-                                        className="form-input"
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label className="form-label">Category</label>
-                                    <select
+                                <FormField label="Category" required>
+                                    <FormSelect
                                         value={helpFormData.type}
                                         onChange={e => setHelpFormData({ ...helpFormData, type: e.target.value })}
-                                        className="form-select"
                                     >
                                         <option value="Maid">Maid</option>
                                         <option value="Cook">Cook</option>
@@ -276,140 +278,110 @@ export default function HouseHelpPage() {
                                         <option value="Gardener">Gardener</option>
                                         <option value="Security">Security</option>
                                         <option value="Other">Other</option>
-                                    </select>
-                                </div>
-                            </div>
+                                    </FormSelect>
+                                </FormField>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div className="form-group">
-                                    <label className="form-label">Monthly Wage</label>
-                                    <input
+                                <FormField label="Monthly Wage" required>
+                                    <FormInput
                                         type="number"
-                                        required
                                         placeholder="e.g., 5000"
                                         value={helpFormData.monthlyWage}
                                         onChange={e => setHelpFormData({ ...helpFormData, monthlyWage: e.target.value })}
-                                        className="form-input"
+                                        required
                                     />
-                                </div>
-                                <div className="form-group">
-                                    <label className="form-label">Mobile Number</label>
-                                    <input
+                                </FormField>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <FormField label="Mobile Number">
+                                    <FormInput
                                         type="tel"
                                         placeholder="e.g., +91 91234 56789"
                                         value={helpFormData.mobile}
                                         onChange={e => setHelpFormData({ ...helpFormData, mobile: e.target.value })}
-                                        className="form-input"
                                     />
-                                </div>
+                                </FormField>
+
+                                <FormField label="Start Date" required>
+                                    <FormInput
+                                        type="date"
+                                        value={helpFormData.startDate}
+                                        onChange={e => setHelpFormData({ ...helpFormData, startDate: e.target.value })}
+                                        required
+                                    />
+                                </FormField>
                             </div>
 
-                            <div className="form-group">
-                                <label className="form-label">Start Date</label>
-                                <input
-                                    type="date"
-                                    value={helpFormData.startDate}
-                                    onChange={e => setHelpFormData({ ...helpFormData, startDate: e.target.value })}
-                                    className="form-input"
-                                />
-                            </div>
-
-                            <div className="pt-4 border-t border-slate-800 flex gap-3">
-                                <button
-                                    type="button"
-                                    onClick={() => setShowAddHelpModal(false)}
-                                    className="btn btn-secondary flex-1"
-                                >
-                                    Cancel
-                                </button>
-                                <button
-                                    type="submit"
-                                    disabled={isSubmitting}
-                                    className="btn btn-primary flex-1 shadow-lg shadow-blue-500/20"
-                                >
-                                    {isSubmitting ? 'Saving...' : 'Register Help'}
-                                </button>
-                            </div>
+                            <FormActions
+                                onSubmit={() => {}}
+                                onCancel={() => setShowAddHelpModal(false)}
+                                submitLabel="Register Help"
+                                cancelLabel="Cancel"
+                                isLoading={isSubmitting}
+                            />
                         </form>
-                    </div>
+                    </FormModal>
                 )}
 
                 {/* Payment Inline Form */}
                 {showPaymentModal && selectedHelpId && (
-                    <div className="card mb-block animate-slide-up border-emerald-500/30">
-                        <div className="flex justify-between items-center mb-6">
-                            <div>
-                                <h2 className="text-xl font-bold text-white">Record Payment</h2>
-                                <p className="text-xs text-slate-400">For {houseHelps.find(h => h.id === selectedHelpId)?.name}</p>
-                            </div>
-                            <button onClick={() => setShowPaymentModal(false)} className="text-slate-400 hover:text-white transition-colors">✕</button>
-                        </div>
-
+                    <FormModal
+                        isOpen={showPaymentModal}
+                        title="Record Payment"
+                        subtitle={`For ${houseHelps.find(h => h.id === selectedHelpId)?.name}`}
+                        onClose={() => setShowPaymentModal(false)}
+                        maxWidth="lg"
+                    >
                         <form onSubmit={handleAddPayment} className="space-y-4">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div className="form-group">
-                                    <label className="form-label">Payment Type</label>
-                                    <select
+                                <FormField label="Payment Type" required>
+                                    <FormSelect
                                         value={paymentFormData.type}
                                         onChange={e => setPaymentFormData({ ...paymentFormData, type: e.target.value as any })}
-                                        className="form-select"
                                     >
                                         <option value="advance">Advance</option>
                                         <option value="salary">Full Salary</option>
-                                    </select>
-                                </div>
-                                <div className="form-group">
-                                    <label className="form-label">Amount</label>
-                                    <input
+                                    </FormSelect>
+                                </FormField>
+
+                                <FormField label="Amount" required>
+                                    <FormInput
                                         type="number"
-                                        required
                                         placeholder="0.00"
                                         value={paymentFormData.amount}
                                         onChange={e => setPaymentFormData({ ...paymentFormData, amount: e.target.value })}
-                                        className="form-input"
+                                        required
                                     />
-                                </div>
+                                </FormField>
                             </div>
 
-                            <div className="form-group">
-                                <label className="form-label">Date</label>
-                                <input
+                            <FormField label="Date" required>
+                                <FormInput
                                     type="date"
                                     value={paymentFormData.date}
                                     onChange={e => setPaymentFormData({ ...paymentFormData, date: e.target.value })}
-                                    className="form-input"
+                                    required
                                 />
-                            </div>
+                            </FormField>
 
-                            <div className="form-group">
-                                <label className="form-label">Notes (Optional)</label>
-                                <input
+                            <FormField label="Notes (Optional)">
+                                <FormInput
                                     type="text"
                                     placeholder="e.g., Requested for family emergency"
                                     value={paymentFormData.notes}
                                     onChange={e => setPaymentFormData({ ...paymentFormData, notes: e.target.value })}
-                                    className="form-input"
                                 />
-                            </div>
+                            </FormField>
 
-                            <div className="pt-4 border-t border-slate-800 flex gap-3">
-                                <button
-                                    type="button"
-                                    onClick={() => setShowPaymentModal(false)}
-                                    className="btn btn-secondary flex-1"
-                                >
-                                    Cancel
-                                </button>
-                                <button
-                                    type="submit"
-                                    disabled={isSubmitting}
-                                    className="btn btn-primary flex-1 shadow-lg shadow-blue-500/20"
-                                >
-                                    {isSubmitting ? 'Recording...' : 'Confirm Payment'}
-                                </button>
-                            </div>
+                            <FormActions
+                                onSubmit={() => {}}
+                                onCancel={() => setShowPaymentModal(false)}
+                                submitLabel="Confirm Payment"
+                                cancelLabel="Cancel"
+                                isLoading={isSubmitting}
+                            />
                         </form>
-                    </div>
+                    </FormModal>
                 )}
 
                 {/* Search */}

@@ -6,9 +6,16 @@ import { useState, useMemo } from 'react';
 import { useAppStore } from '@/lib/store';
 import { useToast } from '@/lib/toastContext';
 import PageWrapper from '@/components/PageWrapper';
+import { recurringTransactionService } from '@/lib/firebaseService';
+import FormModal from '@/components/FormModal';
+import FormField from '@/components/FormField';
+import FormInput from '@/components/FormInput';
+import FormSelect from '@/components/FormSelect';
+import FormCheckbox from '@/components/FormCheckbox';
+import FormActions from '@/components/FormActions';
 
 export default function RecurringTransactionsPage() {
-  const { recurringTransactions, addRecurringTransaction, removeRecurringTransaction, updateRecurringTransaction, categories } = useAppStore();
+  const { recurringTransactions, addRecurringTransaction, removeRecurringTransaction, updateRecurringTransaction, categories, user } = useAppStore();
   const { success, error } = useToast();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [showModalInline, setShowModalInline] = useState(false);
@@ -66,29 +73,54 @@ export default function RecurringTransactionsPage() {
       return;
     }
 
-    addRecurringTransaction({
-      id: `recurring_${Date.now()}`,
-      name: formData.name,
-      amount: parseFloat(formData.amount),
-      type: formData.type,
-      frequency: formData.frequency,
-      category: formData.category,
-      startDate: new Date(formData.startDate),
-      endDate: formData.endDate ? new Date(formData.endDate) : undefined,
-      isActive: formData.isActive,
-    });
+    if (!user) {
+      error('User not authenticated');
+      return;
+    }
 
-    success('Recurring transaction added successfully');
-    setFormData({
-      name: '',
-      amount: '',
-      type: 'expense',
-      frequency: 'monthly',
-      category: '',
-      startDate: new Date().toISOString().split('T')[0],
-      endDate: '',
-      isActive: true,
-    });
+    const createTransaction = async () => {
+      try {
+        const id = await recurringTransactionService.create({
+          id: `recurring_${Date.now()}`,
+          name: formData.name,
+          amount: parseFloat(formData.amount),
+          type: formData.type,
+          frequency: formData.frequency,
+          category: formData.category,
+          startDate: new Date(formData.startDate),
+          endDate: formData.endDate ? new Date(formData.endDate) : undefined,
+          isActive: formData.isActive,
+        }, user.uid);
+
+        addRecurringTransaction({
+          id,
+          name: formData.name,
+          amount: parseFloat(formData.amount),
+          type: formData.type,
+          frequency: formData.frequency,
+          category: formData.category,
+          startDate: new Date(formData.startDate),
+          endDate: formData.endDate ? new Date(formData.endDate) : undefined,
+          isActive: formData.isActive,
+        });
+
+        success('Recurring transaction added successfully');
+        setFormData({
+          name: '',
+          amount: '',
+          type: 'expense',
+          frequency: 'monthly',
+          category: '',
+          startDate: new Date().toISOString().split('T')[0],
+          endDate: '',
+          isActive: true,
+        });
+      } catch (err) {
+        error('Failed to add recurring transaction');
+      }
+    };
+
+    createTransaction();
   };
 
   const handleEditRecurring = (id: string) => {
@@ -121,47 +153,102 @@ export default function RecurringTransactionsPage() {
       return;
     }
 
+    if (!user) {
+      error('User not authenticated');
+      return;
+    }
+
     if (editingId) {
-      updateRecurringTransaction(editingId, {
-        name: formData.name,
-        amount: parseFloat(formData.amount),
-        type: formData.type,
-        frequency: formData.frequency,
-        category: formData.category,
-        startDate: new Date(formData.startDate),
-        endDate: formData.endDate ? new Date(formData.endDate) : undefined,
-        isActive: formData.isActive,
-      });
-      success('Recurring transaction updated successfully');
-      setEditingId(null);
-      setFormData({
-        name: '',
-        amount: '',
-        type: 'expense',
-        frequency: 'monthly',
-        category: '',
-        startDate: new Date().toISOString().split('T')[0],
-        endDate: '',
-        isActive: true,
-      });
+      const updateTransaction = async () => {
+        try {
+          await recurringTransactionService.update(user.uid, editingId, {
+            name: formData.name,
+            amount: parseFloat(formData.amount),
+            type: formData.type,
+            frequency: formData.frequency,
+            category: formData.category,
+            startDate: new Date(formData.startDate),
+            endDate: formData.endDate ? new Date(formData.endDate) : undefined,
+            isActive: formData.isActive,
+          });
+
+          updateRecurringTransaction(editingId, {
+            name: formData.name,
+            amount: parseFloat(formData.amount),
+            type: formData.type,
+            frequency: formData.frequency,
+            category: formData.category,
+            startDate: new Date(formData.startDate),
+            endDate: formData.endDate ? new Date(formData.endDate) : undefined,
+            isActive: formData.isActive,
+          });
+          success('Recurring transaction updated successfully');
+          setEditingId(null);
+          setFormData({
+            name: '',
+            amount: '',
+            type: 'expense',
+            frequency: 'monthly',
+            category: '',
+            startDate: new Date().toISOString().split('T')[0],
+            endDate: '',
+            isActive: true,
+          });
+        } catch (err) {
+          error('Failed to update recurring transaction');
+        }
+      };
+
+      updateTransaction();
     }
   };
 
   const handleDelete = (id: string) => {
     if (confirm('Are you sure you want to delete this recurring transaction?')) {
-      removeRecurringTransaction(id);
-      success('Recurring transaction deleted successfully');
+      if (!user) {
+        error('User not authenticated');
+        return;
+      }
+
+      const deleteTransaction = async () => {
+        try {
+          await recurringTransactionService.delete(user.uid, id);
+          removeRecurringTransaction(id);
+          success('Recurring transaction deleted successfully');
+        } catch (err) {
+          error('Failed to delete recurring transaction');
+        }
+      };
+
+      deleteTransaction();
     }
   };
 
   const handleToggleActive = (id: string, currentStatus: boolean) => {
+    if (!user) {
+      error('User not authenticated');
+      return;
+    }
+
     const transaction = recurringTransactions.find((trans) => trans.id === id);
     if (transaction) {
-      updateRecurringTransaction(id, {
-        ...transaction,
-        isActive: !currentStatus,
-      });
-      success(`Recurring transaction ${!currentStatus ? 'activated' : 'deactivated'}`);
+      const toggleStatus = async () => {
+        try {
+          await recurringTransactionService.update(user.uid, id, {
+            isActive: !currentStatus,
+          });
+
+          updateRecurringTransaction(id, {
+            ...transaction,
+            isActive: !currentStatus,
+          });
+          success(`Recurring transaction ${!currentStatus ? 'activated' : 'deactivated'}`);
+        } catch (err) {
+          error('Failed to update recurring transaction');
+        }
+      };
+
+      toggleStatus();
     }
   };
 
@@ -278,75 +365,79 @@ export default function RecurringTransactionsPage() {
 
         {/* Add/Edit Modal - Inline */}
         {showModalInline && (
-          <div className="card mb-block">
-            <h2 className="heading-section mb-4">
-              {editingId ? 'Edit Recurring Transaction' : 'Add Recurring Transaction'}
-            </h2>
-
+          <FormModal
+            isOpen={showModalInline}
+            title={editingId ? 'Edit Recurring Transaction' : 'Add Recurring Transaction'}
+            onClose={() => {
+              setShowModalInline(false);
+              setEditingId(null);
+              setFormData({
+                name: '',
+                amount: '',
+                type: 'expense',
+                frequency: 'monthly',
+                category: '',
+                startDate: new Date().toISOString().split('T')[0],
+                endDate: '',
+                isActive: true,
+              });
+            }}
+            maxWidth="lg"
+          >
             <form onSubmit={editingId ? handleSaveEdit : handleAddRecurring} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
-                <div>
-                  <label className="form-label">Description</label>
-                  <input
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <FormField label="Description" required>
+                  <FormInput
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="e.g., Monthly Rent"
-                    className="form-input"
                     required
                   />
-                </div>
+                </FormField>
 
-                <div>
-                  <label className="form-label">Amount</label>
-                  <input
+                <FormField label="Amount" required>
+                  <FormInput
                     type="number"
                     name="amount"
                     value={formData.amount}
                     onChange={handleChange}
                     placeholder="0.00"
                     step="0.01"
-                    className="form-input"
                     required
                   />
-                </div>
+                </FormField>
 
-                <div>
-                  <label className="form-label">Type</label>
-                  <select
+                <FormField label="Type" required>
+                  <FormSelect
                     name="type"
                     value={formData.type}
                     onChange={handleChange}
-                    className="form-select"
                   >
                     <option value="expense">Expense</option>
                     <option value="income">Income</option>
-                  </select>
-                </div>
+                  </FormSelect>
+                </FormField>
 
-                <div>
-                  <label className="form-label">Frequency</label>
-                  <select
+                <FormField label="Frequency" required>
+                  <FormSelect
                     name="frequency"
                     value={formData.frequency}
                     onChange={handleChange}
-                    className="form-select"
                   >
                     <option value="daily">Daily</option>
                     <option value="weekly">Weekly</option>
                     <option value="monthly">Monthly</option>
                     <option value="yearly">Yearly</option>
-                  </select>
-                </div>
+                  </FormSelect>
+                </FormField>
 
-                <div>
-                  <label className="form-label">Category</label>
-                  <select
+                <FormField label="Category" required>
+                  <FormSelect
                     name="category"
                     value={formData.category}
                     onChange={handleChange}
-                    className="form-select"
                     required
                   >
                     <option value="">Select a category</option>
@@ -355,74 +446,59 @@ export default function RecurringTransactionsPage() {
                         {cat.emoji} {cat.name}
                       </option>
                     ))}
-                  </select>
-                </div>
+                  </FormSelect>
+                </FormField>
 
-                <div>
-                  <label className="form-label">Start Date</label>
-                  <input
+                <FormField label="Start Date" required>
+                  <FormInput
                     type="date"
                     name="startDate"
                     value={formData.startDate}
                     onChange={handleChange}
-                    className="form-input"
                     required
                   />
-                </div>
+                </FormField>
 
-                <div>
-                  <label className="form-label">End Date (Optional)</label>
-                  <input
+                <FormField label="End Date (Optional)">
+                  <FormInput
                     type="date"
                     name="endDate"
                     value={formData.endDate}
                     onChange={handleChange}
-                    className="form-input"
                   />
-                </div>
+                </FormField>
 
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
+                <div className="flex items-end pb-0">
+                  <FormCheckbox
                     name="isActive"
                     checked={formData.isActive}
                     onChange={handleChange}
-                    className="w-4 h-4 rounded"
+                    label="Active"
                   />
-                  <label className="ml-2 text-sm font-medium text-slate-300">Active</label>
                 </div>
               </div>
 
-              <div className="flex gap-2 md:gap-3 pt-4">
-                <button
-                  type="submit"
-                  className="flex-1 btn btn-primary"
-                >
-                  {editingId ? 'Update' : 'Add'} Transaction
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowModalInline(false);
-                    setEditingId(null);
-                    setFormData({
-                      name: '',
-                      amount: '',
-                      type: 'expense',
-                      frequency: 'monthly',
-                      category: '',
-                      startDate: new Date().toISOString().split('T')[0],
-                      endDate: '',
-                      isActive: true,
-                    });
-                  }}
-                  className="flex-1 btn btn-secondary"
-                >
-                  Cancel
-                </button>
-              </div>
+              <FormActions
+                onSubmit={() => {}}
+                onCancel={() => {
+                  setShowModalInline(false);
+                  setEditingId(null);
+                  setFormData({
+                    name: '',
+                    amount: '',
+                    type: 'expense',
+                    frequency: 'monthly',
+                    category: '',
+                    startDate: new Date().toISOString().split('T')[0],
+                    endDate: '',
+                    isActive: true,
+                  });
+                }}
+                submitLabel={editingId ? 'Update Transaction' : 'Add Transaction'}
+                cancelLabel="Cancel"
+              />
             </form>
-          </div>
+          </FormModal>
         )}
 
         {filteredTransactions.length > 0 ? (
