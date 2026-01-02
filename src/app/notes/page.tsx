@@ -120,8 +120,7 @@ export default function NotesPage() {
 
   return (
     <PageWrapper>
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
-      <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
+      <div className="py-4 sm:py-6 md:py-8">
         <div className="mb-6 md:mb-8">
           <h1 className="heading-page">📝 Notes & Daily Logs</h1>
           <p className="text-secondary">Keep track of your daily notes and logs</p>
@@ -239,8 +238,8 @@ export default function NotesPage() {
               const isEditing = editingId === note.id;
 
               return (
-    <PageWrapper>
-      <div key={note.id} className="card">
+
+                <div key={note.id} className="card">
                   <div className="mb-4">
                     <h3 className="text-base md:text-lg font-bold text-white">{note.title}</h3>
                     <p className="text-xs text-slate-400 mt-1">{date}</p>
@@ -289,8 +288,8 @@ export default function NotesPage() {
                     </>
                   )}
                 </div>
-    </PageWrapper>
-  );
+
+              );
             })}
           </div>
         ) : (
@@ -310,7 +309,6 @@ export default function NotesPage() {
           </div>
         )}
       </div>
-    </div>
     </PageWrapper>
   );
 }

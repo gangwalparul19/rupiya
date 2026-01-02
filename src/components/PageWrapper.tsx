@@ -52,5 +52,9 @@ export default function PageWrapper({ children }: PageWrapperProps) {
   }
 
   // Only render children if authenticated
-  return <>{children}</>;
+  return (
+    <div className="container-responsive page-content">
+      {children}
+    </div>
+  );
 }

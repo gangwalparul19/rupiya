@@ -178,23 +178,22 @@ export default function IncomePage() {
 
   return (
     <PageWrapper>
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
-      <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
+      <div className="py-4 sm:py-6 md:py-8">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-3">
           <div>
             <h1 className="heading-page">💵 Income</h1>
             <p className="text-secondary">Track all your income sources</p>
           </div>
           <div className="flex gap-2 w-full md:w-auto">
-            <button 
-              onClick={() => setShowAnalytics(!showAnalytics)} 
+            <button
+              onClick={() => setShowAnalytics(!showAnalytics)}
               className="flex-1 md:flex-none btn btn-secondary"
               aria-label={showAnalytics ? 'Hide analytics' : 'Show analytics'}
             >
               {showAnalytics ? '📊 Hide' : '📊 Analytics'}
             </button>
-            <button 
-              onClick={() => setIsModalOpen(true)} 
+            <button
+              onClick={() => setIsModalOpen(true)}
               className="flex-1 md:flex-none btn btn-primary"
               aria-label="Add new income"
             >
@@ -227,15 +226,15 @@ export default function IncomePage() {
         <EditIncomeModal isOpen={isEditModalOpen} income={editingIncome} onClose={() => { setIsEditModalOpen(false); setEditingIncome(null); }} onSave={handleSaveIncome} />
 
         <div className="flex gap-2 mb-4 md:mb-6 flex-wrap">
-          <button 
-            onClick={handleExportCSV} 
+          <button
+            onClick={handleExportCSV}
             className="bg-green-600 hover:bg-green-700 text-white px-3 md:px-4 py-2 rounded-lg transition font-semibold text-xs md:text-sm"
             aria-label="Export income to CSV file"
           >
             📥 CSV
           </button>
-          <button 
-            onClick={handleExportReport} 
+          <button
+            onClick={handleExportReport}
             className="bg-blue-600 hover:bg-blue-700 text-white px-3 md:px-4 py-2 rounded-lg transition font-semibold text-xs md:text-sm"
             aria-label="Export income report to text file"
           >
@@ -275,16 +274,16 @@ export default function IncomePage() {
                   {inc.category && <span className="bg-slate-700 text-slate-200 px-2 py-1 rounded text-xs font-medium">{inc.category}</span>}
                 </div>
                 <div className="flex gap-2">
-                  <button 
-                    onClick={() => handleEditIncome(inc)} 
+                  <button
+                    onClick={() => handleEditIncome(inc)}
                     className="bg-blue-600 hover:bg-blue-700 text-white px-2 md:px-3 py-1 rounded transition text-xs md:text-sm"
                     aria-label={`Edit income ${inc.description}`}
                   >
                     Edit
                   </button>
-                  <button 
-                    onClick={() => handleDeleteClick(inc.id, inc.description)} 
-                    disabled={isDeleting} 
+                  <button
+                    onClick={() => handleDeleteClick(inc.id, inc.description)}
+                    disabled={isDeleting}
                     className="bg-red-600 hover:bg-red-700 text-white px-2 md:px-3 py-1 rounded transition text-xs md:text-sm disabled:opacity-50"
                     aria-label={`Delete income ${inc.description}`}
                   >
@@ -327,7 +326,6 @@ export default function IncomePage() {
         onConfirm={handleConfirmDelete}
         onCancel={() => setConfirmDialog({ isOpen: false, incomeId: '', incomeDescription: '' })}
       />
-    </div>
     </PageWrapper>
   );
 }

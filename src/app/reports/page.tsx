@@ -86,8 +86,7 @@ export default function ReportsPage() {
 
   return (
     <PageWrapper>
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
-      <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
+      <div className="py-4 sm:py-6 md:py-8">
         <div className="mb-6 md:mb-8">
           <h1 className="heading-page">📑 Financial Reports</h1>
           <p className="text-secondary">Comprehensive financial insights and analysis</p>
@@ -255,19 +254,19 @@ export default function ReportsPage() {
                 <LineChart
                   data={(() => {
                     const months: { [key: string]: { income: number; expense: number; cashFlow: number } } = {};
-                    
+
                     income.forEach((inc) => {
                       const month = inc.date.toISOString().slice(0, 7);
                       if (!months[month]) months[month] = { income: 0, expense: 0, cashFlow: 0 };
                       months[month].income += inc.amount;
                     });
-                    
+
                     expenses.forEach((exp) => {
                       const month = exp.date.toISOString().slice(0, 7);
                       if (!months[month]) months[month] = { income: 0, expense: 0, cashFlow: 0 };
                       months[month].expense += exp.amount;
                     });
-                    
+
                     return Object.entries(months)
                       .sort()
                       .slice(-6)
@@ -308,15 +307,15 @@ export default function ReportsPage() {
                 <BarChart
                   data={(() => {
                     const categoryMonths: { [key: string]: { [key: string]: number } } = {};
-                    
+
                     expenses.forEach((exp) => {
                       const month = exp.date.toISOString().slice(0, 7);
                       const cat = exp.category || 'Other';
-                      
+
                       if (!categoryMonths[month]) categoryMonths[month] = {};
                       categoryMonths[month][cat] = (categoryMonths[month][cat] || 0) + exp.amount;
                     });
-                    
+
                     return Object.entries(categoryMonths)
                       .sort()
                       .slice(-6)
@@ -356,7 +355,6 @@ export default function ReportsPage() {
           </div>
         </div>
       </div>
-    </div>
     </PageWrapper>
   );
 }

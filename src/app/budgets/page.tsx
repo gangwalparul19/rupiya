@@ -282,8 +282,7 @@ export default function BudgetsPage() {
 
   return (
     <PageWrapper>
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
-      <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
+      <div className="py-4 sm:py-6 md:py-8">
         {/* Header */}
         <div className="mb-6 md:mb-8">
           <h1 className="heading-page">Budget Management</h1>
@@ -382,9 +381,8 @@ export default function BudgetsPage() {
                   name="month"
                   value={formData.month}
                   onChange={handleChange}
-                  className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm ${
-                    errors.month ? 'border-red-500' : 'border-gray-600'
-                  }`}
+                  className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm ${errors.month ? 'border-red-500' : 'border-gray-600'
+                    }`}
                   required
                 />
                 {errors.month && <p className="text-red-400 text-xs mt-1">{errors.month}</p>}
@@ -400,9 +398,8 @@ export default function BudgetsPage() {
                   value={formData.totalBudget}
                   onChange={handleChange}
                   placeholder="Enter total budget"
-                  className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-sm ${
-                    errors.totalBudget ? 'border-red-500' : 'border-gray-600'
-                  }`}
+                  className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-sm ${errors.totalBudget ? 'border-red-500' : 'border-gray-600'
+                    }`}
                   step="0.01"
                   min="0"
                   required
@@ -429,9 +426,8 @@ export default function BudgetsPage() {
                       value={formData[category as keyof typeof formData]}
                       onChange={handleChange}
                       placeholder="0"
-                      className={`w-full px-2 py-1 bg-gray-700 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-xs ${
-                        errors[category] ? 'border-red-500' : 'border-gray-600'
-                      }`}
+                      className={`w-full px-2 py-1 bg-gray-700 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-xs ${errors[category] ? 'border-red-500' : 'border-gray-600'
+                        }`}
                       step="0.01"
                       min="0"
                     />
@@ -535,11 +531,10 @@ export default function BudgetsPage() {
                   </div>
                   <div className="w-full bg-gray-700 rounded-full h-2">
                     <div
-                      className={`h-2 rounded-full transition-all ${
-                        Object.values(budget.categories).reduce((sum, v) => sum + (v || 0), 0) > budget.totalBudget
-                          ? 'bg-red-500'
-                          : 'bg-green-500'
-                      }`}
+                      className={`h-2 rounded-full transition-all ${Object.values(budget.categories).reduce((sum, v) => sum + (v || 0), 0) > budget.totalBudget
+                        ? 'bg-red-500'
+                        : 'bg-green-500'
+                        }`}
                       style={{
                         width: `${Math.min(
                           (Object.values(budget.categories).reduce((sum, v) => sum + (v || 0), 0) / budget.totalBudget) * 100,
@@ -612,7 +607,6 @@ export default function BudgetsPage() {
         onConfirm={handleConfirmDelete}
         onCancel={() => setConfirmDialog({ isOpen: false, budgetId: '', budgetMonth: '' })}
       />
-      </div>
     </PageWrapper>
   );
 }

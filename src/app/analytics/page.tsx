@@ -69,15 +69,15 @@ Savings Rate: ${analytics.savingsRate}%
 
 === EXPENSES BY CATEGORY ===
 ${Object.entries(analytics.expensesByCategory)
-  .sort(([, a], [, b]) => b - a)
-  .map(([category, amount]) => `${category}: ₹${amount.toLocaleString('en-IN', { maximumFractionDigits: 2 })}`)
-  .join('\n')}
+        .sort(([, a], [, b]) => b - a)
+        .map(([category, amount]) => `${category}: ₹${amount.toLocaleString('en-IN', { maximumFractionDigits: 2 })}`)
+        .join('\n')}
 
 === INCOME BY SOURCE ===
 ${Object.entries(analytics.incomeBySource)
-  .sort(([, a], [, b]) => b - a)
-  .map(([source, amount]) => `${source}: ₹${amount.toLocaleString('en-IN', { maximumFractionDigits: 2 })}`)
-  .join('\n')}
+        .sort(([, a], [, b]) => b - a)
+        .map(([source, amount]) => `${source}: ₹${amount.toLocaleString('en-IN', { maximumFractionDigits: 2 })}`)
+        .join('\n')}
 
 === INVESTMENT SUMMARY ===
 Total Invested: ₹${analytics.totalInvested.toLocaleString('en-IN', { maximumFractionDigits: 2 })}
@@ -95,39 +95,35 @@ Total Budget: ₹${analytics.totalBudget.toLocaleString('en-IN', { maximumFracti
 Budget Utilization: ${analytics.budgetUtilization}%
 
 === FINANCIAL HEALTH SCORE ===
-${
-  parseFloat(analytics.savingsRate) > 20
-    ? '✅ Excellent: Savings rate above 20%'
-    : parseFloat(analytics.savingsRate) > 10
-      ? '🟢 Good: Savings rate above 10%'
-      : parseFloat(analytics.savingsRate) > 0
-        ? '🟡 Fair: Positive savings rate'
-        : '🔴 Poor: Negative savings rate'
-}
+${parseFloat(analytics.savingsRate) > 20
+        ? '✅ Excellent: Savings rate above 20%'
+        : parseFloat(analytics.savingsRate) > 10
+          ? '🟢 Good: Savings rate above 10%'
+          : parseFloat(analytics.savingsRate) > 0
+            ? '🟡 Fair: Positive savings rate'
+            : '🔴 Poor: Negative savings rate'
+      }
 
-${
-  parseFloat(analytics.investmentReturn) > 10
-    ? '✅ Strong Investment Returns'
-    : parseFloat(analytics.investmentReturn) > 0
-      ? '🟢 Positive Investment Returns'
-      : '🔴 Negative Investment Returns'
-}
+${parseFloat(analytics.investmentReturn) > 10
+        ? '✅ Strong Investment Returns'
+        : parseFloat(analytics.investmentReturn) > 0
+          ? '🟢 Positive Investment Returns'
+          : '🔴 Negative Investment Returns'
+      }
 
-${
-  parseFloat(analytics.goalProgress) > 75
-    ? '✅ On Track with Goals'
-    : parseFloat(analytics.goalProgress) > 50
-      ? '🟡 Making Progress on Goals'
-      : '🔴 Behind on Goals'
-}
+${parseFloat(analytics.goalProgress) > 75
+        ? '✅ On Track with Goals'
+        : parseFloat(analytics.goalProgress) > 50
+          ? '🟡 Making Progress on Goals'
+          : '🔴 Behind on Goals'
+      }
 
-${
-  parseFloat(analytics.budgetUtilization) < 80
-    ? '✅ Good Budget Control'
-    : parseFloat(analytics.budgetUtilization) < 100
-      ? '🟡 Budget Nearly Full'
-      : '🔴 Budget Exceeded'
-}
+${parseFloat(analytics.budgetUtilization) < 80
+        ? '✅ Good Budget Control'
+        : parseFloat(analytics.budgetUtilization) < 100
+          ? '🟡 Budget Nearly Full'
+          : '🔴 Budget Exceeded'
+      }
     `;
 
     const blob = new Blob([report], { type: 'text/plain' });
@@ -147,8 +143,7 @@ ${
 
   return (
     <PageWrapper>
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
-      <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
+      <div className="py-4 sm:py-6 md:py-8">
         <div className="mb-6 md:mb-8">
           <h1 className="heading-page">📊 Analytics & Reports</h1>
           <p className="text-secondary">Comprehensive financial analysis</p>
@@ -370,7 +365,6 @@ ${
           </div>
         </div>
       </div>
-    </div>
     </PageWrapper>
   );
 }

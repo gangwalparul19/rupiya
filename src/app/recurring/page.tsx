@@ -100,13 +100,13 @@ export default function RecurringTransactionsPage() {
         type: transaction.type,
         frequency: transaction.frequency,
         category: transaction.category,
-        startDate: transaction.startDate instanceof Date 
+        startDate: transaction.startDate instanceof Date
           ? transaction.startDate.toISOString().split('T')[0]
           : new Date(transaction.startDate).toISOString().split('T')[0],
-        endDate: transaction.endDate 
-          ? (transaction.endDate instanceof Date 
-              ? transaction.endDate.toISOString().split('T')[0]
-              : new Date(transaction.endDate).toISOString().split('T')[0])
+        endDate: transaction.endDate
+          ? (transaction.endDate instanceof Date
+            ? transaction.endDate.toISOString().split('T')[0]
+            : new Date(transaction.endDate).toISOString().split('T')[0])
           : '',
         isActive: transaction.isActive,
       });
@@ -174,7 +174,7 @@ export default function RecurringTransactionsPage() {
     let csv = 'Description,Amount,Type,Frequency,Category,Start Date,End Date,Active\n';
     filteredTransactions.forEach((trans) => {
       const startDate = trans.startDate instanceof Date ? trans.startDate.toLocaleDateString() : new Date(trans.startDate).toLocaleDateString();
-      const endDate = trans.endDate 
+      const endDate = trans.endDate
         ? (trans.endDate instanceof Date ? trans.endDate.toLocaleDateString() : new Date(trans.endDate).toLocaleDateString())
         : 'N/A';
       csv += `"${trans.name}","${trans.amount}","${trans.type}","${trans.frequency}","${trans.category}","${startDate}","${endDate}","${trans.isActive}"\n`;
@@ -192,8 +192,7 @@ export default function RecurringTransactionsPage() {
 
   return (
     <PageWrapper>
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
-      <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
+      <div className="py-4 sm:py-6 md:py-8">
         <div className="mb-6 md:mb-8">
           <h1 className="heading-page">🔄 Recurring Transactions</h1>
           <p className="text-secondary">Set up and manage recurring expenses and income</p>
@@ -420,17 +419,17 @@ export default function RecurringTransactionsPage() {
         {filteredTransactions.length > 0 ? (
           <div className="grid-responsive-3 mb-6 md:mb-8">
             {filteredTransactions.map((transaction) => {
-              const startDate = transaction.startDate instanceof Date 
-                ? transaction.startDate.toLocaleDateString() 
+              const startDate = transaction.startDate instanceof Date
+                ? transaction.startDate.toLocaleDateString()
                 : new Date(transaction.startDate).toLocaleDateString();
-              const endDate = transaction.endDate 
-                ? (transaction.endDate instanceof Date 
-                    ? transaction.endDate.toLocaleDateString() 
-                    : new Date(transaction.endDate).toLocaleDateString())
+              const endDate = transaction.endDate
+                ? (transaction.endDate instanceof Date
+                  ? transaction.endDate.toLocaleDateString()
+                  : new Date(transaction.endDate).toLocaleDateString())
                 : 'No end date';
 
               return (
-      <div
+                <div
                   key={transaction.id}
                   className={`card ${!transaction.isActive ? 'opacity-60' : ''}`}
                 >
@@ -440,11 +439,10 @@ export default function RecurringTransactionsPage() {
                       <p className="text-xs text-slate-400 mt-1">{transaction.category}</p>
                     </div>
                     <span
-                      className={`text-xs px-2 py-1 rounded font-medium ${
-                        transaction.type === 'expense'
+                      className={`text-xs px-2 py-1 rounded font-medium ${transaction.type === 'expense'
                           ? 'bg-red-600 text-white'
                           : 'bg-green-600 text-white'
-                      }`}
+                        }`}
                     >
                       {transaction.type}
                     </span>
@@ -469,11 +467,10 @@ export default function RecurringTransactionsPage() {
                   <div className="flex gap-2 pt-4 border-t border-slate-700">
                     <button
                       onClick={() => handleToggleActive(transaction.id, transaction.isActive)}
-                      className={`flex-1 btn btn-small ${
-                        transaction.isActive
+                      className={`flex-1 btn btn-small ${transaction.isActive
                           ? 'bg-yellow-600 hover:bg-yellow-700'
                           : 'bg-green-600 hover:bg-green-700'
-                      } text-white`}
+                        } text-white`}
                     >
                       {transaction.isActive ? 'Pause' : 'Resume'}
                     </button>
@@ -513,7 +510,6 @@ export default function RecurringTransactionsPage() {
           </div>
         )}
       </div>
-    </div>
     </PageWrapper>
   );
 }

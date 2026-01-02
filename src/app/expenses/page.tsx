@@ -270,11 +270,11 @@ Average Expense: ₹${avgAmount.toLocaleString('en-IN', { maximumFractionDigits:
 DETAILS
 -------
 ${sortedExpenses
-  .map(
-    (exp) =>
-      `${new Date(exp.date).toLocaleDateString()} | ${exp.description} | ${exp.category} | ₹${exp.amount} | ${exp.paymentMethod}`
-  )
-  .join('\n')}
+        .map(
+          (exp) =>
+            `${new Date(exp.date).toLocaleDateString()} | ${exp.description} | ${exp.category} | ₹${exp.amount} | ${exp.paymentMethod}`
+        )
+        .join('\n')}
     `.trim();
 
     const blob = new Blob([reportContent], { type: 'text/plain' });
@@ -291,8 +291,7 @@ ${sortedExpenses
 
   return (
     <PageWrapper>
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
-      <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
+      <div className="py-4 sm:py-6 md:py-8">
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-3">
           <div>
@@ -370,11 +369,10 @@ ${sortedExpenses
         <div className="flex gap-2 mb-4 md:mb-6 flex-wrap">
           <button
             onClick={() => setIsFilterOpen(true)}
-            className={`px-3 md:px-4 py-2 rounded-lg transition font-semibold text-xs md:text-sm ${
-              hasActiveFilters
-                ? 'bg-purple-600 hover:bg-purple-700 text-white'
-                : 'bg-slate-600 hover:bg-slate-500 text-white'
-            }`}
+            className={`px-3 md:px-4 py-2 rounded-lg transition font-semibold text-xs md:text-sm ${hasActiveFilters
+              ? 'bg-purple-600 hover:bg-purple-700 text-white'
+              : 'bg-slate-600 hover:bg-slate-500 text-white'
+              }`}
             aria-label="Open filters panel"
           >
             🔍 Filters {hasActiveFilters && '✓'}
@@ -399,11 +397,10 @@ ${sortedExpenses
         <div className="mb-4 md:mb-6 flex gap-2 overflow-x-auto pb-2">
           <button
             onClick={() => setFilterCategory('all')}
-            className={`px-3 py-2 rounded-lg transition whitespace-nowrap text-xs md:text-sm ${
-              filterCategory === 'all'
-                ? 'bg-blue-600 text-white'
-                : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
-            }`}
+            className={`px-3 py-2 rounded-lg transition whitespace-nowrap text-xs md:text-sm ${filterCategory === 'all'
+              ? 'bg-blue-600 text-white'
+              : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+              }`}
           >
             All
           </button>
@@ -411,11 +408,10 @@ ${sortedExpenses
             <button
               key={cat.id}
               onClick={() => setFilterCategory(cat.name)}
-              className={`px-3 py-2 rounded-lg transition whitespace-nowrap text-xs md:text-sm ${
-                filterCategory === cat.name
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
-              }`}
+              className={`px-3 py-2 rounded-lg transition whitespace-nowrap text-xs md:text-sm ${filterCategory === cat.name
+                ? 'bg-blue-600 text-white'
+                : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+                }`}
             >
               {cat.emoji} {cat.name}
             </button>
@@ -463,7 +459,7 @@ ${sortedExpenses
                     </p>
                   </div>
                 </div>
-                
+
                 {/* Category and Payment Method Tags */}
                 <div className="flex flex-wrap gap-1 mb-2">
                   <span className="bg-slate-700 text-slate-200 px-2 py-1 rounded text-xs font-medium">
@@ -516,7 +512,7 @@ ${sortedExpenses
                   ₹
                   {Math.round(
                     sortedExpenses.reduce((sum, e) => sum + e.amount, 0) /
-                      sortedExpenses.length
+                    sortedExpenses.length
                   ).toLocaleString()}
                 </p>
               </div>
@@ -542,7 +538,6 @@ ${sortedExpenses
         onConfirm={handleConfirmDelete}
         onCancel={() => setConfirmDialog({ isOpen: false, expenseId: '', expenseDescription: '' })}
       />
-    </div>
     </PageWrapper>
   );
 }

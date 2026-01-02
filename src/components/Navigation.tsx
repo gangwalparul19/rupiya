@@ -103,8 +103,8 @@ export default function Navigation() {
   return (
     <>
       {/* Header */}
-      <header className="bg-slate-800 border-b border-slate-700 sticky top-0 z-40">
-        <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 flex justify-between items-center h-14 sm:h-16 md:h-20">
+      <header className="bg-slate-900/80 backdrop-blur-md border-b border-slate-700/50 sticky top-0 z-40 transition-all duration-300">
+        <div className="container-responsive flex justify-between items-center h-16 md:h-20 lg:h-24">
           {/* Logo */}
           <Link href="/" className="flex items-center hover:opacity-80 transition-opacity flex-shrink-0">
             <Image
@@ -124,24 +124,24 @@ export default function Navigation() {
               if ('submenu' in item && item.submenu) {
                 return (
                   <div key={item.label} className="group relative">
-                    <button className="flex items-center gap-2 px-3 lg:px-4 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-gradient-to-br hover:from-slate-700 hover:to-slate-600 transition-all duration-200 font-medium text-sm shadow-sm hover:shadow-md" aria-label={`Toggle ${item.label} menu`}>
-                      <span className="text-base">{item.icon}</span>
-                      <span className="hidden lg:inline text-sm">{item.label}</span>
-                      <span className="text-xs ml-1">▼</span>
+                    <button className="flex items-center gap-2 px-4 lg:px-6 py-2.5 rounded-full text-slate-300 hover:text-white hover:bg-white/5 transition-all duration-300 font-semibold text-sm lg:text-base group-hover:scale-105" aria-label={`Toggle ${item.label} menu`}>
+                      <span className="text-lg lg:text-xl">{item.icon}</span>
+                      <span className="hidden lg:inline">{item.label}</span>
+                      <span className="text-[10px] ml-1 opacity-50 transition-transform group-hover:rotate-180">▼</span>
                     </button>
                     {/* Dropdown Menu */}
-                    <div className="absolute left-0 mt-2 w-48 bg-gradient-to-br from-slate-700 to-slate-800 rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border border-slate-500 backdrop-blur-sm">
-                      <div className="py-1">
-                        {item.submenu.map((subitem: any, idx) => (
+                    <div className="absolute left-1/2 -translate-x-1/2 mt-4 w-56 bg-slate-800/95 backdrop-blur-xl rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border border-white/5 p-2 origin-top scale-95 group-hover:scale-100">
+                      <div className="space-y-1">
+                        {item.submenu.map((subitem: any) => (
                           <Link
                             key={subitem.href}
                             href={subitem.href}
-                            className={`flex items-center gap-3 px-4 py-2.5 text-sm transition-all duration-200 ${isActive(subitem.href)
-                              ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-md'
-                              : 'text-slate-300 hover:text-white hover:bg-slate-600'
-                              } ${idx === 0 ? 'rounded-t-lg' : ''} ${idx === item.submenu.length - 1 ? 'rounded-b-lg' : ''}`}
+                            className={`flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all duration-200 rounded-xl ${isActive(subitem.href)
+                              ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20'
+                              : 'text-slate-400 hover:text-white hover:bg-white/5'
+                              }`}
                           >
-                            <span className="text-sm">{subitem.icon}</span>
+                            <span className="text-lg">{subitem.icon}</span>
                             <span className="flex-1">{subitem.label}</span>
                           </Link>
                         ))}

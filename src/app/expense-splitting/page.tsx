@@ -149,245 +149,243 @@ export default function ExpenseSplittingPage() {
 
   return (
     <PageWrapper>
-      <div className="min-h-screen bg-gray-950 p-3 sm:p-4 md:p-6 lg:p-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-6 md:mb-8">
-            <h1 className="heading-page">💸 Expense Splitting</h1>
-            <p className="text-secondary">Split expenses with friends and track settlements</p>
-          </div>
+      <div className="py-4 sm:py-6 md:py-8">
+        <div className="mb-6 md:mb-8">
+          <h1 className="heading-page">💸 Expense Splitting</h1>
+          <p className="text-secondary">Split expenses with friends and track settlements</p>
+        </div>
 
-          <div className="flex flex-col md:flex-row gap-2 sm:gap-3 md:gap-4 mb-6">
-            <button
-              onClick={() => setIsAddModalOpen(true)}
-              className="btn btn-primary"
-            >
-              + Split Expense
-            </button>
-            <button
-              onClick={handleExportCSV}
-              className="btn btn-success"
-            >
-              ↓ Export CSV
-            </button>
-          </div>
+        <div className="flex flex-col md:flex-row gap-2 sm:gap-3 md:gap-4 mb-6">
+          <button
+            onClick={() => setIsAddModalOpen(true)}
+            className="btn btn-primary"
+          >
+            + Split Expense
+          </button>
+          <button
+            onClick={handleExportCSV}
+            className="btn btn-success"
+          >
+            ↓ Export CSV
+          </button>
+        </div>
 
-          <div className="flex flex-col md:flex-row gap-2 sm:gap-3 md:gap-4 mb-6">
-            <input
-              type="text"
-              placeholder="Search split expenses..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="form-input flex-1"
-            />
-            <select
-              value={filterStatus}
-              onChange={(e) => setFilterStatus(e.target.value as 'all' | 'pending' | 'settled' | 'partial')}
-              className="form-select"
-            >
-              <option value="all">All Status</option>
-              <option value="pending">Pending</option>
-              <option value="settled">Settled</option>
-              <option value="partial">Partial</option>
-            </select>
-          </div>
+        <div className="flex flex-col md:flex-row gap-2 sm:gap-3 md:gap-4 mb-6">
+          <input
+            type="text"
+            placeholder="Search split expenses..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="form-input flex-1"
+          />
+          <select
+            value={filterStatus}
+            onChange={(e) => setFilterStatus(e.target.value as 'all' | 'pending' | 'settled' | 'partial')}
+            className="form-select"
+          >
+            <option value="all">All Status</option>
+            <option value="pending">Pending</option>
+            <option value="settled">Settled</option>
+            <option value="partial">Partial</option>
+          </select>
+        </div>
 
-          {/* Add Modal */}
-          {isAddModalOpen && (
-            <div className="w-full animate-slide-up mb-8">
-              <div className="card p-4 md:p-6 border-2 border-blue-500/50 bg-gradient-to-br from-slate-800/95 to-slate-900/95 w-full max-w-2xl mx-auto max-h-[90vh] overflow-y-auto">
-                <div className="border-b border-slate-700 pb-4 mb-4 flex justify-between items-center text-white">
-                  <h2 className="text-xl md:text-2xl font-bold">Create Split Expense</h2>
+        {/* Add Modal */}
+        {isAddModalOpen && (
+          <div className="w-full animate-slide-up mb-8">
+            <div className="card p-4 md:p-6 border-2 border-blue-500/50 bg-gradient-to-br from-slate-800/95 to-slate-900/95 w-full max-w-2xl mx-auto max-h-[90vh] overflow-y-auto">
+              <div className="border-b border-slate-700 pb-4 mb-4 flex justify-between items-center text-white">
+                <h2 className="text-xl md:text-2xl font-bold">Create Split Expense</h2>
+                <button
+                  onClick={() => setIsAddModalOpen(false)}
+                  className="text-slate-400 hover:text-white text-2xl"
+                >
+                  ✕
+                </button>
+              </div>
+
+              <form onSubmit={handleAddSplit} className="space-y-4">
+                <div className="form-group">
+                  <label className="form-label">Description</label>
+                  <input
+                    type="text"
+                    value={formData.description}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, description: e.target.value }))}
+                    placeholder="e.g., Dinner at restaurant"
+                    className="form-input"
+                    required
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Total Amount</label>
+                  <input
+                    type="number"
+                    value={formData.totalAmount}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, totalAmount: e.target.value }))}
+                    placeholder="0.00"
+                    step="0.01"
+                    className="form-input"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="form-label mb-3">Participants</label>
+                  <div className="space-y-3">
+                    {formData.participants.map((participant, index) => (
+                      <div key={index} className="flex gap-2 sm:gap-3">
+                        <input
+                          type="text"
+                          value={participant.name}
+                          onChange={(e) => handleParticipantChange(index, 'name', e.target.value)}
+                          placeholder="Name"
+                          className="flex-1 form-input"
+                        />
+                        <input
+                          type="email"
+                          value={participant.email}
+                          onChange={(e) => handleParticipantChange(index, 'email', e.target.value)}
+                          placeholder="Email (optional)"
+                          className="flex-1 form-input"
+                        />
+                        <input
+                          type="number"
+                          value={participant.amount}
+                          onChange={(e) => handleParticipantChange(index, 'amount', e.target.value)}
+                          placeholder="Amount (optional)"
+                          step="0.01"
+                          className="flex-1 form-input"
+                        />
+                        {formData.participants.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveParticipant(index)}
+                            className="btn btn-danger btn-small"
+                          >
+                            Remove
+                          </button>
+                        )}
+                      </div>
+                    ))}
+                  </div>
                   <button
-                    onClick={() => setIsAddModalOpen(false)}
-                    className="text-slate-400 hover:text-white text-2xl"
+                    type="button"
+                    onClick={handleAddParticipant}
+                    className="mt-3 px-3 md:px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600 transition-colors text-xs md:text-sm"
                   >
-                    ✕
+                    + Add Participant
                   </button>
                 </div>
 
-                <form onSubmit={handleAddSplit} className="space-y-4">
-                  <div className="form-group">
-                    <label className="form-label">Description</label>
-                    <input
-                      type="text"
-                      value={formData.description}
-                      onChange={(e) => setFormData((prev) => ({ ...prev, description: e.target.value }))}
-                      placeholder="e.g., Dinner at restaurant"
-                      className="form-input"
-                      required
-                    />
+                <div className="flex gap-2 sm:gap-3 pt-4">
+                  <button
+                    type="submit"
+                    className="btn btn-primary flex-1"
+                  >
+                    Create Split
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setIsAddModalOpen(false)}
+                    className="btn btn-secondary flex-1"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
+        {filteredExpenses.length > 0 ? (
+          <div className="grid-responsive-3">
+            {filteredExpenses.map((expense) => {
+              const date = expense.date instanceof Date ? expense.date.toLocaleDateString() : new Date(expense.date).toLocaleDateString();
+              const statusColor = {
+                pending: 'bg-yellow-600',
+                settled: 'bg-green-600',
+                partial: 'bg-blue-600',
+              };
+
+              return (
+                <div key={expense.id} className="card">
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <h3 className="text-lg md:text-xl font-bold text-white">{expense.description}</h3>
+                      <p className="text-xs md:text-sm text-tertiary mt-1">{date}</p>
+                    </div>
+                    <span className={`text-xs px-2 py-1 rounded text-white font-medium ${statusColor[expense.status]}`}>
+                      {expense.status}
+                    </span>
                   </div>
 
-                  <div className="form-group">
-                    <label className="form-label">Total Amount</label>
-                    <input
-                      type="number"
-                      value={formData.totalAmount}
-                      onChange={(e) => setFormData((prev) => ({ ...prev, totalAmount: e.target.value }))}
-                      placeholder="0.00"
-                      step="0.01"
-                      className="form-input"
-                      required
-                    />
+                  <div className="space-y-2 mb-4 text-xs md:text-sm text-secondary">
+                    <p>
+                      <span className="text-tertiary">Total:</span> ₹
+                      {expense.totalAmount.toLocaleString('en-IN', { maximumFractionDigits: 2 })}
+                    </p>
+                    <p>
+                      <span className="text-tertiary">Participants:</span> {expense.participants.length}
+                    </p>
                   </div>
 
-                  <div>
-                    <label className="form-label mb-3">Participants</label>
-                    <div className="space-y-3">
-                      {formData.participants.map((participant, index) => (
-                        <div key={index} className="flex gap-2 sm:gap-3">
-                          <input
-                            type="text"
-                            value={participant.name}
-                            onChange={(e) => handleParticipantChange(index, 'name', e.target.value)}
-                            placeholder="Name"
-                            className="flex-1 form-input"
-                          />
-                          <input
-                            type="email"
-                            value={participant.email}
-                            onChange={(e) => handleParticipantChange(index, 'email', e.target.value)}
-                            placeholder="Email (optional)"
-                            className="flex-1 form-input"
-                          />
-                          <input
-                            type="number"
-                            value={participant.amount}
-                            onChange={(e) => handleParticipantChange(index, 'amount', e.target.value)}
-                            placeholder="Amount (optional)"
-                            step="0.01"
-                            className="flex-1 form-input"
-                          />
-                          {formData.participants.length > 1 && (
-                            <button
-                              type="button"
-                              onClick={() => handleRemoveParticipant(index)}
-                              className="btn btn-danger btn-small"
-                            >
-                              Remove
-                            </button>
-                          )}
-                        </div>
+                  <div className="mb-4 bg-gray-700 rounded p-3">
+                    <p className="text-xs font-semibold text-gray-300 mb-2">Split Details:</p>
+                    <div className="space-y-1 text-xs text-gray-400">
+                      {expense.participants.map((p, idx) => (
+                        <p key={idx}>
+                          {p.name}: ₹{p.amount.toLocaleString('en-IN', { maximumFractionDigits: 2 })}
+                        </p>
                       ))}
                     </div>
-                    <button
-                      type="button"
-                      onClick={handleAddParticipant}
-                      className="mt-3 px-3 md:px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600 transition-colors text-xs md:text-sm"
-                    >
-                      + Add Participant
-                    </button>
                   </div>
 
-                  <div className="flex gap-2 sm:gap-3 pt-4">
-                    <button
-                      type="submit"
-                      className="btn btn-primary flex-1"
-                    >
-                      Create Split
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setIsAddModalOpen(false)}
-                      className="btn btn-secondary flex-1"
-                    >
-                      Cancel
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          )}
-
-          {filteredExpenses.length > 0 ? (
-            <div className="grid-responsive-3">
-              {filteredExpenses.map((expense) => {
-                const date = expense.date instanceof Date ? expense.date.toLocaleDateString() : new Date(expense.date).toLocaleDateString();
-                const statusColor = {
-                  pending: 'bg-yellow-600',
-                  settled: 'bg-green-600',
-                  partial: 'bg-blue-600',
-                };
-
-                return (
-                  <div key={expense.id} className="card">
-                    <div className="flex items-start justify-between mb-4">
-                      <div>
-                        <h3 className="text-lg md:text-xl font-bold text-white">{expense.description}</h3>
-                        <p className="text-xs md:text-sm text-tertiary mt-1">{date}</p>
-                      </div>
-                      <span className={`text-xs px-2 py-1 rounded text-white font-medium ${statusColor[expense.status]}`}>
-                        {expense.status}
-                      </span>
-                    </div>
-
-                    <div className="space-y-2 mb-4 text-xs md:text-sm text-secondary">
-                      <p>
-                        <span className="text-tertiary">Total:</span> ₹
-                        {expense.totalAmount.toLocaleString('en-IN', { maximumFractionDigits: 2 })}
-                      </p>
-                      <p>
-                        <span className="text-tertiary">Participants:</span> {expense.participants.length}
-                      </p>
-                    </div>
-
-                    <div className="mb-4 bg-gray-700 rounded p-3">
-                      <p className="text-xs font-semibold text-gray-300 mb-2">Split Details:</p>
-                      <div className="space-y-1 text-xs text-gray-400">
-                        {expense.participants.map((p, idx) => (
-                          <p key={idx}>
-                            {p.name}: ₹{p.amount.toLocaleString('en-IN', { maximumFractionDigits: 2 })}
-                          </p>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="flex gap-2 pt-4 border-t border-gray-700">
-                      {expense.status === 'pending' && (
-                        <button
-                          onClick={() =>
-                            handleSettleUp(
-                              expense.id,
-                              expense.participants[0].userId,
-                              expense.participants[1].userId,
-                              expense.totalAmount
-                            )
-                          }
-                          className="btn btn-success btn-small flex-1"
-                        >
-                          Settle
-                        </button>
-                      )}
+                  <div className="flex gap-2 pt-4 border-t border-gray-700">
+                    {expense.status === 'pending' && (
                       <button
-                        onClick={() => handleDelete(expense.id)}
-                        className="btn btn-danger btn-small flex-1"
+                        onClick={() =>
+                          handleSettleUp(
+                            expense.id,
+                            expense.participants[0].userId,
+                            expense.participants[1].userId,
+                            expense.totalAmount
+                          )
+                        }
+                        className="btn btn-success btn-small flex-1"
                       >
-                        Delete
+                        Settle
                       </button>
-                    </div>
+                    )}
+                    <button
+                      onClick={() => handleDelete(expense.id)}
+                      className="btn btn-danger btn-small flex-1"
+                    >
+                      Delete
+                    </button>
                   </div>
-                );
-              })}
-            </div>
-          ) : (
-            <div className="card text-center">
-              <p className="text-secondary">
-                {splitExpenses.length === 0
-                  ? 'No split expenses yet. Create one to get started!'
-                  : 'No split expenses match your search.'}
-              </p>
-            </div>
-          )}
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="card text-center">
+            <p className="text-secondary">
+              {splitExpenses.length === 0
+                ? 'No split expenses yet. Create one to get started!'
+                : 'No split expenses match your search.'}
+            </p>
+          </div>
+        )}
 
-          {filteredExpenses.length > 0 && (
-            <div className="card mt-6">
-              <p className="text-secondary">
-                Showing <span className="font-semibold text-white">{filteredExpenses.length}</span> of{' '}
-                <span className="font-semibold text-white">{splitExpenses.length}</span> split expenses
-              </p>
-            </div>
-          )}
-        </div>
+        {filteredExpenses.length > 0 && (
+          <div className="card mt-6">
+            <p className="text-secondary">
+              Showing <span className="font-semibold text-white">{filteredExpenses.length}</span> of{' '}
+              <span className="font-semibold text-white">{splitExpenses.length}</span> split expenses
+            </p>
+          </div>
+        )}
       </div>
     </PageWrapper>
   );

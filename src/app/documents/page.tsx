@@ -41,7 +41,7 @@ export default function DocumentsPage() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const target = e.target as HTMLInputElement;
-    
+
     if (target.type === 'file') {
       const files = target.files;
       setFormData((prev) => ({
@@ -115,8 +115,7 @@ export default function DocumentsPage() {
 
   return (
     <PageWrapper>
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
-      <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
+      <div className="py-4 sm:py-6 md:py-8">
         <div className="mb-6 md:mb-8">
           <h1 className="heading-page">🗂️ Document Vault</h1>
           <p className="text-secondary">Store and organize your important documents</p>
@@ -275,13 +274,13 @@ export default function DocumentsPage() {
         {filteredDocuments.length > 0 ? (
           <div className="grid-responsive-3 mb-6 md:mb-8">
             {filteredDocuments.map((doc) => {
-              const uploadDate = doc.uploadedAt instanceof Date 
+              const uploadDate = doc.uploadedAt instanceof Date
                 ? doc.uploadedAt.toLocaleDateString()
                 : new Date(doc.uploadedAt).toLocaleDateString();
 
               return (
-    <PageWrapper>
-      <div key={doc.id} className="card">
+
+                <div key={doc.id} className="card">
                   <div className="mb-4">
                     <h3 className="text-base md:text-lg font-bold text-white truncate">{doc.name}</h3>
                     <p className="text-xs text-slate-400 mt-1">{doc.type}</p>
@@ -315,8 +314,8 @@ export default function DocumentsPage() {
                     </button>
                   </div>
                 </div>
-    </PageWrapper>
-  );
+
+              );
             })}
           </div>
         ) : (
@@ -336,7 +335,6 @@ export default function DocumentsPage() {
           </div>
         )}
       </div>
-    </div>
     </PageWrapper>
   );
 }

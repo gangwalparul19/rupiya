@@ -228,410 +228,408 @@ export default function GoalsPage() {
 
   return (
     <PageWrapper>
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
-        <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
-          {/* Header */}
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-3">
-            <div>
-              <h1 className="heading-page">🎯 Goals</h1>
-              <p className="text-secondary">Track and manage your financial goals</p>
-            </div>
-            <div className="flex gap-2 w-full md:w-auto">
-              <button
-                onClick={() => setShowAnalytics(!showAnalytics)}
-                className="flex-1 md:flex-none btn btn-secondary"
-                aria-label={showAnalytics ? 'Hide analytics' : 'Show analytics'}
-              >
-                {showAnalytics ? '📊 Hide' : '📊 Analytics'}
-              </button>
-              <button
-                onClick={() => {
-                  setIsAddModalOpen(true);
-                  setFormData({
-                    name: '',
-                    targetAmount: '',
-                    currentAmount: '',
-                    targetDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
-                    category: 'emergency',
-                    priority: 'medium',
-                    notes: '',
-                  });
-                }}
-                className="flex-1 md:flex-none btn btn-primary"
-                aria-label="Add new goal"
-              >
-                + Add
-              </button>
-            </div>
+      <div className="py-4 sm:py-6 md:py-8">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-3">
+          <div>
+            <h1 className="heading-page">🎯 Goals</h1>
+            <p className="text-secondary">Track and manage your financial goals</p>
           </div>
-
-          {/* KPI Cards */}
-          <div className="grid-responsive-4 mb-6 md:mb-8">
-            <div className="card">
-              <p className="text-slate-400 text-xs mb-1">Total Goals</p>
-              <p className="text-lg md:text-2xl font-bold text-blue-400">{kpiStats.totalGoals}</p>
-            </div>
-
-            <div className="card">
-              <p className="text-slate-400 text-xs mb-1">Completed</p>
-              <p className="text-lg md:text-2xl font-bold text-green-400">{kpiStats.completedGoals}</p>
-            </div>
-
-            <div className="card">
-              <p className="text-slate-400 text-xs mb-1">Total Target</p>
-              <p className="text-lg md:text-2xl font-bold text-purple-400">{abbreviateNumber(kpiStats.totalTarget)}</p>
-            </div>
-
-            <div className="card">
-              <p className="text-slate-400 text-xs mb-1">Total Saved</p>
-              <p className="text-lg md:text-2xl font-bold text-green-500">{abbreviateNumber(kpiStats.totalSaved)}</p>
-            </div>
-          </div>
-
-          {/* Export Buttons */}
-          <div className="flex gap-2 mb-4 md:mb-6 flex-wrap">
+          <div className="flex gap-2 w-full md:w-auto">
             <button
-              onClick={handleExportCSV}
-              className="bg-green-600 hover:bg-green-700 text-white px-3 md:px-4 py-2 rounded-lg transition font-semibold text-xs md:text-sm"
-              aria-label="Export goals to CSV file"
+              onClick={() => setShowAnalytics(!showAnalytics)}
+              className="flex-1 md:flex-none btn btn-secondary"
+              aria-label={showAnalytics ? 'Hide analytics' : 'Show analytics'}
             >
-              📥 CSV
+              {showAnalytics ? '📊 Hide' : '📊 Analytics'}
             </button>
             <button
-              onClick={handleExportTXT}
-              className="bg-purple-600 hover:bg-purple-700 text-white px-3 md:px-4 py-2 rounded-lg transition font-semibold text-xs md:text-sm"
-              aria-label="Export goals to text file"
+              onClick={() => {
+                setIsAddModalOpen(true);
+                setFormData({
+                  name: '',
+                  targetAmount: '',
+                  currentAmount: '',
+                  targetDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
+                  category: 'emergency',
+                  priority: 'medium',
+                  notes: '',
+                });
+              }}
+              className="flex-1 md:flex-none btn btn-primary"
+              aria-label="Add new goal"
             >
-              📥 TXT
+              + Add
             </button>
           </div>
+        </div>
 
-          {/* Search and Filters */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-3 mb-6">
-            <input
-              type="text"
-              placeholder="Search goals..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="px-3 md:px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 text-xs md:text-sm"
-            />
-            <select
-              value={filterCategory}
-              onChange={(e) => setFilterCategory(e.target.value)}
-              className="px-3 md:px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-blue-500 text-xs md:text-sm"
-            >
-              <option value="">All Categories</option>
-              {categories.map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat.charAt(0).toUpperCase() + cat.slice(1)}
-                </option>
-              ))}
-            </select>
-            <select
-              value={filterPriority}
-              onChange={(e) => setFilterPriority(e.target.value)}
-              className="px-3 md:px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-blue-500 text-xs md:text-sm"
-            >
-              <option value="">All Priorities</option>
-              {priorities.map((pri) => (
-                <option key={pri} value={pri}>
-                  {pri.charAt(0).toUpperCase() + pri.slice(1)}
-                </option>
-              ))}
-            </select>
+        {/* KPI Cards */}
+        <div className="grid-responsive-4 mb-6 md:mb-8">
+          <div className="card">
+            <p className="text-slate-400 text-xs mb-1">Total Goals</p>
+            <p className="text-lg md:text-2xl font-bold text-blue-400">{kpiStats.totalGoals}</p>
           </div>
 
-          {/* Analytics Section */}
-          {showAnalytics && goals.length > 0 && (
-            <div className="mb-6 md:mb-8">
-              <GoalAnalytics goals={goals} />
-            </div>
-          )}
+          <div className="card">
+            <p className="text-slate-400 text-xs mb-1">Completed</p>
+            <p className="text-lg md:text-2xl font-bold text-green-400">{kpiStats.completedGoals}</p>
+          </div>
 
-          {/* Goals Card View */}
-          <div className="space-y-2 md:space-y-3">
-            {filteredGoals.length > 0 ? (
-              filteredGoals.map((goal) => {
-                const remaining = goal.targetAmount - goal.currentAmount;
-                const progress = (goal.currentAmount / goal.targetAmount) * 100;
-                const targetDate = goal.targetDate instanceof Date
-                  ? goal.targetDate.toLocaleDateString()
-                  : new Date(goal.targetDate).toLocaleDateString();
+          <div className="card">
+            <p className="text-slate-400 text-xs mb-1">Total Target</p>
+            <p className="text-lg md:text-2xl font-bold text-purple-400">{abbreviateNumber(kpiStats.totalTarget)}</p>
+          </div>
 
-                return (
-                  <div
-                    key={goal.id}
-                    className="card hover:border-slate-600"
-                  >
-                    {/* Card Header */}
-                    <div className="flex justify-between items-start mb-2">
-                      <div className="flex-1 min-w-0">
-                        <p className="font-semibold text-white text-sm md:text-base truncate">{goal.name}</p>
-                        <p className="text-xs text-gray-400 mt-0.5">
-                          {goal.category.charAt(0).toUpperCase() + goal.category.slice(1)}
-                          {' • '}
-                          <span className={`font-semibold ${goal.priority === 'high' ? 'text-red-400' :
-                              goal.priority === 'medium' ? 'text-yellow-400' :
-                                'text-green-400'
-                            }`}>
-                            {goal.priority.charAt(0).toUpperCase() + goal.priority.slice(1)}
-                          </span>
-                        </p>
-                      </div>
-                      <div className="text-right flex-shrink-0 ml-2">
-                        <p className="text-base md:text-lg font-bold text-blue-400">{abbreviateNumber(goal.targetAmount)}</p>
-                        <p className="text-xs md:text-sm font-semibold text-gray-400">{progress.toFixed(0)}%</p>
-                      </div>
+          <div className="card">
+            <p className="text-slate-400 text-xs mb-1">Total Saved</p>
+            <p className="text-lg md:text-2xl font-bold text-green-500">{abbreviateNumber(kpiStats.totalSaved)}</p>
+          </div>
+        </div>
+
+        {/* Export Buttons */}
+        <div className="flex gap-2 mb-4 md:mb-6 flex-wrap">
+          <button
+            onClick={handleExportCSV}
+            className="bg-green-600 hover:bg-green-700 text-white px-3 md:px-4 py-2 rounded-lg transition font-semibold text-xs md:text-sm"
+            aria-label="Export goals to CSV file"
+          >
+            📥 CSV
+          </button>
+          <button
+            onClick={handleExportTXT}
+            className="bg-purple-600 hover:bg-purple-700 text-white px-3 md:px-4 py-2 rounded-lg transition font-semibold text-xs md:text-sm"
+            aria-label="Export goals to text file"
+          >
+            📥 TXT
+          </button>
+        </div>
+
+        {/* Search and Filters */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-3 mb-6">
+          <input
+            type="text"
+            placeholder="Search goals..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="px-3 md:px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 text-xs md:text-sm"
+          />
+          <select
+            value={filterCategory}
+            onChange={(e) => setFilterCategory(e.target.value)}
+            className="px-3 md:px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-blue-500 text-xs md:text-sm"
+          >
+            <option value="">All Categories</option>
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat.charAt(0).toUpperCase() + cat.slice(1)}
+              </option>
+            ))}
+          </select>
+          <select
+            value={filterPriority}
+            onChange={(e) => setFilterPriority(e.target.value)}
+            className="px-3 md:px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-blue-500 text-xs md:text-sm"
+          >
+            <option value="">All Priorities</option>
+            {priorities.map((pri) => (
+              <option key={pri} value={pri}>
+                {pri.charAt(0).toUpperCase() + pri.slice(1)}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Analytics Section */}
+        {showAnalytics && goals.length > 0 && (
+          <div className="mb-6 md:mb-8">
+            <GoalAnalytics goals={goals} />
+          </div>
+        )}
+
+        {/* Goals Card View */}
+        <div className="space-y-2 md:space-y-3">
+          {filteredGoals.length > 0 ? (
+            filteredGoals.map((goal) => {
+              const remaining = goal.targetAmount - goal.currentAmount;
+              const progress = (goal.currentAmount / goal.targetAmount) * 100;
+              const targetDate = goal.targetDate instanceof Date
+                ? goal.targetDate.toLocaleDateString()
+                : new Date(goal.targetDate).toLocaleDateString();
+
+              return (
+                <div
+                  key={goal.id}
+                  className="card hover:border-slate-600"
+                >
+                  {/* Card Header */}
+                  <div className="flex justify-between items-start mb-2">
+                    <div className="flex-1 min-w-0">
+                      <p className="font-semibold text-white text-sm md:text-base truncate">{goal.name}</p>
+                      <p className="text-xs text-gray-400 mt-0.5">
+                        {goal.category.charAt(0).toUpperCase() + goal.category.slice(1)}
+                        {' • '}
+                        <span className={`font-semibold ${goal.priority === 'high' ? 'text-red-400' :
+                          goal.priority === 'medium' ? 'text-yellow-400' :
+                            'text-green-400'
+                          }`}>
+                          {goal.priority.charAt(0).toUpperCase() + goal.priority.slice(1)}
+                        </span>
+                      </p>
                     </div>
-
-                    {/* Progress Bar */}
-                    <div className="mb-3">
-                      <div className="w-full bg-gray-700 rounded-full h-2 md:h-2.5">
-                        <div
-                          className={`h-full rounded-full transition-all ${progress >= 100 ? 'bg-green-500' : 'bg-blue-500'}`}
-                          style={{ width: `${Math.min(progress, 100)}%` }}
-                        />
-                      </div>
-                    </div>
-
-                    {/* Goal Details */}
-                    <div className="grid grid-cols-2 gap-2 mb-3 text-xs md:text-sm">
-                      <div>
-                        <p className="text-gray-400">Saved</p>
-                        <p className="text-white font-semibold">{abbreviateNumber(goal.currentAmount)}</p>
-                      </div>
-                      <div>
-                        <p className="text-gray-400">Remaining</p>
-                        <p className="text-blue-400 font-semibold">{abbreviateNumber(remaining)}</p>
-                      </div>
-                    </div>
-
-                    <p className="text-xs text-gray-400 mb-3">Target: {targetDate}</p>
-
-                    {/* Action Buttons */}
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => handleEdit(goal)}
-                        className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-2 md:px-3 py-1 md:py-2 rounded transition text-xs md:text-sm font-medium"
-                        aria-label={`Edit goal ${goal.name}`}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => handleDeleteClick(goal.id, goal.name)}
-                        className="flex-1 bg-red-600 hover:bg-red-700 text-white px-2 md:px-3 py-1 md:py-2 rounded transition text-xs md:text-sm font-medium"
-                        aria-label={`Delete goal ${goal.name}`}
-                      >
-                        Delete
-                      </button>
+                    <div className="text-right flex-shrink-0 ml-2">
+                      <p className="text-base md:text-lg font-bold text-blue-400">{abbreviateNumber(goal.targetAmount)}</p>
+                      <p className="text-xs md:text-sm font-semibold text-gray-400">{progress.toFixed(0)}%</p>
                     </div>
                   </div>
-                );
-              })
-            ) : (
-              <div className="bg-gray-800 p-6 md:p-8 rounded-lg border border-gray-700 text-center text-gray-400">
-                <p className="text-sm md:text-base">{goals.length === 0 ? 'No goals yet. Create one to get started!' : 'No goals match your search'}</p>
-              </div>
-            )}
-          </div>
 
-          {/* Summary */}
-          {filteredGoals.length > 0 && (
-            <div className="mt-4 md:mt-6 bg-gray-800 rounded-lg p-3 md:p-4 border border-gray-700">
-              <p className="text-xs md:text-sm text-gray-300">
-                Showing <span className="font-semibold text-white">{filteredGoals.length}</span> of{' '}
-                <span className="font-semibold text-white">{goals.length}</span> goals
-              </p>
+                  {/* Progress Bar */}
+                  <div className="mb-3">
+                    <div className="w-full bg-gray-700 rounded-full h-2 md:h-2.5">
+                      <div
+                        className={`h-full rounded-full transition-all ${progress >= 100 ? 'bg-green-500' : 'bg-blue-500'}`}
+                        style={{ width: `${Math.min(progress, 100)}%` }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Goal Details */}
+                  <div className="grid grid-cols-2 gap-2 mb-3 text-xs md:text-sm">
+                    <div>
+                      <p className="text-gray-400">Saved</p>
+                      <p className="text-white font-semibold">{abbreviateNumber(goal.currentAmount)}</p>
+                    </div>
+                    <div>
+                      <p className="text-gray-400">Remaining</p>
+                      <p className="text-blue-400 font-semibold">{abbreviateNumber(remaining)}</p>
+                    </div>
+                  </div>
+
+                  <p className="text-xs text-gray-400 mb-3">Target: {targetDate}</p>
+
+                  {/* Action Buttons */}
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleEdit(goal)}
+                      className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-2 md:px-3 py-1 md:py-2 rounded transition text-xs md:text-sm font-medium"
+                      aria-label={`Edit goal ${goal.name}`}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDeleteClick(goal.id, goal.name)}
+                      className="flex-1 bg-red-600 hover:bg-red-700 text-white px-2 md:px-3 py-1 md:py-2 rounded transition text-xs md:text-sm font-medium"
+                      aria-label={`Delete goal ${goal.name}`}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              );
+            })
+          ) : (
+            <div className="bg-gray-800 p-6 md:p-8 rounded-lg border border-gray-700 text-center text-gray-400">
+              <p className="text-sm md:text-base">{goals.length === 0 ? 'No goals yet. Create one to get started!' : 'No goals match your search'}</p>
             </div>
           )}
         </div>
 
-        {/* Add Goal Modal */}
-        {isAddModalOpen && (
-          <div className="w-full animate-slide-up mb-8">
-            <div className="card p-4 md:p-6 border-2 border-cyan-500/50 bg-gradient-to-br from-slate-800/95 to-slate-900/95 w-full max-w-2xl mx-auto max-h-[90vh] overflow-y-auto">
-              <div className="border-b border-slate-700 pb-4 mb-4 flex justify-between items-center text-white">
-                <h2 className="text-xl md:text-2xl font-bold">Add Goal</h2>
-                <button
-                  onClick={() => setIsAddModalOpen(false)}
-                  className="text-slate-400 hover:text-white text-2xl"
-                >
-                  ✕
-                </button>
-              </div>
-
-              <form onSubmit={handleSubmit} className="space-y-3">
-                <div>
-                  <label className="block text-xs md:text-sm font-medium text-gray-300 mb-1">
-                    Goal Name <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="e.g., Emergency Fund"
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-xs md:text-sm"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs md:text-sm font-medium text-gray-300 mb-1">
-                    Category <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    name="category"
-                    value={formData.category}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500 text-xs md:text-sm"
-                    required
-                  >
-                    {categories.map((cat) => (
-                      <option key={cat} value={cat}>
-                        {cat.charAt(0).toUpperCase() + cat.slice(1)}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-xs md:text-sm font-medium text-gray-300 mb-1">
-                    Priority <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    name="priority"
-                    value={formData.priority}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500 text-xs md:text-sm"
-                    required
-                  >
-                    {priorities.map((pri) => (
-                      <option key={pri} value={pri}>
-                        {pri.charAt(0).toUpperCase() + pri.slice(1)}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-xs md:text-sm font-medium text-gray-300 mb-1">
-                    Target Date <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="date"
-                    name="targetDate"
-                    value={formData.targetDate}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500 text-xs md:text-sm"
-                    required
-                  />
-                </div>
-
-                <div className="grid grid-cols-2 gap-2">
-                  <div>
-                    <label className="block text-xs md:text-sm font-medium text-gray-300 mb-1">
-                      Target <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="number"
-                      name="targetAmount"
-                      value={formData.targetAmount}
-                      onChange={handleChange}
-                      placeholder="Amount"
-                      className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-xs md:text-sm"
-                      step="0.01"
-                      min="0"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs md:text-sm font-medium text-gray-300 mb-1">
-                      Current
-                    </label>
-                    <input
-                      type="number"
-                      name="currentAmount"
-                      value={formData.currentAmount}
-                      onChange={handleChange}
-                      placeholder="Saved"
-                      className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-xs md:text-sm"
-                      step="0.01"
-                      min="0"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs md:text-sm font-medium text-gray-300 mb-1">Notes</label>
-                  <textarea
-                    name="notes"
-                    value={formData.notes}
-                    onChange={handleChange}
-                    placeholder="Add notes..."
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 resize-none text-xs md:text-sm"
-                    rows={2}
-                  />
-                </div>
-
-                <div className="flex gap-2 pt-3 border-t border-gray-700">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsAddModalOpen(false);
-                      setFormData({
-                        name: '',
-                        targetAmount: '',
-                        currentAmount: '',
-                        targetDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
-                        category: 'emergency',
-                        priority: 'medium',
-                        notes: '',
-                      });
-                    }}
-                    className="flex-1 px-3 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition font-medium text-xs md:text-sm disabled:opacity-50"
-                    disabled={isLoading}
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="flex-1 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium text-xs md:text-sm disabled:opacity-50"
-                    disabled={isLoading}
-                  >
-                    {isLoading ? 'Adding...' : 'Add'}
-                  </button>
-                </div>
-              </form>
-            </div>
+        {/* Summary */}
+        {filteredGoals.length > 0 && (
+          <div className="mt-4 md:mt-6 bg-gray-800 rounded-lg p-3 md:p-4 border border-gray-700">
+            <p className="text-xs md:text-sm text-gray-300">
+              Showing <span className="font-semibold text-white">{filteredGoals.length}</span> of{' '}
+              <span className="font-semibold text-white">{goals.length}</span> goals
+            </p>
           </div>
         )}
-
-        {/* Edit Goal Modal */}
-        {selectedGoal && (
-          <EditGoalModal
-            goal={selectedGoal}
-            isOpen={isEditModalOpen}
-            onClose={() => {
-              setIsEditModalOpen(false);
-              setSelectedGoal(null);
-            }}
-          />
-        )}
-
-        {/* Confirmation Dialog */}
-        <ConfirmDialog
-          isOpen={confirmDialog.isOpen}
-          title="Delete Goal?"
-          message={`Are you sure you want to delete the goal "${confirmDialog.goalName}"? This action cannot be undone.`}
-          confirmText="Delete"
-          cancelText="Cancel"
-          isDangerous={true}
-          onConfirm={handleConfirmDelete}
-          onCancel={() => setConfirmDialog({ isOpen: false, goalId: '', goalName: '' })}
-        />
       </div>
+
+      {/* Add Goal Modal */}
+      {isAddModalOpen && (
+        <div className="w-full animate-slide-up mb-8">
+          <div className="card p-4 md:p-6 border-2 border-cyan-500/50 bg-gradient-to-br from-slate-800/95 to-slate-900/95 w-full max-w-2xl mx-auto max-h-[90vh] overflow-y-auto">
+            <div className="border-b border-slate-700 pb-4 mb-4 flex justify-between items-center text-white">
+              <h2 className="text-xl md:text-2xl font-bold">Add Goal</h2>
+              <button
+                onClick={() => setIsAddModalOpen(false)}
+                className="text-slate-400 hover:text-white text-2xl"
+              >
+                ✕
+              </button>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-3">
+              <div>
+                <label className="block text-xs md:text-sm font-medium text-gray-300 mb-1">
+                  Goal Name <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="e.g., Emergency Fund"
+                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-xs md:text-sm"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs md:text-sm font-medium text-gray-300 mb-1">
+                  Category <span className="text-red-500">*</span>
+                </label>
+                <select
+                  name="category"
+                  value={formData.category}
+                  onChange={handleChange}
+                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500 text-xs md:text-sm"
+                  required
+                >
+                  {categories.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs md:text-sm font-medium text-gray-300 mb-1">
+                  Priority <span className="text-red-500">*</span>
+                </label>
+                <select
+                  name="priority"
+                  value={formData.priority}
+                  onChange={handleChange}
+                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500 text-xs md:text-sm"
+                  required
+                >
+                  {priorities.map((pri) => (
+                    <option key={pri} value={pri}>
+                      {pri.charAt(0).toUpperCase() + pri.slice(1)}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs md:text-sm font-medium text-gray-300 mb-1">
+                  Target Date <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="date"
+                  name="targetDate"
+                  value={formData.targetDate}
+                  onChange={handleChange}
+                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500 text-xs md:text-sm"
+                  required
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <label className="block text-xs md:text-sm font-medium text-gray-300 mb-1">
+                    Target <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="number"
+                    name="targetAmount"
+                    value={formData.targetAmount}
+                    onChange={handleChange}
+                    placeholder="Amount"
+                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-xs md:text-sm"
+                    step="0.01"
+                    min="0"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs md:text-sm font-medium text-gray-300 mb-1">
+                    Current
+                  </label>
+                  <input
+                    type="number"
+                    name="currentAmount"
+                    value={formData.currentAmount}
+                    onChange={handleChange}
+                    placeholder="Saved"
+                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-xs md:text-sm"
+                    step="0.01"
+                    min="0"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs md:text-sm font-medium text-gray-300 mb-1">Notes</label>
+                <textarea
+                  name="notes"
+                  value={formData.notes}
+                  onChange={handleChange}
+                  placeholder="Add notes..."
+                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 resize-none text-xs md:text-sm"
+                  rows={2}
+                />
+              </div>
+
+              <div className="flex gap-2 pt-3 border-t border-gray-700">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsAddModalOpen(false);
+                    setFormData({
+                      name: '',
+                      targetAmount: '',
+                      currentAmount: '',
+                      targetDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0],
+                      category: 'emergency',
+                      priority: 'medium',
+                      notes: '',
+                    });
+                  }}
+                  className="flex-1 px-3 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition font-medium text-xs md:text-sm disabled:opacity-50"
+                  disabled={isLoading}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="flex-1 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium text-xs md:text-sm disabled:opacity-50"
+                  disabled={isLoading}
+                >
+                  {isLoading ? 'Adding...' : 'Add'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Goal Modal */}
+      {selectedGoal && (
+        <EditGoalModal
+          goal={selectedGoal}
+          isOpen={isEditModalOpen}
+          onClose={() => {
+            setIsEditModalOpen(false);
+            setSelectedGoal(null);
+          }}
+        />
+      )}
+
+      {/* Confirmation Dialog */}
+      <ConfirmDialog
+        isOpen={confirmDialog.isOpen}
+        title="Delete Goal?"
+        message={`Are you sure you want to delete the goal "${confirmDialog.goalName}"? This action cannot be undone.`}
+        confirmText="Delete"
+        cancelText="Cancel"
+        isDangerous={true}
+        onConfirm={handleConfirmDelete}
+        onCancel={() => setConfirmDialog({ isOpen: false, goalId: '', goalName: '' })}
+      />
     </PageWrapper>
   );
 }

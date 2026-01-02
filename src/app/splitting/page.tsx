@@ -117,185 +117,183 @@ export default function SplittingPage() {
 
   return (
     <PageWrapper>
-      <main className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
-        <div className="container mx-auto px-4 py-8">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-            <h1 className="text-2xl md:text-2xl font-bold text-white">💸 Expense Splitting</h1>
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg transition font-semibold whitespace-nowrap text-sm md:text-base"
-            >
-              + Split Expense
-            </button>
-          </div>
-
-          {/* Summary Cards */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mb-8">
-            <div className="bg-slate-700 rounded-lg p-4 md:p-6 text-white">
-              <p className="text-slate-300 text-xs md:text-sm">Total Splits</p>
-              <p className="text-2xl md:text-3xl font-bold">{splitExpenses.length}</p>
-            </div>
-            <div className="bg-red-700 rounded-lg p-4 md:p-6 text-white">
-              <p className="text-slate-300 text-xs md:text-sm">You Owe</p>
-              <p className="text-2xl md:text-3xl font-bold">₹{calculateTotalOwed().toFixed(2)}</p>
-            </div>
-            <div className="bg-green-700 rounded-lg p-4 md:p-6 text-white">
-              <p className="text-slate-300 text-xs md:text-sm">To Receive</p>
-              <p className="text-2xl md:text-3xl font-bold">₹{calculateTotalToReceive().toFixed(2)}</p>
-            </div>
-          </div>
-
-          {/* Tabs */}
-          <div className="flex gap-4 mb-6">
-            <button
-              onClick={() => setActiveTab('splits')}
-              className={`px-6 py-2 rounded-lg transition font-semibold ${activeTab === 'splits'
-                ? 'bg-blue-600 text-white'
-                : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
-                }`}
-            >
-              Split Expenses ({splitExpenses.length})
-            </button>
-            <button
-              onClick={() => setActiveTab('settlements')}
-              className={`px-6 py-2 rounded-lg transition font-semibold ${activeTab === 'settlements'
-                ? 'bg-blue-600 text-white'
-                : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
-                }`}
-            >
-              Settlements ({settlements.filter((s) => !s.settled).length})
-            </button>
-          </div>
-
-          {/* Split Expenses Tab */}
-          {activeTab === 'splits' && (
-            <div className="space-y-3">
-              {isLoading ? (
-                <div className="bg-slate-700 rounded-lg p-8 text-center text-slate-300">
-                  <p className="text-lg">Loading split expenses...</p>
-                </div>
-              ) : splitExpenses.length === 0 ? (
-                <div className="bg-slate-700 rounded-lg p-8 text-center text-slate-300">
-                  <p className="text-lg">No split expenses yet</p>
-                  <p className="text-sm mt-2">Create your first split expense to get started</p>
-                </div>
-              ) : (
-                splitExpenses.map((split) => (
-                  <div
-                    key={split.id}
-                    className="bg-slate-700 rounded-lg p-4 hover:bg-slate-600 transition"
-                  >
-                    <div className="flex justify-between items-start mb-3">
-                      <div>
-                        <p className="font-semibold text-white text-lg">{split.description}</p>
-                        <p className="text-sm text-slate-400">
-                          {new Date(split.date).toLocaleDateString()}
-                        </p>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-2xl font-bold text-white">
-                          ₹{split.totalAmount.toFixed(2)}
-                        </p>
-                        <span
-                          className={`inline-block px-3 py-1 rounded text-xs font-semibold mt-1 ${split.status === 'settled'
-                            ? 'bg-green-600 text-white'
-                            : split.status === 'partial'
-                              ? 'bg-yellow-600 text-white'
-                              : 'bg-blue-600 text-white'
-                            }`}
-                        >
-                          {split.status}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Participants */}
-                    <div className="bg-slate-800 rounded p-3 mb-3">
-                      <p className="text-sm text-slate-300 font-semibold mb-2">Participants:</p>
-                      <div className="space-y-1">
-                        {split.participants.map((participant, idx) => (
-                          <div key={idx} className="flex justify-between text-sm text-slate-300">
-                            <span>{participant.name}</span>
-                            <span className="font-semibold">
-                              ₹{participant.amount.toFixed(2)}
-                              {participant.settled && ' ✓'}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <button
-                      onClick={() => handleDeleteSplitExpense(split.id)}
-                      className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm transition"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                ))
-              )}
-            </div>
-          )}
-
-          {/* Settlements Tab */}
-          {activeTab === 'settlements' && (
-            <div className="space-y-3">
-              {isLoading ? (
-                <div className="bg-slate-700 rounded-lg p-8 text-center text-slate-300">
-                  <p className="text-lg">Loading settlements...</p>
-                </div>
-              ) : settlements.length === 0 ? (
-                <div className="bg-slate-700 rounded-lg p-8 text-center text-slate-300">
-                  <p className="text-lg">No settlements</p>
-                  <p className="text-sm mt-2">All expenses are settled!</p>
-                </div>
-              ) : (
-                settlements.map((settlement) => (
-                  <div
-                    key={settlement.id}
-                    className={`bg-slate-700 rounded-lg p-4 hover:bg-slate-600 transition ${settlement.settled ? 'opacity-60' : ''
-                      }`}
-                  >
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <p className="font-semibold text-white">
-                          {settlement.fromUserId === user?.uid ? 'You owe' : 'You are owed'}
-                        </p>
-                        <p className="text-sm text-slate-400">
-                          {settlement.settled ? 'Settled' : 'Pending'}
-                        </p>
-                      </div>
-                      <div className="text-right">
-                        <p className="text-2xl font-bold text-white">
-                          ₹{settlement.amount.toFixed(2)}
-                        </p>
-                        {!settlement.settled && settlement.fromUserId === user?.uid && (
-                          <button
-                            onClick={() => handleSettleUp(settlement.id)}
-                            className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm transition mt-2"
-                          >
-                            Mark Settled
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
-          )}
+      <div className="py-4 sm:py-6 md:py-8">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+          <h1 className="text-2xl md:text-2xl font-bold text-white">💸 Expense Splitting</h1>
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 md:px-6 py-2 md:py-3 rounded-lg transition font-semibold whitespace-nowrap text-sm md:text-base"
+          >
+            + Split Expense
+          </button>
         </div>
 
-        {/* Add Split Expense Modal */}
-        {isModalOpen && (
-          <SplitExpenseModal
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-            onAddSplitExpense={handleAddSplitExpense}
-            showError={showError}
-          />
+        {/* Summary Cards */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mb-8">
+          <div className="bg-slate-700 rounded-lg p-4 md:p-6 text-white">
+            <p className="text-slate-300 text-xs md:text-sm">Total Splits</p>
+            <p className="text-2xl md:text-3xl font-bold">{splitExpenses.length}</p>
+          </div>
+          <div className="bg-red-700 rounded-lg p-4 md:p-6 text-white">
+            <p className="text-slate-300 text-xs md:text-sm">You Owe</p>
+            <p className="text-2xl md:text-3xl font-bold">₹{calculateTotalOwed().toFixed(2)}</p>
+          </div>
+          <div className="bg-green-700 rounded-lg p-4 md:p-6 text-white">
+            <p className="text-slate-300 text-xs md:text-sm">To Receive</p>
+            <p className="text-2xl md:text-3xl font-bold">₹{calculateTotalToReceive().toFixed(2)}</p>
+          </div>
+        </div>
+
+        {/* Tabs */}
+        <div className="flex gap-4 mb-6">
+          <button
+            onClick={() => setActiveTab('splits')}
+            className={`px-6 py-2 rounded-lg transition font-semibold ${activeTab === 'splits'
+              ? 'bg-blue-600 text-white'
+              : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+              }`}
+          >
+            Split Expenses ({splitExpenses.length})
+          </button>
+          <button
+            onClick={() => setActiveTab('settlements')}
+            className={`px-6 py-2 rounded-lg transition font-semibold ${activeTab === 'settlements'
+              ? 'bg-blue-600 text-white'
+              : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+              }`}
+          >
+            Settlements ({settlements.filter((s) => !s.settled).length})
+          </button>
+        </div>
+
+        {/* Split Expenses Tab */}
+        {activeTab === 'splits' && (
+          <div className="space-y-3">
+            {isLoading ? (
+              <div className="bg-slate-700 rounded-lg p-8 text-center text-slate-300">
+                <p className="text-lg">Loading split expenses...</p>
+              </div>
+            ) : splitExpenses.length === 0 ? (
+              <div className="bg-slate-700 rounded-lg p-8 text-center text-slate-300">
+                <p className="text-lg">No split expenses yet</p>
+                <p className="text-sm mt-2">Create your first split expense to get started</p>
+              </div>
+            ) : (
+              splitExpenses.map((split) => (
+                <div
+                  key={split.id}
+                  className="bg-slate-700 rounded-lg p-4 hover:bg-slate-600 transition"
+                >
+                  <div className="flex justify-between items-start mb-3">
+                    <div>
+                      <p className="font-semibold text-white text-lg">{split.description}</p>
+                      <p className="text-sm text-slate-400">
+                        {new Date(split.date).toLocaleDateString()}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-2xl font-bold text-white">
+                        ₹{split.totalAmount.toFixed(2)}
+                      </p>
+                      <span
+                        className={`inline-block px-3 py-1 rounded text-xs font-semibold mt-1 ${split.status === 'settled'
+                          ? 'bg-green-600 text-white'
+                          : split.status === 'partial'
+                            ? 'bg-yellow-600 text-white'
+                            : 'bg-blue-600 text-white'
+                          }`}
+                      >
+                        {split.status}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Participants */}
+                  <div className="bg-slate-800 rounded p-3 mb-3">
+                    <p className="text-sm text-slate-300 font-semibold mb-2">Participants:</p>
+                    <div className="space-y-1">
+                      {split.participants.map((participant, idx) => (
+                        <div key={idx} className="flex justify-between text-sm text-slate-300">
+                          <span>{participant.name}</span>
+                          <span className="font-semibold">
+                            ₹{participant.amount.toFixed(2)}
+                            {participant.settled && ' ✓'}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => handleDeleteSplitExpense(split.id)}
+                    className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm transition"
+                  >
+                    Delete
+                  </button>
+                </div>
+              ))
+            )}
+          </div>
         )}
-      </main>
+
+        {/* Settlements Tab */}
+        {activeTab === 'settlements' && (
+          <div className="space-y-3">
+            {isLoading ? (
+              <div className="bg-slate-700 rounded-lg p-8 text-center text-slate-300">
+                <p className="text-lg">Loading settlements...</p>
+              </div>
+            ) : settlements.length === 0 ? (
+              <div className="bg-slate-700 rounded-lg p-8 text-center text-slate-300">
+                <p className="text-lg">No settlements</p>
+                <p className="text-sm mt-2">All expenses are settled!</p>
+              </div>
+            ) : (
+              settlements.map((settlement) => (
+                <div
+                  key={settlement.id}
+                  className={`bg-slate-700 rounded-lg p-4 hover:bg-slate-600 transition ${settlement.settled ? 'opacity-60' : ''
+                    }`}
+                >
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <p className="font-semibold text-white">
+                        {settlement.fromUserId === user?.uid ? 'You owe' : 'You are owed'}
+                      </p>
+                      <p className="text-sm text-slate-400">
+                        {settlement.settled ? 'Settled' : 'Pending'}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-2xl font-bold text-white">
+                        ₹{settlement.amount.toFixed(2)}
+                      </p>
+                      {!settlement.settled && settlement.fromUserId === user?.uid && (
+                        <button
+                          onClick={() => handleSettleUp(settlement.id)}
+                          className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm transition mt-2"
+                        >
+                          Mark Settled
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Add Split Expense Modal */}
+      {isModalOpen && (
+        <SplitExpenseModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onAddSplitExpense={handleAddSplitExpense}
+          showError={showError}
+        />
+      )}
     </PageWrapper>
   );
 }

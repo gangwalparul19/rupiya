@@ -85,12 +85,12 @@ export default function CalendarPage() {
 
   const handleAddEvent = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate
     const titleError = validateTitle(eventFormData.title);
     const dateError = validateDate(eventFormData.date);
     const reminderError = validateReminderDays(eventFormData.reminderDays);
-    
+
     if (titleError || dateError || reminderError) {
       setEventErrors({
         title: titleError || '',
@@ -131,14 +131,14 @@ export default function CalendarPage() {
 
   const handleAddBill = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate
     const nameError = validateTitle(billFormData.name);
     const amountError = validateAmount(billFormData.amount);
     const dateError = validateDate(billFormData.dueDate);
     const frequencyError = validateFrequency(billFormData.frequency);
     const reminderError = validateReminderDays(billFormData.reminderDays);
-    
+
     if (nameError || amountError || dateError || frequencyError || reminderError) {
       setBillErrors({
         name: nameError || '',
@@ -219,8 +219,7 @@ export default function CalendarPage() {
 
   return (
     <PageWrapper>
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
-      <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
+      <div className="py-4 sm:py-6 md:py-8">
         <div className="mb-6 md:mb-8">
           <h1 className="heading-page">Calendar & Reminders</h1>
           <p className="text-secondary">Track bills, events, and financial milestones</p>
@@ -274,9 +273,8 @@ export default function CalendarPage() {
                 setEventErrors((prev) => ({ ...prev, title: error || '' }));
               }}
               placeholder="Event title"
-              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-sm ${
-                eventErrors.title ? 'border-red-500' : 'border-gray-600'
-              }`}
+              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-sm ${eventErrors.title ? 'border-red-500' : 'border-gray-600'
+                }`}
               required
             />
             {eventErrors.title && <p className="text-red-400 text-xs mt-1">{eventErrors.title}</p>}
@@ -292,9 +290,8 @@ export default function CalendarPage() {
                 const error = validateDate(e.target.value);
                 setEventErrors((prev) => ({ ...prev, date: error || '' }));
               }}
-              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm ${
-                eventErrors.date ? 'border-red-500' : 'border-gray-600'
-              }`}
+              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm ${eventErrors.date ? 'border-red-500' : 'border-gray-600'
+                }`}
               required
             />
             {eventErrors.date && <p className="text-red-400 text-xs mt-1">{eventErrors.date}</p>}
@@ -324,9 +321,8 @@ export default function CalendarPage() {
                 setEventErrors((prev) => ({ ...prev, reminderDays: error || '' }));
               }}
               min="0"
-              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm ${
-                eventErrors.reminderDays ? 'border-red-500' : 'border-gray-600'
-              }`}
+              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm ${eventErrors.reminderDays ? 'border-red-500' : 'border-gray-600'
+                }`}
             />
             {eventErrors.reminderDays && <p className="text-red-400 text-xs mt-1">{eventErrors.reminderDays}</p>}
           </div>
@@ -355,9 +351,8 @@ export default function CalendarPage() {
                 setBillErrors((prev) => ({ ...prev, name: error || '' }));
               }}
               placeholder="e.g., Electricity Bill"
-              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-sm ${
-                billErrors.name ? 'border-red-500' : 'border-gray-600'
-              }`}
+              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-sm ${billErrors.name ? 'border-red-500' : 'border-gray-600'
+                }`}
               required
             />
             {billErrors.name && <p className="text-red-400 text-xs mt-1">{billErrors.name}</p>}
@@ -375,9 +370,8 @@ export default function CalendarPage() {
               }}
               placeholder="0.00"
               step="0.01"
-              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-sm ${
-                billErrors.amount ? 'border-red-500' : 'border-gray-600'
-              }`}
+              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-sm ${billErrors.amount ? 'border-red-500' : 'border-gray-600'
+                }`}
               required
             />
             {billErrors.amount && <p className="text-red-400 text-xs mt-1">{billErrors.amount}</p>}
@@ -393,9 +387,8 @@ export default function CalendarPage() {
                 const error = validateDate(e.target.value);
                 setBillErrors((prev) => ({ ...prev, dueDate: error || '' }));
               }}
-              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm ${
-                billErrors.dueDate ? 'border-red-500' : 'border-gray-600'
-              }`}
+              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm ${billErrors.dueDate ? 'border-red-500' : 'border-gray-600'
+                }`}
               required
             />
             {billErrors.dueDate && <p className="text-red-400 text-xs mt-1">{billErrors.dueDate}</p>}
@@ -410,9 +403,8 @@ export default function CalendarPage() {
                 const error = validateFrequency(e.target.value);
                 setBillErrors((prev) => ({ ...prev, frequency: error || '' }));
               }}
-              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm ${
-                billErrors.frequency ? 'border-red-500' : 'border-gray-600'
-              }`}
+              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm ${billErrors.frequency ? 'border-red-500' : 'border-gray-600'
+                }`}
             >
               <option value="one-time">One-time</option>
               <option value="monthly">Monthly</option>
@@ -433,9 +425,8 @@ export default function CalendarPage() {
                 setBillErrors((prev) => ({ ...prev, reminderDays: error || '' }));
               }}
               min="0"
-              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm ${
-                billErrors.reminderDays ? 'border-red-500' : 'border-gray-600'
-              }`}
+              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm ${billErrors.reminderDays ? 'border-red-500' : 'border-gray-600'
+                }`}
             />
             {billErrors.reminderDays && <p className="text-red-400 text-xs mt-1">{billErrors.reminderDays}</p>}
           </div>
@@ -475,11 +466,10 @@ export default function CalendarPage() {
               {calendarDays.map((day, index) => (
                 <div
                   key={index}
-                  className={`min-h-16 md:min-h-24 p-1 md:p-2 rounded border text-xs md:text-sm ${
-                    day
-                      ? 'bg-gray-700 border-gray-600 hover:bg-gray-600 transition-colors'
-                      : 'bg-gray-900 border-gray-800'
-                  }`}
+                  className={`min-h-16 md:min-h-24 p-1 md:p-2 rounded border text-xs md:text-sm ${day
+                    ? 'bg-gray-700 border-gray-600 hover:bg-gray-600 transition-colors'
+                    : 'bg-gray-900 border-gray-800'
+                    }`}
                 >
                   {day && (
                     <div>
@@ -525,8 +515,8 @@ export default function CalendarPage() {
                   {monthEvents.slice(0, 8).map((event) => {
                     const eventDate = event.date instanceof Date ? event.date : new Date(event.date);
                     return (
-    <PageWrapper>
-      <div key={event.id} className="bg-slate-700 rounded p-2 md:p-3 flex justify-between items-start gap-2">
+
+                      <div key={event.id} className="bg-slate-700 rounded p-2 md:p-3 flex justify-between items-start gap-2">
                         <div className="flex-1 min-w-0">
                           <p className="font-semibold text-white text-xs md:text-sm truncate">{event.title}</p>
                           <p className="text-xs text-slate-400">{eventDate.toLocaleDateString()}</p>
@@ -539,8 +529,8 @@ export default function CalendarPage() {
                           ✕
                         </button>
                       </div>
-    </PageWrapper>
-  );
+
+                    );
                   })}
                 </div>
               ) : (
@@ -555,8 +545,8 @@ export default function CalendarPage() {
                   {monthBills.slice(0, 8).map((bill) => {
                     const billDate = bill.dueDate instanceof Date ? bill.dueDate : new Date(bill.dueDate);
                     return (
-    <PageWrapper>
-      <div key={bill.id} className="bg-slate-700 rounded p-2 md:p-3 flex justify-between items-start gap-2">
+
+                      <div key={bill.id} className="bg-slate-700 rounded p-2 md:p-3 flex justify-between items-start gap-2">
                         <div className="flex-1 min-w-0">
                           <p className="font-semibold text-white text-xs md:text-sm truncate">{bill.name}</p>
                           <p className="text-xs text-orange-400">₹{bill.amount.toLocaleString('en-IN', { maximumFractionDigits: 2 })}</p>
@@ -570,8 +560,8 @@ export default function CalendarPage() {
                           ✕
                         </button>
                       </div>
-    </PageWrapper>
-  );
+
+                    );
                   })}
                 </div>
               ) : (
@@ -593,7 +583,6 @@ export default function CalendarPage() {
         onConfirm={handleConfirmDelete}
         onCancel={() => setConfirmDialog({ isOpen: false, type: 'event', id: '', title: '' })}
       />
-    </div>
     </PageWrapper>
   );
 }
