@@ -234,34 +234,38 @@ export default function ExpenseSplittingPage() {
                   <label className="form-label mb-3">Participants</label>
                   <div className="space-y-3">
                     {formData.participants.map((participant, index) => (
-                      <div key={index} className="flex gap-2 sm:gap-3">
-                        <input
-                          type="text"
-                          value={participant.name}
-                          onChange={(e) => handleParticipantChange(index, 'name', e.target.value)}
-                          placeholder="Name"
-                          className="flex-1 form-input"
-                        />
-                        <input
-                          type="email"
-                          value={participant.email}
-                          onChange={(e) => handleParticipantChange(index, 'email', e.target.value)}
-                          placeholder="Email (optional)"
-                          className="flex-1 form-input"
-                        />
-                        <input
-                          type="number"
-                          value={participant.amount}
-                          onChange={(e) => handleParticipantChange(index, 'amount', e.target.value)}
-                          placeholder="Amount (optional)"
-                          step="0.01"
-                          className="flex-1 form-input"
-                        />
+                      <div key={index} className="flex flex-col sm:flex-row gap-2 sm:gap-3 p-3 bg-slate-800/50 rounded-xl sm:bg-transparent sm:p-0">
+                        <div className="flex flex-col flex-1 gap-2">
+                          <input
+                            type="text"
+                            value={participant.name}
+                            onChange={(e) => handleParticipantChange(index, 'name', e.target.value)}
+                            placeholder="Name"
+                            className="form-input w-full"
+                          />
+                          <div className="flex gap-2">
+                            <input
+                              type="email"
+                              value={participant.email}
+                              onChange={(e) => handleParticipantChange(index, 'email', e.target.value)}
+                              placeholder="Email (optional)"
+                              className="flex-1 form-input text-xs"
+                            />
+                            <input
+                              type="number"
+                              value={participant.amount}
+                              onChange={(e) => handleParticipantChange(index, 'amount', e.target.value)}
+                              placeholder="Amount"
+                              step="0.01"
+                              className="w-24 form-input text-xs"
+                            />
+                          </div>
+                        </div>
                         {formData.participants.length > 1 && (
                           <button
                             type="button"
                             onClick={() => handleRemoveParticipant(index)}
-                            className="btn btn-danger btn-small"
+                            className="btn btn-danger btn-small self-end sm:self-center"
                           >
                             Remove
                           </button>

@@ -425,7 +425,7 @@ export default function HouseHelpPage() {
 
                 {/* Staff Cards */}
                 {/* Staff Cards */}
-                <div className="grid grid-cols-3 gap-2 mb-block">
+                <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 mb-block">
                     {filteredHelp.map((help) => {
                         const currentMonthPayments = houseHelpPayments.filter(p => {
                             const pDate = new Date(p.date);

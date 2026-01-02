@@ -244,7 +244,7 @@ export default function HousesPage() {
         </div>
 
         {/* KPI Cards */}
-        <div className="grid-3 mb-section">
+        <div className="grid-responsive-3 mb-section">
           <div className="kpi-card">
             <p className="kpi-label text-blue-400">Total Houses</p>
             <p className="kpi-value text-white">{kpiStats.totalHouses}</p>
@@ -391,7 +391,7 @@ export default function HousesPage() {
 
         {/* Houses Grid */}
         {filteredHouses.length > 0 ? (
-          <div className="grid-3 mb-block">
+          <div className="grid-responsive-3 mb-block">
             {filteredHouses.map((house) => (
               <div key={house.id} className="card">
                 <div className="flex justify-between items-start mb-4">
