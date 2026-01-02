@@ -57,11 +57,17 @@ export default function FormModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-2 sm:p-3 md:p-4 z-50">
-      <div className={`bg-gray-800 rounded-lg ${maxHeight} overflow-y-auto w-full max-w-sm`}>
+    <div className="w-full animate-slide-up">
+      <div className={`card border-2 border-blue-500/50 bg-gradient-to-br from-slate-800/95 to-slate-900/95 w-full max-w-2xl mx-auto ${maxHeight} overflow-y-auto`}>
         {/* Header */}
-        <div className="p-3 sm:p-4 md:p-6 sticky top-0 bg-gray-800 border-b border-gray-700">
+        <div className="p-3 sm:p-4 md:p-6 border-b border-gray-700 flex justify-between items-center bg-transparent">
           <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-white">{title}</h2>
+          <button
+            onClick={onClose}
+            className="text-slate-400 hover:text-white text-2xl"
+          >
+            ✕
+          </button>
         </div>
 
         {/* Form */}

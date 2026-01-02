@@ -115,135 +115,134 @@ export default function ReceiptsPage() {
   return (
     <PageWrapper>
       <main className="min-h-screen bg-gray-950 p-3 sm:p-4 md:p-6 lg:p-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-3 sm:gap-4">
-          <h1 className="heading-page">📸 Receipt Scanning</h1>
-          <label className="btn btn-primary cursor-pointer whitespace-nowrap">
-            + Upload Receipt
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleFileUpload}
-              disabled={isUploading}
-              className="hidden"
-            />
-          </label>
-        </div>
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-3 sm:gap-4">
+            <h1 className="heading-page">📸 Receipt Scanning</h1>
+            <label className="btn btn-primary cursor-pointer whitespace-nowrap">
+              + Upload Receipt
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileUpload}
+                disabled={isUploading}
+                className="hidden"
+              />
+            </label>
+          </div>
 
-        {/* Info Card */}
-        <div className="bg-blue-900 border border-blue-700 rounded-lg p-3 sm:p-4 md:p-6 mb-6 md:mb-8 text-blue-100 text-xs md:text-sm">
-          <p>
-            💡 Upload receipt images to automatically extract expense details like amount, date, and
-            merchant. The extracted data can be used to quickly create expenses.
-          </p>
-        </div>
+          {/* Info Card */}
+          <div className="bg-blue-900 border border-blue-700 rounded-lg p-3 sm:p-4 md:p-6 mb-6 md:mb-8 text-blue-100 text-xs md:text-sm">
+            <p>
+              💡 Upload receipt images to automatically extract expense details like amount, date, and
+              merchant. The extracted data can be used to quickly create expenses.
+            </p>
+          </div>
 
-        {/* Receipts Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
-          {isLoading ? (
-            <div className="col-span-full bg-slate-700 rounded-lg p-8 text-center text-slate-300">
-              <p className="text-lg">Loading receipts...</p>
-            </div>
-          ) : receipts.length === 0 ? (
-            <div className="col-span-full card text-center">
-              <p className="text-secondary">No receipts yet</p>
-              <p className="text-tertiary text-xs md:text-sm mt-2">Upload your first receipt to get started</p>
-            </div>
-          ) : (
-            receipts.map((receipt) => (
-              <div
-                key={receipt.id}
-                className="card cursor-pointer"
-                onClick={() => {
-                  setSelectedReceipt(receipt);
-                  setShowExtractedData(true);
-                }}
-              >
-                {/* Receipt Image Preview */}
-                <div className="bg-gray-800 h-24 md:h-32 flex items-center justify-center rounded-t-lg">
-                  <img
-                    src={receipt.fileUrl}
-                    alt={receipt.fileName}
-                    className="w-full h-full object-cover rounded-t-lg"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src =
-                        'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect fill="%23475569" width="100" height="100"/%3E%3Ctext x="50" y="50" text-anchor="middle" dy=".3em" fill="%239ca3af" font-size="12"%3E📄%3C/text%3E%3C/svg%3E';
-                    }}
-                  />
-                </div>
+          {/* Receipts Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
+            {isLoading ? (
+              <div className="col-span-full bg-slate-700 rounded-lg p-8 text-center text-slate-300">
+                <p className="text-lg">Loading receipts...</p>
+              </div>
+            ) : receipts.length === 0 ? (
+              <div className="col-span-full card text-center">
+                <p className="text-secondary">No receipts yet</p>
+                <p className="text-tertiary text-xs md:text-sm mt-2">Upload your first receipt to get started</p>
+              </div>
+            ) : (
+              receipts.map((receipt) => (
+                <div
+                  key={receipt.id}
+                  className="card cursor-pointer"
+                  onClick={() => {
+                    setSelectedReceipt(receipt);
+                    setShowExtractedData(true);
+                  }}
+                >
+                  {/* Receipt Image Preview */}
+                  <div className="bg-gray-800 h-24 md:h-32 flex items-center justify-center rounded-t-lg">
+                    <img
+                      src={receipt.fileUrl}
+                      alt={receipt.fileName}
+                      className="w-full h-full object-cover rounded-t-lg"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src =
+                          'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect fill="%23475569" width="100" height="100"/%3E%3Ctext x="50" y="50" text-anchor="middle" dy=".3em" fill="%239ca3af" font-size="12"%3E📄%3C/text%3E%3C/svg%3E';
+                      }}
+                    />
+                  </div>
 
-                {/* Receipt Info */}
-                <div className="p-2 sm:p-3 md:p-4">
-                  <p className="font-semibold text-white truncate text-xs md:text-sm">{receipt.fileName}</p>
-                  <p className="text-xs text-tertiary mt-1">
-                    {new Date(receipt.uploadedAt).toLocaleDateString()}
-                  </p>
+                  {/* Receipt Info */}
+                  <div className="p-2 sm:p-3 md:p-4">
+                    <p className="font-semibold text-white truncate text-xs md:text-sm">{receipt.fileName}</p>
+                    <p className="text-xs text-tertiary mt-1">
+                      {new Date(receipt.uploadedAt).toLocaleDateString()}
+                    </p>
 
-                  {/* Extracted Data Preview */}
-                  {receipt.extractedData && (
-                    <div className="mt-2 md:mt-3 bg-gray-700 rounded p-2 text-xs text-secondary">
-                      <p>
-                        💰 ₹{receipt.extractedData.amount || 'N/A'} •{' '}
-                        {receipt.extractedData.merchant || 'N/A'}
-                      </p>
-                    </div>
-                  )}
+                    {/* Extracted Data Preview */}
+                    {receipt.extractedData && (
+                      <div className="mt-2 md:mt-3 bg-gray-700 rounded p-2 text-xs text-secondary">
+                        <p>
+                          💰 ₹{receipt.extractedData.amount || 'N/A'} •{' '}
+                          {receipt.extractedData.merchant || 'N/A'}
+                        </p>
+                      </div>
+                    )}
 
-                  {/* Status Badge */}
-                  <div className="mt-2 md:mt-3 flex gap-2">
-                    <span
-                      className={`inline-block px-2 py-1 rounded text-xs font-semibold ${
-                        receipt.status === 'processed'
+                    {/* Status Badge */}
+                    <div className="mt-2 md:mt-3 flex gap-2">
+                      <span
+                        className={`inline-block px-2 py-1 rounded text-xs font-semibold ${receipt.status === 'processed'
                           ? 'bg-green-600 text-white'
                           : receipt.status === 'pending'
-                          ? 'bg-yellow-600 text-white'
-                          : 'bg-red-600 text-white'
-                      }`}
-                    >
-                      {receipt.status}
-                    </span>
-                  </div>
+                            ? 'bg-yellow-600 text-white'
+                            : 'bg-red-600 text-white'
+                          }`}
+                      >
+                        {receipt.status}
+                      </span>
+                    </div>
 
-                  {/* Actions */}
-                  <div className="mt-2 md:mt-3 flex gap-2">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleUseExtractedData(receipt);
-                      }}
-                      className="btn btn-primary btn-small flex-1"
-                    >
-                      Use Data
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleDeleteReceipt(receipt.id);
-                      }}
-                      className="btn btn-danger btn-small flex-1"
-                    >
-                      Delete
-                    </button>
+                    {/* Actions */}
+                    <div className="mt-2 md:mt-3 flex gap-2">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleUseExtractedData(receipt);
+                        }}
+                        className="btn btn-primary btn-small flex-1"
+                      >
+                        Use Data
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDeleteReceipt(receipt.id);
+                        }}
+                        className="btn btn-danger btn-small flex-1"
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))
-          )}
+              ))
+            )}
+          </div>
         </div>
-      </div>
 
-      {/* Receipt Detail Modal */}
-      {showExtractedData && selectedReceipt && (
-        <ReceiptDetailModal
-          receipt={selectedReceipt}
-          onClose={() => {
-            setShowExtractedData(false);
-            setSelectedReceipt(null);
-          }}
-          onUseData={handleUseExtractedData}
-        />
-      )}
-    </main>
+        {/* Receipt Detail Modal */}
+        {showExtractedData && selectedReceipt && (
+          <ReceiptDetailModal
+            receipt={selectedReceipt}
+            onClose={() => {
+              setShowExtractedData(false);
+              setSelectedReceipt(null);
+            }}
+            onUseData={handleUseExtractedData}
+          />
+        )}
+      </main>
     </PageWrapper>
   );
 }
@@ -259,116 +258,125 @@ function ReceiptDetailModal({
   onUseData: (receipt: Receipt) => void;
 }) {
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-slate-800 rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-        <h2 className="text-2xl font-bold text-white mb-4">Receipt Details</h2>
-
-        {/* Receipt Image */}
-        <div className="mb-6 bg-slate-700 rounded-lg overflow-hidden">
-          <img
-            src={receipt.fileUrl}
-            alt={receipt.fileName}
-            className="w-full h-auto max-h-96 object-cover"
-            onError={(e) => {
-              (e.target as HTMLImageElement).src =
-                'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect fill="%23475569" width="100" height="100"/%3E%3Ctext x="50" y="50" text-anchor="middle" dy=".3em" fill="%239ca3af" font-size="12"%3E📄%3C/text%3E%3C/svg%3E';
-            }}
-          />
-        </div>
-
-        {/* Extracted Data */}
-        {receipt.extractedData && (
-          <div className="bg-slate-700 rounded-lg p-4 mb-6 space-y-3">
-            <h3 className="font-semibold text-white mb-3">Extracted Information</h3>
-
-            <div>
-              <label className="text-sm text-slate-300">Amount</label>
-              <p className="text-xl font-bold text-white">₹{receipt.extractedData.amount || 'N/A'}</p>
-            </div>
-
-            <div>
-              <label className="text-sm text-slate-300">Merchant</label>
-              <p className="text-white">{receipt.extractedData.merchant || 'N/A'}</p>
-            </div>
-
-            <div>
-              <label className="text-sm text-slate-300">Date</label>
-              <p className="text-white">
-                {receipt.extractedData.date
-                  ? new Date(receipt.extractedData.date).toLocaleDateString()
-                  : 'N/A'}
-              </p>
-            </div>
-
-            <div>
-              <label className="text-sm text-slate-300">Category</label>
-              <p className="text-white">{receipt.extractedData.category || 'N/A'}</p>
-            </div>
-
-            <div>
-              <label className="text-sm text-slate-300">Description</label>
-              <p className="text-white">{receipt.extractedData.description || 'N/A'}</p>
-            </div>
-
-            <div>
-              <label className="text-sm text-slate-300">Confidence</label>
-              <div className="w-full bg-slate-600 rounded-full h-2 mt-1">
-                <div
-                  className="bg-green-600 h-2 rounded-full"
-                  style={{
-                    width: `${(receipt.extractedData.confidence || 0) * 100}%`,
-                  }}
-                />
-              </div>
-              <p className="text-xs text-slate-400 mt-1">
-                {Math.round((receipt.extractedData.confidence || 0) * 100)}% confidence
-              </p>
-            </div>
-          </div>
-        )}
-
-        {/* File Info */}
-        <div className="bg-slate-700 rounded-lg p-4 mb-6">
-          <p className="text-sm text-slate-300">
-            <span className="font-semibold">File:</span> {receipt.fileName}
-          </p>
-          <p className="text-sm text-slate-300 mt-1">
-            <span className="font-semibold">Uploaded:</span>{' '}
-            {new Date(receipt.uploadedAt).toLocaleString()}
-          </p>
-          <p className="text-sm text-slate-300 mt-1">
-            <span className="font-semibold">Status:</span>{' '}
-            <span
-              className={`inline-block px-2 py-1 rounded text-xs font-semibold ${
-                receipt.status === 'processed'
-                  ? 'bg-green-600 text-white'
-                  : receipt.status === 'pending'
-                  ? 'bg-yellow-600 text-white'
-                  : 'bg-red-600 text-white'
-              }`}
-            >
-              {receipt.status}
-            </span>
-          </p>
-        </div>
-
-        {/* Buttons */}
-        <div className="flex gap-3 justify-end">
+    <div className="w-full animate-slide-up mb-8">
+      <div className="card border-2 border-blue-500/50 bg-gradient-to-br from-slate-800/95 to-slate-900/95 w-full max-w-2xl mx-auto max-h-[90vh] overflow-y-auto">
+        <div className="p-4 md:p-6 border-b border-slate-700 flex justify-between items-center text-white bg-transparent">
+          <h2 className="text-xl md:text-2xl font-bold">Receipt Details</h2>
           <button
             onClick={onClose}
-            className="bg-slate-600 hover:bg-slate-500 text-white px-6 py-2 rounded-lg transition"
+            className="text-slate-400 hover:text-white text-2xl"
           >
-            Close
+            ✕
           </button>
-          <button
-            onClick={() => {
-              onUseData(receipt);
-              onClose();
-            }}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition font-semibold"
-          >
-            Use This Data
-          </button>
+        </div>
+        <div className="p-4 md:p-6">
+
+          {/* Receipt Image */}
+          <div className="mb-6 bg-slate-700 rounded-lg overflow-hidden">
+            <img
+              src={receipt.fileUrl}
+              alt={receipt.fileName}
+              className="w-full h-auto max-h-96 object-cover"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src =
+                  'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect fill="%23475569" width="100" height="100"/%3E%3Ctext x="50" y="50" text-anchor="middle" dy=".3em" fill="%239ca3af" font-size="12"%3E📄%3C/text%3E%3C/svg%3E';
+              }}
+            />
+          </div>
+
+          {/* Extracted Data */}
+          {receipt.extractedData && (
+            <div className="bg-slate-700 rounded-lg p-4 mb-6 space-y-3">
+              <h3 className="font-semibold text-white mb-3">Extracted Information</h3>
+
+              <div>
+                <label className="text-sm text-slate-300">Amount</label>
+                <p className="text-xl font-bold text-white">₹{receipt.extractedData.amount || 'N/A'}</p>
+              </div>
+
+              <div>
+                <label className="text-sm text-slate-300">Merchant</label>
+                <p className="text-white">{receipt.extractedData.merchant || 'N/A'}</p>
+              </div>
+
+              <div>
+                <label className="text-sm text-slate-300">Date</label>
+                <p className="text-white">
+                  {receipt.extractedData.date
+                    ? new Date(receipt.extractedData.date).toLocaleDateString()
+                    : 'N/A'}
+                </p>
+              </div>
+
+              <div>
+                <label className="text-sm text-slate-300">Category</label>
+                <p className="text-white">{receipt.extractedData.category || 'N/A'}</p>
+              </div>
+
+              <div>
+                <label className="text-sm text-slate-300">Description</label>
+                <p className="text-white">{receipt.extractedData.description || 'N/A'}</p>
+              </div>
+
+              <div>
+                <label className="text-sm text-slate-300">Confidence</label>
+                <div className="w-full bg-slate-600 rounded-full h-2 mt-1">
+                  <div
+                    className="bg-green-600 h-2 rounded-full"
+                    style={{
+                      width: `${(receipt.extractedData.confidence || 0) * 100}%`,
+                    }}
+                  />
+                </div>
+                <p className="text-xs text-slate-400 mt-1">
+                  {Math.round((receipt.extractedData.confidence || 0) * 100)}% confidence
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* File Info */}
+          <div className="bg-slate-700 rounded-lg p-4 mb-6">
+            <p className="text-sm text-slate-300">
+              <span className="font-semibold">File:</span> {receipt.fileName}
+            </p>
+            <p className="text-sm text-slate-300 mt-1">
+              <span className="font-semibold">Uploaded:</span>{' '}
+              {new Date(receipt.uploadedAt).toLocaleString()}
+            </p>
+            <p className="text-sm text-slate-300 mt-1">
+              <span className="font-semibold">Status:</span>{' '}
+              <span
+                className={`inline-block px-2 py-1 rounded text-xs font-semibold ${receipt.status === 'processed'
+                  ? 'bg-green-600 text-white'
+                  : receipt.status === 'pending'
+                    ? 'bg-yellow-600 text-white'
+                    : 'bg-red-600 text-white'
+                  }`}
+              >
+                {receipt.status}
+              </span>
+            </p>
+          </div>
+
+          {/* Buttons */}
+          <div className="flex gap-3 justify-end">
+            <button
+              onClick={onClose}
+              className="bg-slate-600 hover:bg-slate-500 text-white px-6 py-2 rounded-lg transition"
+            >
+              Close
+            </button>
+            <button
+              onClick={() => {
+                onUseData(receipt);
+                onClose();
+              }}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition font-semibold"
+            >
+              Use This Data
+            </button>
+          </div>
         </div>
       </div>
     </div>

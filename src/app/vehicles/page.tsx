@@ -39,11 +39,11 @@ export default function VehiclesPage() {
   });
   const [showFuelModal, setShowFuelModal] = useState(false);
   const [selectedVehicleForFuel, setSelectedVehicleForFuel] = useState<string | null>(null);
-  const [vehicleFuelHistory, setVehicleFuelHistory] = useState<Record<string, Array<{ 
-    currentKm: number; 
-    fuelAmount: number; 
+  const [vehicleFuelHistory, setVehicleFuelHistory] = useState<Record<string, Array<{
+    currentKm: number;
+    fuelAmount: number;
     cost: number;
-    date: string; 
+    date: string;
     notes: string;
     mileageEfficiency?: number;
   }>>>({});
@@ -51,8 +51,8 @@ export default function VehiclesPage() {
   const filteredVehicles = useMemo(() => {
     return vehicles.filter((vehicle) => {
       const matchesSearch = vehicle.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           vehicle.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           vehicle.registrationNumber.toLowerCase().includes(searchTerm.toLowerCase());
+        vehicle.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        vehicle.registrationNumber.toLowerCase().includes(searchTerm.toLowerCase());
       return matchesSearch;
     });
   }, [vehicles, searchTerm]);
@@ -168,7 +168,7 @@ export default function VehiclesPage() {
 
   const handleAddExpense = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
       if (!expenseFormData.description || !expenseFormData.amount) {
         error('Please fill in all required fields');
@@ -291,237 +291,248 @@ export default function VehiclesPage() {
   return (
     <PageWrapper>
       <div className="min-h-screen bg-gray-950 p-3 sm:p-4 md:p-6 lg:p-8">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="mb-6 md:mb-8">
-          <h1 className="heading-page">🚗 Vehicle Management</h1>
-          <p className="text-secondary">Manage your vehicles and track maintenance</p>
-        </div>
-
-        {/* KPI Cards */}
-        <div className="grid-responsive-2 mb-6 md:mb-8">
-          <div className="card">
-            <p className="text-tertiary text-xs md:text-sm mb-2">Total Vehicles</p>
-            <p className="text-2xl md:text-3xl font-bold text-blue-400">{kpiStats.totalVehicles}</p>
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}
+          <div className="mb-6 md:mb-8">
+            <h1 className="heading-page">🚗 Vehicle Management</h1>
+            <p className="text-secondary">Manage your vehicles and track maintenance</p>
           </div>
-        </div>
 
-        {/* Action Buttons */}
-        <div className="flex gap-2 sm:gap-3 md:gap-4 mb-6">
-          <button
-            onClick={() => {
-              setShowModalInline(true);
-              setFormData({
-                name: '',
-                type: '',
-                registrationNumber: '',
-                currentMileage: '',
-              });
-            }}
-            className="btn btn-primary flex-1"
-          >
-            + Add Vehicle
-          </button>
-          <button
-            onClick={handleExportCSV}
-            className="btn btn-success flex-1"
-          >
-            ↓ Export CSV
-          </button>
-        </div>
-
-        {/* Search */}
-        <div className="mb-6">
-          <input
-            type="text"
-            placeholder="Search by name, type, or registration number..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="form-input w-full"
-          />
-        </div>
-
-        {/* Add Vehicle Modal - Inline */}
-        {showModalInline && (
-          <div className="card mb-6 md:mb-8">
-            <h2 className="heading-section mb-4">Add Vehicle</h2>
-
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3 md:gap-4">
-                <div className="form-group">
-                  <label className="form-label">
-                    Vehicle Name <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="e.g., Honda City, Maruti Swift"
-                    className="form-input"
-                    required
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label className="form-label">
-                    Vehicle Type <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="type"
-                    value={formData.type}
-                    onChange={handleChange}
-                    placeholder="e.g., Car, Bike, Truck"
-                    className="form-input"
-                    required
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label className="form-label">
-                    Registration Number <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="registrationNumber"
-                    value={formData.registrationNumber}
-                    onChange={handleChange}
-                    placeholder="e.g., MH01AB1234"
-                    className="form-input"
-                    required
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label className="form-label">
-                    Current Mileage (Optional)
-                  </label>
-                  <input
-                    type="number"
-                    name="currentMileage"
-                    value={formData.currentMileage}
-                    onChange={handleChange}
-                    placeholder="e.g., 50000"
-                    className="form-input"
-                    step="0.1"
-                    min="0"
-                  />
-                </div>
-              </div>
-
-              <div className="flex gap-2 sm:gap-3 pt-4 border-t border-gray-700">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowModalInline(false);
-                    setFormData({
-                      name: '',
-                      type: '',
-                      registrationNumber: '',
-                      currentMileage: '',
-                    });
-                  }}
-                  className="btn btn-secondary flex-1"
-                  disabled={isLoading}
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="btn btn-primary flex-1 disabled:opacity-50"
-                  disabled={isLoading}
-                >
-                  {isLoading ? 'Adding...' : 'Add Vehicle'}
-                </button>
-              </div>
-            </form>
+          {/* KPI Cards */}
+          <div className="grid-responsive-2 mb-6 md:mb-8">
+            <div className="card">
+              <p className="text-tertiary text-xs md:text-sm mb-2">Total Vehicles</p>
+              <p className="text-2xl md:text-3xl font-bold text-blue-400">{kpiStats.totalVehicles}</p>
+            </div>
           </div>
-        )}
 
-        {/* Vehicles Grid */}
-        {filteredVehicles.length > 0 ? (
-          <div className="grid-responsive-3 mb-6 md:mb-8">
-            {filteredVehicles.map((vehicle) => (
-              <div key={vehicle.id} className="card">
-                <div className="mb-4">
-                  <h3 className="text-lg md:text-xl font-bold text-white">{vehicle.name}</h3>
-                  <p className="text-xs md:text-sm text-secondary mt-1">{vehicle.type}</p>
-                  <p className="text-xs md:text-sm text-tertiary mt-2">Reg: {vehicle.registrationNumber}</p>
-                  {vehicleFuelHistory[vehicle.id] && vehicleFuelHistory[vehicle.id].length > 0 && (
-                    <div className="mt-3 space-y-1">
-                      <p className="text-xs md:text-sm text-blue-400">
-                        Current KM: {vehicleFuelHistory[vehicle.id][0]?.currentKm.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
-                      </p>
-                      {vehicleFuelHistory[vehicle.id]?.[0]?.mileageEfficiency && (
-                        <p className="text-xs md:text-sm text-green-400">
-                          Efficiency: {vehicleFuelHistory[vehicle.id]?.[0]?.mileageEfficiency?.toFixed(2)} km/L
+          {/* Action Buttons */}
+          <div className="flex gap-2 sm:gap-3 md:gap-4 mb-6">
+            <button
+              onClick={() => {
+                setShowModalInline(true);
+                setFormData({
+                  name: '',
+                  type: '',
+                  registrationNumber: '',
+                  currentMileage: '',
+                });
+              }}
+              className="btn btn-primary flex-1"
+            >
+              + Add Vehicle
+            </button>
+            <button
+              onClick={handleExportCSV}
+              className="btn btn-success flex-1"
+            >
+              ↓ Export CSV
+            </button>
+          </div>
+
+          {/* Search */}
+          <div className="mb-6">
+            <input
+              type="text"
+              placeholder="Search by name, type, or registration number..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="form-input w-full"
+            />
+          </div>
+
+          {/* Add Vehicle Modal - Inline */}
+          {showModalInline && (
+            <div className="card mb-6 md:mb-8">
+              <h2 className="heading-section mb-4">Add Vehicle</h2>
+
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3 md:gap-4">
+                  <div className="form-group">
+                    <label className="form-label">
+                      Vehicle Name <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="e.g., Honda City, Maruti Swift"
+                      className="form-input"
+                      required
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label className="form-label">
+                      Vehicle Type <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="type"
+                      value={formData.type}
+                      onChange={handleChange}
+                      placeholder="e.g., Car, Bike, Truck"
+                      className="form-input"
+                      required
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label className="form-label">
+                      Registration Number <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="registrationNumber"
+                      value={formData.registrationNumber}
+                      onChange={handleChange}
+                      placeholder="e.g., MH01AB1234"
+                      className="form-input"
+                      required
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label className="form-label">
+                      Current Mileage (Optional)
+                    </label>
+                    <input
+                      type="number"
+                      name="currentMileage"
+                      value={formData.currentMileage}
+                      onChange={handleChange}
+                      placeholder="e.g., 50000"
+                      className="form-input"
+                      step="0.1"
+                      min="0"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex gap-2 sm:gap-3 pt-4 border-t border-gray-700">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowModalInline(false);
+                      setFormData({
+                        name: '',
+                        type: '',
+                        registrationNumber: '',
+                        currentMileage: '',
+                      });
+                    }}
+                    className="btn btn-secondary flex-1"
+                    disabled={isLoading}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="btn btn-primary flex-1 disabled:opacity-50"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? 'Adding...' : 'Add Vehicle'}
+                  </button>
+                </div>
+              </form>
+            </div>
+          )}
+
+          {/* Vehicles Grid */}
+          {filteredVehicles.length > 0 ? (
+            <div className="grid-responsive-3 mb-6 md:mb-8">
+              {filteredVehicles.map((vehicle) => (
+                <div key={vehicle.id} className="card">
+                  <div className="mb-4">
+                    <h3 className="text-lg md:text-xl font-bold text-white">{vehicle.name}</h3>
+                    <p className="text-xs md:text-sm text-secondary mt-1">{vehicle.type}</p>
+                    <p className="text-xs md:text-sm text-tertiary mt-2">Reg: {vehicle.registrationNumber}</p>
+                    {vehicleFuelHistory[vehicle.id] && vehicleFuelHistory[vehicle.id].length > 0 && (
+                      <div className="mt-3 space-y-1">
+                        <p className="text-xs md:text-sm text-blue-400">
+                          Current KM: {vehicleFuelHistory[vehicle.id][0]?.currentKm.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
                         </p>
-                      )}
-                    </div>
-                  )}
-                </div>
+                        {vehicleFuelHistory[vehicle.id]?.[0]?.mileageEfficiency && (
+                          <p className="text-xs md:text-sm text-green-400">
+                            Efficiency: {vehicleFuelHistory[vehicle.id]?.[0]?.mileageEfficiency?.toFixed(2)} km/L
+                          </p>
+                        )}
+                      </div>
+                    )}
+                  </div>
 
-                <div className="flex gap-2 pt-4 border-t border-gray-700">
-                  <button
-                    onClick={() => handleEdit(vehicle)}
-                    className="btn btn-primary btn-small flex-1"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => {
-                      setSelectedVehicleForFuel(vehicle.id);
-                      setShowFuelModal(true);
-                    }}
-                    className="btn btn-secondary btn-small flex-1"
-                  >
-                    ⛽ Fuel
-                  </button>
-                  <button
-                    onClick={() => {
-                      setSelectedVehicleForExpense(vehicle.id);
-                      setShowExpenseModal(true);
-                    }}
-                    className="btn btn-success btn-small flex-1"
-                  >
-                    + Expense
-                  </button>
-                  <button
-                    onClick={() => handleDelete(vehicle.id)}
-                    className="btn btn-danger btn-small flex-1"
-                  >
-                    Delete
-                  </button>
+                  <div className="flex gap-2 pt-4 border-t border-gray-700">
+                    <button
+                      onClick={() => handleEdit(vehicle)}
+                      className="btn btn-primary btn-small flex-1"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => {
+                        setSelectedVehicleForFuel(vehicle.id);
+                        setShowFuelModal(true);
+                      }}
+                      className="btn btn-secondary btn-small flex-1"
+                    >
+                      ⛽ Fuel
+                    </button>
+                    <button
+                      onClick={() => {
+                        setSelectedVehicleForExpense(vehicle.id);
+                        setShowExpenseModal(true);
+                      }}
+                      className="btn btn-success btn-small flex-1"
+                    >
+                      + Expense
+                    </button>
+                    <button
+                      onClick={() => handleDelete(vehicle.id)}
+                      className="btn btn-danger btn-small flex-1"
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="card text-center">
-            <p className="text-secondary">
-              {vehicles.length === 0 ? 'No vehicles yet. Add one to get started!' : 'No vehicles match your search.'}
-            </p>
-          </div>
-        )}
+              ))}
+            </div>
+          ) : (
+            <div className="card text-center">
+              <p className="text-secondary">
+                {vehicles.length === 0 ? 'No vehicles yet. Add one to get started!' : 'No vehicles match your search.'}
+              </p>
+            </div>
+          )}
 
-        {/* Summary */}
-        {filteredVehicles.length > 0 && (
-          <div className="card">
-            <p className="text-secondary">
-              Showing <span className="font-semibold text-white">{filteredVehicles.length}</span> of{' '}
-              <span className="font-semibold text-white">{vehicles.length}</span> vehicles
-            </p>
-          </div>
-        )}
+          {/* Summary */}
+          {filteredVehicles.length > 0 && (
+            <div className="card">
+              <p className="text-secondary">
+                Showing <span className="font-semibold text-white">{filteredVehicles.length}</span> of{' '}
+                <span className="font-semibold text-white">{vehicles.length}</span> vehicles
+              </p>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
 
       {/* Modals */}
       {showFuelModal && selectedVehicleForFuel && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-gray-800 rounded-lg p-4 sm:p-6 max-w-md w-full max-h-[90vh] overflow-y-auto">
-            <h2 className="heading-section mb-4">⛽ Fuel Entry</h2>
+        <div className="w-full animate-slide-up mb-8">
+          <div className="card p-4 md:p-6 border-2 border-blue-500/50 bg-gradient-to-br from-slate-800/95 to-slate-900/95 w-full max-w-2xl mx-auto max-h-[90vh] overflow-y-auto">
+            <div className="border-b border-slate-700 pb-4 mb-4 flex justify-between items-center text-white">
+              <h2 className="text-xl md:text-2xl font-bold">⛽ Fuel Entry</h2>
+              <button
+                onClick={() => {
+                  setShowFuelModal(false);
+                  setSelectedVehicleForFuel(null);
+                }}
+                className="text-slate-400 hover:text-white text-2xl"
+              >
+                ✕
+              </button>
+            </div>
 
             {vehicleFuelHistory[selectedVehicleForFuel] && vehicleFuelHistory[selectedVehicleForFuel].length > 0 && (
               <div className="mb-6 bg-gray-700 rounded-lg p-4">
@@ -650,9 +661,20 @@ export default function VehiclesPage() {
         </div>
       )}
       {showExpenseModal && selectedVehicleForExpense && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-gray-800 rounded-lg p-4 sm:p-6 max-w-md w-full">
-            <h2 className="heading-section mb-4">Add Expense</h2>
+        <div className="w-full animate-slide-up mb-8">
+          <div className="card p-4 md:p-6 border-2 border-blue-500/50 bg-gradient-to-br from-slate-800/95 to-slate-900/95 w-full max-w-2xl mx-auto">
+            <div className="border-b border-slate-700 pb-4 mb-4 flex justify-between items-center text-white">
+              <h2 className="text-xl md:text-2xl font-bold">Add Expense</h2>
+              <button
+                onClick={() => {
+                  setShowExpenseModal(false);
+                  setSelectedVehicleForExpense(null);
+                }}
+                className="text-slate-400 hover:text-white text-2xl"
+              >
+                ✕
+              </button>
+            </div>
 
             <form onSubmit={handleAddExpense} className="space-y-4">
               <div className="form-group">

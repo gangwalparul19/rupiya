@@ -103,9 +103,17 @@ export default function AddInvestmentModal({ isOpen, onClose, onSuccess }: AddIn
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-gray-900 rounded-lg p-6 w-full max-w-md max-h-[90vh] overflow-y-auto">
-        <h2 className="text-2xl font-bold text-white mb-4">Add Investment</h2>
+    <div className="w-full animate-slide-up">
+      <div className="card p-4 md:p-6 border-2 border-blue-500/50 bg-gradient-to-br from-slate-800/95 to-slate-900/95 w-full max-w-2xl mx-auto">
+        <div className="border-b border-slate-700 pb-4 mb-4 flex justify-between items-center">
+          <h2 className="text-xl md:text-2xl font-bold text-white">Add Investment</h2>
+          <button
+            onClick={onClose}
+            className="text-slate-400 hover:text-white text-2xl"
+          >
+            ✕
+          </button>
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Name */}
