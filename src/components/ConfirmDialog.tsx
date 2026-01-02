@@ -56,28 +56,32 @@ export default function ConfirmDialog({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-3 md:p-4 z-50">
-      <div className="bg-gray-800 rounded-lg p-4 md:p-6 max-w-sm w-full border border-gray-700">
-        <h2 className="text-lg md:text-xl font-bold text-white mb-2">{title}</h2>
+    <div className="w-full animate-slide-up">
+      <div className={`card p-4 md:p-6 border-2 ${isDangerous ? 'border-red-500/50' : 'border-blue-500/50'} bg-gradient-to-br from-slate-800/95 to-slate-900/95 w-full max-w-md mx-auto`}>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-lg md:text-xl font-bold text-white">{title}</h2>
+          <button
+            onClick={onCancel}
+            className="text-slate-400 hover:text-white text-2xl"
+          >
+            ✕
+          </button>
+        </div>
         <p className="text-gray-300 text-sm md:text-base mb-4">{message}</p>
 
         {children && <div className="mb-4 text-sm text-gray-400">{children}</div>}
 
-        <div className="flex gap-3">
+        <div className="flex gap-3 pt-4">
           <button
             onClick={onCancel}
-            className="flex-1 px-3 md:px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium text-sm"
+            className="flex-1 btn btn-secondary text-sm"
             aria-label={`${cancelText} action`}
           >
             {cancelText}
           </button>
           <button
             onClick={onConfirm}
-            className={`flex-1 px-3 md:px-4 py-2 text-white rounded-lg transition-colors font-medium text-sm ${
-              isDangerous
-                ? 'bg-red-600 hover:bg-red-700'
-                : 'bg-blue-600 hover:bg-blue-700'
-            }`}
+            className={`flex-1 btn btn-small text-sm ${isDangerous ? 'btn-danger' : 'btn-primary shadow-lg shadow-blue-500/20'}`}
             aria-label={`${confirmText} action`}
           >
             {confirmText}

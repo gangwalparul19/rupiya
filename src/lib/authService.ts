@@ -7,7 +7,7 @@ import {
   signInWithPopup,
   User,
 } from 'firebase/auth';
-import { auth, db } from './firebase';
+import { getFirebaseAuth, getFirebaseDb } from './firebase';
 import { doc, setDoc, getDoc, collection, addDoc, Timestamp } from 'firebase/firestore';
 
 const DEFAULT_CATEGORIES = [
@@ -22,6 +22,9 @@ const DEFAULT_CATEGORIES = [
 
 const createDefaultCategories = async (userId: string) => {
   try {
+    const db = getFirebaseDb();
+    if (!db) return;
+    
     for (const category of DEFAULT_CATEGORIES) {
       await addDoc(collection(db, 'users', userId, 'categories'), {
         name: category.name,
@@ -39,6 +42,10 @@ const createDefaultCategories = async (userId: string) => {
 
 export const registerWithEmail = async (email: string, password: string) => {
   try {
+    const auth = getFirebaseAuth();
+    const db = getFirebaseDb();
+    if (!auth || !db) throw new Error('Firebase not initialized');
+
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
@@ -63,6 +70,9 @@ export const registerWithEmail = async (email: string, password: string) => {
 
 export const loginWithEmail = async (email: string, password: string) => {
   try {
+    const auth = getFirebaseAuth();
+    if (!auth) throw new Error('Firebase not initialized');
+    
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     return userCredential.user;
   } catch (error) {
@@ -73,7 +83,21 @@ export const loginWithEmail = async (email: string, password: string) => {
 
 export const loginWithGoogle = async () => {
   try {
+    const auth = getFirebaseAuth();
+    const db = getFirebaseDb();
+    if (!auth || !db) throw new Error('Firebase not initialized');
+    
     const provider = new GoogleAuthProvider();
+    
+    // Add scopes for better user data
+    provider.addScope('profile');
+    provider.addScope('email');
+    
+    // Set custom parameters for better UX
+    provider.setCustomParameters({
+      prompt: 'select_account'
+    });
+    
     const userCredential = await signInWithPopup(auth, provider);
     const user = userCredential.user;
 
@@ -95,14 +119,19 @@ export const loginWithGoogle = async () => {
     }
 
     return user;
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error logging in with Google:', error);
+    console.error('Error Code:', error.code);
+    console.error('Error Message:', error.message);
     throw error;
   }
 };
 
 export const logout = async () => {
   try {
+    const auth = getFirebaseAuth();
+    if (!auth) throw new Error('Firebase not initialized');
+    
     await signOut(auth);
   } catch (error) {
     console.error('Error logging out:', error);
@@ -112,6 +141,12 @@ export const logout = async () => {
 
 export const getCurrentUser = (): Promise<User | null> => {
   return new Promise((resolve) => {
+    const auth = getFirebaseAuth();
+    if (!auth) {
+      resolve(null);
+      return;
+    }
+    
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       unsubscribe();
       resolve(user);
@@ -120,5 +155,11 @@ export const getCurrentUser = (): Promise<User | null> => {
 };
 
 export const onAuthChange = (callback: (user: User | null) => void) => {
+  const auth = getFirebaseAuth();
+  if (!auth) {
+    callback(null);
+    return () => {};
+  }
+  
   return onAuthStateChanged(auth, callback);
 };

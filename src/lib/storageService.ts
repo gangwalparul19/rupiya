@@ -1,9 +1,12 @@
-import { storage } from './firebase';
+import { getFirebaseStorage } from './firebase';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 export const storageService = {
   async uploadDocument(file: File, userId: string): Promise<string> {
     try {
+      const storage = getFirebaseStorage();
+      if (!storage) throw new Error('Firebase storage not initialized');
+      
       // Create a unique document ID and filename with timestamp
       const timestamp = Date.now();
       const documentId = `doc_${timestamp}`;

@@ -80,15 +80,15 @@ export default function AdvancedFilterPanel({
   const expenseCategories = categories.filter((c) => c.type === 'expense' || c.type === 'both');
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-slate-700 rounded-lg p-6 w-full max-w-2xl text-white max-h-[90vh] overflow-y-auto">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold">Advanced Filters</h2>
+    <div className="w-full animate-slide-up">
+      <div className="card p-4 md:p-6 border-2 border-blue-500/50 bg-gradient-to-br from-slate-800/95 to-slate-900/95 w-full max-w-2xl mx-auto">
+        <div className="border-b border-slate-700 pb-4 mb-4 flex justify-between items-center">
+          <h2 className="text-xl md:text-2xl font-bold text-white">Advanced Filters</h2>
           <button
             onClick={onClose}
             className="text-slate-400 hover:text-white text-2xl"
           >
-            ×
+            ✕
           </button>
         </div>
 
@@ -169,11 +169,10 @@ export default function AdvancedFilterPanel({
                 <button
                   key={cat.id}
                   onClick={() => handleCategoryToggle(cat.name)}
-                  className={`px-3 py-2 rounded text-sm transition ${
-                    filters.categories.includes(cat.name)
+                  className={`px-3 py-2 rounded text-sm transition ${filters.categories.includes(cat.name)
                       ? 'bg-blue-600 text-white'
                       : 'bg-slate-600 text-slate-300 hover:bg-slate-500'
-                  }`}
+                    }`}
                 >
                   {cat.emoji} {cat.name}
                 </button>
@@ -189,19 +188,18 @@ export default function AdvancedFilterPanel({
                 <button
                   key={method}
                   onClick={() => handlePaymentMethodToggle(method)}
-                  className={`px-3 py-2 rounded text-sm transition ${
-                    filters.paymentMethods.includes(method)
+                  className={`px-3 py-2 rounded text-sm transition ${filters.paymentMethods.includes(method)
                       ? 'bg-blue-600 text-white'
                       : 'bg-slate-600 text-slate-300 hover:bg-slate-500'
-                  }`}
+                    }`}
                 >
                   {method === 'cash'
                     ? '💵'
                     : method === 'card'
-                    ? '💳'
-                    : method === 'upi'
-                    ? '📱'
-                    : '🏦'}{' '}
+                      ? '💳'
+                      : method === 'upi'
+                        ? '📱'
+                        : '🏦'}{' '}
                   {method.charAt(0).toUpperCase() + method.slice(1)}
                 </button>
               ))}

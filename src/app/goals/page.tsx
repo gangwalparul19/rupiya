@@ -1,8 +1,11 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { useState, useMemo } from 'react';
 import { useAppStore } from '@/lib/store';
 import { useToast } from '@/lib/toastContext';
+import PageWrapper from '@/components/PageWrapper';
 import EditGoalModal from '@/components/EditGoalModal';
 import GoalAnalytics from '@/components/GoalAnalytics';
 import ConfirmDialog from '@/components/ConfirmDialog';
@@ -163,10 +166,10 @@ export default function GoalsPage() {
     filteredGoals.forEach((goal) => {
       const remaining = goal.targetAmount - goal.currentAmount;
       const progress = (goal.currentAmount / goal.targetAmount) * 100;
-      const targetDate = goal.targetDate instanceof Date 
+      const targetDate = goal.targetDate instanceof Date
         ? goal.targetDate.toISOString().split('T')[0]
         : new Date(goal.targetDate).toISOString().split('T')[0];
-      
+
       csv += `"${goal.name}","${goal.category}","${goal.priority}",${goal.targetAmount},${goal.currentAmount},${remaining},${progress.toFixed(2)},"${targetDate}"\n`;
     });
 
@@ -193,7 +196,7 @@ export default function GoalsPage() {
     filteredGoals.forEach((goal) => {
       const remaining = goal.targetAmount - goal.currentAmount;
       const progress = (goal.currentAmount / goal.targetAmount) * 100;
-      const targetDate = goal.targetDate instanceof Date 
+      const targetDate = goal.targetDate instanceof Date
         ? goal.targetDate.toLocaleDateString()
         : new Date(goal.targetDate).toLocaleDateString();
 
@@ -205,7 +208,7 @@ export default function GoalsPage() {
       txt += `Remaining: ₹${remaining.toLocaleString('en-IN', { maximumFractionDigits: 2 })}\n`;
       txt += `Progress: ${progress.toFixed(2)}%\n`;
       txt += `Target Date: ${targetDate}\n`;
-      
+
       if (goal.notes) {
         txt += `Notes: ${goal.notes}\n`;
       }
@@ -224,18 +227,18 @@ export default function GoalsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 p-3 md:p-4">
-      <div className="max-w-7xl mx-auto">
+    <PageWrapper>
+      <div className="py-4 sm:py-6 md:py-8">
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-3">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-block gap-3">
           <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-white mb-1">🎯 Goals</h1>
-            <p className="text-gray-400 text-xs md:text-sm">Track and manage your financial goals</p>
+            <h1 className="heading-page">🎯 Goals</h1>
+            <p className="text-secondary">Track and manage your financial goals</p>
           </div>
           <div className="flex gap-2 w-full md:w-auto">
             <button
               onClick={() => setShowAnalytics(!showAnalytics)}
-              className="flex-1 md:flex-none bg-purple-600 hover:bg-purple-700 px-3 md:px-4 py-2 md:py-3 rounded-lg font-semibold transition whitespace-nowrap text-xs md:text-sm"
+              className="flex-1 md:flex-none btn btn-secondary"
               aria-label={showAnalytics ? 'Hide analytics' : 'Show analytics'}
             >
               {showAnalytics ? '📊 Hide' : '📊 Analytics'}
@@ -253,7 +256,7 @@ export default function GoalsPage() {
                   notes: '',
                 });
               }}
-              className="flex-1 md:flex-none bg-blue-600 hover:bg-blue-700 px-3 md:px-4 py-2 md:py-3 rounded-lg font-semibold transition whitespace-nowrap text-xs md:text-sm"
+              className="flex-1 md:flex-none btn btn-primary"
               aria-label="Add new goal"
             >
               + Add
@@ -262,48 +265,52 @@ export default function GoalsPage() {
         </div>
 
         {/* KPI Cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3 mb-6 md:mb-8">
-          <div className="bg-gray-800 p-3 md:p-4 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs mb-1">Total Goals</p>
-            <p className="text-lg md:text-2xl font-bold text-blue-400">{kpiStats.totalGoals}</p>
+        <div className="grid-responsive-4 mb-section">
+          <div className="kpi-card">
+            <p className="kpi-label text-blue-400">Total Goals</p>
+            <p className="kpi-value text-white">{kpiStats.totalGoals}</p>
+            <p className="kpi-subtitle text-slate-400">Financial milestones</p>
           </div>
 
-          <div className="bg-gray-800 p-3 md:p-4 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs mb-1">Completed</p>
-            <p className="text-lg md:text-2xl font-bold text-green-400">{kpiStats.completedGoals}</p>
+          <div className="kpi-card">
+            <p className="kpi-label text-green-400">Completed</p>
+            <p className="kpi-value text-white">{kpiStats.completedGoals}</p>
+            <p className="kpi-subtitle text-slate-400">Goals reached</p>
           </div>
 
-          <div className="bg-gray-800 p-3 md:p-4 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs mb-1">Total Target</p>
-            <p className="text-lg md:text-2xl font-bold text-purple-400">{abbreviateNumber(kpiStats.totalTarget)}</p>
+          <div className="kpi-card">
+            <p className="kpi-label text-purple-400">Total Target</p>
+            <p className="kpi-value text-white">{abbreviateNumber(kpiStats.totalTarget)}</p>
+            <p className="kpi-subtitle text-slate-400">Total savings goal</p>
           </div>
 
-          <div className="bg-gray-800 p-3 md:p-4 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs mb-1">Total Saved</p>
-            <p className="text-lg md:text-2xl font-bold text-green-500">{abbreviateNumber(kpiStats.totalSaved)}</p>
+          <div className="kpi-card">
+            <p className="kpi-label text-emerald-400">Total Saved</p>
+            <p className="kpi-value text-white">{abbreviateNumber(kpiStats.totalSaved)}</p>
+            <p className="kpi-subtitle text-slate-400">Across all goals</p>
           </div>
         </div>
 
         {/* Export Buttons */}
-        <div className="flex gap-2 mb-4 md:mb-6 flex-wrap">
+        <div className="flex gap-3 mb-block flex-wrap">
           <button
             onClick={handleExportCSV}
-            className="bg-green-600 hover:bg-green-700 text-white px-3 md:px-4 py-2 rounded-lg transition font-semibold text-xs md:text-sm"
+            className="btn btn-secondary border-green-500/20 hover:border-green-500/40 text-green-400"
             aria-label="Export goals to CSV file"
           >
             📥 CSV
           </button>
           <button
             onClick={handleExportTXT}
-            className="bg-purple-600 hover:bg-purple-700 text-white px-3 md:px-4 py-2 rounded-lg transition font-semibold text-xs md:text-sm"
+            className="btn btn-secondary border-purple-500/20 hover:border-purple-500/40 text-purple-400"
             aria-label="Export goals to text file"
           >
-            📥 TXT
+            📄 TXT
           </button>
         </div>
 
         {/* Search and Filters */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-3 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-block">
           <input
             type="text"
             placeholder="Search goals..."
@@ -339,7 +346,7 @@ export default function GoalsPage() {
 
         {/* Analytics Section */}
         {showAnalytics && goals.length > 0 && (
-          <div className="mb-6 md:mb-8">
+          <div className="mb-block">
             <GoalAnalytics goals={goals} />
           </div>
         )}
@@ -350,14 +357,14 @@ export default function GoalsPage() {
             filteredGoals.map((goal) => {
               const remaining = goal.targetAmount - goal.currentAmount;
               const progress = (goal.currentAmount / goal.targetAmount) * 100;
-              const targetDate = goal.targetDate instanceof Date 
+              const targetDate = goal.targetDate instanceof Date
                 ? goal.targetDate.toLocaleDateString()
                 : new Date(goal.targetDate).toLocaleDateString();
 
               return (
                 <div
                   key={goal.id}
-                  className="bg-gray-800 p-3 md:p-4 rounded-lg border border-gray-700 hover:border-gray-600 transition"
+                  className="card hover:border-slate-600"
                 >
                   {/* Card Header */}
                   <div className="flex justify-between items-start mb-2">
@@ -366,11 +373,10 @@ export default function GoalsPage() {
                       <p className="text-xs text-gray-400 mt-0.5">
                         {goal.category.charAt(0).toUpperCase() + goal.category.slice(1)}
                         {' • '}
-                        <span className={`font-semibold ${
-                          goal.priority === 'high' ? 'text-red-400' :
+                        <span className={`font-semibold ${goal.priority === 'high' ? 'text-red-400' :
                           goal.priority === 'medium' ? 'text-yellow-400' :
-                          'text-green-400'
-                        }`}>
+                            'text-green-400'
+                          }`}>
                           {goal.priority.charAt(0).toUpperCase() + goal.priority.slice(1)}
                         </span>
                       </p>
@@ -434,7 +440,7 @@ export default function GoalsPage() {
 
         {/* Summary */}
         {filteredGoals.length > 0 && (
-          <div className="mt-4 md:mt-6 bg-gray-800 rounded-lg p-3 md:p-4 border border-gray-700">
+          <div className="mt-block bg-gray-800 rounded-lg p-3 md:p-4 border border-gray-700">
             <p className="text-xs md:text-sm text-gray-300">
               Showing <span className="font-semibold text-white">{filteredGoals.length}</span> of{' '}
               <span className="font-semibold text-white">{goals.length}</span> goals
@@ -445,9 +451,17 @@ export default function GoalsPage() {
 
       {/* Add Goal Modal */}
       {isAddModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-3 z-50">
-          <div className="bg-gray-800 rounded-lg p-4 md:p-6 w-full max-w-md max-h-[90vh] overflow-y-auto border border-gray-700">
-            <h2 className="text-xl md:text-2xl font-bold text-white mb-4">Add Goal</h2>
+        <div className="w-full animate-slide-up mb-block">
+          <div className="card p-4 md:p-6 border-2 border-cyan-500/50 bg-gradient-to-br from-slate-800/95 to-slate-900/95 w-full max-w-2xl mx-auto max-h-[90vh] overflow-y-auto">
+            <div className="border-b border-slate-700 pb-4 mb-4 flex justify-between items-center text-white">
+              <h2 className="text-xl md:text-2xl font-bold">Add Goal</h2>
+              <button
+                onClick={() => setIsAddModalOpen(false)}
+                className="text-slate-400 hover:text-white text-2xl"
+              >
+                ✕
+              </button>
+            </div>
 
             <form onSubmit={handleSubmit} className="space-y-3">
               <div>
@@ -620,6 +634,7 @@ export default function GoalsPage() {
         onConfirm={handleConfirmDelete}
         onCancel={() => setConfirmDialog({ isOpen: false, goalId: '', goalName: '' })}
       />
-    </div>
+    </PageWrapper>
   );
 }
+

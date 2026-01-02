@@ -11,7 +11,7 @@ import {
   Timestamp,
   QueryConstraint,
 } from 'firebase/firestore';
-import { db } from './firebase';
+import { getFirebaseDb } from './firebase';
 import {
   Expense,
   Income,
@@ -32,6 +32,8 @@ import {
   Settlement,
   CalendarEvent,
   BillReminder,
+  HouseHelp,
+  HouseHelpPayment,
 } from './store';
 
 // Helper function to convert Firestore Timestamp to Date
@@ -63,6 +65,9 @@ export const firebaseService = {
   // Create
   async create<T>(collectionName: string, data: T, userId: string): Promise<string> {
     try {
+      const db = getFirebaseDb();
+      if (!db) throw new Error('Firebase not initialized');
+
       const docRef = await addDoc(collection(db, 'users', userId, collectionName), convertToTimestamp(data));
       return docRef.id;
     } catch (error) {
@@ -74,6 +79,9 @@ export const firebaseService = {
   // Read all
   async readAll<T>(collectionName: string, userId: string, constraints: QueryConstraint[] = []): Promise<T[]> {
     try {
+      const db = getFirebaseDb();
+      if (!db) throw new Error('Firebase not initialized');
+
       const q = query(collection(db, 'users', userId, collectionName), ...constraints);
       const querySnapshot = await getDocs(q);
       return querySnapshot.docs.map((doc) => ({
@@ -89,6 +97,9 @@ export const firebaseService = {
   // Read single
   async readOne<T>(collectionName: string, userId: string, docId: string): Promise<T | null> {
     try {
+      const db = getFirebaseDb();
+      if (!db) throw new Error('Firebase not initialized');
+
       const docSnap = await getDocs(query(collection(db, 'users', userId, collectionName), where('__name__', '==', docId)));
       if (docSnap.empty) return null;
       return {
@@ -104,6 +115,9 @@ export const firebaseService = {
   // Update
   async update<T>(collectionName: string, userId: string, docId: string, data: Partial<T>): Promise<void> {
     try {
+      const db = getFirebaseDb();
+      if (!db) throw new Error('Firebase not initialized');
+
       const docRef = doc(db, 'users', userId, collectionName, docId);
       await updateDoc(docRef, convertToTimestamp(data));
     } catch (error) {
@@ -115,6 +129,9 @@ export const firebaseService = {
   // Delete
   async delete(collectionName: string, userId: string, docId: string): Promise<void> {
     try {
+      const db = getFirebaseDb();
+      if (!db) throw new Error('Firebase not initialized');
+
       const docRef = doc(db, 'users', userId, collectionName, docId);
       await deleteDoc(docRef);
     } catch (error) {
@@ -126,6 +143,9 @@ export const firebaseService = {
   // Query with constraints
   async query<T>(collectionName: string, userId: string, constraints: QueryConstraint[]): Promise<T[]> {
     try {
+      const db = getFirebaseDb();
+      if (!db) throw new Error('Firebase not initialized');
+
       const q = query(collection(db, 'users', userId, collectionName), ...constraints);
       const querySnapshot = await getDocs(q);
       return querySnapshot.docs.map((doc) => ({
@@ -435,5 +455,35 @@ export const bankAccountService = {
   },
   async delete(userId: string, accountId: string): Promise<void> {
     return firebaseService.delete('bankAccounts', userId, accountId);
+  },
+};
+
+export const houseHelpService = {
+  async create(help: HouseHelp, userId: string): Promise<string> {
+    return firebaseService.create('houseHelps', help, userId);
+  },
+  async getAll(userId: string): Promise<HouseHelp[]> {
+    return firebaseService.readAll('houseHelps', userId, [orderBy('createdAt', 'desc')]);
+  },
+  async update(userId: string, helpId: string, data: Partial<HouseHelp>): Promise<void> {
+    return firebaseService.update('houseHelps', userId, helpId, data);
+  },
+  async delete(userId: string, helpId: string): Promise<void> {
+    return firebaseService.delete('houseHelps', userId, helpId);
+  },
+};
+
+export const houseHelpPaymentService = {
+  async create(payment: HouseHelpPayment, userId: string): Promise<string> {
+    return firebaseService.create('houseHelpPayments', payment, userId);
+  },
+  async getAll(userId: string): Promise<HouseHelpPayment[]> {
+    return firebaseService.readAll('houseHelpPayments', userId, [orderBy('date', 'desc')]);
+  },
+  async update(userId: string, paymentId: string, data: Partial<HouseHelpPayment>): Promise<void> {
+    return firebaseService.update('houseHelpPayments', userId, paymentId, data);
+  },
+  async delete(userId: string, paymentId: string): Promise<void> {
+    return firebaseService.delete('houseHelpPayments', userId, paymentId);
   },
 };

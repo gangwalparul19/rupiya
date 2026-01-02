@@ -1,22 +1,27 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { useState, useMemo } from 'react';
 import { useAppStore } from '@/lib/store';
 import { useToast } from '@/lib/toastContext';
+import PageWrapper from '@/components/PageWrapper';
 import ConfirmDialog from '@/components/ConfirmDialog';
 import SkeletonLoader from '@/components/SkeletonLoader';
 import { validateName } from '@/lib/validation';
+import { categoryService } from '@/lib/firebaseService';
 
 const EMOJI_OPTIONS = ['🍔', '🚗', '💡', '🎬', '🛍️', '⚕️', '📚', '✈️', '🏠', '💰', '🎮', '🍕', '🏋️', '🎵', '🌍'];
 const COLOR_OPTIONS = ['bg-red-600', 'bg-blue-600', 'bg-green-600', 'bg-yellow-600', 'bg-purple-600', 'bg-pink-600', 'bg-indigo-600', 'bg-cyan-600'];
 
 export default function CategoriesPage() {
-  const { categories, addCategory, removeCategory, updateCategory } = useAppStore();
+  const { categories, addCategory, removeCategory, updateCategory, user } = useAppStore();
   const { success, error } = useToast();
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [isPageLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [confirmDialog, setConfirmDialog] = useState({
     isOpen: false,
     categoryId: '',
@@ -53,9 +58,9 @@ export default function CategoriesPage() {
     }
   };
 
-  const handleAddCategory = (e: React.FormEvent) => {
+  const handleAddCategory = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate
     const nameError = validateName(formData.name);
     if (nameError) {
@@ -68,24 +73,46 @@ export default function CategoriesPage() {
       return;
     }
 
-    addCategory({
-      id: `cat_${Date.now()}`,
-      name: formData.name,
-      emoji: formData.emoji,
-      color: formData.color,
-      type: formData.type,
-      createdAt: new Date(),
-    });
+    if (!user) {
+      error('User not authenticated');
+      return;
+    }
 
-    success('Category added successfully');
-    setFormData({
-      name: '',
-      emoji: '🍔',
-      color: 'bg-blue-600',
-      type: 'expense',
-    });
-    setErrors({});
-    setIsAddModalOpen(false);
+    setIsLoading(true);
+    try {
+      const categoryId = await categoryService.create({
+        id: `cat_${Date.now()}`,
+        name: formData.name,
+        emoji: formData.emoji,
+        color: formData.color,
+        type: formData.type,
+        createdAt: new Date(),
+      }, user.uid);
+
+      addCategory({
+        id: categoryId,
+        name: formData.name,
+        emoji: formData.emoji,
+        color: formData.color,
+        type: formData.type,
+        createdAt: new Date(),
+      });
+
+      success('Category added successfully');
+      setFormData({
+        name: '',
+        emoji: '🍔',
+        color: 'bg-blue-600',
+        type: 'expense',
+      });
+      setErrors({});
+      setIsAddModalOpen(false);
+    } catch (err) {
+      console.error('Error adding category:', err);
+      error('Failed to add category');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleEditCategory = (id: string) => {
@@ -102,9 +129,9 @@ export default function CategoriesPage() {
     }
   };
 
-  const handleSaveEdit = (e: React.FormEvent) => {
+  const handleSaveEdit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate
     const nameError = validateName(formData.name);
     if (nameError) {
@@ -112,23 +139,44 @@ export default function CategoriesPage() {
       return;
     }
 
+    if (!user) {
+      error('User not authenticated');
+      return;
+    }
+
     if (editingId) {
-      updateCategory(editingId, {
-        name: formData.name,
-        emoji: formData.emoji,
-        color: formData.color,
-        type: formData.type,
-      });
-      success('Category updated successfully');
-      setEditingId(null);
-      setFormData({
-        name: '',
-        emoji: '🍔',
-        color: 'bg-blue-600',
-        type: 'expense',
-      });
-      setErrors({});
-      setIsAddModalOpen(false);
+      setIsLoading(true);
+      try {
+        await categoryService.update(user.uid, editingId, {
+          name: formData.name,
+          emoji: formData.emoji,
+          color: formData.color,
+          type: formData.type,
+        });
+
+        updateCategory(editingId, {
+          name: formData.name,
+          emoji: formData.emoji,
+          color: formData.color,
+          type: formData.type,
+        });
+
+        success('Category updated successfully');
+        setEditingId(null);
+        setFormData({
+          name: '',
+          emoji: '🍔',
+          color: 'bg-blue-600',
+          type: 'expense',
+        });
+        setErrors({});
+        setIsAddModalOpen(false);
+      } catch (err) {
+        console.error('Error updating category:', err);
+        error('Failed to update category');
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -140,11 +188,25 @@ export default function CategoriesPage() {
     });
   };
 
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
+    if (!user) {
+      error('User not authenticated');
+      return;
+    }
+
     if (confirmDialog.categoryId) {
-      removeCategory(confirmDialog.categoryId);
-      success('Category deleted successfully');
-      setConfirmDialog({ isOpen: false, categoryId: '', categoryName: '' });
+      setIsLoading(true);
+      try {
+        await categoryService.delete(user.uid, confirmDialog.categoryId);
+        removeCategory(confirmDialog.categoryId);
+        success('Category deleted successfully');
+        setConfirmDialog({ isOpen: false, categoryId: '', categoryName: '' });
+      } catch (err) {
+        console.error('Error deleting category:', err);
+        error('Failed to delete category');
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -170,15 +232,15 @@ export default function CategoriesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 p-3 md:p-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-6 md:mb-8">
-          <h1 className="text-2xl md:text-4xl font-bold text-white mb-1 md:mb-2">Categories Management</h1>
-          <p className="text-xs md:text-base text-gray-400">Create and manage your expense and income categories</p>
+    <PageWrapper>
+      <div className="py-4 sm:py-6 md:py-8">
+        <div className="mb-block">
+          <h1 className="heading-page">Categories</h1>
+          <p className="text-secondary">Manage your expense and income categories</p>
         </div>
 
         {/* Action Buttons - Always visible */}
-        <div className="flex gap-2 md:gap-3 mb-6 sticky bottom-0 md:static bg-gray-950 p-3 md:p-0 -mx-3 md:mx-0 z-40">
+        <div className="flex flex-wrap gap-4 mb-section">
           <button
             onClick={() => {
               setIsAddModalOpen(true);
@@ -190,70 +252,74 @@ export default function CategoriesPage() {
                 type: 'expense',
               });
             }}
-            className="flex-1 px-3 md:px-4 py-2 text-xs md:text-base bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            className="btn btn-primary px-8 shadow-lg shadow-blue-500/20"
             aria-label="Add new category"
           >
-            + Add
+            + Add New Category
           </button>
           <button
             onClick={handleExportCSV}
-            className="flex-1 px-3 md:px-4 py-2 text-xs md:text-base bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+            className="btn btn-secondary px-6 border-slate-700/50"
             aria-label="Export categories to CSV file"
           >
-            CSV
+            📥 Export CSV
           </button>
         </div>
 
-        <div className="mb-6">
+        <div className="mb-block">
           <input
             type="text"
             placeholder="Search categories..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-3 md:px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 text-sm"
+            className="form-input w-full"
           />
         </div>
 
         {/* Add/Edit Modal */}
         {isAddModalOpen && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-3 md:p-4 z-50">
-            <div className="bg-gray-800 rounded-lg max-h-[90vh] overflow-y-auto w-full max-w-md">
-              <div className="p-4 md:p-6 sticky top-0 bg-gray-800 border-b border-gray-700">
-                <h2 className="text-xl md:text-2xl font-bold text-white">
+          <div className="w-full animate-slide-up mb-block">
+            <div className="card border-2 border-blue-500/50 bg-gradient-to-br from-slate-800/95 to-slate-900/95 w-full max-w-2xl mx-auto max-h-[90vh] overflow-y-auto">
+              <div className="p-4 md:p-6 border-b border-slate-700 flex justify-between items-center text-white bg-transparent">
+                <h2 className="text-xl md:text-2xl font-bold">
                   {editingId ? 'Edit Category' : 'Add New Category'}
                 </h2>
+                <button
+                  onClick={() => setIsAddModalOpen(false)}
+                  className="text-slate-400 hover:text-white text-2xl"
+                >
+                  ✕
+                </button>
               </div>
 
               <form onSubmit={editingId ? handleSaveEdit : handleAddCategory} className="p-4 md:p-6 space-y-4">
                 <div>
-                  <label className="block text-xs md:text-sm font-medium text-gray-300 mb-2">Category Name</label>
+                  <label className="form-label">Category Name</label>
                   <input
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="e.g., Groceries"
-                    className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-sm ${
-                      errors.name ? 'border-red-500' : 'border-gray-600'
-                    }`}
+                    className={`form-input ${errors.name ? 'border-red-500' : ''
+                      }`}
                     required
                   />
                   {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
                 </div>
 
                 <div>
-                  <label className="block text-xs md:text-sm font-medium text-gray-300 mb-2">Emoji</label>
+                  <label className="form-label">Emoji</label>
                   <div className="grid grid-cols-5 gap-2">
                     {EMOJI_OPTIONS.map((emoji) => (
                       <button
                         key={emoji}
                         type="button"
                         onClick={() => setFormData((prev) => ({ ...prev, emoji }))}
-                        className={`p-2 text-2xl md:text-3xl rounded-lg transition-colors ${
-                          formData.emoji === emoji
-                            ? 'bg-blue-600'
-                            : 'bg-gray-700 hover:bg-gray-600'
-                        }`}
+                        className={`p-2 text-2xl md:text-3xl rounded-lg transition-colors ${formData.emoji === emoji
+                          ? 'bg-blue-600'
+                          : 'bg-slate-700 hover:bg-slate-600'
+                          }`}
                       >
                         {emoji}
                       </button>
@@ -262,28 +328,27 @@ export default function CategoriesPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs md:text-sm font-medium text-gray-300 mb-2">Color</label>
+                  <label className="form-label">Color</label>
                   <div className="grid grid-cols-4 gap-2">
                     {COLOR_OPTIONS.map((color) => (
                       <button
                         key={color}
                         type="button"
                         onClick={() => setFormData((prev) => ({ ...prev, color }))}
-                        className={`p-3 rounded-lg transition-all ${color} ${
-                          formData.color === color ? 'ring-2 ring-white' : ''
-                        }`}
+                        className={`p-3 rounded-lg transition-all ${color} ${formData.color === color ? 'ring-2 ring-white' : ''
+                          }`}
                       />
                     ))}
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs md:text-sm font-medium text-gray-300 mb-2">Type</label>
+                  <label className="form-label">Type</label>
                   <select
                     name="type"
                     value={formData.type}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm"
+                    className="form-select"
                   >
                     <option value="expense">Expense</option>
                     <option value="income">Income</option>
@@ -291,14 +356,14 @@ export default function CategoriesPage() {
                   </select>
                 </div>
 
-                <div className="flex gap-2 pt-4 border-t border-gray-700">
+                <div className="flex gap-2 pt-4 border-t border-slate-700">
                   <button
                     type="submit"
-                    disabled={!!errors.name || !formData.name}
-                    className="flex-1 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                    disabled={!!errors.name || !formData.name || isLoading}
+                    className="flex-1 btn btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
                     aria-label={editingId ? `Update ${formData.name} category` : 'Add new category'}
                   >
-                    {editingId ? 'Update' : 'Add'} Category
+                    {isLoading ? 'Saving...' : editingId ? 'Update' : 'Add'} Category
                   </button>
                   <button
                     type="button"
@@ -313,7 +378,8 @@ export default function CategoriesPage() {
                       });
                       setErrors({});
                     }}
-                    className="flex-1 px-3 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium text-sm"
+                    disabled={isLoading}
+                    className="flex-1 btn btn-secondary disabled:opacity-50 disabled:cursor-not-allowed"
                     aria-label="Cancel"
                   >
                     Cancel
@@ -328,30 +394,32 @@ export default function CategoriesPage() {
         {isPageLoading ? (
           <SkeletonLoader type="card" count={4} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4" />
         ) : filteredCategories.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredCategories.map((category) => (
-              <div key={category.id} className="bg-gray-800 rounded-lg border-2 border-gray-700 p-3 md:p-4 text-white hover:border-gray-600 transition-colors">
-                {/* Icon and Name Section */}
-                <div className="flex flex-col items-center text-center mb-3">
-                  <div className={`${category.color} rounded-lg p-2 mb-2`}>
-                    <div className="text-3xl md:text-4xl">{category.emoji}</div>
+              <div key={category.id} className="card group">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className={`${category.color} rounded-2xl p-4 shadow-lg shadow-black/20 group-hover:scale-110 transition-transform duration-300`}>
+                    <div className="text-3xl">{category.emoji}</div>
                   </div>
-                  <h3 className="text-xs md:text-sm font-bold break-words line-clamp-2">{category.name}</h3>
-                  <span className="text-xs text-gray-400 capitalize mt-1">{category.type}</span>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-lg font-bold text-white truncate">{category.name}</h3>
+                    <span className="inline-block px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-white/5 text-slate-400 mt-1">
+                      {category.type}
+                    </span>
+                  </div>
                 </div>
 
-                {/* Buttons Section */}
-                <div className="flex gap-1 pt-2 md:pt-3 border-t border-gray-700">
+                <div className="flex gap-2 mt-auto">
                   <button
                     onClick={() => handleEditCategory(category.id)}
-                    className="flex-1 px-2 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors font-medium"
+                    className="flex-1 btn btn-secondary btn-small"
                     aria-label={`Edit ${category.name} category`}
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => handleDeleteClick(category.id, category.name)}
-                    className="flex-1 px-2 py-1 text-xs bg-red-600 text-white rounded hover:bg-red-700 transition-colors font-medium"
+                    className="flex-1 btn btn-danger btn-small"
                     aria-label={`Delete ${category.name} category`}
                   >
                     Delete
@@ -361,8 +429,8 @@ export default function CategoriesPage() {
             ))}
           </div>
         ) : (
-          <div className="bg-gray-800 rounded-lg p-6 md:p-8 text-center">
-            <p className="text-gray-400 text-xs md:text-base">
+          <div className="card text-center">
+            <p className="text-slate-400 text-xs md:text-base">
               {categories.length === 0
                 ? 'No categories yet. Create one to get started!'
                 : 'No categories match your search.'}
@@ -372,8 +440,8 @@ export default function CategoriesPage() {
 
         {/* Summary */}
         {filteredCategories.length > 0 && (
-          <div className="mt-6 bg-gray-800 rounded-lg p-3 md:p-4">
-            <p className="text-xs md:text-sm text-gray-300">
+          <div className="mt-block card">
+            <p className="text-xs md:text-sm text-slate-300">
               Showing <span className="font-semibold text-white">{filteredCategories.length}</span> of{' '}
               <span className="font-semibold text-white">{categories.length}</span> categories
             </p>
@@ -392,6 +460,8 @@ export default function CategoriesPage() {
           onCancel={() => setConfirmDialog({ isOpen: false, categoryId: '', categoryName: '' })}
         />
       </div>
-    </div>
+    </PageWrapper>
   );
 }
+
+

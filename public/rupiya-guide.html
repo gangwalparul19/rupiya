@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rupiya - Complete User Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.7;
+            color: #e2e8f0;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+            border-radius: 20px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .logo {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            color: #94a3b8;
+        }
+
+        .nav {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 15px 20px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav h3 {
+            color: #3b82f6;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .nav ul {
+            list-style: none;
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+            scrollbar-width: none;
+            /* Firefox */
+            -ms-overflow-style: none;
+            /* IE and Edge */
+        }
+
+        .nav ul::-webkit-scrollbar {
+            display: none;
+            /* Chrome, Safari and Opera */
+        }
+
+        .nav a {
+            color: #94a3b8;
+            text-decoration: none;
+            padding: 10px 20px;
+            display: block;
+            border-radius: 12px;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+            background: rgba(15, 23, 42, 0.4);
+            white-space: nowrap;
+            font-size: 0.95em;
+            font-weight: 500;
+        }
+
+        .nav a:hover {
+            background: rgba(59, 130, 246, 0.15);
+            border-color: rgba(59, 130, 246, 0.4);
+            color: #60a5fa;
+            transform: translateY(-2px);
+        }
+
+        .section {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(71, 85, 105, 0.3);
+            transition: all 0.3s;
+        }
+
+        .section:hover {
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 10px 40px rgba(59, 130, 246, 0.1);
+        }
+
+        h2 {
+            color: #3b82f6;
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+            font-weight: 700;
+        }
+
+        h3 {
+            color: #06b6d4;
+            font-size: 1.6em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        h4 {
+            color: #60a5fa;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #cbd5e1;
+            line-height: 1.8;
+        }
+
+        ul,
+        ol {
+            margin-left: 25px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 12px;
+            color: #cbd5e1;
+        }
+
+        .feature-box {
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .feature-box h4 {
+            color: #3b82f6;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .step {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(71, 85, 105, 0.3);
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 12px;
+            border-left: 4px solid #3b82f6;
+            transition: all 0.3s;
+        }
+
+        .step:hover {
+            border-left-color: #06b6d4;
+            background: rgba(15, 23, 42, 0.7);
+        }
+
+        .step-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .tip {
+            background: rgba(251, 191, 36, 0.1);
+            border-left: 4px solid #fbbf24;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .tip strong {
+            color: #fbbf24;
+        }
+
+        .warning {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid #ef4444;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .warning strong {
+            color: #ef4444;
+        }
+
+        .success {
+            background: rgba(34, 197, 94, 0.1);
+            border-left: 4px solid #22c55e;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        .success strong {
+            color: #22c55e;
+        }
+
+        code {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 3px 8px;
+            border-radius: 5px;
+            color: #06b6d4;
+            font-family: 'Courier New', monospace;
+            border: 1px solid rgba(71, 85, 105, 0.3);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #64748b;
+            margin-top: 60px;
+            border-top: 1px solid rgba(71, 85, 105, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header {
+                padding: 40px 15px;
+                margin-bottom: 25px;
+            }
+
+            .header h1 {
+                font-size: 2.2em;
+            }
+
+            .nav {
+                margin: 0 -15px 30px;
+                border-radius: 0;
+                padding: 12px 15px;
+                top: 0;
+                border-left: none;
+                border-right: none;
+            }
+
+            .nav h3 {
+                display: none;
+            }
+
+            .section {
+                padding: 25px 20px;
+                margin-bottom: 25px;
+                border-radius: 24px;
+            }
+
+            h2 {
+                font-size: 1.8em;
+                margin-bottom: 20px;
+            }
+
+            .feature-box {
+                padding: 20px;
+                margin: 20px 0;
+            }
+
+            .section ul:not(.nav ul) {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+                margin-left: 0;
+                list-style: none;
+            }
+
+            .section li {
+                font-size: 0.85em;
+                margin-bottom: 0;
+                background: rgba(15, 23, 42, 0.4);
+                padding: 12px;
+                border-radius: 12px;
+                border: 1px solid rgba(59, 130, 246, 0.1);
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            /* Adjust feature-box list specifically if needed */
+            .feature-box ul {
+                gap: 15px;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+
+            .section {
+                background: white;
+                border: 1px solid #ddd;
+            }
+
+            .nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">💰</div>
+            <h1>Rupiya User Guide</h1>
+            <p>Your Complete Guide to Smart Financial Management</p>
+        </div>
+
+        <nav class="nav">
+            <h3>📑 Quick Navigation</h3>
+            <ul>
+                <li><a href="#getting-started">Getting Started</a></li>
+                <li><a href="#expenses">Expense Tracking</a></li>
+                <li><a href="#income">Income Management</a></li>
+                <li><a href="#budgets">Budget Planning</a></li>
+                <li><a href="#investments">Investment Tracking</a></li>
+                <li><a href="#goals">Financial Goals</a></li>
+                <li><a href="#reports">Reports & Analytics</a></li>
+                <li><a href="#tips">Pro Tips</a></li>
+            </ul>
+        </nav>
+
+        <section id="getting-started" class="section">
+            <h2>🚀 Getting Started</h2>
+
+            <h3>Creating Your Account</h3>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Visit Rupiya</strong> - Navigate to <code>https://rupiya.online</code>
+            </div>
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Sign Up</strong> - Click "Sign Up" and choose your preferred method:
+                <ul>
+                    <li>Email & Password</li>
+                    <li>Google Sign-In (Recommended for faster access)</li>
+                </ul>
+            </div>
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Complete Profile</strong> - Add your basic information and preferences
+            </div>
+
+            <div class="tip">
+                <strong>💡 Pro Tip:</strong> Use Google Sign-In for seamless access across devices without remembering
+                passwords.
+            </div>
+        </section>
+
+        <section id="expenses" class="section">
+            <h2>📊 Expense Tracking</h2>
+
+            <h3>Adding Expenses</h3>
+            <p>Track every rupee you spend with detailed categorization:</p>
+
+            <div class="feature-box">
+                <h4>Quick Add Features</h4>
+                <ul>
+                    <li><strong>Amount:</strong> Enter the expense amount</li>
+                    <li><strong>Category:</strong> Choose from 20+ categories (Food, Transport, Shopping, etc.)</li>
+                    <li><strong>Date:</strong> Select when the expense occurred</li>
+                    <li><strong>Payment Method:</strong> Cash, Card, UPI, etc.</li>
+                    <li><strong>Description:</strong> Add notes for future reference</li>
+                    <li><strong>Receipt:</strong> Attach receipt photos</li>
+                </ul>
+            </div>
+
+            <h3>Expense Categories</h3>
+            <ul>
+                <li>🍔 Food & Dining</li>
+                <li>🚗 Transportation</li>
+                <li>🛍️ Shopping</li>
+                <li>🏠 Housing & Utilities</li>
+                <li>💊 Healthcare</li>
+                <li>🎓 Education</li>
+                <li>🎬 Entertainment</li>
+                <li>✈️ Travel</li>
+                <li>And many more...</li>
+            </ul>
+
+            <div class="success">
+                <strong>✅ Best Practice:</strong> Add expenses immediately after spending to maintain accurate records.
+            </div>
+        </section>
+
+        <section id="income" class="section">
+            <h2>💰 Income Management</h2>
+
+            <h3>Recording Income</h3>
+            <p>Track all your income sources for complete financial visibility:</p>
+
+            <div class="step">
+                <span class="step-number">1</span>
+                Navigate to <strong>Income</strong> section
+            </div>
+            <div class="step">
+                <span class="step-number">2</span>
+                Click <strong>"Add Income"</strong>
+            </div>
+            <div class="step">
+                <span class="step-number">3</span>
+                Enter details: Amount, Source, Date, Category
+            </div>
+
+            <h3>Income Categories</h3>
+            <ul>
+                <li>💼 Salary</li>
+                <li>💵 Freelance</li>
+                <li>📈 Investments</li>
+                <li>🎁 Gifts</li>
+                <li>💸 Refunds</li>
+                <li>🏆 Bonuses</li>
+            </ul>
+        </section>
+
+        <section id="budgets" class="section">
+            <h2>💳 Budget Planning</h2>
+
+            <h3>Creating Budgets</h3>
+            <p>Set spending limits for different categories to stay on track:</p>
+
+            <div class="feature-box">
+                <h4>Budget Setup</h4>
+                <ol>
+                    <li>Go to <strong>Budgets</strong> section</li>
+                    <li>Click <strong>"Create Budget"</strong></li>
+                    <li>Select category (e.g., Food, Shopping)</li>
+                    <li>Set monthly limit</li>
+                    <li>Choose alert threshold (e.g., 80%)</li>
+                </ol>
+            </div>
+
+            <h3>Budget Alerts</h3>
+            <p>Receive notifications when you:</p>
+            <ul>
+                <li>Reach 50% of budget</li>
+                <li>Reach 80% of budget</li>
+                <li>Exceed budget limit</li>
+            </ul>
+
+            <div class="tip">
+                <strong>💡 Smart Budgeting:</strong> Start with the 50/30/20 rule - 50% needs, 30% wants, 20% savings.
+            </div>
+        </section>
+
+        <section id="investments" class="section">
+            <h2>📈 Investment Tracking</h2>
+
+            <h3>Supported Investment Types</h3>
+            <ul>
+                <li><strong>Stocks:</strong> Track individual stock holdings</li>
+                <li><strong>Mutual Funds:</strong> Monitor SIPs and lump sum investments</li>
+                <li><strong>Cryptocurrency:</strong> Track crypto portfolio</li>
+                <li><strong>Fixed Deposits:</strong> Monitor FD maturity and returns</li>
+                <li><strong>Gold:</strong> Track physical and digital gold</li>
+            </ul>
+
+            <h3>Adding Investments</h3>
+            <div class="step">
+                <span class="step-number">1</span>
+                Navigate to <strong>Investments</strong>
+            </div>
+            <div class="step">
+                <span class="step-number">2</span>
+                Click <strong>"Add Investment"</strong>
+            </div>
+            <div class="step">
+                <span class="step-number">3</span>
+                Enter: Type, Amount, Purchase Date, Current Value
+            </div>
+
+            <div class="success">
+                <strong>✅ Track Returns:</strong> Rupiya automatically calculates your gains/losses and ROI.
+            </div>
+        </section>
+
+        <section id="goals" class="section">
+            <h2>🎯 Financial Goals</h2>
+
+            <h3>Setting Goals</h3>
+            <p>Create and track progress towards your financial objectives:</p>
+
+            <div class="feature-box">
+                <h4>Goal Types</h4>
+                <ul>
+                    <li>🏠 Home Purchase</li>
+                    <li>🚗 Vehicle</li>
+                    <li>✈️ Vacation</li>
+                    <li>💍 Wedding</li>
+                    <li>🎓 Education</li>
+                    <li>🏖️ Retirement</li>
+                    <li>📱 Gadgets</li>
+                    <li>💰 Emergency Fund</li>
+                </ul>
+            </div>
+
+            <h3>Goal Tracking</h3>
+            <ul>
+                <li>Set target amount</li>
+                <li>Define deadline</li>
+                <li>Track contributions</li>
+                <li>View progress percentage</li>
+                <li>Get milestone notifications</li>
+            </ul>
+        </section>
+
+        <section id="reports" class="section">
+            <h2>📊 Reports & Analytics</h2>
+
+            <h3>Available Reports</h3>
+
+            <div class="feature-box">
+                <h4>Expense Reports</h4>
+                <ul>
+                    <li>Category-wise breakdown</li>
+                    <li>Monthly trends</li>
+                    <li>Payment method analysis</li>
+                    <li>Top spending categories</li>
+                </ul>
+            </div>
+
+            <div class="feature-box">
+                <h4>Income Reports</h4>
+                <ul>
+                    <li>Source-wise income</li>
+                    <li>Monthly income trends</li>
+                    <li>Year-over-year comparison</li>
+                </ul>
+            </div>
+
+            <div class="feature-box">
+                <h4>Cash Flow Analysis</h4>
+                <ul>
+                    <li>Income vs Expenses</li>
+                    <li>Savings rate</li>
+                    <li>Net worth tracking</li>
+                    <li>Financial health score</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="tips" class="section">
+            <h2>💡 Pro Tips</h2>
+
+            <h3>Daily Habits</h3>
+            <ul>
+                <li>✅ Log expenses immediately</li>
+                <li>✅ Review daily spending before bed</li>
+                <li>✅ Check budget status</li>
+                <li>✅ Categorize all transactions</li>
+            </ul>
+
+            <h3>Weekly Habits</h3>
+            <ul>
+                <li>📊 Review weekly reports</li>
+                <li>💰 Update investment values</li>
+                <li>🎯 Check goal progress</li>
+                <li>📝 Plan next week's budget</li>
+            </ul>
+
+            <h3>Monthly Habits</h3>
+            <ul>
+                <li>📈 Analyze monthly trends</li>
+                <li>💳 Review and adjust budgets</li>
+                <li>🎯 Update financial goals</li>
+                <li>💾 Export data for records</li>
+            </ul>
+
+            <div class="tip">
+                <strong>💡 Golden Rule:</strong> Consistency is key! Regular tracking leads to better financial
+                decisions.
+            </div>
+        </section>
+
+        <div class="footer">
+            <p><strong>Need Help?</strong> Contact us at support@rupiya.online</p>
+            <p>© 2025 Rupiya. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+
+</html>

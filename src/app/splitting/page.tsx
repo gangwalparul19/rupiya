@@ -1,8 +1,11 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAppStore } from '@/lib/store';
+import PageWrapper from '@/components/PageWrapper';
 import { useToast } from '@/lib/toastContext';
 import { splitExpenseService, settlementService } from '@/lib/firebaseService';
 import type { SplitExpense } from '@/lib/store';
@@ -113,8 +116,8 @@ export default function SplittingPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800">
-      <div className="container mx-auto px-4 py-8">
+    <PageWrapper>
+      <div className="py-4 sm:py-6 md:py-8">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
           <h1 className="text-2xl md:text-2xl font-bold text-white">💸 Expense Splitting</h1>
           <button
@@ -145,21 +148,19 @@ export default function SplittingPage() {
         <div className="flex gap-4 mb-6">
           <button
             onClick={() => setActiveTab('splits')}
-            className={`px-6 py-2 rounded-lg transition font-semibold ${
-              activeTab === 'splits'
-                ? 'bg-blue-600 text-white'
-                : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
-            }`}
+            className={`px-6 py-2 rounded-lg transition font-semibold ${activeTab === 'splits'
+              ? 'bg-blue-600 text-white'
+              : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+              }`}
           >
             Split Expenses ({splitExpenses.length})
           </button>
           <button
             onClick={() => setActiveTab('settlements')}
-            className={`px-6 py-2 rounded-lg transition font-semibold ${
-              activeTab === 'settlements'
-                ? 'bg-blue-600 text-white'
-                : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
-            }`}
+            className={`px-6 py-2 rounded-lg transition font-semibold ${activeTab === 'settlements'
+              ? 'bg-blue-600 text-white'
+              : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+              }`}
           >
             Settlements ({settlements.filter((s) => !s.settled).length})
           </button>
@@ -195,13 +196,12 @@ export default function SplittingPage() {
                         ₹{split.totalAmount.toFixed(2)}
                       </p>
                       <span
-                        className={`inline-block px-3 py-1 rounded text-xs font-semibold mt-1 ${
-                          split.status === 'settled'
-                            ? 'bg-green-600 text-white'
-                            : split.status === 'partial'
+                        className={`inline-block px-3 py-1 rounded text-xs font-semibold mt-1 ${split.status === 'settled'
+                          ? 'bg-green-600 text-white'
+                          : split.status === 'partial'
                             ? 'bg-yellow-600 text-white'
                             : 'bg-blue-600 text-white'
-                        }`}
+                          }`}
                       >
                         {split.status}
                       </span>
@@ -252,9 +252,8 @@ export default function SplittingPage() {
               settlements.map((settlement) => (
                 <div
                   key={settlement.id}
-                  className={`bg-slate-700 rounded-lg p-4 hover:bg-slate-600 transition ${
-                    settlement.settled ? 'opacity-60' : ''
-                  }`}
+                  className={`bg-slate-700 rounded-lg p-4 hover:bg-slate-600 transition ${settlement.settled ? 'opacity-60' : ''
+                    }`}
                 >
                   <div className="flex justify-between items-center">
                     <div>
@@ -295,7 +294,7 @@ export default function SplittingPage() {
           showError={showError}
         />
       )}
-    </main>
+    </PageWrapper>
   );
 }
 
@@ -374,135 +373,147 @@ function SplitExpenseModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-slate-800 rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-        <h2 className="text-2xl font-bold text-white mb-4">Split Expense</h2>
+    <div className="w-full animate-slide-up mb-8">
+      <div className="card border-2 border-blue-500/50 bg-gradient-to-br from-slate-800/95 to-slate-900/95 w-full max-w-2xl mx-auto max-h-[90vh] overflow-y-auto">
+        <div className="p-4 md:p-6 border-b border-slate-700 flex justify-between items-center text-white bg-transparent">
+          <h2 className="text-xl md:text-2xl font-bold">Split Expense</h2>
+          <button
+            onClick={onClose}
+            className="text-slate-400 hover:text-white text-2xl"
+          >
+            ✕
+          </button>
+        </div>
+        <div className="p-4 md:p-6">
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Description */}
-          <div>
-            <label className="block text-sm font-semibold text-slate-300 mb-2">
-              Description
-            </label>
-            <input
-              type="text"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="e.g., Dinner at restaurant"
-              className="w-full bg-slate-700 text-white px-4 py-2 rounded-lg border border-slate-600 focus:border-blue-500 focus:outline-none"
-            />
-          </div>
-
-          {/* Amount and Currency */}
-          <div className="grid grid-cols-2 gap-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Description */}
             <div>
               <label className="block text-sm font-semibold text-slate-300 mb-2">
-                Total Amount
+                Description
               </label>
               <input
-                type="number"
-                value={totalAmount}
-                onChange={(e) => setTotalAmount(e.target.value)}
-                placeholder="0.00"
-                step="0.01"
+                type="text"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                placeholder="e.g., Dinner at restaurant"
                 className="w-full bg-slate-700 text-white px-4 py-2 rounded-lg border border-slate-600 focus:border-blue-500 focus:outline-none"
               />
             </div>
+
+            {/* Amount and Currency */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-semibold text-slate-300 mb-2">
+                  Total Amount
+                </label>
+                <input
+                  type="number"
+                  value={totalAmount}
+                  onChange={(e) => setTotalAmount(e.target.value)}
+                  placeholder="0.00"
+                  step="0.01"
+                  className="w-full bg-slate-700 text-white px-4 py-2 rounded-lg border border-slate-600 focus:border-blue-500 focus:outline-none"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-slate-300 mb-2">
+                  Currency
+                </label>
+                <select
+                  value={currency}
+                  onChange={(e) => setCurrency(e.target.value)}
+                  className="w-full bg-slate-700 text-white px-4 py-2 rounded-lg border border-slate-600 focus:border-blue-500 focus:outline-none"
+                >
+                  <option value="INR">INR (₹)</option>
+                  <option value="USD">USD ($)</option>
+                  <option value="EUR">EUR (€)</option>
+                  <option value="GBP">GBP (£)</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Date */}
+            <div>
+              <label className="block text-sm font-semibold text-slate-300 mb-2">Date</label>
+              <input
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                className="w-full bg-slate-700 text-white px-4 py-2 rounded-lg border border-slate-600 focus:border-blue-500 focus:outline-none"
+              />
+            </div>
+
+            {/* Participants */}
             <div>
               <label className="block text-sm font-semibold text-slate-300 mb-2">
-                Currency
+                Participants
               </label>
-              <select
-                value={currency}
-                onChange={(e) => setCurrency(e.target.value)}
-                className="w-full bg-slate-700 text-white px-4 py-2 rounded-lg border border-slate-600 focus:border-blue-500 focus:outline-none"
-              >
-                <option value="INR">INR (₹)</option>
-                <option value="USD">USD ($)</option>
-                <option value="EUR">EUR (€)</option>
-                <option value="GBP">GBP (£)</option>
-              </select>
+              <div className="space-y-3 bg-slate-700 p-4 rounded-lg">
+                {participants.map((participant, index) => (
+                  <div key={index} className="grid grid-cols-4 gap-2">
+                    <input
+                      type="text"
+                      value={participant.name}
+                      onChange={(e) => handleParticipantChange(index, 'name', e.target.value)}
+                      placeholder="Name"
+                      className="bg-slate-600 text-white px-3 py-2 rounded border border-slate-500 focus:border-blue-500 focus:outline-none text-sm"
+                    />
+                    <input
+                      type="email"
+                      value={participant.email}
+                      onChange={(e) => handleParticipantChange(index, 'email', e.target.value)}
+                      placeholder="Email"
+                      className="bg-slate-600 text-white px-3 py-2 rounded border border-slate-500 focus:border-blue-500 focus:outline-none text-sm"
+                    />
+                    <input
+                      type="number"
+                      value={participant.amount}
+                      onChange={(e) => handleParticipantChange(index, 'amount', e.target.value)}
+                      placeholder="Amount"
+                      step="0.01"
+                      className="bg-slate-600 text-white px-3 py-2 rounded border border-slate-500 focus:border-blue-500 focus:outline-none text-sm"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveParticipant(index)}
+                      className="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded text-sm transition"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  onClick={handleAddParticipant}
+                  className="w-full bg-slate-600 hover:bg-slate-500 text-white px-4 py-2 rounded transition text-sm"
+                >
+                  + Add Participant
+                </button>
+              </div>
             </div>
-          </div>
 
-          {/* Date */}
-          <div>
-            <label className="block text-sm font-semibold text-slate-300 mb-2">Date</label>
-            <input
-              type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              className="w-full bg-slate-700 text-white px-4 py-2 rounded-lg border border-slate-600 focus:border-blue-500 focus:outline-none"
-            />
-          </div>
-
-          {/* Participants */}
-          <div>
-            <label className="block text-sm font-semibold text-slate-300 mb-2">
-              Participants
-            </label>
-            <div className="space-y-3 bg-slate-700 p-4 rounded-lg">
-              {participants.map((participant, index) => (
-                <div key={index} className="grid grid-cols-4 gap-2">
-                  <input
-                    type="text"
-                    value={participant.name}
-                    onChange={(e) => handleParticipantChange(index, 'name', e.target.value)}
-                    placeholder="Name"
-                    className="bg-slate-600 text-white px-3 py-2 rounded border border-slate-500 focus:border-blue-500 focus:outline-none text-sm"
-                  />
-                  <input
-                    type="email"
-                    value={participant.email}
-                    onChange={(e) => handleParticipantChange(index, 'email', e.target.value)}
-                    placeholder="Email"
-                    className="bg-slate-600 text-white px-3 py-2 rounded border border-slate-500 focus:border-blue-500 focus:outline-none text-sm"
-                  />
-                  <input
-                    type="number"
-                    value={participant.amount}
-                    onChange={(e) => handleParticipantChange(index, 'amount', e.target.value)}
-                    placeholder="Amount"
-                    step="0.01"
-                    className="bg-slate-600 text-white px-3 py-2 rounded border border-slate-500 focus:border-blue-500 focus:outline-none text-sm"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveParticipant(index)}
-                    className="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded text-sm transition"
-                  >
-                    Remove
-                  </button>
-                </div>
-              ))}
+            {/* Buttons */}
+            <div className="flex gap-3 justify-end">
               <button
                 type="button"
-                onClick={handleAddParticipant}
-                className="w-full bg-slate-600 hover:bg-slate-500 text-white px-4 py-2 rounded transition text-sm"
+                onClick={onClose}
+                className="bg-slate-600 hover:bg-slate-500 text-white px-6 py-2 rounded-lg transition"
               >
-                + Add Participant
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition font-semibold"
+              >
+                Create Split
               </button>
             </div>
-          </div>
-
-          {/* Buttons */}
-          <div className="flex gap-3 justify-end">
-            <button
-              type="button"
-              onClick={onClose}
-              className="bg-slate-600 hover:bg-slate-500 text-white px-6 py-2 rounded-lg transition"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg transition font-semibold"
-            >
-              Create Split
-            </button>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   );
 }
+
+

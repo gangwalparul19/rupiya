@@ -1,10 +1,13 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { useState, useMemo } from 'react';
 import { useAppStore } from '@/lib/store';
 import { useToast } from '@/lib/toastContext';
+import PageWrapper from '@/components/PageWrapper';
 import { storageService } from '@/lib/storageService';
-import { auth } from '@/lib/firebase';
+import { getFirebaseAuth } from '@/lib/firebase';
 
 export default function DocumentsPage() {
   const { documents, addDocument, removeDocument } = useAppStore();
@@ -38,7 +41,7 @@ export default function DocumentsPage() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const target = e.target as HTMLInputElement;
-    
+
     if (target.type === 'file') {
       const files = target.files;
       setFormData((prev) => ({
@@ -66,7 +69,8 @@ export default function DocumentsPage() {
       }
 
       // Check if user is authenticated
-      if (!auth.currentUser) {
+      const auth = getFirebaseAuth();
+      if (!auth || !auth.currentUser) {
         error('You must be logged in to upload documents');
         setIsLoading(false);
         return;
@@ -110,23 +114,24 @@ export default function DocumentsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 p-4 md:p-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">Document Vault</h1>
-          <p className="text-gray-400">Store and organize your important documents</p>
+    <PageWrapper>
+      <div className="py-4 sm:py-6 md:py-8">
+        <div className="mb-6 md:mb-8">
+          <h1 className="heading-page">🗂️ Document Vault</h1>
+          <p className="text-secondary">Store and organize your important documents</p>
         </div>
 
         {/* KPI Cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-2 gap-3 md:gap-4 mb-8">
-          <div className="bg-gray-800 p-4 md:p-6 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs md:text-sm mb-2">Total Documents</p>
-            <p className="text-2xl md:text-3xl font-bold text-blue-400">{kpiStats.totalDocuments}</p>
+        <div className="grid-responsive-3 mb-10 md:mb-16">
+          <div className="kpi-card">
+            <p className="kpi-label text-blue-400">Total Documents</p>
+            <p className="kpi-value text-white">{kpiStats.totalDocuments}</p>
+            <p className="kpi-subtitle text-slate-400">Secured in vault</p>
           </div>
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-3 mb-6">
+        <div className="flex gap-3 mb-10 md:mb-12 flex-wrap">
           <button
             onClick={() => {
               setShowModalInline(true);
@@ -137,21 +142,21 @@ export default function DocumentsPage() {
                 tags: '',
               });
             }}
-            className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            className="btn btn-primary px-8 shadow-lg shadow-blue-500/20"
           >
-            + Add Document
+            + Upload Document
           </button>
         </div>
 
         {/* Add Document Modal - Inline */}
         {showModalInline && (
-          <div className="bg-gray-800 rounded-lg p-6 mb-8 border border-gray-700">
-            <h2 className="text-2xl font-bold text-white mb-4">Add Document</h2>
+          <div className="card mb-6 md:mb-8">
+            <h2 className="heading-section mb-4">Add Document</h2>
 
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <label className="form-label">
                     Document Name <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -160,20 +165,20 @@ export default function DocumentsPage() {
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="Document name"
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                    className="form-input"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <label className="form-label">
                     Type <span className="text-red-500">*</span>
                   </label>
                   <select
                     name="type"
                     value={formData.type}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                    className="form-select"
                     required
                   >
                     <option value="">Select Type</option>
@@ -186,22 +191,22 @@ export default function DocumentsPage() {
                 </div>
 
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <label className="form-label">
                     Upload Document <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="file"
                     onChange={handleChange}
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500 file:bg-blue-600 file:text-white file:border-0 file:rounded file:px-3 file:py-1 file:cursor-pointer"
+                    className="form-input file:bg-blue-600 file:text-white file:border-0 file:rounded file:px-3 file:py-1 file:cursor-pointer"
                     required
                   />
                   {formData.file && (
-                    <p className="text-sm text-gray-400 mt-2">Selected: {formData.file.name}</p>
+                    <p className="text-xs text-slate-400 mt-2">Selected: {formData.file.name}</p>
                   )}
                 </div>
 
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                  <label className="form-label">
                     Tags (Optional)
                   </label>
                   <input
@@ -210,12 +215,12 @@ export default function DocumentsPage() {
                     value={formData.tags}
                     onChange={handleChange}
                     placeholder="Tags (comma separated)"
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                    className="form-input"
                   />
                 </div>
               </div>
 
-              <div className="flex gap-3 pt-4 border-t border-gray-700">
+              <div className="flex gap-2 md:gap-3 pt-4 border-t border-slate-700">
                 <button
                   type="button"
                   onClick={() => {
@@ -227,13 +232,13 @@ export default function DocumentsPage() {
                       tags: '',
                     });
                   }}
-                  className="flex-1 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium"
+                  className="flex-1 btn btn-secondary"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50"
+                  className="flex-1 btn btn-primary disabled:opacity-50"
                   disabled={isLoading}
                 >
                   {isLoading ? 'Uploading...' : 'Upload Document'}
@@ -244,18 +249,18 @@ export default function DocumentsPage() {
         )}
 
         {/* Search and Filter */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3 mb-6 md:mb-8">
           <input
             type="text"
             placeholder="Search documents..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
+            className="form-input"
           />
           <select
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
-            className="px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
+            className="form-select"
           >
             <option value="">All Types</option>
             {documentTypes.map((type) => (
@@ -267,68 +272,75 @@ export default function DocumentsPage() {
         </div>
 
         {/* Documents Grid */}
+        {/* Documents Grid - 3 columns on mobile */}
         {filteredDocuments.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid-3 mb-6 md:mb-8">
             {filteredDocuments.map((doc) => {
-              const uploadDate = doc.uploadedAt instanceof Date 
+              const uploadDate = doc.uploadedAt instanceof Date
                 ? doc.uploadedAt.toLocaleDateString()
                 : new Date(doc.uploadedAt).toLocaleDateString();
 
               return (
-                <div key={doc.id} className="bg-gray-800 rounded-lg p-6 hover:bg-gray-700 transition-colors">
-                  <div className="mb-4">
-                    <h3 className="text-lg font-bold text-white truncate">{doc.name}</h3>
-                    <p className="text-xs text-gray-400 mt-1">{doc.type}</p>
-                    <p className="text-xs text-gray-500 mt-1">{uploadDate}</p>
+
+                <div key={doc.id} className="card p-2 sm:p-4">
+                  <div className="mb-2 sm:mb-4 min-w-0">
+                    <h3 className="text-xs sm:text-base md:text-lg font-bold text-white truncate" title={doc.name}>{doc.name}</h3>
+                    <p className="text-[8px] sm:text-xs text-slate-400 mt-0.5">{doc.type}</p>
+                    <p className="text-[8px] sm:text-xs text-slate-500 mt-0.5">{uploadDate}</p>
                   </div>
 
                   {doc.tags.length > 0 && (
                     <div className="mb-4 flex flex-wrap gap-2">
                       {doc.tags.map((tag) => (
-                        <span key={tag} className="px-2 py-1 bg-gray-700 text-gray-300 text-xs rounded">
+                        <span key={tag} className="px-2 py-1 bg-slate-700 text-slate-300 text-xs rounded">
                           {tag}
                         </span>
                       ))}
                     </div>
                   )}
 
-                  <div className="flex gap-2 pt-4 border-t border-gray-700">
+                  <div className="flex gap-1 pt-3 border-t border-slate-700/50">
                     <a
                       href={doc.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 px-3 py-2 text-sm bg-green-600 text-white rounded hover:bg-green-700 transition-colors text-center"
+                      className="flex-1 btn btn-success p-1 text-[10px] sm:text-sm text-center"
+                      title="View"
                     >
-                      View
+                      👁️
                     </a>
                     <button
                       onClick={() => handleDelete(doc.id)}
-                      className="flex-1 px-3 py-2 text-sm bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+                      className="flex-1 btn btn-danger p-1 text-[10px] sm:text-sm"
+                      title="Delete"
                     >
-                      Delete
+                      🗑️
                     </button>
                   </div>
                 </div>
+
               );
             })}
           </div>
         ) : (
-          <div className="bg-gray-800 rounded-lg p-8 text-center">
-            <p className="text-gray-400">
+          <div className="card text-center py-8 md:py-12">
+            <p className="text-slate-400 text-sm md:text-base">
               {documents.length === 0 ? 'No documents yet. Add one to get started!' : 'No documents match your search.'}
             </p>
           </div>
         )}
 
         {filteredDocuments.length > 0 && (
-          <div className="mt-6 bg-gray-800 rounded-lg p-4">
-            <p className="text-gray-300">
+          <div className="card">
+            <p className="text-slate-300 text-xs md:text-sm">
               Showing <span className="font-semibold text-white">{filteredDocuments.length}</span> of{' '}
               <span className="font-semibold text-white">{documents.length}</span> documents
             </p>
           </div>
         )}
       </div>
-    </div>
+    </PageWrapper>
   );
 }
+
+

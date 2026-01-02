@@ -1,8 +1,11 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { useState, useMemo } from 'react';
 import { useAppStore } from '@/lib/store';
 import { useToast } from '@/lib/toastContext';
+import PageWrapper from '@/components/PageWrapper';
 import ConfirmDialog from '@/components/ConfirmDialog';
 import FormModal from '@/components/FormModal';
 import SkeletonLoader from '@/components/SkeletonLoader';
@@ -82,12 +85,12 @@ export default function CalendarPage() {
 
   const handleAddEvent = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate
     const titleError = validateTitle(eventFormData.title);
     const dateError = validateDate(eventFormData.date);
     const reminderError = validateReminderDays(eventFormData.reminderDays);
-    
+
     if (titleError || dateError || reminderError) {
       setEventErrors({
         title: titleError || '',
@@ -128,14 +131,14 @@ export default function CalendarPage() {
 
   const handleAddBill = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate
     const nameError = validateTitle(billFormData.name);
     const amountError = validateAmount(billFormData.amount);
     const dateError = validateDate(billFormData.dueDate);
     const frequencyError = validateFrequency(billFormData.frequency);
     const reminderError = validateReminderDays(billFormData.reminderDays);
-    
+
     if (nameError || amountError || dateError || frequencyError || reminderError) {
       setBillErrors({
         name: nameError || '',
@@ -215,35 +218,35 @@ export default function CalendarPage() {
   const monthName = currentMonth.toLocaleString('default', { month: 'long', year: 'numeric' });
 
   return (
-    <div className="min-h-screen bg-gray-950 p-3 md:p-8">
-      <div className="max-w-7xl mx-auto">
+    <PageWrapper>
+      <div className="py-4 sm:py-6 md:py-8">
         <div className="mb-6 md:mb-8">
-          <h1 className="text-2xl md:text-4xl font-bold text-white mb-1 md:mb-2">Calendar & Reminders</h1>
-          <p className="text-xs md:text-base text-gray-400">Track bills, events, and financial milestones</p>
+          <h1 className="heading-page">Calendar & Reminders</h1>
+          <p className="text-secondary">Track bills, events, and financial milestones</p>
         </div>
 
         {/* Action Buttons - Always visible */}
-        <div className="flex gap-2 md:gap-3 mb-6 sticky bottom-0 md:static bg-gray-950 p-3 md:p-0 -mx-3 md:mx-0 z-40">
+        <div className="flex gap-3 mb-10 md:mb-12 flex-wrap">
           <button
             onClick={() => setIsEventModalOpen(true)}
-            className="flex-1 px-3 md:px-4 py-2 text-xs md:text-base bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            className="btn btn-primary px-8 shadow-lg shadow-blue-500/20"
             aria-label="Add new calendar event"
           >
-            + Event
+            + Add Event
           </button>
           <button
             onClick={() => setIsBillModalOpen(true)}
-            className="flex-1 px-3 md:px-4 py-2 text-xs md:text-base bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors font-medium"
+            className="btn btn-secondary border-orange-500/20 hover:border-orange-500/40 text-orange-400"
             aria-label="Add new bill reminder"
           >
-            + Bill
+            + Add Bill
           </button>
           <button
             onClick={() => setViewMode(viewMode === 'calendar' ? 'list' : 'calendar')}
-            className="flex-1 px-3 md:px-4 py-2 text-xs md:text-base bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors font-medium"
+            className="btn btn-secondary"
             aria-label={`Switch to ${viewMode === 'calendar' ? 'list' : 'calendar'} view`}
           >
-            {viewMode === 'calendar' ? '📋' : '📅'}
+            {viewMode === 'calendar' ? '📋 List View' : '📅 Calendar View'}
           </button>
         </div>
 
@@ -270,9 +273,8 @@ export default function CalendarPage() {
                 setEventErrors((prev) => ({ ...prev, title: error || '' }));
               }}
               placeholder="Event title"
-              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-sm ${
-                eventErrors.title ? 'border-red-500' : 'border-gray-600'
-              }`}
+              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-sm ${eventErrors.title ? 'border-red-500' : 'border-gray-600'
+                }`}
               required
             />
             {eventErrors.title && <p className="text-red-400 text-xs mt-1">{eventErrors.title}</p>}
@@ -288,9 +290,8 @@ export default function CalendarPage() {
                 const error = validateDate(e.target.value);
                 setEventErrors((prev) => ({ ...prev, date: error || '' }));
               }}
-              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm ${
-                eventErrors.date ? 'border-red-500' : 'border-gray-600'
-              }`}
+              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm ${eventErrors.date ? 'border-red-500' : 'border-gray-600'
+                }`}
               required
             />
             {eventErrors.date && <p className="text-red-400 text-xs mt-1">{eventErrors.date}</p>}
@@ -320,9 +321,8 @@ export default function CalendarPage() {
                 setEventErrors((prev) => ({ ...prev, reminderDays: error || '' }));
               }}
               min="0"
-              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm ${
-                eventErrors.reminderDays ? 'border-red-500' : 'border-gray-600'
-              }`}
+              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm ${eventErrors.reminderDays ? 'border-red-500' : 'border-gray-600'
+                }`}
             />
             {eventErrors.reminderDays && <p className="text-red-400 text-xs mt-1">{eventErrors.reminderDays}</p>}
           </div>
@@ -351,9 +351,8 @@ export default function CalendarPage() {
                 setBillErrors((prev) => ({ ...prev, name: error || '' }));
               }}
               placeholder="e.g., Electricity Bill"
-              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-sm ${
-                billErrors.name ? 'border-red-500' : 'border-gray-600'
-              }`}
+              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-sm ${billErrors.name ? 'border-red-500' : 'border-gray-600'
+                }`}
               required
             />
             {billErrors.name && <p className="text-red-400 text-xs mt-1">{billErrors.name}</p>}
@@ -371,9 +370,8 @@ export default function CalendarPage() {
               }}
               placeholder="0.00"
               step="0.01"
-              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-sm ${
-                billErrors.amount ? 'border-red-500' : 'border-gray-600'
-              }`}
+              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-sm ${billErrors.amount ? 'border-red-500' : 'border-gray-600'
+                }`}
               required
             />
             {billErrors.amount && <p className="text-red-400 text-xs mt-1">{billErrors.amount}</p>}
@@ -389,9 +387,8 @@ export default function CalendarPage() {
                 const error = validateDate(e.target.value);
                 setBillErrors((prev) => ({ ...prev, dueDate: error || '' }));
               }}
-              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm ${
-                billErrors.dueDate ? 'border-red-500' : 'border-gray-600'
-              }`}
+              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm ${billErrors.dueDate ? 'border-red-500' : 'border-gray-600'
+                }`}
               required
             />
             {billErrors.dueDate && <p className="text-red-400 text-xs mt-1">{billErrors.dueDate}</p>}
@@ -406,9 +403,8 @@ export default function CalendarPage() {
                 const error = validateFrequency(e.target.value);
                 setBillErrors((prev) => ({ ...prev, frequency: error || '' }));
               }}
-              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm ${
-                billErrors.frequency ? 'border-red-500' : 'border-gray-600'
-              }`}
+              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm ${billErrors.frequency ? 'border-red-500' : 'border-gray-600'
+                }`}
             >
               <option value="one-time">One-time</option>
               <option value="monthly">Monthly</option>
@@ -429,9 +425,8 @@ export default function CalendarPage() {
                 setBillErrors((prev) => ({ ...prev, reminderDays: error || '' }));
               }}
               min="0"
-              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm ${
-                billErrors.reminderDays ? 'border-red-500' : 'border-gray-600'
-              }`}
+              className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm ${billErrors.reminderDays ? 'border-red-500' : 'border-gray-600'
+                }`}
             />
             {billErrors.reminderDays && <p className="text-red-400 text-xs mt-1">{billErrors.reminderDays}</p>}
           </div>
@@ -441,72 +436,72 @@ export default function CalendarPage() {
         {isPageLoading ? (
           <SkeletonLoader type="table" count={1} className="mb-6" />
         ) : viewMode === 'calendar' && (
-          <div className="bg-gray-800 rounded-lg p-3 md:p-6 mb-6">
-            <div className="flex items-center justify-between mb-4 md:mb-6 gap-2">
+          <div className="card mb-10 overflow-hidden">
+            <div className="flex items-center justify-between p-4 md:p-6 bg-slate-800/50 border-b border-slate-700/50">
               <button
                 onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1))}
-                className="px-2 md:px-4 py-1 md:py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors font-medium text-xs md:text-base"
+                className="btn btn-secondary btn-small"
                 aria-label="Go to previous month"
               >
-                ← Prev
+                ←
               </button>
-              <h2 className="text-lg md:text-2xl font-bold text-white text-center flex-1">{monthName}</h2>
+              <h2 className="text-xl md:text-2xl font-bold text-white text-center flex-1">{monthName}</h2>
               <button
                 onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1))}
-                className="px-2 md:px-4 py-1 md:py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors font-medium text-xs md:text-base"
+                className="btn btn-secondary btn-small"
                 aria-label="Go to next month"
               >
-                Next →
+                →
               </button>
             </div>
 
-            {/* Calendar Grid - Mobile optimized with larger cells */}
-            <div className="grid grid-cols-7 gap-1 md:gap-2">
-              {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-                <div key={day} className="text-center font-bold text-gray-400 py-1 md:py-2 text-xs md:text-sm">
-                  {day}
-                </div>
-              ))}
+            <div className="p-4 md:p-6">
+              {/* Calendar Grid - Mobile optimized with larger cells */}
+              <div className="grid grid-cols-7 gap-px bg-slate-700/30 rounded-xl overflow-hidden border border-slate-700/50">
+                {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
+                  <div key={day} className="text-center font-bold text-slate-500 py-3 text-[10px] md:text-xs uppercase tracking-wider bg-slate-800/80">
+                    {day}
+                  </div>
+                ))}
 
-              {calendarDays.map((day, index) => (
-                <div
-                  key={index}
-                  className={`min-h-16 md:min-h-24 p-1 md:p-2 rounded border text-xs md:text-sm ${
-                    day
-                      ? 'bg-gray-700 border-gray-600 hover:bg-gray-600 transition-colors'
-                      : 'bg-gray-900 border-gray-800'
-                  }`}
-                >
-                  {day && (
-                    <div>
-                      <p className="font-bold text-white mb-0.5 md:mb-1">{day}</p>
-                      <div className="space-y-0.5">
-                        {getEventsForDay(day).slice(0, 2).map((event) => (
-                          <div
-                            key={event.id}
-                            className="bg-blue-600 text-white px-1 py-0.5 rounded truncate cursor-pointer hover:bg-blue-700 text-xs"
-                            title={event.title}
-                          >
-                            {event.title}
-                          </div>
-                        ))}
-                        {getBillsForDay(day).slice(0, 2).map((bill) => (
-                          <div
-                            key={bill.id}
-                            className="bg-orange-600 text-white px-1 py-0.5 rounded truncate cursor-pointer hover:bg-orange-700 text-xs"
-                            title={bill.name}
-                          >
-                            {bill.name}
-                          </div>
-                        ))}
-                        {(getEventsForDay(day).length + getBillsForDay(day).length > 4) && (
-                          <p className="text-gray-300 text-xs">+more</p>
-                        )}
+                {calendarDays.map((day, index) => (
+                  <div
+                    key={index}
+                    className={`min-h-20 md:min-h-32 p-1.5 md:p-3 relative ${day
+                      ? 'bg-slate-800/40 hover:bg-slate-700/40 transition-colors'
+                      : 'bg-slate-900/40'
+                      }`}
+                  >
+                    {day && (
+                      <div className="h-full flex flex-col">
+                        <span className={`text-[10px] md:text-xs font-bold mb-1.5 self-start ${new Date().getDate() === day && new Date().getMonth() === currentMonth.getMonth() ? 'bg-blue-500 text-white w-5 h-5 md:w-6 md:h-6 flex items-center justify-center rounded-full' : 'text-slate-400'}`}>
+                          {day}
+                        </span>
+                        <div className="space-y-1 overflow-y-auto max-h-12 md:max-h-20 custom-scrollbar">
+                          {getEventsForDay(day).map((event) => (
+                            <div
+                              key={event.id}
+                              className="bg-blue-500/10 border border-blue-500/20 text-blue-400 px-1.5 py-0.5 rounded text-[9px] md:text-xs truncate"
+                              title={event.title}
+                            >
+                              {event.title}
+                            </div>
+                          ))}
+                          {getBillsForDay(day).map((bill) => (
+                            <div
+                              key={bill.id}
+                              className="bg-orange-500/10 border border-orange-500/20 text-orange-400 px-1.5 py-0.5 rounded text-[9px] md:text-xs truncate"
+                              title={bill.name}
+                            >
+                              {bill.name}
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </div>
-              ))}
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         )}
@@ -514,17 +509,18 @@ export default function CalendarPage() {
         {/* List View */}
         {viewMode === 'list' && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6 mb-6">
-            <div className="bg-gray-800 rounded-lg p-3 md:p-6">
-              <h3 className="text-base md:text-lg font-bold text-white mb-3">Upcoming Events</h3>
+            <div className="card">
+              <h3 className="heading-section">Upcoming Events</h3>
               {monthEvents.length > 0 ? (
                 <div className="space-y-2">
                   {monthEvents.slice(0, 8).map((event) => {
                     const eventDate = event.date instanceof Date ? event.date : new Date(event.date);
                     return (
-                      <div key={event.id} className="bg-gray-700 rounded p-2 md:p-3 flex justify-between items-start gap-2">
+
+                      <div key={event.id} className="bg-slate-700 rounded p-2 md:p-3 flex justify-between items-start gap-2">
                         <div className="flex-1 min-w-0">
                           <p className="font-semibold text-white text-xs md:text-sm truncate">{event.title}</p>
-                          <p className="text-xs text-gray-400">{eventDate.toLocaleDateString()}</p>
+                          <p className="text-xs text-slate-400">{eventDate.toLocaleDateString()}</p>
                         </div>
                         <button
                           onClick={() => handleDeleteEventClick(event.id, event.title)}
@@ -534,26 +530,28 @@ export default function CalendarPage() {
                           ✕
                         </button>
                       </div>
+
                     );
                   })}
                 </div>
               ) : (
-                <p className="text-gray-400 text-xs md:text-sm">No events this month</p>
+                <p className="text-slate-400 text-xs md:text-sm">No events this month</p>
               )}
             </div>
 
-            <div className="bg-gray-800 rounded-lg p-3 md:p-6">
-              <h3 className="text-base md:text-lg font-bold text-white mb-3">Upcoming Bills</h3>
+            <div className="card">
+              <h3 className="heading-section">Upcoming Bills</h3>
               {monthBills.length > 0 ? (
                 <div className="space-y-2">
                   {monthBills.slice(0, 8).map((bill) => {
                     const billDate = bill.dueDate instanceof Date ? bill.dueDate : new Date(bill.dueDate);
                     return (
-                      <div key={bill.id} className="bg-gray-700 rounded p-2 md:p-3 flex justify-between items-start gap-2">
+
+                      <div key={bill.id} className="bg-slate-700 rounded p-2 md:p-3 flex justify-between items-start gap-2">
                         <div className="flex-1 min-w-0">
                           <p className="font-semibold text-white text-xs md:text-sm truncate">{bill.name}</p>
                           <p className="text-xs text-orange-400">₹{bill.amount.toLocaleString('en-IN', { maximumFractionDigits: 2 })}</p>
-                          <p className="text-xs text-gray-400">{billDate.toLocaleDateString()}</p>
+                          <p className="text-xs text-slate-400">{billDate.toLocaleDateString()}</p>
                         </div>
                         <button
                           onClick={() => handleDeleteBillClick(bill.id, bill.name)}
@@ -563,11 +561,12 @@ export default function CalendarPage() {
                           ✕
                         </button>
                       </div>
+
                     );
                   })}
                 </div>
               ) : (
-                <p className="text-gray-400 text-xs md:text-sm">No bills this month</p>
+                <p className="text-slate-400 text-xs md:text-sm">No bills this month</p>
               )}
             </div>
           </div>
@@ -585,6 +584,8 @@ export default function CalendarPage() {
         onConfirm={handleConfirmDelete}
         onCancel={() => setConfirmDialog({ isOpen: false, type: 'event', id: '', title: '' })}
       />
-    </div>
+    </PageWrapper>
   );
 }
+
+

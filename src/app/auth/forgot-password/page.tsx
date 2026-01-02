@@ -1,9 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import { sendPasswordResetEmail } from 'firebase/auth';
-import { auth } from '@/lib/firebase';
+import { getFirebaseAuth } from '@/lib/firebase';
 
 const validateEmail = (email: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -34,6 +33,9 @@ export default function ForgotPasswordPage() {
     setIsLoading(true);
 
     try {
+      const auth = getFirebaseAuth();
+      if (!auth) throw new Error('Firebase not initialized');
+      
       await sendPasswordResetEmail(auth, email);
       setSuccess(true);
       setEmail('');
@@ -52,44 +54,44 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center px-4">
+    <main className="min-h-screen bg-gray-950 flex items-center justify-center p-3 sm:p-4">
       <div className="w-full max-w-md">
-        <div className="bg-slate-700 rounded-lg p-8 text-white">
+        <div className="bg-gray-800 rounded-lg p-4 sm:p-6 md:p-8 text-white">
           {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold mb-2">🔐 Reset Password</h1>
-            <p className="text-slate-300">Enter your email to receive a password reset link</p>
+          <div className="text-center mb-6 md:mb-8">
+            <h1 className="heading-page">🔐 Reset Password</h1>
+            <p className="text-secondary text-xs md:text-sm">Enter your email to receive a password reset link</p>
           </div>
 
           {success ? (
             <div className="space-y-4">
-              <div className="bg-green-600 bg-opacity-20 border border-green-600 rounded-lg p-4">
-                <p className="text-green-200 text-sm">
+              <div className="bg-green-600 bg-opacity-20 border border-green-600 rounded-lg p-3 md:p-4">
+                <p className="text-green-200 text-xs md:text-sm">
                   ✓ Password reset email sent! Check your inbox for instructions.
                 </p>
               </div>
-              <Link href="/auth/login">
-                <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition font-bold">
+              <a href="/auth/login">
+                <button className="btn btn-primary w-full">
                   Back to Login
                 </button>
-              </Link>
+              </a>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium mb-1">Email Address</label>
+              <div className="form-group">
+                <label className="form-label">Email Address</label>
                 <input
                   type="email"
                   placeholder="your@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-slate-600 rounded px-4 py-2 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="form-input"
                   required
                 />
               </div>
 
               {error && (
-                <div className="bg-red-600 bg-opacity-20 border border-red-600 rounded px-4 py-2 text-red-200 text-sm">
+                <div className="bg-red-600 bg-opacity-20 border border-red-600 rounded px-3 md:px-4 py-2 text-red-200 text-xs md:text-sm">
                   {error}
                 </div>
               )}
@@ -97,17 +99,17 @@ export default function ForgotPasswordPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition font-bold disabled:opacity-50"
+                className="btn btn-primary w-full disabled:opacity-50"
               >
                 {isLoading ? 'Sending...' : 'Send Reset Email'}
               </button>
 
               <div className="text-center">
-                <p className="text-slate-300 text-sm">
+                <p className="text-secondary text-xs md:text-sm">
                   Remember your password?{' '}
-                  <Link href="/auth/login" className="text-blue-400 hover:text-blue-300 font-semibold">
+                  <a href="/auth/login" className="text-blue-400 hover:text-blue-300 font-semibold">
                     Sign in
-                  </Link>
+                  </a>
                 </p>
               </div>
             </form>

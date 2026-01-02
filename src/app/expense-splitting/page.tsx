@@ -1,8 +1,11 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { useState, useMemo } from 'react';
 import { useAppStore } from '@/lib/store';
 import { useToast } from '@/lib/toastContext';
+import PageWrapper from '@/components/PageWrapper';
 
 export default function ExpenseSplittingPage() {
   const { splitExpenses, addSplitExpense, removeSplitExpense, updateSplitExpense, addSettlement } = useAppStore();
@@ -145,40 +148,40 @@ export default function ExpenseSplittingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 p-4 md:p-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">Expense Splitting</h1>
-          <p className="text-gray-400">Split expenses with friends and track settlements</p>
+    <PageWrapper>
+      <div className="py-4 sm:py-6 md:py-8">
+        <div className="mb-block">
+          <h1 className="heading-page">💸 Expense Splitting</h1>
+          <p className="text-secondary">Split expenses with friends and track settlements</p>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-3 mb-6">
+        <div className="flex gap-3 mb-block flex-wrap">
           <button
             onClick={() => setIsAddModalOpen(true)}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            className="btn btn-primary px-8 shadow-lg shadow-blue-500/20"
           >
-            + Split Expense
+            + Create Split Expense
           </button>
           <button
             onClick={handleExportCSV}
-            className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+            className="btn btn-secondary border-green-500/20 hover:border-green-500/40 text-green-400"
           >
-            ↓ Export CSV
+            📥 Export CSV
           </button>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-4 mb-6">
+        <div className="flex flex-col md:flex-row gap-2 sm:gap-3 md:gap-4 mb-block">
           <input
             type="text"
             placeholder="Search split expenses..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="flex-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
+            className="form-input flex-1"
           />
           <select
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value as 'all' | 'pending' | 'settled' | 'partial')}
-            className="px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
+            className="form-select"
           >
             <option value="all">All Status</option>
             <option value="pending">Pending</option>
@@ -189,68 +192,80 @@ export default function ExpenseSplittingPage() {
 
         {/* Add Modal */}
         {isAddModalOpen && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-gray-800 rounded-lg p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-              <h2 className="text-2xl font-bold text-white mb-4">Create Split Expense</h2>
+          <div className="w-full animate-slide-up mb-block">
+            <div className="card p-4 md:p-6 border-2 border-blue-500/50 bg-gradient-to-br from-slate-800/95 to-slate-900/95 w-full max-w-2xl mx-auto max-h-[90vh] overflow-y-auto">
+              <div className="border-b border-slate-700 pb-4 mb-4 flex justify-between items-center text-white">
+                <h2 className="text-xl md:text-2xl font-bold">Create Split Expense</h2>
+                <button
+                  onClick={() => setIsAddModalOpen(false)}
+                  className="text-slate-400 hover:text-white text-2xl"
+                >
+                  ✕
+                </button>
+              </div>
 
               <form onSubmit={handleAddSplit} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Description</label>
+                <div className="form-group">
+                  <label className="form-label">Description</label>
                   <input
                     type="text"
                     value={formData.description}
                     onChange={(e) => setFormData((prev) => ({ ...prev, description: e.target.value }))}
                     placeholder="e.g., Dinner at restaurant"
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                    className="form-input"
                     required
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Total Amount</label>
+                <div className="form-group">
+                  <label className="form-label">Total Amount</label>
                   <input
                     type="number"
                     value={formData.totalAmount}
                     onChange={(e) => setFormData((prev) => ({ ...prev, totalAmount: e.target.value }))}
                     placeholder="0.00"
                     step="0.01"
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                    className="form-input"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Participants</label>
+                  <label className="form-label mb-3">Participants</label>
                   <div className="space-y-3">
                     {formData.participants.map((participant, index) => (
-                      <div key={index} className="flex gap-2">
-                        <input
-                          type="text"
-                          value={participant.name}
-                          onChange={(e) => handleParticipantChange(index, 'name', e.target.value)}
-                          placeholder="Name"
-                          className="flex-1 px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
-                        />
-                        <input
-                          type="email"
-                          value={participant.email}
-                          onChange={(e) => handleParticipantChange(index, 'email', e.target.value)}
-                          placeholder="Email (optional)"
-                          className="flex-1 px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
-                        />
-                        <input
-                          type="number"
-                          value={participant.amount}
-                          onChange={(e) => handleParticipantChange(index, 'amount', e.target.value)}
-                          placeholder="Amount (optional)"
-                          step="0.01"
-                          className="flex-1 px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
-                        />
+                      <div key={index} className="flex flex-col sm:flex-row gap-2 sm:gap-3 p-3 bg-slate-800/50 rounded-xl sm:bg-transparent sm:p-0">
+                        <div className="flex flex-col flex-1 gap-2">
+                          <input
+                            type="text"
+                            value={participant.name}
+                            onChange={(e) => handleParticipantChange(index, 'name', e.target.value)}
+                            placeholder="Name"
+                            className="form-input w-full"
+                          />
+                          <div className="flex gap-2">
+                            <input
+                              type="email"
+                              value={participant.email}
+                              onChange={(e) => handleParticipantChange(index, 'email', e.target.value)}
+                              placeholder="Email (optional)"
+                              className="flex-1 form-input text-xs"
+                            />
+                            <input
+                              type="number"
+                              value={participant.amount}
+                              onChange={(e) => handleParticipantChange(index, 'amount', e.target.value)}
+                              placeholder="Amount"
+                              step="0.01"
+                              className="w-24 form-input text-xs"
+                            />
+                          </div>
+                        </div>
                         {formData.participants.length > 1 && (
                           <button
                             type="button"
                             onClick={() => handleRemoveParticipant(index)}
-                            className="px-3 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+                            className="btn btn-danger btn-small self-end sm:self-center"
                           >
                             Remove
                           </button>
@@ -261,23 +276,23 @@ export default function ExpenseSplittingPage() {
                   <button
                     type="button"
                     onClick={handleAddParticipant}
-                    className="mt-3 px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600 transition-colors text-sm"
+                    className="mt-3 px-3 md:px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600 transition-colors text-xs md:text-sm"
                   >
                     + Add Participant
                   </button>
                 </div>
 
-                <div className="flex gap-3 pt-4">
+                <div className="flex gap-2 sm:gap-3 pt-4">
                   <button
                     type="submit"
-                    className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                    className="btn btn-primary flex-1"
                   >
                     Create Split
                   </button>
                   <button
                     type="button"
                     onClick={() => setIsAddModalOpen(false)}
-                    className="flex-1 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium"
+                    className="btn btn-secondary flex-1"
                   >
                     Cancel
                   </button>
@@ -288,7 +303,7 @@ export default function ExpenseSplittingPage() {
         )}
 
         {filteredExpenses.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid-responsive-3 mb-block">
             {filteredExpenses.map((expense) => {
               const date = expense.date instanceof Date ? expense.date.toLocaleDateString() : new Date(expense.date).toLocaleDateString();
               const statusColor = {
@@ -298,39 +313,40 @@ export default function ExpenseSplittingPage() {
               };
 
               return (
-                <div key={expense.id} className="bg-gray-800 rounded-lg p-6">
-                  <div className="flex items-start justify-between mb-4">
-                    <div>
-                      <h3 className="text-lg font-bold text-white">{expense.description}</h3>
-                      <p className="text-xs text-gray-400 mt-1">{date}</p>
+                <div key={expense.id} className="card">
+                  <div className="flex justify-between items-start mb-2 sm:mb-4">
+                    <div className="min-w-0">
+                      <h3 className="text-sm sm:text-lg md:text-xl font-bold text-white truncate">{expense.description}</h3>
+                      <p className="text-[10px] sm:text-xs text-tertiary mt-0.5">{date}</p>
                     </div>
-                    <span className={`text-xs px-2 py-1 rounded text-white font-medium ${statusColor[expense.status]}`}>
+                    <span className={`px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-semibold text-white ${statusColor[expense.status]}`}>
                       {expense.status}
                     </span>
                   </div>
 
-                  <div className="space-y-2 mb-4 text-sm text-gray-300">
+                  <div className="space-y-2 mb-4 text-xs md:text-sm text-secondary">
                     <p>
-                      <span className="text-gray-400">Total:</span> ₹
+                      <span className="text-tertiary">Total:</span> ₹
                       {expense.totalAmount.toLocaleString('en-IN', { maximumFractionDigits: 2 })}
                     </p>
                     <p>
-                      <span className="text-gray-400">Participants:</span> {expense.participants.length}
+                      <span className="text-tertiary">Participants:</span> {expense.participants.length}
                     </p>
                   </div>
 
-                  <div className="mb-4 bg-gray-700 rounded p-3">
-                    <p className="text-xs font-semibold text-gray-300 mb-2">Split Details:</p>
-                    <div className="space-y-1 text-xs text-gray-400">
+                  <div className="mb-4 bg-slate-800/50 rounded-xl p-2 sm:p-3 border border-slate-700/30">
+                    <p className="text-[10px] sm:text-xs font-semibold text-blue-400 mb-2">Split Details:</p>
+                    <div className="space-y-1 text-[10px] sm:text-xs text-slate-400">
                       {expense.participants.map((p, idx) => (
-                        <p key={idx}>
-                          {p.name}: ₹{p.amount.toLocaleString('en-IN', { maximumFractionDigits: 2 })}
-                        </p>
+                        <div key={idx} className="flex justify-between">
+                          <span>{p.name}</span>
+                          <span className="text-slate-300">₹{p.amount.toLocaleString('en-IN')}</span>
+                        </div>
                       ))}
                     </div>
                   </div>
 
-                  <div className="flex gap-2 pt-4 border-t border-gray-700">
+                  <div className="flex gap-1 pt-3 border-t border-slate-700/50">
                     {expense.status === 'pending' && (
                       <button
                         onClick={() =>
@@ -341,16 +357,18 @@ export default function ExpenseSplittingPage() {
                             expense.totalAmount
                           )
                         }
-                        className="flex-1 px-3 py-2 text-sm bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
+                        className="btn btn-success p-1 flex-1 text-[10px] sm:text-sm"
+                        title="Settle Up"
                       >
-                        Settle
+                        ✅
                       </button>
                     )}
                     <button
                       onClick={() => handleDelete(expense.id)}
-                      className="flex-1 px-3 py-2 text-sm bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+                      className="btn btn-danger p-1 flex-1 text-[10px] sm:text-sm"
+                      title="Delete"
                     >
-                      Delete
+                      🗑️
                     </button>
                   </div>
                 </div>
@@ -358,8 +376,8 @@ export default function ExpenseSplittingPage() {
             })}
           </div>
         ) : (
-          <div className="bg-gray-800 rounded-lg p-8 text-center">
-            <p className="text-gray-400">
+          <div className="card text-center">
+            <p className="text-secondary">
               {splitExpenses.length === 0
                 ? 'No split expenses yet. Create one to get started!'
                 : 'No split expenses match your search.'}
@@ -368,14 +386,16 @@ export default function ExpenseSplittingPage() {
         )}
 
         {filteredExpenses.length > 0 && (
-          <div className="mt-6 bg-gray-800 rounded-lg p-4">
-            <p className="text-gray-300">
+          <div className="card mt-block">
+            <p className="text-secondary">
               Showing <span className="font-semibold text-white">{filteredExpenses.length}</span> of{' '}
               <span className="font-semibold text-white">{splitExpenses.length}</span> split expenses
             </p>
           </div>
         )}
       </div>
-    </div>
+    </PageWrapper>
   );
 }
+
+

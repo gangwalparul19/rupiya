@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import ProtectedRoute from '@/components/ProtectedRoute';
+import PageWrapper from '@/components/PageWrapper';
 
 interface AnalyticsData {
   totalUsers: number;
@@ -25,8 +25,6 @@ export default function AnalyticsPage() {
   const loadAnalyticsData = async () => {
     try {
       setIsLoading(true);
-      // In a real implementation, this would fetch from Firebase Analytics
-      // For now, we'll show a placeholder
       setAnalyticsData({
         totalUsers: 1,
         activeUsers: 1,
@@ -60,46 +58,46 @@ export default function AnalyticsPage() {
 
   if (isLoading) {
     return (
-      <ProtectedRoute>
-        <main className="min-h-screen bg-slate-900 p-4 md:p-8">
+      <PageWrapper>
+        <main className="min-h-screen p-3 sm:p-4 md:p-6 lg:p-8">
           <div className="flex items-center justify-center py-12">
-            <div className="text-slate-400">Loading analytics data...</div>
+            <div className="text-gray-400">Loading analytics data...</div>
           </div>
         </main>
-      </ProtectedRoute>
+      </PageWrapper>
     );
   }
 
   if (!analyticsData) {
     return (
-      <ProtectedRoute>
-        <main className="min-h-screen bg-slate-900 p-4 md:p-8">
+      <PageWrapper>
+        <main className="min-h-screen p-3 sm:p-4 md:p-6 lg:p-8">
           <div className="max-w-6xl mx-auto">
-            <h1 className="text-3xl font-bold text-white mb-2">Analytics Dashboard</h1>
-            <p className="text-slate-400 mb-8">No analytics data available yet</p>
+            <h1 className="heading-page">📊 Analytics Dashboard</h1>
+            <p className="text-secondary mb-8">No analytics data available yet</p>
           </div>
         </main>
-      </ProtectedRoute>
+      </PageWrapper>
     );
   }
 
   return (
-    <ProtectedRoute>
-      <main className="min-h-screen bg-slate-900 p-4 md:p-8">
+    <PageWrapper>
+      <main className="min-h-screen p-3 sm:p-4 md:p-6 lg:p-8">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-white mb-2">Analytics Dashboard</h1>
-            <p className="text-slate-400">User behavior and engagement metrics</p>
+          <div className="mb-6 md:mb-8">
+            <h1 className="heading-page">📊 Analytics Dashboard</h1>
+            <p className="text-secondary">User behavior and engagement metrics</p>
           </div>
 
           {/* Date Range Filter */}
-          <div className="bg-slate-800 rounded-lg p-4 mb-8 border border-slate-700">
-            <label className="text-white text-sm font-medium mr-4">Date Range:</label>
+          <div className="card mb-6 md:mb-8">
+            <label className="text-white text-xs md:text-sm font-medium mr-3 md:mr-4">Date Range:</label>
             <select
               value={dateRange}
               onChange={(e) => setDateRange(e.target.value)}
-              className="bg-slate-700 text-white px-4 py-2 rounded-lg border border-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="form-select inline-block w-auto"
             >
               <option value="1d">Last 24 Hours</option>
               <option value="7d">Last 7 Days</option>
@@ -109,47 +107,47 @@ export default function AnalyticsPage() {
           </div>
 
           {/* Key Metrics */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div className="grid-responsive-4 mb-6 md:mb-8">
             {/* Total Users */}
-            <div className="bg-slate-800 rounded-lg p-6 border border-slate-700">
-              <p className="text-slate-400 text-sm mb-2">Total Users</p>
-              <p className="text-3xl font-bold text-white">{analyticsData.totalUsers}</p>
-              <p className="text-xs text-slate-500 mt-2">Active in period</p>
+            <div className="card">
+              <p className="text-tertiary text-xs md:text-sm mb-2">Total Users</p>
+              <p className="text-2xl md:text-3xl font-bold text-white">{analyticsData.totalUsers}</p>
+              <p className="text-xs text-tertiary mt-2">Active in period</p>
             </div>
 
             {/* Active Users */}
-            <div className="bg-slate-800 rounded-lg p-6 border border-slate-700">
-              <p className="text-slate-400 text-sm mb-2">Active Users</p>
-              <p className="text-3xl font-bold text-white">{analyticsData.activeUsers}</p>
-              <p className="text-xs text-slate-500 mt-2">Currently active</p>
+            <div className="card">
+              <p className="text-tertiary text-xs md:text-sm mb-2">Active Users</p>
+              <p className="text-2xl md:text-3xl font-bold text-white">{analyticsData.activeUsers}</p>
+              <p className="text-xs text-tertiary mt-2">Currently active</p>
             </div>
 
             {/* Total Sessions */}
-            <div className="bg-slate-800 rounded-lg p-6 border border-slate-700">
-              <p className="text-slate-400 text-sm mb-2">Total Sessions</p>
-              <p className="text-3xl font-bold text-white">{analyticsData.totalSessions}</p>
-              <p className="text-xs text-slate-500 mt-2">User sessions</p>
+            <div className="card">
+              <p className="text-tertiary text-xs md:text-sm mb-2">Total Sessions</p>
+              <p className="text-2xl md:text-3xl font-bold text-white">{analyticsData.totalSessions}</p>
+              <p className="text-xs text-tertiary mt-2">User sessions</p>
             </div>
 
             {/* Avg Session Duration */}
-            <div className="bg-slate-800 rounded-lg p-6 border border-slate-700">
-              <p className="text-slate-400 text-sm mb-2">Avg Session Duration</p>
-              <p className="text-3xl font-bold text-white">{analyticsData.averageSessionDuration}m</p>
-              <p className="text-xs text-slate-500 mt-2">Minutes per session</p>
+            <div className="card">
+              <p className="text-tertiary text-xs md:text-sm mb-2">Avg Session Duration</p>
+              <p className="text-2xl md:text-3xl font-bold text-white">{analyticsData.averageSessionDuration}m</p>
+              <p className="text-xs text-tertiary mt-2">Minutes per session</p>
             </div>
           </div>
 
           {/* Top Features & User Actions */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 md:gap-8 mb-6 md:mb-8">
             {/* Top Features */}
-            <div className="bg-slate-800 rounded-lg p-6 border border-slate-700">
-              <h3 className="text-lg font-bold text-white mb-4">Top Features</h3>
+            <div className="card">
+              <h3 className="heading-section mb-4">Top Features</h3>
               <div className="space-y-3">
                 {analyticsData.topFeatures.map((feature, idx) => (
                   <div key={idx} className="flex items-center justify-between">
-                    <span className="text-slate-300">{feature.feature}</span>
+                    <span className="text-secondary text-xs md:text-sm">{feature.feature}</span>
                     <div className="flex items-center gap-2">
-                      <div className="w-32 bg-slate-700 rounded-full h-2">
+                      <div className="w-20 md:w-32 bg-gray-700 rounded-full h-2">
                         <div
                           className="bg-blue-500 h-2 rounded-full"
                           style={{
@@ -157,7 +155,7 @@ export default function AnalyticsPage() {
                           }}
                         />
                       </div>
-                      <span className="text-white font-semibold w-8 text-right">{feature.count}</span>
+                      <span className="text-white font-semibold w-6 md:w-8 text-right text-xs md:text-sm">{feature.count}</span>
                     </div>
                   </div>
                 ))}
@@ -165,14 +163,14 @@ export default function AnalyticsPage() {
             </div>
 
             {/* User Actions */}
-            <div className="bg-slate-800 rounded-lg p-6 border border-slate-700">
-              <h3 className="text-lg font-bold text-white mb-4">User Actions</h3>
+            <div className="card">
+              <h3 className="heading-section mb-4">User Actions</h3>
               <div className="space-y-3">
                 {analyticsData.userActions.map((action, idx) => (
                   <div key={idx} className="flex items-center justify-between">
-                    <span className="text-slate-300">{action.action}</span>
+                    <span className="text-secondary text-xs md:text-sm">{action.action}</span>
                     <div className="flex items-center gap-2">
-                      <div className="w-32 bg-slate-700 rounded-full h-2">
+                      <div className="w-20 md:w-32 bg-gray-700 rounded-full h-2">
                         <div
                           className="bg-green-500 h-2 rounded-full"
                           style={{
@@ -180,7 +178,7 @@ export default function AnalyticsPage() {
                           }}
                         />
                       </div>
-                      <span className="text-white font-semibold w-8 text-right">{action.count}</span>
+                      <span className="text-white font-semibold w-6 md:w-8 text-right text-xs md:text-sm">{action.count}</span>
                     </div>
                   </div>
                 ))}
@@ -190,13 +188,13 @@ export default function AnalyticsPage() {
 
           {/* Errors */}
           {analyticsData.errors.length > 0 && (
-            <div className="bg-slate-800 rounded-lg p-6 border border-slate-700 mb-8">
-              <h3 className="text-lg font-bold text-white mb-4">Errors</h3>
+            <div className="card mb-6 md:mb-8">
+              <h3 className="heading-section mb-4">Errors</h3>
               <div className="space-y-3">
                 {analyticsData.errors.map((error, idx) => (
                   <div key={idx} className="flex items-center justify-between">
-                    <span className="text-slate-300">{error.error}</span>
-                    <span className="px-3 py-1 bg-red-600 text-white rounded-full text-sm font-semibold">
+                    <span className="text-secondary text-xs md:text-sm">{error.error}</span>
+                    <span className="px-2 md:px-3 py-1 bg-red-600 text-white rounded-full text-xs font-semibold">
                       {error.count}
                     </span>
                   </div>
@@ -206,14 +204,16 @@ export default function AnalyticsPage() {
           )}
 
           {/* Info Box */}
-          <div className="bg-blue-600 bg-opacity-20 border border-blue-600 rounded-lg p-4">
-            <p className="text-blue-200 text-sm">
+          <div className="bg-blue-600 bg-opacity-20 border border-blue-600 rounded-lg p-3 md:p-4">
+            <p className="text-blue-200 text-xs md:text-sm">
               💡 Analytics data is collected automatically from user interactions. This dashboard
               provides insights into user behavior and application usage patterns.
             </p>
           </div>
         </div>
       </main>
-    </ProtectedRoute>
+    </PageWrapper>
   );
 }
+
+

@@ -1,8 +1,11 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { useState, useMemo } from 'react';
 import { useAppStore } from '@/lib/store';
 import { useToast } from '@/lib/toastContext';
+import PageWrapper from '@/components/PageWrapper';
 import EditHouseModal from '@/components/EditHouseModal';
 
 export default function HousesPage() {
@@ -36,11 +39,10 @@ export default function HousesPage() {
     paymentMethod: 'cash' as const,
   });
 
-  // Filter houses
   const filteredHouses = useMemo(() => {
     return houses.filter((house) => {
       const matchesSearch = house.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           house.address.toLowerCase().includes(searchTerm.toLowerCase());
+        house.address.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesFilter = !filterType || house.type === filterType;
       return matchesSearch && matchesFilter;
     });
@@ -88,7 +90,7 @@ export default function HousesPage() {
 
   const handleAddExpense = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
       if (!expenseFormData.description || !expenseFormData.amount) {
         error('Please fill in all required fields');
@@ -129,7 +131,7 @@ export default function HousesPage() {
 
   const handleAddIncome = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
       if (!incomeFormData.description || !incomeFormData.amount) {
         error('Please fill in all required fields');
@@ -233,34 +235,37 @@ export default function HousesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 p-4 md:p-8">
-      <div className="max-w-7xl mx-auto">
+    <PageWrapper>
+      <div className="py-4 sm:py-6 md:py-8">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">House Management</h1>
-          <p className="text-gray-400">Manage your properties and track house-related expenses</p>
+        <div className="mb-block">
+          <h1 className="heading-page">🏠 House Management</h1>
+          <p className="text-secondary">Manage your properties and track house-related expenses</p>
         </div>
 
         {/* KPI Cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 mb-8">
-          <div className="bg-gray-800 p-4 md:p-6 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs md:text-sm mb-2">Total Houses</p>
-            <p className="text-2xl md:text-3xl font-bold text-blue-400">{kpiStats.totalHouses}</p>
+        <div className="grid-responsive-3 mb-section">
+          <div className="kpi-card">
+            <p className="kpi-label text-blue-400">Total Houses</p>
+            <p className="kpi-value text-white">{kpiStats.totalHouses}</p>
+            <p className="kpi-subtitle text-slate-400">Property portfolio</p>
           </div>
 
-          <div className="bg-gray-800 p-4 md:p-6 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs md:text-sm mb-2">Owned</p>
-            <p className="text-2xl md:text-3xl font-bold text-green-400">{kpiStats.ownedCount}</p>
+          <div className="kpi-card">
+            <p className="kpi-label text-green-400">Owned</p>
+            <p className="kpi-value text-white">{kpiStats.ownedCount}</p>
+            <p className="kpi-subtitle text-slate-400">Capital assets</p>
           </div>
 
-          <div className="bg-gray-800 p-4 md:p-6 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs md:text-sm mb-2">Rented</p>
-            <p className="text-2xl md:text-3xl font-bold text-purple-400">{kpiStats.rentedCount}</p>
+          <div className="kpi-card">
+            <p className="kpi-label text-purple-400">Rented</p>
+            <p className="kpi-value text-white">{kpiStats.rentedCount}</p>
+            <p className="kpi-subtitle text-slate-400">Living space</p>
           </div>
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-3 mb-6">
+        <div className="flex gap-3 mb-block flex-wrap">
           <button
             onClick={() => {
               setShowModalInline(true);
@@ -270,31 +275,31 @@ export default function HousesPage() {
                 address: '',
               });
             }}
-            className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            className="btn btn-primary shadow-lg shadow-blue-500/20"
           >
             + Add House
           </button>
           <button
             onClick={handleExportCSV}
-            className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+            className="btn btn-secondary border-green-500/20 hover:border-green-500/40 text-green-400"
           >
-            ↓ Export CSV
+            📥 CSV
           </button>
         </div>
 
         {/* Search and Filter */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-block">
           <input
             type="text"
             placeholder="Search by name or address..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500"
+            className="form-input"
           />
           <select
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
-            className="px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:border-blue-500"
+            className="form-select"
           >
             <option value="">All Types</option>
             <option value="owned">Owned</option>
@@ -304,13 +309,13 @@ export default function HousesPage() {
 
         {/* Add House Modal - Inline */}
         {showModalInline && (
-          <div className="bg-gray-800 rounded-lg p-6 mb-8 border border-gray-700">
-            <h2 className="text-2xl font-bold text-white mb-4">Add House</h2>
+          <div className="card mb-block">
+            <h2 className="heading-section mb-4">Add House</h2>
 
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3 md:gap-4">
+                <div className="form-group">
+                  <label className="form-label">
                     House Name <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -319,20 +324,20 @@ export default function HousesPage() {
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="e.g., Main House, Apartment"
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                    className="form-input"
                     required
                   />
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">
+                <div className="form-group">
+                  <label className="form-label">
                     Type <span className="text-red-500">*</span>
                   </label>
                   <select
                     name="type"
                     value={formData.type}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+                    className="form-select"
                     required
                   >
                     <option value="owned">Owned</option>
@@ -341,8 +346,8 @@ export default function HousesPage() {
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+              <div className="form-group">
+                <label className="form-label">
                   Address <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -351,12 +356,12 @@ export default function HousesPage() {
                   value={formData.address}
                   onChange={handleChange}
                   placeholder="Full address"
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
+                  className="form-input"
                   required
                 />
               </div>
 
-              <div className="flex gap-3 pt-4 border-t border-gray-700">
+              <div className="flex gap-2 sm:gap-3 pt-4 border-t border-gray-700">
                 <button
                   type="button"
                   onClick={() => {
@@ -367,14 +372,14 @@ export default function HousesPage() {
                       address: '',
                     });
                   }}
-                  className="flex-1 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium"
+                  className="btn btn-secondary flex-1"
                   disabled={isLoading}
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium disabled:opacity-50"
+                  className="btn btn-primary flex-1 disabled:opacity-50"
                   disabled={isLoading}
                 >
                   {isLoading ? 'Adding...' : 'Add House'}
@@ -384,38 +389,39 @@ export default function HousesPage() {
           </div>
         )}
 
-        {/* Houses Grid */}
+        {/* Houses Grid - 3 columns on mobile */}
         {filteredHouses.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          <div className="grid-3 mb-block">
             {filteredHouses.map((house) => (
-              <div key={house.id} className="bg-gray-800 rounded-lg p-6 hover:bg-gray-700 transition-colors">
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <h3 className="text-xl font-bold text-white">{house.name}</h3>
-                    <p className="text-sm text-gray-400 mt-1">{house.address}</p>
+              <div key={house.id} className="card">
+                <div className="flex justify-between items-start mb-2 sm:mb-4">
+                  <div className="min-w-0">
+                    <h3 className="text-xs sm:text-base md:text-xl font-bold text-white truncate">{house.name}</h3>
+                    <p className="text-[8px] sm:text-xs md:text-sm text-secondary mt-0.5 truncate">{house.address}</p>
                   </div>
-                  <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                    house.type === 'owned' ? 'bg-green-900 text-green-200' : 'bg-blue-900 text-blue-200'
-                  }`}>
-                    {house.type.charAt(0).toUpperCase() + house.type.slice(1)}
+                  <span className={`px-1.5 py-0.5 rounded-full text-[8px] sm:text-xs font-semibold ${house.type === 'owned' ? 'bg-green-900/40 text-green-300' : 'bg-blue-900/40 text-blue-300'
+                    }`}>
+                    {house.type.charAt(0).toUpperCase()}
                   </span>
                 </div>
 
-                <div className="flex gap-2 pt-4 border-t border-gray-700">
+                <div className="flex gap-1 pt-3 border-t border-gray-700/50">
                   <button
                     onClick={() => handleEdit(house)}
-                    className="flex-1 px-3 py-2 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+                    className="btn btn-primary p-1 flex-1 text-[8px] sm:text-xs"
+                    title="Edit"
                   >
-                    Edit
+                    ✏️
                   </button>
                   <button
                     onClick={() => {
                       setSelectedHouseForExpense(house.id);
                       setShowExpenseModal(true);
                     }}
-                    className="flex-1 px-3 py-2 text-sm bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
+                    className="btn btn-success p-1 flex-1 text-[8px] sm:text-xs"
+                    title="Add Expense"
                   >
-                    + Expense
+                    💸
                   </button>
                   {house.type === 'owned' && (
                     <button
@@ -423,24 +429,26 @@ export default function HousesPage() {
                         setSelectedHouseForIncome(house.id);
                         setShowIncomeModal(true);
                       }}
-                      className="flex-1 px-3 py-2 text-sm bg-purple-600 text-white rounded hover:bg-purple-700 transition-colors"
+                      className="btn btn-secondary p-1 flex-1 text-[8px] sm:text-xs"
+                      title="Add Income"
                     >
-                      + Income
+                      💰
                     </button>
                   )}
                   <button
                     onClick={() => handleDelete(house.id)}
-                    className="flex-1 px-3 py-2 text-sm bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+                    className="btn btn-danger p-1 flex-1 text-[8px] sm:text-xs"
+                    title="Delete"
                   >
-                    Delete
+                    🗑️
                   </button>
                 </div>
               </div>
             ))}
           </div>
         ) : (
-          <div className="bg-gray-800 rounded-lg p-8 text-center">
-            <p className="text-gray-400">
+          <div className="card text-center">
+            <p className="text-secondary">
               {houses.length === 0 ? 'No houses yet. Add one to get started!' : 'No houses match your search.'}
             </p>
           </div>
@@ -448,8 +456,8 @@ export default function HousesPage() {
 
         {/* Summary */}
         {filteredHouses.length > 0 && (
-          <div className="bg-gray-800 rounded-lg p-4">
-            <p className="text-gray-300">
+          <div className="card mt-block">
+            <p className="text-secondary">
               Showing <span className="font-semibold text-white">{filteredHouses.length}</span> of{' '}
               <span className="font-semibold text-white">{houses.length}</span> houses
             </p>
@@ -458,213 +466,243 @@ export default function HousesPage() {
       </div>
 
       {/* Modals */}
-      {showExpenseModal && selectedHouseForExpense && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-gray-800 rounded-lg p-6 max-w-md w-full">
-            <h2 className="text-2xl font-bold text-white mb-4">Add Expense</h2>
-
-            <form onSubmit={handleAddExpense} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Description <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  name="description"
-                  value={expenseFormData.description}
-                  onChange={handleExpenseChange}
-                  placeholder="e.g., Repair, Maintenance, Utilities"
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Amount <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="number"
-                  name="amount"
-                  value={expenseFormData.amount}
-                  onChange={handleExpenseChange}
-                  placeholder="0.00"
-                  step="0.01"
-                  min="0"
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Category</label>
-                <select
-                  name="category"
-                  value={expenseFormData.category}
-                  onChange={handleExpenseChange}
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
-                >
-                  <option value="maintenance">Maintenance</option>
-                  <option value="utilities">Utilities</option>
-                  <option value="repair">Repair</option>
-                  <option value="rent">Rent</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Payment Method</label>
-                <select
-                  name="paymentMethod"
-                  value={expenseFormData.paymentMethod}
-                  onChange={handleExpenseChange}
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
-                >
-                  <option value="cash">Cash</option>
-                  <option value="card">Card</option>
-                  <option value="upi">UPI</option>
-                  <option value="bank">Bank Transfer</option>
-                  <option value="wallet">Wallet</option>
-                </select>
-              </div>
-
-              <div className="flex gap-3 pt-4 border-t border-gray-700">
+      {
+        showExpenseModal && selectedHouseForExpense && (
+          <div className="w-full animate-slide-up mb-block">
+            <div className="card p-4 md:p-6 border-2 border-blue-500/50 bg-gradient-to-br from-slate-800/95 to-slate-900/95 w-full max-w-2xl mx-auto">
+              <div className="border-b border-slate-700 pb-4 mb-4 flex justify-between items-center text-white">
+                <h2 className="text-xl md:text-2xl font-bold">Add Expense</h2>
                 <button
-                  type="button"
                   onClick={() => {
                     setShowExpenseModal(false);
                     setSelectedHouseForExpense(null);
-                    setExpenseFormData({
-                      description: '',
-                      amount: '',
-                      category: 'maintenance',
-                      paymentMethod: 'cash',
-                    });
                   }}
-                  className="flex-1 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium"
+                  className="text-slate-400 hover:text-white text-2xl"
                 >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
-                >
-                  Add Expense
+                  ✕
                 </button>
               </div>
-            </form>
+
+              <form onSubmit={handleAddExpense} className="space-y-4">
+                <div className="form-group">
+                  <label className="form-label">
+                    Description <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="description"
+                    value={expenseFormData.description}
+                    onChange={handleExpenseChange}
+                    placeholder="e.g., Repair, Maintenance, Utilities"
+                    className="form-input"
+                    required
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">
+                    Amount <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="number"
+                    name="amount"
+                    value={expenseFormData.amount}
+                    onChange={handleExpenseChange}
+                    placeholder="0.00"
+                    step="0.01"
+                    min="0"
+                    className="form-input"
+                    required
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Category</label>
+                  <select
+                    name="category"
+                    value={expenseFormData.category}
+                    onChange={handleExpenseChange}
+                    className="form-select"
+                  >
+                    <option value="maintenance">Maintenance</option>
+                    <option value="utilities">Utilities</option>
+                    <option value="repair">Repair</option>
+                    <option value="rent">Rent</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Payment Method</label>
+                  <select
+                    name="paymentMethod"
+                    value={expenseFormData.paymentMethod}
+                    onChange={handleExpenseChange}
+                    className="form-select"
+                  >
+                    <option value="cash">Cash</option>
+                    <option value="card">Card</option>
+                    <option value="upi">UPI</option>
+                    <option value="bank">Bank Transfer</option>
+                    <option value="wallet">Wallet</option>
+                  </select>
+                </div>
+
+                <div className="flex gap-2 sm:gap-3 pt-4 border-t border-gray-700">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowExpenseModal(false);
+                      setSelectedHouseForExpense(null);
+                      setExpenseFormData({
+                        description: '',
+                        amount: '',
+                        category: 'maintenance',
+                        paymentMethod: 'cash',
+                      });
+                    }}
+                    className="btn btn-secondary flex-1"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="btn btn-primary flex-1"
+                  >
+                    Add Expense
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
-        </div>
-      )}
-      {showIncomeModal && selectedHouseForIncome && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-gray-800 rounded-lg p-6 max-w-md w-full">
-            <h2 className="text-2xl font-bold text-white mb-4">Add Income</h2>
-
-            <form onSubmit={handleAddIncome} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Description <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  name="description"
-                  value={incomeFormData.description}
-                  onChange={handleIncomeChange}
-                  placeholder="e.g., Rental income, Lease payment"
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Amount <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="number"
-                  name="amount"
-                  value={incomeFormData.amount}
-                  onChange={handleIncomeChange}
-                  placeholder="0.00"
-                  step="0.01"
-                  min="0"
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500"
-                  required
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Source</label>
-                <select
-                  name="source"
-                  value={incomeFormData.source}
-                  onChange={handleIncomeChange}
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
-                >
-                  <option value="salary">Salary</option>
-                  <option value="freelance">Freelance</option>
-                  <option value="investment">Investment</option>
-                  <option value="gift">Gift</option>
-                  <option value="bonus">Bonus</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">Payment Method</label>
-                <select
-                  name="paymentMethod"
-                  value={incomeFormData.paymentMethod}
-                  onChange={handleIncomeChange}
-                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
-                >
-                  <option value="cash">Cash</option>
-                  <option value="card">Card</option>
-                  <option value="upi">UPI</option>
-                  <option value="bank">Bank Transfer</option>
-                  <option value="wallet">Wallet</option>
-                </select>
-              </div>
-
-              <div className="flex gap-3 pt-4 border-t border-gray-700">
+        )
+      }
+      {
+        showIncomeModal && selectedHouseForIncome && (
+          <div className="w-full animate-slide-up mb-block">
+            <div className="card p-4 md:p-6 border-2 border-green-500/50 bg-gradient-to-br from-slate-800/95 to-slate-900/95 w-full max-w-2xl mx-auto">
+              <div className="border-b border-slate-700 pb-4 mb-4 flex justify-between items-center text-white">
+                <h2 className="text-xl md:text-2xl font-bold">Add Income</h2>
                 <button
-                  type="button"
                   onClick={() => {
                     setShowIncomeModal(false);
                     setSelectedHouseForIncome(null);
-                    setIncomeFormData({
-                      description: '',
-                      amount: '',
-                      source: 'other',
-                      paymentMethod: 'cash',
-                    });
                   }}
-                  className="flex-1 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium"
+                  className="text-slate-400 hover:text-white text-2xl"
                 >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
-                >
-                  Add Income
+                  ✕
                 </button>
               </div>
-            </form>
+
+              <form onSubmit={handleAddIncome} className="space-y-4">
+                <div className="form-group">
+                  <label className="form-label">
+                    Description <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="description"
+                    value={incomeFormData.description}
+                    onChange={handleIncomeChange}
+                    placeholder="e.g., Rental income, Lease payment"
+                    className="form-input"
+                    required
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">
+                    Amount <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="number"
+                    name="amount"
+                    value={incomeFormData.amount}
+                    onChange={handleIncomeChange}
+                    placeholder="0.00"
+                    step="0.01"
+                    min="0"
+                    className="form-input"
+                    required
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Source</label>
+                  <select
+                    name="source"
+                    value={incomeFormData.source}
+                    onChange={handleIncomeChange}
+                    className="form-select"
+                  >
+                    <option value="salary">Salary</option>
+                    <option value="freelance">Freelance</option>
+                    <option value="investment">Investment</option>
+                    <option value="gift">Gift</option>
+                    <option value="bonus">Bonus</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label">Payment Method</label>
+                  <select
+                    name="paymentMethod"
+                    value={incomeFormData.paymentMethod}
+                    onChange={handleIncomeChange}
+                    className="form-select"
+                  >
+                    <option value="cash">Cash</option>
+                    <option value="card">Card</option>
+                    <option value="upi">UPI</option>
+                    <option value="bank">Bank Transfer</option>
+                    <option value="wallet">Wallet</option>
+                  </select>
+                </div>
+
+                <div className="flex gap-2 sm:gap-3 pt-4 border-t border-gray-700">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowIncomeModal(false);
+                      setSelectedHouseForIncome(null);
+                      setIncomeFormData({
+                        description: '',
+                        amount: '',
+                        source: 'other',
+                        paymentMethod: 'cash',
+                      });
+                    }}
+                    className="btn btn-secondary flex-1"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="btn btn-primary flex-1"
+                  >
+                    Add Income
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
-        </div>
-      )}
-      {selectedHouse && (
-        <EditHouseModal
-          house={selectedHouse}
-          isOpen={isEditModalOpen}
-          onClose={() => {
-            setIsEditModalOpen(false);
-            setSelectedHouse(null);
-          }}
-        />
-      )}
-    </div>
+        )
+      }
+      {
+        selectedHouse && (
+          <EditHouseModal
+            house={selectedHouse}
+            isOpen={isEditModalOpen}
+            onClose={() => {
+              setIsEditModalOpen(false);
+              setSelectedHouse(null);
+            }}
+          />
+        )
+      }
+    </PageWrapper >
   );
 }
+
+

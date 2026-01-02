@@ -1,8 +1,11 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import { useState, useMemo } from 'react';
 import { useAppStore } from '@/lib/store';
 import { useToast } from '@/lib/toastContext';
+import PageWrapper from '@/components/PageWrapper';
 import EditBudgetModal from '@/components/EditBudgetModal';
 import BudgetAnalytics from '@/components/BudgetAnalytics';
 import ConfirmDialog from '@/components/ConfirmDialog';
@@ -278,41 +281,45 @@ export default function BudgetsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 p-3 md:p-8">
-      <div className="max-w-7xl mx-auto">
+    <PageWrapper>
+      <div className="py-4 sm:py-6 md:py-8">
         {/* Header */}
-        <div className="mb-6 md:mb-8">
-          <h1 className="text-2xl md:text-4xl font-bold text-white mb-1 md:mb-2">Budget Management</h1>
-          <p className="text-xs md:text-base text-gray-400">Create and track your monthly budgets</p>
+        <div className="mb-block">
+          <h1 className="heading-page">Budget Management</h1>
+          <p className="text-secondary">Create and track your monthly budgets</p>
         </div>
 
         {/* KPI Cards - Mobile optimized */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4 mb-6 md:mb-8">
-          <div className="bg-gray-800 p-3 md:p-6 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs mb-1 md:mb-2">Total Budgets</p>
-            <p className="text-xl md:text-3xl font-bold text-blue-400">{kpiStats.totalBudgets}</p>
+        <div className="grid-responsive-4 mb-section">
+          <div className="kpi-card">
+            <p className="kpi-label text-blue-400">Total Budgets</p>
+            <p className="kpi-value text-white">{kpiStats.totalBudgets}</p>
+            <p className="kpi-subtitle text-slate-400">Active monthly budgets</p>
           </div>
 
-          <div className="bg-gray-800 p-3 md:p-6 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs mb-1 md:mb-2">Total Budget</p>
-            <p className="text-xl md:text-3xl font-bold text-green-400">{abbreviateNumber(kpiStats.totalBudgetAmount)}</p>
+          <div className="kpi-card">
+            <p className="kpi-label text-green-400">Total Budget</p>
+            <p className="kpi-value text-white">{abbreviateNumber(kpiStats.totalBudgetAmount)}</p>
+            <p className="kpi-subtitle text-slate-400">Allocated amount</p>
           </div>
 
-          <div className="bg-gray-800 p-3 md:p-6 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs mb-1 md:mb-2">Total Spent</p>
-            <p className="text-xl md:text-3xl font-bold text-red-400">{abbreviateNumber(kpiStats.totalSpent)}</p>
+          <div className="kpi-card">
+            <p className="kpi-label text-red-400">Total Spent</p>
+            <p className="kpi-value text-white">{abbreviateNumber(kpiStats.totalSpent)}</p>
+            <p className="kpi-subtitle text-slate-400">Across all months</p>
           </div>
 
-          <div className="bg-gray-800 p-3 md:p-6 rounded-lg border border-gray-700">
-            <p className="text-gray-400 text-xs mb-1 md:mb-2">Remaining</p>
-            <p className={`text-xl md:text-3xl font-bold ${kpiStats.remaining >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+          <div className="kpi-card">
+            <p className="kpi-label text-amber-400">Remaining</p>
+            <p className={`kpi-value ${kpiStats.remaining >= 0 ? 'text-green-500' : 'text-red-500'}`}>
               {abbreviateNumber(kpiStats.remaining)}
             </p>
+            <p className="kpi-subtitle text-slate-400">Unspent balance</p>
           </div>
         </div>
 
         {/* Action Buttons - Always visible */}
-        <div className="flex gap-2 md:gap-3 mb-6 sticky bottom-0 md:static bg-gray-950 p-3 md:p-0 -mx-3 md:mx-0 md:mb-6 z-40">
+        <div className="flex gap-3 mb-block flex-wrap">
           <button
             onClick={() => {
               setIsAddModalOpen(true);
@@ -329,24 +336,24 @@ export default function BudgetsPage() {
                 other: '',
               });
             }}
-            className="flex-1 px-3 md:px-4 py-2 text-xs md:text-base bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            className="btn btn-primary shadow-lg shadow-blue-500/20"
             aria-label="Add new budget"
           >
-            + Add
+            + Create Budget
           </button>
           <button
             onClick={handleExportCSV}
-            className="flex-1 px-3 md:px-4 py-2 text-xs md:text-base bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+            className="btn btn-secondary border-green-500/20 hover:border-green-500/40 text-green-400"
             aria-label="Export budgets to CSV file"
           >
-            CSV
+            📥 CSV
           </button>
           <button
             onClick={handleExportTXT}
-            className="flex-1 px-3 md:px-4 py-2 text-xs md:text-base bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-medium"
+            className="btn btn-secondary border-purple-500/20 hover:border-purple-500/40 text-purple-400"
             aria-label="Export budgets to text file"
           >
-            TXT
+            📄 TXT
           </button>
         </div>
 
@@ -378,9 +385,8 @@ export default function BudgetsPage() {
                   name="month"
                   value={formData.month}
                   onChange={handleChange}
-                  className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm ${
-                    errors.month ? 'border-red-500' : 'border-gray-600'
-                  }`}
+                  className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white focus:outline-none focus:border-blue-500 text-sm ${errors.month ? 'border-red-500' : 'border-gray-600'
+                    }`}
                   required
                 />
                 {errors.month && <p className="text-red-400 text-xs mt-1">{errors.month}</p>}
@@ -396,9 +402,8 @@ export default function BudgetsPage() {
                   value={formData.totalBudget}
                   onChange={handleChange}
                   placeholder="Enter total budget"
-                  className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-sm ${
-                    errors.totalBudget ? 'border-red-500' : 'border-gray-600'
-                  }`}
+                  className={`w-full px-3 py-2 bg-gray-700 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-sm ${errors.totalBudget ? 'border-red-500' : 'border-gray-600'
+                    }`}
                   step="0.01"
                   min="0"
                   required
@@ -425,9 +430,8 @@ export default function BudgetsPage() {
                       value={formData[category as keyof typeof formData]}
                       onChange={handleChange}
                       placeholder="0"
-                      className={`w-full px-2 py-1 bg-gray-700 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-xs ${
-                        errors[category] ? 'border-red-500' : 'border-gray-600'
-                      }`}
+                      className={`w-full px-2 py-1 bg-gray-700 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 text-xs ${errors[category] ? 'border-red-500' : 'border-gray-600'
+                        }`}
                       step="0.01"
                       min="0"
                     />
@@ -479,7 +483,7 @@ export default function BudgetsPage() {
         </FormModal>
 
         {/* Search and Filter */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-block">
           <input
             type="text"
             placeholder="Search by month..."
@@ -497,7 +501,7 @@ export default function BudgetsPage() {
 
         {/* Analytics Section */}
         {budgets.length > 0 && (
-          <div className="mb-8">
+          <div className="mb-block">
             <h2 className="text-lg md:text-2xl font-bold text-white mb-4">Analytics</h2>
             <BudgetAnalytics budgets={budgets} expenses={expenses} />
           </div>
@@ -509,14 +513,14 @@ export default function BudgetsPage() {
         ) : filteredBudgets.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
             {filteredBudgets.map((budget) => (
-              <div key={budget.id} className="bg-gray-800 rounded-lg border border-gray-700 p-3 md:p-4">
+              <div key={budget.id} className="card">
                 <div className="flex justify-between items-start mb-3">
                   <div>
-                    <p className="text-xs md:text-sm text-gray-400">Month</p>
+                    <p className="text-xs md:text-sm text-slate-400">Month</p>
                     <p className="text-base md:text-lg font-bold text-white">{budget.month}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-xs md:text-sm text-gray-400">Total</p>
+                    <p className="text-xs md:text-sm text-slate-400">Total</p>
                     <p className="text-base md:text-lg font-bold text-green-400">{abbreviateNumber(budget.totalBudget)}</p>
                   </div>
                 </div>
@@ -531,11 +535,10 @@ export default function BudgetsPage() {
                   </div>
                   <div className="w-full bg-gray-700 rounded-full h-2">
                     <div
-                      className={`h-2 rounded-full transition-all ${
-                        Object.values(budget.categories).reduce((sum, v) => sum + (v || 0), 0) > budget.totalBudget
-                          ? 'bg-red-500'
-                          : 'bg-green-500'
-                      }`}
+                      className={`h-2 rounded-full transition-all ${Object.values(budget.categories).reduce((sum, v) => sum + (v || 0), 0) > budget.totalBudget
+                        ? 'bg-red-500'
+                        : 'bg-green-500'
+                        }`}
                       style={{
                         width: `${Math.min(
                           (Object.values(budget.categories).reduce((sum, v) => sum + (v || 0), 0) / budget.totalBudget) * 100,
@@ -576,7 +579,7 @@ export default function BudgetsPage() {
 
         {/* Summary */}
         {filteredBudgets.length > 0 && (
-          <div className="mt-6 bg-gray-800 rounded-lg p-3 md:p-4">
+          <div className="mt-block bg-gray-800 rounded-lg p-3 md:p-4">
             <p className="text-xs md:text-sm text-gray-300">
               Showing <span className="font-semibold text-white">{filteredBudgets.length}</span> of{' '}
               <span className="font-semibold text-white">{budgets.length}</span> budgets
@@ -608,6 +611,7 @@ export default function BudgetsPage() {
         onConfirm={handleConfirmDelete}
         onCancel={() => setConfirmDialog({ isOpen: false, budgetId: '', budgetMonth: '' })}
       />
-    </div>
+    </PageWrapper>
   );
 }
+

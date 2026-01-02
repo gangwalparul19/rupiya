@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maximizing Rupiya - Advanced Tips & Strategies</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.7;
+            color: #e2e8f0;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+            border-radius: 20px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        
+        .logo {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        
+        .header h1 {
+            font-size: 3em;
+            background: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            color: #94a3b8;
+        }
+        
+        .section {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(71, 85, 105, 0.3);
+            transition: all 0.3s;
+        }
+        
+        .section:hover {
+            border-color: rgba(139, 92, 246, 0.4);
+            box-shadow: 0 10px 40px rgba(139, 92, 246, 0.1);
+        }
+        
+        h2 {
+            color: #8b5cf6;
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(139, 92, 246, 0.3);
+            font-weight: 700;
+        }
+        
+        h3 {
+            color: #06b6d4;
+            font-size: 1.6em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        h4 {
+            color: #a78bfa;
+            font-size: 1.2em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            color: #cbd5e1;
+            line-height: 1.8;
+        }
+        
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 20px;
+        }
+        
+        li {
+            margin-bottom: 12px;
+            color: #cbd5e1;
+        }
+        
+        .strategy-box {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2) 0%, rgba(6, 182, 212, 0.2) 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+        
+        .strategy-box h4 {
+            color: #8b5cf6;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(139, 92, 246, 0.2);
+        }
+        
+        .routine-card {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(71, 85, 105, 0.3);
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 15px;
+            border-left: 4px solid #8b5cf6;
+            transition: all 0.3s;
+        }
+        
+        .routine-card:hover {
+            border-left-color: #06b6d4;
+            background: rgba(15, 23, 42, 0.7);
+            transform: translateX(5px);
+        }
+        
+        .routine-card h4 {
+            color: #8b5cf6;
+            margin-bottom: 15px;
+        }
+        
+        .tip {
+            background: rgba(251, 191, 36, 0.1);
+            border-left: 4px solid #fbbf24;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        
+        .tip strong {
+            color: #fbbf24;
+        }
+        
+        .pro-tip {
+            background: rgba(34, 197, 94, 0.1);
+            border-left: 4px solid #22c55e;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        
+        .pro-tip strong {
+            color: #22c55e;
+        }
+        
+        .advanced-tip {
+            background: rgba(139, 92, 246, 0.1);
+            border-left: 4px solid #8b5cf6;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        
+        .advanced-tip strong {
+            color: #8b5cf6;
+        }
+        
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .metric-card {
+            background: rgba(15, 23, 42, 0.5);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(71, 85, 105, 0.3);
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .metric-card:hover {
+            border-color: rgba(139, 92, 246, 0.5);
+            transform: translateY(-5px);
+        }
+        
+        .metric-card .number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #8b5cf6;
+            margin-bottom: 10px;
+        }
+        
+        .metric-card .label {
+            color: #94a3b8;
+            font-size: 0.9em;
+        }
+        
+        code {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 3px 8px;
+            border-radius: 5px;
+            color: #06b6d4;
+            font-family: 'Courier New', monospace;
+            border: 1px solid rgba(71, 85, 105, 0.3);
+        }
+        
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+        }
+        
+        .checklist li {
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .checklist li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #22c55e;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #64748b;
+            margin-top: 60px;
+            border-top: 1px solid rgba(71, 85, 105, 0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .section {
+                padding: 25px;
+            }
+            
+            h2 {
+                font-size: 1.8em;
+            }
+            
+            .metric-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🚀</div>
+            <h1>Maximizing Rupiya</h1>
+            <p>Advanced Strategies for Financial Excellence</p>
+        </div>
+
+        <section class="section">
+            <h2>🎯 Daily Financial Routine</h2>
+            
+            <div class="routine-card">
+                <h4>Morning (5 minutes)</h4>
+                <ul class="checklist">
+                    <li>Review yesterday's expenses</li>
+                    <li>Check budget status for the day</li>
+                    <li>Set spending intention for today</li>
+                    <li>Review any pending transactions</li>
+                </ul>
+            </div>
+            
+            <div class="routine-card">
+                <h4>Throughout the Day (Real-time)</h4>
+                <ul class="checklist">
+                    <li>Log expenses immediately after spending</li>
+                    <li>Take photos of receipts</li>
+                    <li>Categorize transactions accurately</li>
+                    <li>Add notes for context</li>
+                </ul>
+            </div>
+            
+            <div class="routine-card">
+                <h4>Evening (10 minutes)</h4>
+                <ul class="checklist">
+                    <li>Review all expenses for the day</li>
+                    <li>Verify all transactions are logged</li>
+                    <li>Check budget adherence</li>
+                    <li>Plan tomorrow's spending</li>
+                    <li>Review financial goals progress</li>
+                </ul>
+            </div>
+            
+            <div class="tip">
+                <strong>💡 Consistency Tip:</strong> Set phone reminders for morning and evening reviews. Consistency builds powerful financial habits.
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>📅 Weekly Financial Optimization</h2>
+            
+            <h3>Sunday Planning Session (30 minutes)</h3>
+            
+            <div class="strategy-box">
+                <h4>Week Review Checklist</h4>
+                <ol>
+                    <li><strong>Analyze Last Week:</strong>
+                        <ul>
+                            <li>Total spending vs budget</li>
+                            <li>Top 3 expense categories</li>
+                            <li>Unexpected expenses</li>
+                            <li>Savings achieved</li>
+                        </ul>
+                    </li>
+                    <li><strong>Update Investments:</strong>
+                        <ul>
+                            <li>Current portfolio value</li>
+                            <li>Gains/losses tracking</li>
+                            <li>Rebalancing needs</li>
+                        </ul>
+                    </li>
+                    <li><strong>Goal Progress:</strong>
+                        <ul>
+                            <li>Check milestone achievements</li>
+                            <li>Adjust contribution amounts</li>
+                            <li>Celebrate wins</li>
+                        </ul>
+                    </li>
+                    <li><strong>Plan Next Week:</strong>
+                        <ul>
+                            <li>Upcoming expenses</li>
+                            <li>Budget adjustments</li>
+                            <li>Savings opportunities</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+            
+            <div class="pro-tip">
+                <strong>✅ Pro Strategy:</strong> Use Sunday evenings for financial planning. A clear plan prevents impulsive spending during the week.
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>📊 Monthly Financial Deep Dive</h2>
+            
+            <h3>Month-End Analysis (1 hour)</h3>
+            
+            <div class="strategy-box">
+                <h4>Comprehensive Monthly Review</h4>
+                
+                <h4>1. Expense Analysis</h4>
+                <ul>
+                    <li>Category-wise breakdown</li>
+                    <li>Compare with previous months</li>
+                    <li>Identify spending patterns</li>
+                    <li>Find cost-cutting opportunities</li>
+                </ul>
+                
+                <h4>2. Income Review</h4>
+                <ul>
+                    <li>Total income vs expenses</li>
+                    <li>Savings rate calculation</li>
+                    <li>Income source diversification</li>
+                    <li>Growth opportunities</li>
+                </ul>
+                
+                <h4>3. Budget Optimization</h4>
+                <ul>
+                    <li>Adjust category limits</li>
+                    <li>Reallocate unused budgets</li>
+                    <li>Set realistic targets</li>
+                    <li>Plan for irregular expenses</li>
+                </ul>
+                
+                <h4>4. Investment Portfolio</h4>
+                <ul>
+                    <li>Calculate monthly returns</li>
+                    <li>Review asset allocation</li>
+                    <li>Rebalance if needed</li>
+                    <li>Plan new investments</li>
+                </ul>
+            </div>
+            
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <div class="number">50%</div>
+                    <div class="label">Savings Rate Target</div>
+                </div>
+                <div class="metric-card">
+                    <div class="number">6x</div>
+                    <div class="label">Emergency Fund Goal</div>
+                </div>
+                <div class="metric-card">
+                    <div class="number">20%</div>
+                    <div class="label">Investment Allocation</div>
+                </div>
+                <div class="metric-card">
+                    <div class="number">30%</div>
+                    <div class="label">Discretionary Spending</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>💰 Advanced Money Management Strategies</h2>
+            
+            <h3>1. The Zero-Based Budget Method</h3>
+            <p>Assign every rupee a purpose before the month begins:</p>
+            <div class="strategy-box">
+                <h4>Implementation Steps</h4>
+                <ol>
+                    <li>Calculate total monthly income</li>
+                    <li>List all fixed expenses (rent, utilities, EMIs)</li>
+                    <li>Allocate for variable expenses (food, transport)</li>
+                    <li>Assign savings and investment amounts</li>
+                    <li>Ensure Income - Expenses = 0</li>
+                </ol>
+            </div>
+            
+            <h3>2. The 50/30/20 Rule</h3>
+            <div class="strategy-box">
+                <h4>Income Allocation</h4>
+                <ul>
+                    <li><strong>50% - Needs:</strong> Rent, utilities, groceries, insurance</li>
+                    <li><strong>30% - Wants:</strong> Dining out, entertainment, hobbies</li>
+                    <li><strong>20% - Savings:</strong> Emergency fund, investments, goals</li>
+                </ul>
+            </div>
+            
+            <h3>3. Envelope System (Digital)</h3>
+            <p>Create virtual envelopes using Rupiya's budget categories:</p>
+            <ul>
+                <li>Set strict limits for each category</li>
+                <li>Stop spending when envelope is empty</li>
+                <li>Roll over unused amounts</li>
+                <li>Track with real-time alerts</li>
+            </ul>
+            
+            <div class="advanced-tip">
+                <strong>🎯 Advanced Strategy:</strong> Combine all three methods - use 50/30/20 for overall allocation, zero-based budgeting for planning, and envelope system for execution.
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>📈 Investment Optimization</h2>
+            
+            <h3>Portfolio Tracking Best Practices</h3>
+            
+            <div class="strategy-box">
+                <h4>Weekly Investment Tasks</h4>
+                <ul>
+                    <li>Update current values of all holdings</li>
+                    <li>Track unrealized gains/losses</li>
+                    <li>Monitor market trends</li>
+                    <li>Review news affecting your investments</li>
+                </ul>
+            </div>
+            
+            <div class="strategy-box">
+                <h4>Monthly Investment Review</h4>
+                <ul>
+                    <li>Calculate portfolio returns</li>
+                    <li>Compare with benchmark indices</li>
+                    <li>Rebalance if allocation drifts >5%</li>
+                    <li>Review and adjust SIP amounts</li>
+                    <li>Tax-loss harvesting opportunities</li>
+                </ul>
+            </div>
+            
+            <h3>Asset Allocation Strategy</h3>
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <div class="number">60%</div>
+                    <div class="label">Equity (Growth)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="number">30%</div>
+                    <div class="label">Debt (Stability)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="number">10%</div>
+                    <div class="label">Gold/Alternatives</div>
+                </div>
+            </div>
+            
+            <div class="pro-tip">
+                <strong>✅ Pro Tip:</strong> Adjust allocation based on age. Subtract your age from 100 to get equity percentage (e.g., 30 years old = 70% equity).
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>🎯 Goal Achievement Framework</h2>
+            
+            <h3>SMART Goals Setup</h3>
+            <div class="strategy-box">
+                <h4>Goal Planning Template</h4>
+                <ul>
+                    <li><strong>Specific:</strong> "Save ₹5,00,000 for home down payment"</li>
+                    <li><strong>Measurable:</strong> Track monthly contributions</li>
+                    <li><strong>Achievable:</strong> ₹20,000/month for 25 months</li>
+                    <li><strong>Relevant:</strong> Aligns with life priorities</li>
+                    <li><strong>Time-bound:</strong> Complete by December 2026</li>
+                </ul>
+            </div>
+            
+            <h3>Goal Prioritization Matrix</h3>
+            <ol>
+                <li><strong>Emergency Fund:</strong> 6 months expenses (Priority 1)</li>
+                <li><strong>High-Interest Debt:</strong> Pay off credit cards (Priority 2)</li>
+                <li><strong>Retirement:</strong> Start early, compound longer (Priority 3)</li>
+                <li><strong>Major Purchases:</strong> Home, car, education (Priority 4)</li>
+                <li><strong>Lifestyle Goals:</strong> Travel, hobbies (Priority 5)</li>
+            </ol>
+            
+            <div class="advanced-tip">
+                <strong>🎯 Advanced Strategy:</strong> Use Rupiya's goal tracking to automate contributions. Set up automatic transfers on salary day.
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>🔥 Power User Tips</h2>
+            
+            <h3>Automation Strategies</h3>
+            <ul class="checklist">
+                <li>Set up recurring transactions for fixed expenses</li>
+                <li>Use payment method tracking for automatic categorization</li>
+                <li>Enable budget alerts at 50%, 75%, and 90%</li>
+                <li>Schedule weekly report emails</li>
+                <li>Auto-sync bank accounts (if available)</li>
+            </ul>
+            
+            <h3>Data Analysis Techniques</h3>
+            <div class="strategy-box">
+                <h4>Monthly Analysis Checklist</h4>
+                <ul>
+                    <li>Compare spending trends (month-over-month)</li>
+                    <li>Identify seasonal patterns</li>
+                    <li>Calculate average daily spending</li>
+                    <li>Track savings rate progression</li>
+                    <li>Monitor net worth growth</li>
+                </ul>
+            </div>
+            
+            <h3>Tax Optimization</h3>
+            <ul>
+                <li>Track tax-saving investments (80C, 80D)</li>
+                <li>Maintain receipts for deductions</li>
+                <li>Plan tax-loss harvesting</li>
+                <li>Review tax implications of investments</li>
+                <li>Export annual reports for CA</li>
+            </ul>
+            
+            <div class="pro-tip">
+                <strong>✅ Expert Tip:</strong> Export your data monthly. Keep backups and use them for year-end tax planning.
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>🏆 Financial Excellence Checklist</h2>
+            
+            <h3>Daily Excellence</h3>
+            <ul class="checklist">
+                <li>Log every transaction within 1 hour</li>
+                <li>Review budget status twice daily</li>
+                <li>Avoid impulse purchases (24-hour rule)</li>
+                <li>Check investment portfolio</li>
+            </ul>
+            
+            <h3>Weekly Excellence</h3>
+            <ul class="checklist">
+                <li>Complete weekly financial review</li>
+                <li>Update investment values</li>
+                <li>Review and adjust budgets</li>
+                <li>Plan upcoming week's expenses</li>
+                <li>Check goal progress</li>
+            </ul>
+            
+            <h3>Monthly Excellence</h3>
+            <ul class="checklist">
+                <li>Comprehensive financial analysis</li>
+                <li>Portfolio rebalancing</li>
+                <li>Budget optimization</li>
+                <li>Goal milestone review</li>
+                <li>Net worth calculation</li>
+                <li>Tax planning review</li>
+            </ul>
+            
+            <h3>Quarterly Excellence</h3>
+            <ul class="checklist">
+                <li>Review financial goals and adjust</li>
+                <li>Analyze 3-month trends</li>
+                <li>Update financial plan</li>
+                <li>Review insurance coverage</li>
+                <li>Tax planning and optimization</li>
+            </ul>
+            
+            <div class="advanced-tip">
+                <strong>🎯 Master Level:</strong> Achieving 90% of these tasks consistently will put you in the top 5% of financially disciplined individuals.
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>💡 Final Words of Wisdom</h2>
+            
+            <div class="pro-tip">
+                <strong>Remember:</strong> Financial success is not about perfection, it's about consistency. Small daily actions compound into massive results over time.
+            </div>
+            
+            <h3>Key Principles</h3>
+            <ol>
+                <li><strong>Track Everything:</strong> You can't manage what you don't measure</li>
+                <li><strong>Automate Savings:</strong> Pay yourself first, always</li>
+                <li><strong>Review Regularly:</strong> Weekly reviews prevent monthly surprises</li>
+                <li><strong>Stay Flexible:</strong> Adjust budgets as life changes</li>
+                <li><strong>Celebrate Wins:</strong> Acknowledge progress, no matter how small</li>
+            </ol>
+            
+            <div class="tip">
+                <strong>💡 Your Journey:</strong> Start with daily tracking, add weekly reviews after a month, and monthly deep dives after three months. Build habits gradually.
+            </div>
+        </section>
+
+        <div class="footer">
+            <p><strong>Ready to maximize your financial potential?</strong></p>
+            <p>Start implementing these strategies today!</p>
+            <p>© 2025 Rupiya. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

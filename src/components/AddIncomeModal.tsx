@@ -62,9 +62,17 @@ export default function AddIncomeModal({
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-slate-800 rounded-lg p-6 w-full max-w-md border border-slate-700">
-        <h2 className="text-xl font-bold text-white mb-4">💰 Add Income</h2>
+    <div className="w-full animate-slide-up">
+      <div className="card p-4 md:p-6 border-2 border-green-500/50 bg-gradient-to-br from-slate-800/95 to-slate-900/95 w-full max-w-2xl mx-auto">
+        <div className="border-b border-slate-700 pb-4 mb-4 flex justify-between items-center">
+          <h2 className="text-xl md:text-2xl font-bold text-white">💰 Add Income</h2>
+          <button
+            onClick={onClose}
+            className="text-slate-400 hover:text-white text-2xl"
+          >
+            ✕
+          </button>
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Description */}

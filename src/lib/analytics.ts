@@ -5,13 +5,18 @@
  */
 
 import { getAnalytics, logEvent, setUserProperties, setUserId } from 'firebase/analytics';
-import { app } from './firebase';
+import { getFirebaseApp } from './firebase';
 
 let analytics: any = null;
 
 // Initialize analytics
 export const initializeAnalytics = () => {
   try {
+    const app = getFirebaseApp();
+    if (!app) {
+      console.log('Firebase app not initialized yet');
+      return;
+    }
     analytics = getAnalytics(app);
     console.log('Analytics initialized');
   } catch (error) {

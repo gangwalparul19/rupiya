@@ -1,94 +1,100 @@
 'use client';
 
-import { ReactNode } from 'react';
+import type React from 'react';
 
-/**
- * Props for the FormModal component
- */
 interface FormModalProps {
-  /** Whether the modal is open */
   isOpen: boolean;
-  /** Title displayed in the modal header */
   title: string;
-  /** Callback function when modal is closed */
+  subtitle?: string;
   onClose: () => void;
-  /** Callback function when form is submitted */
-  onSubmit: (e: React.FormEvent) => Promise<void>;
-  /** Form content to display inside the modal */
-  children: ReactNode;
-  /** Text for the submit button (default: "Submit") */
+  children: React.ReactNode;
+  maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+  // Legacy props for backward compatibility
+  onSubmit?: (e: React.FormEvent) => void | Promise<void>;
   submitText?: string;
-  /** Text for the cancel button (default: "Cancel") */
   cancelText?: string;
-  /** Whether the form is currently loading */
   isLoading?: boolean;
-  /** CSS class for max height (default: "max-h-[90vh]") */
-  maxHeight?: string;
 }
 
-/**
- * Reusable FormModal component for consistent form dialogs across the app
- * Handles modal layout, form submission, and loading states
- * 
- * @example
- * ```tsx
- * <FormModal
- *   isOpen={isOpen}
- *   title="Add Item"
- *   onClose={() => setIsOpen(false)}
- *   onSubmit={handleSubmit}
- *   submitText="Create"
- * >
- *   <input type="text" placeholder="Name" />
- * </FormModal>
- * ```
- */
 export default function FormModal({
   isOpen,
   title,
+  subtitle,
   onClose,
-  onSubmit,
   children,
-  submitText = 'Submit',
-  cancelText = 'Cancel',
+  maxWidth = 'lg',
+  onSubmit,
+  submitText,
+  cancelText,
   isLoading = false,
-  maxHeight = 'max-h-[90vh]',
 }: FormModalProps) {
   if (!isOpen) return null;
 
+  const maxWidthClass = {
+    sm: 'max-w-sm',
+    md: 'max-w-md',
+    lg: 'max-w-lg',
+    xl: 'max-w-xl',
+    '2xl': 'max-w-2xl',
+  }[maxWidth];
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-3 md:p-4 z-50">
-      <div className={`bg-gray-800 rounded-lg ${maxHeight} overflow-y-auto w-full max-w-md`}>
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
+      <div className={`${maxWidthClass} w-full bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl shadow-2xl border border-slate-700/50 animate-slide-up`}>
         {/* Header */}
-        <div className="p-4 md:p-6 sticky top-0 bg-gray-800 border-b border-gray-700">
-          <h2 className="text-xl md:text-2xl font-bold text-white">{title}</h2>
+        <div className="px-6 py-5 border-b border-slate-700/50 flex justify-between items-start">
+          <div className="flex-1">
+            <h2 className="text-xl md:text-2xl font-bold text-white">{title}</h2>
+            {subtitle && <p className="text-sm text-slate-400 mt-1">{subtitle}</p>}
+          </div>
+          <button
+            onClick={onClose}
+            className="text-slate-400 hover:text-white transition-colors ml-4 flex-shrink-0"
+            aria-label="Close modal"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
         </div>
 
-        {/* Form */}
-        <form onSubmit={onSubmit} className="p-4 md:p-6 space-y-4">
-          {children}
-
-          {/* Footer Buttons */}
-          <div className="flex gap-2 pt-4 border-t border-gray-700">
-            <button
-              type="button"
-              onClick={onClose}
-              className="flex-1 px-3 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium text-sm"
-              disabled={isLoading}
-              aria-label={`${cancelText} ${title.toLowerCase()}`}
-            >
-              {cancelText}
-            </button>
-            <button
-              type="submit"
-              className="flex-1 px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed"
-              disabled={isLoading}
-              aria-label={submitText}
-            >
-              {isLoading ? 'Loading...' : submitText}
-            </button>
-          </div>
-        </form>
+        {/* Content */}
+        <div className="px-6 py-6 max-h-[calc(100vh-200px)] overflow-y-auto">
+          {/* Legacy form wrapper */}
+          {onSubmit ? (
+            <form onSubmit={onSubmit} className="space-y-4">
+              {children}
+              <div className="flex gap-3 pt-6 border-t border-slate-700/50">
+                <button
+                  type="button"
+                  onClick={onClose}
+                  disabled={isLoading}
+                  className="flex-1 px-4 py-2.5 rounded-lg bg-slate-700 hover:bg-slate-600 text-white font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {cancelText || 'Cancel'}
+                </button>
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="flex-1 px-4 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                >
+                  {isLoading ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <svg className="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                      </svg>
+                      Loading...
+                    </span>
+                  ) : (
+                    submitText || 'Submit'
+                  )}
+                </button>
+              </div>
+            </form>
+          ) : (
+            children
+          )}
+        </div>
       </div>
     </div>
   );
