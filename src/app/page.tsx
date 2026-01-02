@@ -68,18 +68,13 @@ function LandingPage() {
       {/* Hero Section */}
       <section className="relative py-24 sm:py-32 lg:py-48 px-4 sm:px-6 lg:px-8 bg-slate-950/30">
         <div className="container-responsive text-center z-10">
-          {/* Animated Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full mb-8 animate-fade-in">
-            <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
-            <span className="text-blue-300 text-sm font-medium">AI-Powered Financial Management</span>
-          </div>
 
           {/* Main Heading with Animation */}
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight animate-slide-up">
-            Smart Money
+            Rupiya
             <br />
             <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent animate-gradient">
-              Management
+              AI-Powered Financial Management
             </span>
           </h1>
 
@@ -89,14 +84,14 @@ function LandingPage() {
 
           {/* View Guide Button */}
           <div className="flex justify-center mb-8 animate-slide-up delay-200">
-            <a href="/rupiya-guide.html" target="_blank" rel="noopener noreferrer">
+            <Link href="/guide">
               <button className="px-8 py-3 border-2 border-slate-700 hover:border-blue-500 text-white rounded-xl font-semibold text-base hover:bg-slate-800/50 transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                 </svg>
-                View Guide
+                View User Guide
               </button>
-            </a>
+            </Link>
           </div>
 
           {/* Stats */}
@@ -132,7 +127,7 @@ function LandingPage() {
 
               <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
                 <Link href="/auth/signup" className="w-full sm:w-auto">
-                  <button className="w-full sm:px-12 py-5 bg-white text-slate-950 rounded-2xl font-bold text-lg hover:bg-blue-50 transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(255,255,255,0.2)] flex items-center justify-center gap-3 group">
+                  <button className="w-full sm:px-6 py-5 bg-white text-slate-950 rounded-2xl font-bold text-lg hover:bg-blue-50 transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(255,255,255,0.2)] flex items-center justify-center gap-3 group">
                     <span>Get Started Free</span>
                     <svg className="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -140,7 +135,7 @@ function LandingPage() {
                   </button>
                 </Link>
                 <Link href="/auth/login" className="w-full sm:w-auto">
-                  <button className="w-full sm:px-12 py-5 bg-slate-800/50 backdrop-blur-md border border-white/10 text-white rounded-2xl font-bold text-lg hover:bg-slate-700/50 transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-3">
+                  <button className="w-full sm:px-6 py-5 bg-slate-800/50 backdrop-blur-md border border-white/10 text-white rounded-2xl font-bold text-lg hover:bg-slate-700/50 transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-3">
                     <span>Sign In</span>
                     <svg className="w-6 h-6 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14" />
@@ -182,8 +177,8 @@ function LandingPage() {
             </p>
           </div>
 
-          {/* Feature Cards - 2 per row */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Feature Cards - 2 per row on mobile, 2 per row on large */}
+          <div className="grid grid-cols-2 lg:grid-cols-2 gap-3 sm:gap-6 lg:gap-8">
             {[
               {
                 icon: '📊',
@@ -244,26 +239,27 @@ function LandingPage() {
             ].map((feature, index) => (
               <div
                 key={index}
-                className={`group relative bg-slate-900/60 backdrop-blur-2xl border-2 ${feature.borderColor} rounded-[2rem] p-10 lg:p-14 transition-all duration-500 hover:scale-[1.02] hover:bg-slate-900/80 shadow-2xl flex flex-col md:flex-row items-center md:items-start gap-8 cursor-default`}
+                className={`group relative bg-slate-900/60 backdrop-blur-2xl border-2 ${feature.borderColor} rounded-2xl sm:rounded-[2rem] p-5 sm:p-10 lg:p-14 transition-all duration-500 hover:scale-[1.02] hover:bg-slate-900/80 shadow-2xl flex flex-col md:flex-row items-center md:items-start gap-4 sm:gap-8 cursor-default overflow-hidden`}
               >
                 {/* Icon */}
-                <div className={`shrink-0 w-20 h-20 rounded-3xl bg-gradient-to-br ${feature.gradient} shadow-2xl shadow-blue-500/20 flex items-center justify-center text-4xl transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
+                <div className={`shrink-0 w-12 h-12 sm:w-20 h-20 rounded-xl sm:rounded-3xl bg-gradient-to-br ${feature.gradient} shadow-2xl shadow-blue-500/20 flex items-center justify-center text-xl sm:text-4xl transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
                   {feature.icon}
                 </div>
 
                 <div className="flex-1 text-center md:text-left">
-                  <h3 className="text-2xl lg:text-3xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors">
+                  <h3 className="text-base sm:text-2xl lg:text-3xl font-bold text-white mb-1 sm:mb-3 group-hover:text-blue-400 transition-colors">
                     {feature.title}
                   </h3>
-                  <p className="text-slate-400 text-lg lg:text-xl leading-relaxed mb-8">
+                  <p className="text-slate-400 text-xs sm:text-lg lg:text-xl leading-relaxed mb-4 sm:mb-8 line-clamp-2 md:line-clamp-none">
                     {feature.shortDesc}
                   </p>
                   <button
                     onClick={() => setSelectedFeature(feature)}
-                    className="inline-flex items-center text-blue-400 font-bold text-sm uppercase tracking-widest group/btn cursor-pointer"
+                    className="inline-flex items-center text-blue-400 font-bold text-[10px] sm:text-sm uppercase tracking-widest group/btn cursor-pointer"
                   >
-                    <span>View Methodology</span>
-                    <svg className="w-5 h-5 ml-2 transform group-hover/btn:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <span className="hidden sm:inline">View Methodology</span>
+                    <span className="sm:hidden">Learn More</span>
+                    <svg className="w-3 h-3 sm:w-5 h-5 ml-1 sm:ml-2 transform group-hover/btn:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                     </svg>
                   </button>
@@ -290,41 +286,52 @@ function LandingPage() {
             </p>
           </div>
 
-          {/* Steps */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+          {/* Steps - 1 per row on mobile */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-12">
             {[
               {
                 step: '01',
                 title: 'Create Account',
                 description: 'Set up your secure profile in seconds. We use bank-grade encryption to keep your data safe.',
                 icon: '👤',
-                color: 'from-blue-500 to-indigo-600'
+                color: 'from-blue-500 to-indigo-600',
+                glow: 'blue'
               },
               {
                 step: '02',
                 title: 'Input Data',
                 description: 'Add your income, expenses, and investments manually or via automated imports.',
                 icon: '📥',
-                color: 'from-cyan-500 to-blue-600'
+                color: 'from-cyan-500 to-blue-600',
+                glow: 'cyan'
               },
               {
                 step: '03',
                 title: 'Gain Insights',
                 description: 'Let our AI analyze your habits and provide tailored recommendations for wealth growth.',
                 icon: '💡',
-                color: 'from-indigo-500 to-purple-600'
+                color: 'from-indigo-500 to-purple-600',
+                glow: 'purple'
               }
             ].map((item, index) => (
-              <div key={index} className="relative group">
-                <div className="relative z-10 bg-slate-900/40 backdrop-blur-xl border border-white/5 hover:border-blue-500/30 rounded-[2.5rem] p-10 lg:p-12 transition-all duration-500 hover:translate-y-[-10px] shadow-2xl">
-                  {/* Step Number */}
-                  <div className={`w-16 h-16 bg-gradient-to-br ${item.color} rounded-2xl flex items-center justify-center text-white font-black text-2xl shadow-xl mb-8 transform group-hover:rotate-6 transition-transform`}>
-                    {item.step}
+              <div key={index} className="relative group max-w-lg mx-auto w-full">
+                {/* Decorative border glow */}
+                <div className={`absolute -inset-0.5 bg-gradient-to-r ${item.color} rounded-[2.6rem] blur opacity-20 group-hover:opacity-40 transition duration-500`}></div>
+
+                <div className="relative z-10 bg-slate-900/90 backdrop-blur-xl border border-white/10 rounded-[2.5rem] p-8 sm:p-12 transition-all duration-500 hover:translate-y-[-10px] shadow-2xl h-full flex flex-col">
+                  {/* Step Header */}
+                  <div className="flex items-center justify-between mb-8">
+                    <div className={`w-14 h-14 bg-gradient-to-br ${item.color} rounded-2xl flex items-center justify-center text-white font-black text-xl shadow-xl transform group-hover:rotate-6 transition-transform`}>
+                      {item.step}
+                    </div>
+                    <div className="text-4xl grayscale group-hover:grayscale-0 transition-all duration-500">{item.icon}</div>
                   </div>
 
-                  <div className="text-5xl mb-6 grayscale group-hover:grayscale-0 transition-all duration-500">{item.icon}</div>
-                  <h3 className="text-2xl font-bold text-white mb-4">{item.title}</h3>
-                  <p className="text-slate-400 text-lg leading-relaxed">{item.description}</p>
+                  <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors">{item.title}</h3>
+                  <p className="text-slate-400 text-lg leading-relaxed flex-1">{item.description}</p>
+
+                  {/* Visual Indicator */}
+                  <div className="mt-8 h-1 w-12 bg-slate-800 rounded-full group-hover:w-full group-hover:bg-blue-500/30 transition-all duration-500"></div>
                 </div>
               </div>
             ))}
@@ -350,48 +357,63 @@ function LandingPage() {
             className="absolute inset-0 bg-slate-950/90 backdrop-blur-md animate-fade-in"
             onClick={() => setSelectedFeature(null)}
           ></div>
-          <div className="relative w-full max-w-2xl bg-slate-900 border-2 border-blue-500/30 rounded-[2.5rem] overflow-hidden shadow-[0_0_100px_rgba(59,130,246,0.15)] animate-slide-up">
+          <div className="relative w-full max-w-2xl bg-slate-900 border-[3px] border-white/10 rounded-[3rem] overflow-hidden shadow-[0_0_100px_rgba(59,130,246,0.15)] animate-slide-up group">
+            {/* Modal Glow Border */}
+            <div className={`absolute inset-0 bg-gradient-to-br ${selectedFeature.gradient} opacity-5 group-hover:opacity-10 transition-opacity pointer-events-none`}></div>
+
             {/* Modal Header/Hero */}
-            <div className={`pt-12 pb-8 px-8 sm:px-12 bg-gradient-to-br ${selectedFeature.gradient} relative overflow-hidden`}>
-              <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '24px 24px' }}></div>
+            <div className={`pt-16 pb-12 px-10 sm:px-14 bg-gradient-to-br ${selectedFeature.gradient} relative overflow-hidden flex flex-col items-center justify-center`}>
+              {/* Pattern Overlay */}
+              <div className="absolute inset-0 opacity-20 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '16px 16px' }}></div>
+              <div className="absolute top-0 inset-x-0 h-24 bg-gradient-to-b from-white/10 to-transparent"></div>
+
               <button
                 onClick={() => setSelectedFeature(null)}
-                className="absolute top-6 right-6 w-10 h-10 bg-black/20 hover:bg-black/40 rounded-full flex items-center justify-center text-white transition-all hover:scale-110 z-10"
+                className="absolute top-8 right-8 w-12 h-12 bg-black/30 hover:bg-black/60 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-all hover:scale-110 active:scale-90 z-20"
               >
                 ✕
               </button>
+
               <div className="relative z-10 flex flex-col items-center text-center">
-                <div className="text-6xl mb-4 bg-white/20 backdrop-blur-xl w-24 h-24 rounded-3xl flex items-center justify-center shadow-2xl">
+                <div className="text-7xl mb-6 bg-white/20 backdrop-blur-2xl w-32 h-32 rounded-[2.5rem] flex items-center justify-center shadow-2xl transform hover:rotate-6 transition-transform">
                   {selectedFeature.icon}
                 </div>
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-2">{selectedFeature.title}</h2>
-                <div className="h-1 w-20 bg-white/40 rounded-full"></div>
+                <h2 className="text-4xl sm:text-5xl font-black text-white mb-4 tracking-tight drop-shadow-lg">{selectedFeature.title}</h2>
+                <div className="h-2 w-24 bg-white/30 rounded-full"></div>
               </div>
             </div>
 
             {/* Modal Body */}
-            <div className="p-8 sm:p-12">
-              <div className="space-y-6">
-                <div>
-                  <h4 className="text-blue-400 font-bold text-sm uppercase tracking-widest mb-3">The Objective</h4>
-                  <p className="text-white text-lg sm:text-xl font-medium leading-relaxed">
+            <div className="p-10 sm:p-14 relative z-10 bg-slate-900">
+              <div className="grid gap-10">
+                <div className="space-y-4">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-500/10 border border-blue-500/20 rounded-full">
+                    <span className="w-1.5 h-1.5 bg-blue-500 rounded-full"></span>
+                    <span className="text-blue-400 text-[10px] font-bold uppercase tracking-widest">The Core Vision</span>
+                  </div>
+                  <p className="text-white text-xl sm:text-2xl font-bold leading-relaxed">
                     {selectedFeature.shortDesc}
                   </p>
                 </div>
 
-                <div className="h-px bg-slate-800"></div>
+                <div className="h-px bg-gradient-to-r from-transparent via-slate-800 to-transparent"></div>
 
-                <div>
-                  <h4 className="text-blue-400 font-bold text-sm uppercase tracking-widest mb-3">How it helps you</h4>
-                  <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
-                    {selectedFeature.details}
-                  </p>
+                <div className="space-y-6">
+                  <h4 className="text-slate-500 font-black text-xs uppercase tracking-[0.3em]">Operational Methodology</h4>
+                  <div className="bg-slate-800/30 p-8 rounded-[2rem] border border-white/5 shadow-inner">
+                    <p className="text-slate-300 text-lg sm:text-xl leading-relaxed italic">
+                      " {selectedFeature.details} "
+                    </p>
+                  </div>
                 </div>
 
-                <div className="pt-6">
+                <div className="pt-4">
                   <Link href="/auth/signup" onClick={() => setSelectedFeature(null)}>
-                    <button className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl font-bold text-lg transition-all hover:shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:scale-[1.02]">
-                      Start using {selectedFeature.title}
+                    <button className="w-full py-6 bg-white text-slate-950 rounded-3xl font-black text-xl transition-all hover:shadow-[0_20px_50px_rgba(255,255,255,0.1)] hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-4">
+                      <span>Activate Feature</span>
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                      </svg>
                     </button>
                   </Link>
                 </div>
