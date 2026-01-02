@@ -318,7 +318,7 @@ ${sortedExpenses
 
         {/* Stats Cards - 2 col mobile, 3 col desktop */}
         {!showAnalytics && (
-          <div className="grid-responsive-3 mb-6 md:mb-8">
+          <div className="grid-responsive-3 gap-6 mb-10 md:mb-16">
             <div className="card">
               <p className="text-slate-400 text-xs mb-1">Total Expenses</p>
               <p className="text-lg md:text-2xl font-bold text-red-400">₹{(totalExpenses / 1000).toFixed(0)}K</p>
@@ -366,7 +366,7 @@ ${sortedExpenses
         />
 
         {/* Filter and Action Buttons */}
-        <div className="flex gap-2 mb-4 md:mb-6 flex-wrap">
+        <div className="flex gap-3 mb-8 md:mb-12 flex-wrap">
           <button
             onClick={() => setIsFilterOpen(true)}
             className={`px-3 md:px-4 py-2 rounded-lg transition font-semibold text-xs md:text-sm ${hasActiveFilters
@@ -394,7 +394,7 @@ ${sortedExpenses
         </div>
 
         {/* Category Filter Buttons - Horizontal scroll on mobile */}
-        <div className="mb-4 md:mb-6 flex gap-2 overflow-x-auto pb-2">
+        <div className="mb-8 md:mb-12 flex gap-3 overflow-x-auto pb-4 px-2 -mx-2">
           <button
             onClick={() => setFilterCategory('all')}
             className={`px-3 py-2 rounded-lg transition whitespace-nowrap text-xs md:text-sm ${filterCategory === 'all'
@@ -419,7 +419,7 @@ ${sortedExpenses
         </div>
 
         {/* Expenses List */}
-        <div className="space-y-2 md:space-y-3">
+        <div className="space-y-4 md:space-y-6">
           {isLoading ? (
             <div className="card text-center text-slate-300">
               <p className="text-sm md:text-base">Loading expenses...</p>

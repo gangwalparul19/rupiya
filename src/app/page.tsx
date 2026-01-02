@@ -47,16 +47,16 @@ function LandingPage() {
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-slate-950/95 backdrop-blur-xl border-b border-slate-800 shadow-lg' : 'bg-transparent'
         }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-          <div className="flex justify-center items-center">
-            {/* Logo Only - Centered */}
-            <div className="relative h-12 w-auto transition-transform duration-300 hover:scale-105 cursor-pointer">
+        <div className="container-responsive py-4">
+          <div className="flex justify-start items-center">
+            {/* Logo Aligned to Container Left */}
+            <div className="relative h-10 w-auto transition-transform duration-300 hover:scale-105 cursor-pointer">
               <Image
                 src="/logo.png"
                 alt="Rupiya"
-                width={120}
-                height={48}
-                className="object-contain h-12 w-auto"
+                width={100}
+                height={40}
+                className="object-contain h-10 w-auto"
                 priority
               />
             </div>
@@ -65,7 +65,7 @@ function LandingPage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-32 pb-20">
+      <section className="relative flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-48 pb-24 md:pt-56 md:pb-32">
         <div className="container-responsive text-center z-10">
           {/* Animated Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full mb-8 animate-fade-in">
@@ -157,7 +157,7 @@ function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section className="relative py-20 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-8">
+      <section className="relative py-24 sm:py-32 lg:py-48 px-4 sm:px-6 lg:px-8 bg-slate-950/30">
         <div className="container-responsive">
           {/* Section Header */}
           <div className="text-center mb-16 sm:mb-20">
@@ -257,7 +257,7 @@ function LandingPage() {
       </section>
 
       {/* How It Works */}
-      <section className="relative py-20 sm:py-24 lg:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-900/50 to-transparent">
+      <section className="relative py-24 sm:py-32 lg:py-48 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-900/50 to-slate-950">
         <div className="container-responsive">
           {/* Section Header */}
           <div className="text-center mb-12 sm:mb-16 lg:mb-20">
