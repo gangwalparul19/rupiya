@@ -107,8 +107,15 @@
 .page-wrapper {
   min-height: 100vh;
   background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-  padding-top: 3.5rem;
-  /* Account for fixed header */
+  padding-top: 4rem;
+  /* 64px for mobile header */
+}
+
+@media (min-width: 1024px) {
+  .page-wrapper {
+    padding-top: 6rem;
+    /* 96px for desktop header */
+  }
 }
 
 .page-content {

@@ -44,7 +44,7 @@ export default function PWAInstallButton() {
   return (
     <button
       onClick={handleInstall}
-      className="flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white rounded-lg transition font-semibold text-xs sm:text-sm whitespace-nowrap"
+      className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-full transition-all duration-300 font-bold text-xs sm:text-sm whitespace-nowrap shadow-lg shadow-blue-500/20 ring-1 ring-white/10 active:scale-95"
       title="Install Rupiya as an app"
     >
       <span>📱</span>

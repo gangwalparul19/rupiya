@@ -104,8 +104,8 @@ export default function Navigation() {
   return (
     <>
       {/* Header */}
-      <header className="bg-slate-900/80 backdrop-blur-md border-b border-slate-700/50 sticky top-0 z-40 transition-all duration-300">
-        <div className="container-responsive flex justify-between items-center h-16 md:h-20 lg:h-24">
+      <header className="bg-slate-950/80 backdrop-blur-xl border-b border-white/5 sticky top-0 z-40 transition-all duration-300">
+        <div className="container-responsive flex justify-between items-center h-16 md:h-24">
           {/* Logo */}
           <Link href="/" className="flex items-center hover:opacity-80 transition-opacity flex-shrink-0">
             <Image
@@ -125,24 +125,24 @@ export default function Navigation() {
               if ('submenu' in item && item.submenu) {
                 return (
                   <div key={item.label} className="group relative">
-                    <button className="flex items-center gap-2 px-4 lg:px-6 py-2.5 rounded-full text-slate-300 hover:text-white hover:bg-white/5 transition-all duration-300 font-semibold text-sm lg:text-base group-hover:scale-105" aria-label={`Toggle ${item.label} menu`}>
-                      <span className="text-lg lg:text-xl">{item.icon}</span>
+                    <button className="flex items-center gap-2 px-5 py-2.5 rounded-full text-slate-400 hover:text-white hover:bg-white/10 transition-all duration-300 font-bold text-sm lg:text-base group-hover:scale-105" aria-label={`Toggle ${item.label} menu`}>
+                      <span className="text-xl">{item.icon}</span>
                       <span className="hidden lg:inline">{item.label}</span>
-                      <span className="text-[10px] ml-1 opacity-50 transition-transform group-hover:rotate-180">▼</span>
+                      <span className="text-[10px] ml-1 opacity-40 transition-transform group-hover:rotate-180">▼</span>
                     </button>
                     {/* Dropdown Menu */}
-                    <div className="absolute left-1/2 -translate-x-1/2 mt-4 w-56 bg-slate-800/95 backdrop-blur-xl rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border border-white/5 p-2 origin-top scale-95 group-hover:scale-100">
-                      <div className="space-y-1">
+                    <div className="absolute left-1/2 -translate-x-1/2 mt-4 w-60 bg-slate-950/95 backdrop-blur-2xl rounded-3xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border border-white/10 p-2.5 origin-top scale-95 group-hover:scale-100">
+                      <div className="space-y-1.5">
                         {item.submenu.map((subitem: any) => (
                           <Link
                             key={subitem.href}
                             href={subitem.href}
-                            className={`flex items-center gap-3 px-4 py-3 text-sm font-medium transition-all duration-200 rounded-xl ${isActive(subitem.href)
-                              ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20'
-                              : 'text-slate-400 hover:text-white hover:bg-white/5'
+                            className={`flex items-center gap-3 px-5 py-3.5 text-sm font-bold transition-all duration-200 rounded-2xl ${isActive(subitem.href)
+                              ? 'bg-blue-600 text-white shadow-xl shadow-blue-500/30'
+                              : 'text-slate-400 hover:text-white hover:bg-white/10'
                               }`}
                           >
-                            <span className="text-lg">{subitem.icon}</span>
+                            <span className="text-xl">{subitem.icon}</span>
                             <span className="flex-1">{subitem.label}</span>
                           </Link>
                         ))}
@@ -156,45 +156,45 @@ export default function Navigation() {
           </nav>
 
           {/* Right Side - Profile, Install Button & Hamburger */}
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-3 sm:gap-4">
             {/* PWA Install Button */}
             <PWAInstallButton />
 
             <div className="relative hidden sm:block">
               <button
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
-                className="flex items-center gap-2 px-2 sm:px-3 py-2 rounded-md text-slate-300 hover:text-white hover:bg-slate-700 transition text-xs sm:text-sm"
+                className="flex items-center gap-2.5 px-4 py-2.5 rounded-full text-slate-400 hover:text-white hover:bg-white/10 transition-all duration-300 font-bold text-sm bg-white/5 border border-white/5"
               >
                 <span>👤</span>
-                <span className="hidden md:inline text-xs">{userProfile?.displayName || user?.email?.split('@')[0]}</span>
+                <span className="hidden md:inline">{userProfile?.displayName || user?.email?.split('@')[0]}</span>
               </button>
 
               {/* Profile Dropdown */}
               {isProfileOpen && (
-                <div className="absolute right-0 mt-4 w-52 bg-slate-800/95 backdrop-blur-xl rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-50 border border-white/5 p-2 overflow-hidden animate-slide-up">
+                <div className="absolute right-0 mt-4 w-56 bg-slate-950/95 backdrop-blur-2xl rounded-3xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)] z-50 border border-white/10 p-2.5 overflow-hidden animate-slide-up">
                   <Link
                     href="/profile"
                     onClick={() => setIsProfileOpen(false)}
-                    className="flex items-center gap-3 px-4 py-3 text-slate-300 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-200 text-sm font-medium"
+                    className="flex items-center gap-3 px-5 py-3.5 text-slate-400 hover:text-white hover:bg-white/10 rounded-2xl transition-all duration-200 text-sm font-bold"
                   >
-                    <span>👤</span> Profile
+                    <span className="text-xl">👤</span> Profile
                   </Link>
                   <Link
                     href="/payment-methods"
                     onClick={() => setIsProfileOpen(false)}
-                    className="flex items-center gap-3 px-4 py-3 text-slate-300 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-200 text-sm font-medium"
+                    className="flex items-center gap-3 px-5 py-3.5 text-slate-400 hover:text-white hover:bg-white/10 rounded-2xl transition-all duration-200 text-sm font-bold"
                   >
-                    <span>💳</span> Payment Methods
+                    <span className="text-xl">💳</span> Payment Methods
                   </Link>
-                  <div className="h-px bg-slate-700/50 my-1 mx-2"></div>
+                  <div className="h-px bg-white/5 my-2 mx-2"></div>
                   <button
                     onClick={() => {
                       handleLogout();
                       setIsProfileOpen(false);
                     }}
-                    className="w-full flex items-center gap-3 px-4 py-3 text-red-400 hover:text-white hover:bg-red-500/10 rounded-xl transition-all duration-200 text-sm font-medium"
+                    className="w-full flex items-center gap-3 px-5 py-3.5 text-red-400 hover:text-white hover:bg-red-500/20 rounded-2xl transition-all duration-200 text-sm font-bold"
                   >
-                    <span>🚪</span> Logout
+                    <span className="text-xl">🚪</span> Logout
                   </button>
                 </div>
               )}
@@ -203,57 +203,42 @@ export default function Navigation() {
             {/* Hamburger Menu Button */}
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden text-white p-2 hover:bg-slate-700 rounded-md transition"
+              className="md:hidden text-white p-2.5 hover:bg-white/10 rounded-xl transition-all duration-300 active:scale-90"
               aria-label="Toggle menu"
             >
-              <svg
-                className="w-5 h-5 sm:w-6 sm:h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                {isOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                )}
-              </svg>
+              <div className="relative w-6 h-6">
+                <span className={`absolute block h-0.5 w-6 bg-current transform transition-all duration-300 ease-in-out ${isOpen ? 'rotate-45 top-3' : 'top-1'}`}></span>
+                <span className={`absolute block h-0.5 w-6 bg-current transform transition-all duration-300 ease-in-out top-3 ${isOpen ? 'opacity-0' : 'opacity-100'}`}></span>
+                <span className={`absolute block h-0.5 w-6 bg-current transform transition-all duration-300 ease-in-out ${isOpen ? '-rotate-45 top-3' : 'top-5'}`}></span>
+              </div>
             </button>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation Overlay */}
         {isOpen && (
-          <nav className="md:hidden bg-slate-700 border-t border-slate-600">
-            <div className="max-w-full mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-3 space-y-1">
+          <nav className="md:hidden bg-slate-950/95 backdrop-blur-2xl border-t border-white/5 animate-fade-in fixed inset-x-0 top-16 bottom-0 z-50 overflow-y-auto">
+            <div className="p-4 space-y-3">
               {navItems.map((item) => {
                 if ('submenu' in item && item.submenu) {
                   return (
-                    <div key={item.label}>
+                    <div key={item.label} className="space-y-1">
                       <button
                         onClick={() => toggleSubmenu(item.label)}
-                        className="w-full flex items-center justify-between px-3 py-2 rounded-md text-slate-300 hover:text-white hover:bg-slate-600 transition font-medium text-sm"
+                        className={`w-full flex items-center justify-between px-4 py-4 rounded-2xl transition-all duration-300 font-bold text-base ${expandedMenu === item.label ? 'bg-white/10 text-white' : 'text-slate-400 hover:text-white hover:bg-white/5'
+                          }`}
                       >
-                        <div className="flex items-center gap-2">
-                          <span className="text-lg">{item.icon}</span>
+                        <div className="flex items-center gap-3">
+                          <span className="text-2xl">{item.icon}</span>
                           <span>{item.label}</span>
                         </div>
-                        <span className={`text-xs transition transform ${expandedMenu === item.label ? 'rotate-180' : ''}`}>
+                        <span className={`text-[10px] opacity-40 transition-transform duration-300 ${expandedMenu === item.label ? 'rotate-180' : ''}`}>
                           ▼
                         </span>
                       </button>
+
                       {expandedMenu === item.label && (
-                        <div className="bg-slate-600 rounded-md mx-2 my-1 overflow-hidden border border-slate-500">
+                        <div className="grid grid-cols-1 gap-2 pl-2 pr-2 py-2 animate-slide-up">
                           {item.submenu.map((subitem: any) => (
                             <Link
                               key={subitem.href}
@@ -262,13 +247,13 @@ export default function Navigation() {
                                 setIsOpen(false);
                                 setExpandedMenu(null);
                               }}
-                              className={`flex items-center gap-2 px-4 py-2 text-xs transition ${isActive(subitem.href)
-                                ? 'bg-blue-600 text-white'
-                                : 'text-slate-300 hover:text-white hover:bg-slate-500'
+                              className={`flex items-center gap-4 px-6 py-4 rounded-2xl transition-all duration-200 ${isActive(subitem.href)
+                                ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/25'
+                                : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/10'
                                 }`}
                             >
-                              <span className="text-base">{subitem.icon}</span>
-                              <span>{subitem.label}</span>
+                              <span className="text-xl">{subitem.icon}</span>
+                              <span className="text-sm font-semibold">{subitem.label}</span>
                             </Link>
                           ))}
                         </div>
@@ -280,32 +265,32 @@ export default function Navigation() {
               })}
 
               {/* Mobile Profile & Logout Section */}
-              <div className="border-t border-slate-600 pt-3 mt-3 space-y-1">
+              <div className="pt-6 mt-6 border-t border-white/5 space-y-3">
                 <Link
                   href="/profile"
                   onClick={() => setIsOpen(false)}
-                  className="flex items-center gap-2 px-3 py-2 rounded-md text-slate-300 hover:text-white hover:bg-slate-600 transition font-medium text-sm"
+                  className="flex items-center gap-4 px-4 py-4 rounded-2xl bg-white/5 text-slate-400 font-bold hover:bg-white/10 hover:text-white transition-all duration-300"
                 >
-                  <span className="text-lg">👤</span>
-                  <span>Profile</span>
+                  <span className="text-2xl">👤</span>
+                  <span className="text-base">Profile</span>
                 </Link>
                 <Link
                   href="/payment-methods"
                   onClick={() => setIsOpen(false)}
-                  className="flex items-center gap-2 px-3 py-2 rounded-md text-slate-300 hover:text-white hover:bg-slate-600 transition font-medium text-sm"
+                  className="flex items-center gap-4 px-4 py-4 rounded-2xl bg-white/5 text-slate-400 font-bold hover:bg-white/10 hover:text-white transition-all duration-300"
                 >
-                  <span className="text-lg">💳</span>
-                  <span>Payment Methods</span>
+                  <span className="text-2xl">💳</span>
+                  <span className="text-base">Payment Methods</span>
                 </Link>
                 <button
                   onClick={() => {
                     handleLogout();
                     setIsOpen(false);
                   }}
-                  className="w-full flex items-center gap-2 px-3 py-2 rounded-md text-red-400 hover:text-white hover:bg-red-600/20 transition font-medium text-sm"
+                  className="w-full flex items-center gap-4 px-4 py-4 rounded-2xl bg-red-500/10 text-red-400 font-bold hover:bg-red-500 hover:text-white transition-all duration-300"
                 >
-                  <span className="text-lg">🚪</span>
-                  <span>Logout</span>
+                  <span className="text-2xl">🚪</span>
+                  <span className="text-base">Logout</span>
                 </button>
               </div>
             </div>
