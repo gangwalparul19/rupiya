@@ -104,7 +104,7 @@ export default function Navigation() {
   return (
     <>
       {/* Header */}
-      <header className="bg-slate-950/80 backdrop-blur-xl border-b border-white/5 sticky top-0 z-40 transition-all duration-300">
+      <header className="bg-slate-950/80 backdrop-blur-xl border-b border-white/5 sticky top-0 z-[120] transition-all duration-300">
         <div className="container-responsive flex justify-between items-center h-16 md:h-24">
           {/* Logo */}
           <Link href="/" className="flex items-center hover:opacity-80 transition-opacity flex-shrink-0">
@@ -207,96 +207,96 @@ export default function Navigation() {
               aria-label="Toggle menu"
             >
               <div className="relative w-6 h-6">
-                <span className={`absolute block h-0.5 w-6 bg-current transform transition-all duration-300 ease-in-out ${isOpen ? 'rotate-45 top-3' : 'top-1'}`}></span>
-                <span className={`absolute block h-0.5 w-6 bg-current transform transition-all duration-300 ease-in-out top-3 ${isOpen ? 'opacity-0' : 'opacity-100'}`}></span>
-                <span className={`absolute block h-0.5 w-6 bg-current transform transition-all duration-300 ease-in-out ${isOpen ? '-rotate-45 top-3' : 'top-5'}`}></span>
+                <span className={`absolute block h-[3px] w-6 bg-white transform transition-all duration-300 ease-in-out ${isOpen ? 'rotate-45 top-3' : 'top-1'}`}></span>
+                <span className={`absolute block h-[3px] w-6 bg-white transform transition-all duration-300 ease-in-out top-3 ${isOpen ? 'opacity-0' : 'opacity-100'}`}></span>
+                <span className={`absolute block h-[3px] w-6 bg-white transform transition-all duration-300 ease-in-out ${isOpen ? '-rotate-45 top-3' : 'top-5'}`}></span>
               </div>
             </button>
           </div>
         </div>
-
-        {/* Mobile Navigation Overlay */}
-        {isOpen && (
-          <nav className="md:hidden bg-slate-950/95 backdrop-blur-2xl border-t border-white/5 animate-fade-in fixed inset-x-0 top-16 bottom-0 z-50 overflow-y-auto">
-            <div className="p-4 space-y-3">
-              {navItems.map((item) => {
-                if ('submenu' in item && item.submenu) {
-                  return (
-                    <div key={item.label} className="space-y-1">
-                      <button
-                        onClick={() => toggleSubmenu(item.label)}
-                        className={`w-full flex items-center justify-between px-4 py-4 rounded-2xl transition-all duration-300 font-bold text-base ${expandedMenu === item.label ? 'bg-white/10 text-white' : 'text-slate-400 hover:text-white hover:bg-white/5'
-                          }`}
-                      >
-                        <div className="flex items-center gap-3">
-                          <span className="text-2xl">{item.icon}</span>
-                          <span>{item.label}</span>
-                        </div>
-                        <span className={`text-[10px] opacity-40 transition-transform duration-300 ${expandedMenu === item.label ? 'rotate-180' : ''}`}>
-                          ▼
-                        </span>
-                      </button>
-
-                      {expandedMenu === item.label && (
-                        <div className="grid grid-cols-1 gap-2 pl-2 pr-2 py-2 animate-slide-up">
-                          {item.submenu.map((subitem: any) => (
-                            <Link
-                              key={subitem.href}
-                              href={subitem.href}
-                              onClick={() => {
-                                setIsOpen(false);
-                                setExpandedMenu(null);
-                              }}
-                              className={`flex items-center gap-4 px-6 py-4 rounded-2xl transition-all duration-200 ${isActive(subitem.href)
-                                ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/25'
-                                : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/10'
-                                }`}
-                            >
-                              <span className="text-xl">{subitem.icon}</span>
-                              <span className="text-sm font-semibold">{subitem.label}</span>
-                            </Link>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  );
-                }
-                return null;
-              })}
-
-              {/* Mobile Profile & Logout Section */}
-              <div className="pt-6 mt-6 border-t border-white/5 space-y-3">
-                <Link
-                  href="/profile"
-                  onClick={() => setIsOpen(false)}
-                  className="flex items-center gap-4 px-4 py-4 rounded-2xl bg-white/5 text-slate-400 font-bold hover:bg-white/10 hover:text-white transition-all duration-300"
-                >
-                  <span className="text-2xl">👤</span>
-                  <span className="text-base">Profile</span>
-                </Link>
-                <Link
-                  href="/payment-methods"
-                  onClick={() => setIsOpen(false)}
-                  className="flex items-center gap-4 px-4 py-4 rounded-2xl bg-white/5 text-slate-400 font-bold hover:bg-white/10 hover:text-white transition-all duration-300"
-                >
-                  <span className="text-2xl">💳</span>
-                  <span className="text-base">Payment Methods</span>
-                </Link>
-                <button
-                  onClick={() => {
-                    handleLogout();
-                    setIsOpen(false);
-                  }}
-                  className="w-full flex items-center gap-4 px-4 py-4 rounded-2xl bg-red-500/10 text-red-400 font-bold hover:bg-red-500 hover:text-white transition-all duration-300"
-                >
-                  <span className="text-2xl">🚪</span>
-                  <span className="text-base">Logout</span>
-                </button>
-              </div>
-            </div>
-          </nav>
-        )}
       </header>
+
+      {/* Mobile Navigation Overlay - Moved outside header for better z-index behavior */}
+      {isOpen && (
+        <nav className="md:hidden bg-slate-950/98 backdrop-blur-3xl animate-fade-in fixed inset-0 top-0 pt-16 z-[110] overflow-y-auto">
+          <div className="p-4 space-y-3">
+            {navItems.map((item) => {
+              if ('submenu' in item && item.submenu) {
+                return (
+                  <div key={item.label} className="space-y-1">
+                    <button
+                      onClick={() => toggleSubmenu(item.label)}
+                      className={`w-full flex items-center justify-between px-4 py-4 rounded-2xl transition-all duration-300 font-bold text-base ${expandedMenu === item.label ? 'bg-white/10 text-white' : 'text-slate-300 hover:text-white hover:bg-white/5'
+                        }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className="text-2xl">{item.icon}</span>
+                        <span>{item.label}</span>
+                      </div>
+                      <span className={`text-[10px] opacity-40 transition-transform duration-300 ${expandedMenu === item.label ? 'rotate-180' : ''}`}>
+                        ▼
+                      </span>
+                    </button>
+
+                    {expandedMenu === item.label && (
+                      <div className="grid grid-cols-1 gap-2 pl-2 pr-2 py-2 animate-slide-up">
+                        {item.submenu.map((subitem: any) => (
+                          <Link
+                            key={subitem.href}
+                            href={subitem.href}
+                            onClick={() => {
+                              setIsOpen(false);
+                              setExpandedMenu(null);
+                            }}
+                            className={`flex items-center gap-4 px-6 py-4 rounded-2xl transition-all duration-200 ${isActive(subitem.href)
+                              ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/25'
+                              : 'bg-white/5 text-slate-200 hover:text-white hover:bg-white/10'
+                              }`}
+                          >
+                            <span className="text-xl">{subitem.icon}</span>
+                            <span className="text-sm font-bold">{subitem.label}</span>
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+              return null;
+            })}
+
+            {/* Mobile Profile & Logout Section */}
+            <div className="pt-6 mt-6 border-t border-white/10 space-y-3">
+              <Link
+                href="/profile"
+                onClick={() => setIsOpen(false)}
+                className="flex items-center gap-4 px-4 py-4 rounded-2xl bg-white/5 text-slate-200 font-bold hover:bg-white/10 hover:text-white transition-all duration-300"
+              >
+                <span className="text-2xl">👤</span>
+                <span className="text-base">Profile</span>
+              </Link>
+              <Link
+                href="/payment-methods"
+                onClick={() => setIsOpen(false)}
+                className="flex items-center gap-4 px-4 py-4 rounded-2xl bg-white/5 text-slate-200 font-bold hover:bg-white/10 hover:text-white transition-all duration-300"
+              >
+                <span className="text-2xl">💳</span>
+                <span className="text-base">Payment Methods</span>
+              </Link>
+              <button
+                onClick={() => {
+                  handleLogout();
+                  setIsOpen(false);
+                }}
+                className="w-full flex items-center gap-4 px-4 py-4 rounded-2xl bg-red-500/10 text-red-400 font-bold hover:bg-red-500 hover:text-white transition-all duration-300"
+              >
+                <span className="text-2xl">🚪</span>
+                <span className="text-base">Logout</span>
+              </button>
+            </div>
+          </div>
+        </nav>
+      )}
     </>
   );
 }

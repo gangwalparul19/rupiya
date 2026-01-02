@@ -59,7 +59,7 @@ export default function AnalyticsPage() {
   if (isLoading) {
     return (
       <PageWrapper>
-        <main className="min-h-screen bg-gray-950 p-3 sm:p-4 md:p-6 lg:p-8">
+        <main className="min-h-screen p-3 sm:p-4 md:p-6 lg:p-8">
           <div className="flex items-center justify-center py-12">
             <div className="text-gray-400">Loading analytics data...</div>
           </div>
@@ -71,7 +71,7 @@ export default function AnalyticsPage() {
   if (!analyticsData) {
     return (
       <PageWrapper>
-        <main className="min-h-screen bg-gray-950 p-3 sm:p-4 md:p-6 lg:p-8">
+        <main className="min-h-screen p-3 sm:p-4 md:p-6 lg:p-8">
           <div className="max-w-6xl mx-auto">
             <h1 className="heading-page">📊 Analytics Dashboard</h1>
             <p className="text-secondary mb-8">No analytics data available yet</p>
@@ -83,7 +83,7 @@ export default function AnalyticsPage() {
 
   return (
     <PageWrapper>
-      <main className="min-h-screen bg-gray-950 p-3 sm:p-4 md:p-6 lg:p-8">
+      <main className="min-h-screen p-3 sm:p-4 md:p-6 lg:p-8">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="mb-6 md:mb-8">

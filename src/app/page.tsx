@@ -45,21 +45,31 @@ function LandingPage() {
       </div>
 
       {/* Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-slate-950/95 backdrop-blur-xl border-b border-slate-800 shadow-lg' : 'bg-transparent'
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-slate-950/80 backdrop-blur-xl border-b border-white/5 shadow-lg' : 'bg-transparent'
         }`}>
-        <div className="lg:max-w-[1240px] lg:mx-auto px-6 sm:px-8 py-4">
-          <div className="flex justify-between items-center group">
-            {/* Logo Aligned to Container Left */}
-            <div className="relative h-10 w-auto transition-transform duration-300 hover:scale-105 cursor-pointer">
-              <Image
-                src="/logo.png"
-                alt="Rupiya"
-                width={100}
-                height={40}
-                className="object-contain h-10 w-auto"
-                priority
-              />
-            </div>
+        <div className="lg:max-w-[1240px] lg:mx-auto px-6 sm:px-8 h-20 md:h-24 flex items-center justify-between">
+          {/* Logo */}
+          <div className="relative h-10 w-auto transition-transform duration-300 hover:scale-105 cursor-pointer">
+            <Image
+              src="/logo.png"
+              alt="Rupiya"
+              width={100}
+              height={40}
+              className="object-contain h-10 w-auto"
+              priority
+            />
+          </div>
+
+          {/* Right Side CTA */}
+          <div className="flex items-center gap-4">
+            <Link href="/auth/login" className="hidden sm:block text-slate-300 hover:text-white font-bold transition-colors">
+              Login
+            </Link>
+            <Link href="/auth/signup">
+              <button className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white rounded-full font-bold text-sm transition-all duration-300 shadow-lg shadow-blue-500/25 active:scale-95">
+                Join Now
+              </button>
+            </Link>
           </div>
         </div>
       </nav>
