@@ -218,7 +218,7 @@ export default function Navigation() {
 
       {/* Mobile Navigation Overlay - Moved outside header for better z-index behavior */}
       {isOpen && (
-        <nav className="md:hidden bg-slate-950/98 backdrop-blur-3xl animate-fade-in fixed inset-0 top-0 pt-16 z-[110] overflow-y-auto">
+        <nav className="md:hidden bg-slate-950/98 backdrop-blur-3xl animate-fade-in fixed inset-0 top-0 pt-24 z-[110] overflow-y-auto">
           <div className="p-4 space-y-3">
             {navItems.map((item) => {
               if ('submenu' in item && item.submenu) {

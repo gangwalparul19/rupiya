@@ -180,7 +180,7 @@ function LandingPage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto px-4">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-8 max-w-6xl mx-auto px-2 sm:px-4">
               {[
                 {
                   icon: '📊',
@@ -234,16 +234,16 @@ function LandingPage() {
               ].map((feature, index) => (
                 <div
                   key={index}
-                  className={`group relative bg-slate-900/40 backdrop-blur-xl border-2 ${feature.borderColor} rounded-3xl p-6 sm:p-10 transition-all duration-500 hover:scale-[1.02] hover:bg-slate-900/60 flex flex-row items-center gap-6 sm:gap-8`}
+                  className={`group relative bg-slate-900/40 backdrop-blur-xl border-2 ${feature.borderColor} rounded-2xl sm:rounded-3xl p-4 sm:p-10 transition-all duration-500 hover:scale-[1.02] hover:bg-slate-900/60 flex flex-col sm:flex-row items-center sm:items-center text-center sm:text-left gap-4 sm:gap-8`}
                 >
-                  <div className={`shrink-0 w-12 h-12 sm:w-20 sm:h-20 bg-gradient-to-br ${feature.gradient} rounded-2xl flex items-center justify-center text-3xl sm:text-4xl shadow-2xl shadow-blue-500/20 group-hover:scale-110 transition-transform`}>
+                  <div className={`shrink-0 w-12 h-12 sm:w-20 sm:h-20 bg-gradient-to-br ${feature.gradient} rounded-xl sm:rounded-2xl flex items-center justify-center text-2xl sm:text-4xl shadow-2xl shadow-blue-500/20 group-hover:scale-110 transition-transform`}>
                     {feature.icon}
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
+                    <h3 className="text-sm sm:text-2xl font-bold text-white mb-1 sm:mb-2 group-hover:text-blue-400 transition-colors line-clamp-1 sm:line-clamp-none">
                       {feature.title}
                     </h3>
-                    <p className="text-slate-400 text-sm sm:text-base leading-relaxed line-clamp-2 md:line-clamp-none">
+                    <p className="text-slate-400 text-[10px] sm:text-base leading-tight sm:leading-relaxed line-clamp-2 md:line-clamp-none">
                       {feature.description}
                     </p>
                   </div>
@@ -295,19 +295,19 @@ function LandingPage() {
                   icon: '💡'
                 }
               ].map((item, index) => (
-                <div key={index} className="group relative bg-slate-900/20 border border-slate-800/50 rounded-[2.5rem] p-8 sm:p-12 transition-all duration-500 hover:bg-slate-900/40 hover:border-blue-500/30">
-                  <div className="flex flex-row items-center gap-4 mb-6">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-2xl flex items-center justify-center text-white font-black text-xl shadow-lg ring-4 ring-blue-500/10 transition-transform group-hover:rotate-6">
+                <div key={index} className="group relative bg-slate-900/20 border border-slate-800/50 rounded-3xl p-6 sm:p-12 transition-all duration-500 hover:bg-slate-900/40 hover:border-blue-500/30 flex flex-col items-center text-center">
+                  <div className="flex flex-row items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-xl sm:rounded-2xl flex items-center justify-center text-white font-black text-lg sm:text-xl shadow-lg ring-4 ring-blue-500/10 transition-transform group-hover:rotate-6">
                       {item.step}
                     </div>
-                    <div className="text-3xl text-white group-hover:scale-110 transition-transform duration-300">
+                    <div className="text-2xl sm:text-3xl text-white group-hover:scale-110 transition-transform duration-300">
                       {item.icon}
                     </div>
                   </div>
-                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">
+                  <h3 className="text-sm sm:text-2xl font-bold text-white mb-2 sm:mb-4 line-clamp-1 sm:line-clamp-none">
                     {item.title}
                   </h3>
-                  <p className="text-slate-400 text-base sm:text-lg leading-relaxed">
+                  <p className="text-slate-400 text-[10px] sm:text-lg leading-tight sm:leading-relaxed line-clamp-2 md:line-clamp-none">
                     {item.description}
                   </p>
                 </div>
