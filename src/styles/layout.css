@@ -357,6 +357,18 @@
   }
 }
 
+.grid-3 {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 1rem !important;
+}
+
+@media (max-width: 640px) {
+  .grid-3 {
+    gap: 0.5rem !important;
+  }
+}
+
 /* ============================================
    TYPOGRAPHY
    ============================================ */

@@ -19,6 +19,8 @@ import {
   upiService,
   bankAccountService,
   walletService,
+  houseHelpService,
+  houseHelpPaymentService,
 } from '@/lib/firebaseService';
 
 export default function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -40,6 +42,8 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
   const setUPIs = useAppStore((state) => state.setUPIs);
   const setBankAccounts = useAppStore((state) => state.setBankAccounts);
   const setWallets = useAppStore((state) => state.setWallets);
+  const setHouseHelps = useAppStore((state) => state.setHouseHelps);
+  const setHouseHelpPayments = useAppStore((state) => state.setHouseHelpPayments);
 
   useEffect(() => {
     setIsLoading(true);
@@ -67,6 +71,8 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
             banks,
             wallets,
             recurringTransactions,
+            houseHelps,
+            houseHelpPayments,
           ] = await Promise.all([
             categoryService.getAll(user.uid),
             expenseService.getAll(user.uid),
@@ -83,6 +89,8 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
             bankAccountService.getAll(user.uid),
             walletService.getAll(user.uid),
             recurringTransactionService.getAll(user.uid),
+            houseHelpService.getAll(user.uid),
+            houseHelpPaymentService.getAll(user.uid),
           ]);
 
           setCategories(categories);
@@ -100,6 +108,8 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
           setBankAccounts(banks);
           setWallets(wallets);
           setRecurringTransactions(recurringTransactions);
+          setHouseHelps(houseHelps);
+          setHouseHelpPayments(houseHelpPayments);
         } catch (error) {
           console.error('Error loading user data:', error);
         }
@@ -120,6 +130,8 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
         setBankAccounts([]);
         setWallets([]);
         setRecurringTransactions([]);
+        setHouseHelps([]);
+        setHouseHelpPayments([]);
       }
 
       setIsLoading(false);
@@ -145,6 +157,8 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     setBankAccounts,
     setWallets,
     setRecurringTransactions,
+    setHouseHelps,
+    setHouseHelpPayments,
   ]);
 
   return <>{children}</>;

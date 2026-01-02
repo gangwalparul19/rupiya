@@ -65,7 +65,7 @@ function LandingPage() {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-48 pb-24 md:pt-56 md:pb-32">
+      <section className="relative py-24 sm:py-32 lg:py-48 px-4 sm:px-6 lg:px-8 bg-slate-950/30">
         <div className="container-responsive text-center z-10">
           {/* Animated Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full mb-8 animate-fade-in">
@@ -164,6 +164,7 @@ function LandingPage() {
       <section className="relative py-24 sm:py-32 lg:py-48 px-4 sm:px-6 lg:px-8 bg-slate-950/30">
         <div className="container-responsive">
           {/* Section Header */}
+          <br /><br />
           <div className="text-center mb-16 sm:mb-20">
             <div className="inline-block px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full mb-6">
               <span className="text-blue-400 text-sm font-semibold">FEATURES</span>
@@ -226,6 +227,14 @@ function LandingPage() {
                 gradient: 'from-violet-600 to-purple-600',
                 bgGradient: 'from-violet-500/10 to-purple-500/10',
                 borderColor: 'border-violet-500/20 hover:border-violet-500/40'
+              },
+              {
+                icon: '🧹',
+                title: 'House Help',
+                description: 'Manage staff wages and track mid-month advances with automated expense syncing.',
+                gradient: 'from-amber-600 to-yellow-600',
+                bgGradient: 'from-amber-500/10 to-yellow-500/10',
+                borderColor: 'border-amber-500/20 hover:border-amber-500/40'
               }
             ].map((feature, index) => (
               <div
@@ -267,6 +276,7 @@ function LandingPage() {
       </div>
       <section className="relative py-24 sm:py-32 lg:py-48 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-900/50 to-slate-950">
         <div className="container-responsive">
+          <br /><br />
           {/* Section Header */}
           <div className="text-center mb-12 sm:mb-16 lg:mb-20">
             <div className="inline-block px-4 py-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full mb-4 sm:mb-6">
@@ -331,50 +341,8 @@ function LandingPage() {
       {/* Footer */}
       <footer className="relative border-t border-slate-800 bg-slate-950/80 backdrop-blur-xl py-12 md:py-20">
         <div className="container-responsive px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-            <div className="col-span-1 md:col-span-2">
-              <div className="relative h-10 w-auto mb-6">
-                <Image
-                  src="/logo.png"
-                  alt="Rupiya"
-                  width={100}
-                  height={40}
-                  className="object-contain h-10 w-auto"
-                />
-              </div>
-              <p className="text-slate-400 text-base max-w-sm leading-relaxed mb-6">
-                Redefining financial management with AI-powered tracking, intuitive budgeting, and professional-grade insights for the modern era.
-              </p>
-              <div className="flex gap-4">
-                {/* Social Icons Placeholder */}
-                <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:bg-blue-600 transition-all cursor-pointer">𝕏</div>
-                <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:bg-blue-600 transition-all cursor-pointer">in</div>
-                <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400 hover:text-white hover:bg-blue-600 transition-all cursor-pointer">ig</div>
-              </div>
-            </div>
-
-            <div>
-              <h4 className="text-white font-bold mb-6">Product</h4>
-              <ul className="space-y-4">
-                <li><Link href="/features" className="text-slate-400 hover:text-blue-400 transition-colors">Features</Link></li>
-                <li><Link href="/pricing" className="text-slate-400 hover:text-blue-400 transition-colors">Pricing</Link></li>
-                <li><Link href="/guide" className="text-slate-400 hover:text-blue-400 transition-colors">User Guide</Link></li>
-                <li><Link href="/support" className="text-slate-400 hover:text-blue-400 transition-colors">Support</Link></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="text-white font-bold mb-6">Company</h4>
-              <ul className="space-y-4">
-                <li><Link href="/about" className="text-slate-400 hover:text-blue-400 transition-colors">About Us</Link></li>
-                <li><Link href="/privacy" className="text-slate-400 hover:text-blue-400 transition-colors">Privacy Policy</Link></li>
-                <li><Link href="/terms" className="text-slate-400 hover:text-blue-400 transition-colors">Terms of Service</Link></li>
-              </ul>
-            </div>
-          </div>
-
+          <br /><br />
           <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-slate-500 text-sm">© 2025 Rupiya. All rights reserved.</p>
             <div className="flex gap-6 text-sm">
               <span className="text-slate-500">Built with ❤️ for modern professionals</span>
             </div>

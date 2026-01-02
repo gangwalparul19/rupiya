@@ -269,6 +269,28 @@ export interface BillReminder {
   createdAt: Date;
 }
 
+// ============ PHASE 2: HOUSE HELP MANAGEMENT ============
+export interface HouseHelp {
+  id: string;
+  name: string;
+  type: string; // maid, cook, cleaner, car_wash, etc.
+  mobile: string;
+  monthlyWage: number;
+  startDate: Date;
+  status: 'active' | 'inactive';
+  createdAt: Date;
+}
+
+export interface HouseHelpPayment {
+  id: string;
+  helpId: string;
+  amount: number;
+  type: 'salary' | 'advance';
+  date: Date;
+  notes?: string;
+  createdAt: Date;
+}
+
 interface AppStore {
   // Auth
   user: User | null;
@@ -295,21 +317,25 @@ interface AppStore {
   upiAccounts: UPI[];
   bankAccounts: BankAccount[];
   wallets: Wallet[];
-  
+
   // Phase 2: Expense Splitting
   splitExpenses: SplitExpense[];
   settlements: Settlement[];
-  
+
   // Phase 2: Multi-Currency
   currencySettings: UserCurrencySettings | null;
   currencyRates: CurrencyRate[];
-  
+
   // Phase 2: Receipt Scanning
   receipts: Receipt[];
 
   // Phase 3: Calendar Integration
   calendarEvents: CalendarEvent[];
   billReminders: BillReminder[];
+
+  // Phase 2: House Help
+  houseHelps: HouseHelp[];
+  houseHelpPayments: HouseHelpPayment[];
 
   // Auth Actions
   setUser: (user: User | null) => void;
@@ -453,6 +479,15 @@ interface AppStore {
   removeBillReminder: (id: string) => void;
   updateBillReminder: (id: string, reminder: Partial<BillReminder>) => void;
   setBillReminders: (reminders: BillReminder[]) => void;
+
+  // Phase 2: House Help Actions
+  addHouseHelp: (help: HouseHelp) => void;
+  removeHouseHelp: (id: string) => void;
+  updateHouseHelp: (id: string, help: Partial<HouseHelp>) => void;
+  setHouseHelps: (helps: HouseHelp[]) => void;
+  addHouseHelpPayment: (payment: HouseHelpPayment) => void;
+  removeHouseHelpPayment: (id: string) => void;
+  setHouseHelpPayments: (payments: HouseHelpPayment[]) => void;
 }
 
 export const useAppStore = create<AppStore>((set) => ({
@@ -481,21 +516,25 @@ export const useAppStore = create<AppStore>((set) => ({
   upiAccounts: [],
   bankAccounts: [],
   wallets: [],
-  
+
   // Phase 2: Expense Splitting
   splitExpenses: [],
   settlements: [],
-  
+
   // Phase 2: Multi-Currency
   currencySettings: null,
   currencyRates: [],
-  
+
   // Phase 2: Receipt Scanning
   receipts: [],
 
   // Phase 3: Calendar Integration
   calendarEvents: [],
   billReminders: [],
+
+  // Phase 2: House Help
+  houseHelps: [],
+  houseHelpPayments: [],
 
   // Auth Actions
   setUser: (user) => set({ user }),
@@ -1214,4 +1253,56 @@ export const useAppStore = create<AppStore>((set) => ({
       };
     }),
   setBillReminders: (reminders) => set({ billReminders: reminders }),
+
+  // House Help Actions
+  addHouseHelp: (help) =>
+    set((state) => {
+      if (!state.isAuthenticated) {
+        console.warn('Cannot add house help: User not authenticated');
+        return state;
+      }
+      return { houseHelps: [...state.houseHelps, help] };
+    }),
+  removeHouseHelp: (id) =>
+    set((state) => {
+      if (!state.isAuthenticated) {
+        console.warn('Cannot remove house help: User not authenticated');
+        return state;
+      }
+      return {
+        houseHelps: state.houseHelps.filter((h) => h.id !== id),
+      };
+    }),
+  updateHouseHelp: (id, updates) =>
+    set((state) => {
+      if (!state.isAuthenticated) {
+        console.warn('Cannot update house help: User not authenticated');
+        return state;
+      }
+      return {
+        houseHelps: state.houseHelps.map((h) =>
+          h.id === id ? { ...h, ...updates } : h
+        ),
+      };
+    }),
+  setHouseHelps: (helps) => set({ houseHelps: helps }),
+  addHouseHelpPayment: (payment) =>
+    set((state) => {
+      if (!state.isAuthenticated) {
+        console.warn('Cannot add house help payment: User not authenticated');
+        return state;
+      }
+      return { houseHelpPayments: [...state.houseHelpPayments, payment] };
+    }),
+  removeHouseHelpPayment: (id) =>
+    set((state) => {
+      if (!state.isAuthenticated) {
+        console.warn('Cannot remove house help payment: User not authenticated');
+        return state;
+      }
+      return {
+        houseHelpPayments: state.houseHelpPayments.filter((p) => p.id !== id),
+      };
+    }),
+  setHouseHelpPayments: (payments) => set({ houseHelpPayments: payments }),
 }));

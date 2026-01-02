@@ -20,6 +20,8 @@ import {
   cardService,
   upiService,
   bankAccountService,
+  houseHelpService,
+  houseHelpPaymentService,
 } from './firebaseService';
 import { authService, AuthUser } from './firebaseAuth';
 
@@ -27,14 +29,14 @@ interface FirebaseStoreState {
   currentUser: AuthUser | null;
   isLoading: boolean;
   error: string | null;
-  
+
   // Auth actions
   signUp: (email: string, password: string, displayName: string) => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
   sendPasswordReset: (email: string) => Promise<void>;
   setCurrentUser: (user: AuthUser | null) => void;
-  
+
   // Sync actions
   syncExpensesFromFirebase: () => Promise<void>;
   syncIncomeFromFirebase: () => Promise<void>;
@@ -55,7 +57,9 @@ interface FirebaseStoreState {
   syncCardsFromFirebase: () => Promise<void>;
   syncUPIFromFirebase: () => Promise<void>;
   syncBankAccountsFromFirebase: () => Promise<void>;
-  
+  syncHouseHelpsFromFirebase: () => Promise<void>;
+  syncHouseHelpPaymentsFromFirebase: () => Promise<void>;
+
   // Persist actions
   persistExpense: (expense: any) => Promise<void>;
   persistIncome: (income: any) => Promise<void>;
@@ -76,10 +80,12 @@ interface FirebaseStoreState {
   persistCard: (card: any) => Promise<void>;
   persistUPI: (upi: any) => Promise<void>;
   persistBankAccount: (account: any) => Promise<void>;
-  
+  persistHouseHelp: (help: any) => Promise<void>;
+  persistHouseHelpPayment: (payment: any) => Promise<void>;
+
   // Sync all
   syncAllFromFirebase: () => Promise<void>;
-  
+
   // Delete actions
   deleteExpenseFromFirebase: (expenseId: string) => Promise<void>;
   deleteIncomeFromFirebase: (incomeId: string) => Promise<void>;
@@ -100,6 +106,8 @@ interface FirebaseStoreState {
   deleteCardFromFirebase: (cardId: string) => Promise<void>;
   deleteUPIFromFirebase: (upiId: string) => Promise<void>;
   deleteBankAccountFromFirebase: (accountId: string) => Promise<void>;
+  deleteHouseHelpFromFirebase: (helpId: string) => Promise<void>;
+  deleteHouseHelpPaymentFromFirebase: (paymentId: string) => Promise<void>;
 }
 
 export const useFirebaseStore = create<FirebaseStoreState>((set, get) => ({
@@ -158,6 +166,8 @@ export const useFirebaseStore = create<FirebaseStoreState>((set, get) => ({
         cards: [],
         upiAccounts: [],
         bankAccounts: [],
+        houseHelps: [],
+        houseHelpPayments: [],
       });
     } catch (error: any) {
       set({ error: error.message, isLoading: false });
@@ -390,6 +400,28 @@ export const useFirebaseStore = create<FirebaseStoreState>((set, get) => ({
     }
   },
 
+  syncHouseHelpsFromFirebase: async () => {
+    const { currentUser } = get();
+    if (!currentUser) return;
+    try {
+      const houseHelps = await houseHelpService.getAll(currentUser.uid);
+      useAppStore.setState({ houseHelps });
+    } catch (error) {
+      console.error('Error syncing house helps:', error);
+    }
+  },
+
+  syncHouseHelpPaymentsFromFirebase: async () => {
+    const { currentUser } = get();
+    if (!currentUser) return;
+    try {
+      const houseHelpPayments = await houseHelpPaymentService.getAll(currentUser.uid);
+      useAppStore.setState({ houseHelpPayments });
+    } catch (error) {
+      console.error('Error syncing house help payments:', error);
+    }
+  },
+
   syncAllFromFirebase: async () => {
     const firebaseStore = get();
     await Promise.all([
@@ -412,6 +444,8 @@ export const useFirebaseStore = create<FirebaseStoreState>((set, get) => ({
       firebaseStore.syncCardsFromFirebase(),
       firebaseStore.syncUPIFromFirebase(),
       firebaseStore.syncBankAccountsFromFirebase(),
+      firebaseStore.syncHouseHelpsFromFirebase(),
+      firebaseStore.syncHouseHelpPaymentsFromFirebase(),
     ]);
   },
 
@@ -606,6 +640,26 @@ export const useFirebaseStore = create<FirebaseStoreState>((set, get) => ({
     }
   },
 
+  persistHouseHelp: async (help: any) => {
+    const { currentUser } = get();
+    if (!currentUser) return;
+    try {
+      await houseHelpService.create(help, currentUser.uid);
+    } catch (error) {
+      console.error('Error persisting house help:', error);
+    }
+  },
+
+  persistHouseHelpPayment: async (payment: any) => {
+    const { currentUser } = get();
+    if (!currentUser) return;
+    try {
+      await houseHelpPaymentService.create(payment, currentUser.uid);
+    } catch (error) {
+      console.error('Error persisting house help payment:', error);
+    }
+  },
+
   // Delete actions
   deleteExpenseFromFirebase: async (expenseId: string) => {
     const { currentUser } = get();
@@ -794,6 +848,26 @@ export const useFirebaseStore = create<FirebaseStoreState>((set, get) => ({
       await bankAccountService.delete(currentUser.uid, accountId);
     } catch (error) {
       console.error('Error deleting bank account:', error);
+    }
+  },
+
+  deleteHouseHelpFromFirebase: async (helpId: string) => {
+    const { currentUser } = get();
+    if (!currentUser) return;
+    try {
+      await houseHelpService.delete(currentUser.uid, helpId);
+    } catch (error) {
+      console.error('Error deleting house help:', error);
+    }
+  },
+
+  deleteHouseHelpPaymentFromFirebase: async (paymentId: string) => {
+    const { currentUser } = get();
+    if (!currentUser) return;
+    try {
+      await houseHelpPaymentService.delete(currentUser.uid, paymentId);
+    } catch (error) {
+      console.error('Error deleting house help payment:', error);
     }
   },
 }));

@@ -77,6 +77,7 @@ export default function Navigation() {
       label: 'Advanced',
       icon: '✨',
       submenu: [
+        { href: '/house-help', label: 'House Help', icon: '🧹' },
         { href: '/splitting', label: 'Splitting', icon: '💸' },
         { href: '/receipts', label: 'Receipts', icon: '📸' },
         { href: '/categories', label: 'Categories', icon: '📂' },
