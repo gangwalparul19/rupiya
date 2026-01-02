@@ -115,7 +115,7 @@ export default function ReceiptsPage() {
   return (
     <PageWrapper>
       <div className="py-4 sm:py-6 md:py-8">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-3 sm:gap-4">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-block gap-3 sm:gap-4">
           <h1 className="heading-page">📸 Receipt Scanning</h1>
           <label className="btn btn-primary cursor-pointer whitespace-nowrap">
             + Upload Receipt
@@ -130,7 +130,7 @@ export default function ReceiptsPage() {
         </div>
 
         {/* Info Card */}
-        <div className="card border-blue-500/20 bg-blue-500/5 mb-8 md:mb-12">
+        <div className="card border-blue-500/20 bg-blue-500/5 mb-block">
           <div className="flex gap-4 items-start">
             <div className="p-2 bg-blue-500/10 rounded-lg text-xl">💡</div>
             <div>
@@ -260,7 +260,7 @@ function ReceiptDetailModal({
   onUseData: (receipt: Receipt) => void;
 }) {
   return (
-    <div className="w-full animate-slide-up mb-8">
+    <div className="w-full animate-slide-up mb-block">
       <div className="card border-2 border-blue-500/50 bg-gradient-to-br from-slate-800/95 to-slate-900/95 w-full max-w-2xl mx-auto max-h-[90vh] overflow-y-auto">
         <div className="p-4 md:p-6 border-b border-slate-700 flex justify-between items-center text-white bg-transparent">
           <h2 className="text-xl md:text-2xl font-bold">Receipt Details</h2>

@@ -104,13 +104,13 @@ export default function PaymentMethodsPage() {
     <PageWrapper>
       <div className="py-4 sm:py-6 md:py-8">
         {/* Header */}
-        <div className="mb-6 md:mb-8">
+        <div className="mb-block">
           <h1 className="heading-page">Payment Methods</h1>
           <p className="text-secondary">Manage your cards, UPI, bank accounts, and wallets</p>
         </div>
 
         {/* Tabs - Mobile optimized */}
-        <div className="flex gap-1 md:gap-2 mb-6 overflow-x-auto border-b border-slate-700 pb-0">
+        <div className="flex gap-1 md:gap-2 mb-block overflow-x-auto border-b border-slate-700 pb-0">
           {(['cards', 'upi', 'bank', 'wallet'] as const).map((tab) => (
             <button
               key={tab}

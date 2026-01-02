@@ -92,13 +92,13 @@ export default function MultiCurrencyPage() {
   return (
     <PageWrapper>
       <div className="py-4 sm:py-6 md:py-8">
-        <div className="mb-6 md:mb-8">
+        <div className="mb-block">
           <h1 className="heading-page">💱 Multi-Currency Support</h1>
           <p className="text-secondary">Manage multiple currencies and exchange rates</p>
         </div>
 
         {/* Settings Button */}
-        <div className="flex gap-3 mb-10 md:mb-12 flex-wrap">
+        <div className="flex gap-3 mb-block flex-wrap">
           <button
             onClick={() => setIsEditModalOpen(true)}
             className="btn btn-primary px-8 shadow-lg shadow-blue-500/20"
@@ -109,7 +109,7 @@ export default function MultiCurrencyPage() {
 
         {/* Settings Modal */}
         {isEditModalOpen && (
-          <div className="w-full animate-slide-up mb-8">
+          <div className="w-full animate-slide-up mb-block">
             <div className="card p-4 md:p-6 border-2 border-blue-500/50 bg-gradient-to-br from-slate-800/95 to-slate-900/95 w-full max-w-2xl mx-auto max-h-[90vh] overflow-y-auto">
               <div className="border-b border-slate-700 pb-4 mb-4 flex justify-between items-center text-white">
                 <h2 className="text-xl md:text-2xl font-bold">Currency Settings</h2>
@@ -204,7 +204,7 @@ export default function MultiCurrencyPage() {
         )}
 
         {/* Currency Overview */}
-        <div className="grid-responsive-3 mb-10 md:mb-16">
+        <div className="grid-responsive-3 mb-section">
           <div className="kpi-card border-blue-500/20 bg-blue-500/5">
             <p className="kpi-label text-blue-400">Base Currency</p>
             <p className="kpi-value text-white">
@@ -227,7 +227,7 @@ export default function MultiCurrencyPage() {
         </div>
 
         {/* Financial Summary */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-block">
           <div className="card">
             <h3 className="heading-section mb-4">Total Expenses</h3>
             <div className="space-y-3">
@@ -274,7 +274,7 @@ export default function MultiCurrencyPage() {
         </div>
 
         {/* Exchange Rates Table */}
-        <div className="card mb-6 md:mb-8">
+        <div className="card mb-block">
           <h3 className="heading-section mb-4">Current Exchange Rates</h3>
           <div className="overflow-x-auto">
             <table className="w-full text-xs md:text-sm">

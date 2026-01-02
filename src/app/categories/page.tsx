@@ -175,13 +175,13 @@ export default function CategoriesPage() {
   return (
     <PageWrapper>
       <div className="py-4 sm:py-6 md:py-8">
-        <div className="mb-6 md:mb-10">
+        <div className="mb-block">
           <h1 className="heading-page">Categories</h1>
           <p className="text-secondary">Manage your expense and income categories</p>
         </div>
 
         {/* Action Buttons - Always visible */}
-        <div className="flex flex-wrap gap-4 mb-10 md:mb-16">
+        <div className="flex flex-wrap gap-4 mb-section">
           <button
             onClick={() => {
               setIsAddModalOpen(true);
@@ -207,7 +207,7 @@ export default function CategoriesPage() {
           </button>
         </div>
 
-        <div className="mb-6">
+        <div className="mb-block">
           <input
             type="text"
             placeholder="Search categories..."
@@ -219,7 +219,7 @@ export default function CategoriesPage() {
 
         {/* Add/Edit Modal */}
         {isAddModalOpen && (
-          <div className="w-full animate-slide-up mb-8">
+          <div className="w-full animate-slide-up mb-block">
             <div className="card border-2 border-blue-500/50 bg-gradient-to-br from-slate-800/95 to-slate-900/95 w-full max-w-2xl mx-auto max-h-[90vh] overflow-y-auto">
               <div className="p-4 md:p-6 border-b border-slate-700 flex justify-between items-center text-white bg-transparent">
                 <h2 className="text-xl md:text-2xl font-bold">
@@ -380,7 +380,7 @@ export default function CategoriesPage() {
 
         {/* Summary */}
         {filteredCategories.length > 0 && (
-          <div className="mt-6 card">
+          <div className="mt-block card">
             <p className="text-xs md:text-sm text-slate-300">
               Showing <span className="font-semibold text-white">{filteredCategories.length}</span> of{' '}
               <span className="font-semibold text-white">{categories.length}</span> categories

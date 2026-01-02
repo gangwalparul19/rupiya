@@ -121,13 +121,13 @@ export default function NotesPage() {
   return (
     <PageWrapper>
       <div className="py-4 sm:py-6 md:py-8">
-        <div className="mb-6 md:mb-8">
+        <div className="mb-block">
           <h1 className="heading-page">📝 Notes & Daily Logs</h1>
           <p className="text-secondary">Keep track of your daily notes and logs</p>
         </div>
 
         {/* KPI Cards */}
-        <div className="grid-responsive-3 mb-10 md:mb-16">
+        <div className="grid-responsive-3 mb-section">
           <div className="kpi-card">
             <p className="kpi-label text-blue-400">Total Notes</p>
             <p className="kpi-value text-white">{kpiStats.totalNotes}</p>
@@ -136,7 +136,7 @@ export default function NotesPage() {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-3 mb-10 md:mb-12 flex-wrap">
+        <div className="flex gap-3 mb-block flex-wrap">
           <button
             onClick={() => {
               setShowModalInline(true);
@@ -159,7 +159,7 @@ export default function NotesPage() {
 
         {/* Add Note Modal - Inline */}
         {showModalInline && (
-          <div className="card mb-6 md:mb-8">
+          <div className="card mb-block">
             <h2 className="heading-section mb-4">Add Note</h2>
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -222,7 +222,7 @@ export default function NotesPage() {
           </div>
         )}
 
-        <div className="mb-6 md:mb-8">
+        <div className="mb-block">
           <input
             type="text"
             placeholder="Search notes..."
@@ -233,7 +233,7 @@ export default function NotesPage() {
         </div>
 
         {filteredNotes.length > 0 ? (
-          <div className="grid-responsive-3 mb-6 md:mb-8">
+          <div className="grid-responsive-3 mb-block">
             {filteredNotes.map((note) => {
               const date = note.date instanceof Date ? note.date.toLocaleDateString() : new Date(note.date).toLocaleDateString();
               const isEditing = editingId === note.id;
@@ -302,7 +302,7 @@ export default function NotesPage() {
         )}
 
         {filteredNotes.length > 0 && (
-          <div className="card">
+          <div className="card mt-block">
             <p className="text-slate-300 text-xs md:text-sm">
               Showing <span className="font-semibold text-white">{filteredNotes.length}</span> of{' '}
               <span className="font-semibold text-white">{notes.length}</span> notes

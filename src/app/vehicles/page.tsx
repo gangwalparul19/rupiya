@@ -292,13 +292,13 @@ export default function VehiclesPage() {
     <PageWrapper>
       <div className="py-4 sm:py-6 md:py-8">
         {/* Header */}
-        <div className="mb-6 md:mb-8">
+        <div className="mb-block">
           <h1 className="heading-page">🚗 Vehicle Management</h1>
           <p className="text-secondary">Manage your vehicles and track maintenance</p>
         </div>
 
         {/* KPI Cards */}
-        <div className="grid-responsive-2 mb-10 md:mb-16">
+        <div className="grid-responsive-2 mb-section">
           <div className="kpi-card">
             <p className="kpi-label text-blue-400">Total Vehicles</p>
             <p className="kpi-value text-white">{kpiStats.totalVehicles}</p>
@@ -307,7 +307,7 @@ export default function VehiclesPage() {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-3 mb-10 md:mb-12 flex-wrap">
+        <div className="flex gap-3 mb-block flex-wrap">
           <button
             onClick={() => {
               setShowModalInline(true);
@@ -331,7 +331,7 @@ export default function VehiclesPage() {
         </div>
 
         {/* Search */}
-        <div className="mb-6">
+        <div className="mb-block">
           <input
             type="text"
             placeholder="Search by name, type, or registration number..."
@@ -343,7 +343,7 @@ export default function VehiclesPage() {
 
         {/* Add Vehicle Modal - Inline */}
         {showModalInline && (
-          <div className="card mb-6 md:mb-8">
+          <div className="card mb-block">
             <h2 className="heading-section mb-4">Add Vehicle</h2>
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -441,7 +441,7 @@ export default function VehiclesPage() {
 
         {/* Vehicles Grid */}
         {filteredVehicles.length > 0 ? (
-          <div className="grid-responsive-3 mb-6 md:mb-8">
+          <div className="grid-responsive-3 mb-block">
             {filteredVehicles.map((vehicle) => (
               <div key={vehicle.id} className="card">
                 <div className="mb-4">
@@ -507,7 +507,7 @@ export default function VehiclesPage() {
 
         {/* Summary */}
         {filteredVehicles.length > 0 && (
-          <div className="card">
+          <div className="card mt-block">
             <p className="text-secondary">
               Showing <span className="font-semibold text-white">{filteredVehicles.length}</span> of{' '}
               <span className="font-semibold text-white">{vehicles.length}</span> vehicles
@@ -519,7 +519,7 @@ export default function VehiclesPage() {
       {/* Modals */}
       {
         showFuelModal && selectedVehicleForFuel && (
-          <div className="w-full animate-slide-up mb-8">
+          <div className="w-full animate-slide-up mb-block">
             <div className="card p-4 md:p-6 border-2 border-blue-500/50 bg-gradient-to-br from-slate-800/95 to-slate-900/95 w-full max-w-2xl mx-auto max-h-[90vh] overflow-y-auto">
               <div className="border-b border-slate-700 pb-4 mb-4 flex justify-between items-center text-white">
                 <h2 className="text-xl md:text-2xl font-bold">⛽ Fuel Entry</h2>
@@ -663,7 +663,7 @@ export default function VehiclesPage() {
       }
       {
         showExpenseModal && selectedVehicleForExpense && (
-          <div className="w-full animate-slide-up mb-8">
+          <div className="w-full animate-slide-up mb-block">
             <div className="card p-4 md:p-6 border-2 border-blue-500/50 bg-gradient-to-br from-slate-800/95 to-slate-900/95 w-full max-w-2xl mx-auto">
               <div className="border-b border-slate-700 pb-4 mb-4 flex justify-between items-center text-white">
                 <h2 className="text-xl md:text-2xl font-bold">Add Expense</h2>

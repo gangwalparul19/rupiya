@@ -193,13 +193,13 @@ export default function RecurringTransactionsPage() {
   return (
     <PageWrapper>
       <div className="py-4 sm:py-6 md:py-8">
-        <div className="mb-6 md:mb-8">
+        <div className="mb-block">
           <h1 className="heading-page">🔄 Recurring Transactions</h1>
           <p className="text-secondary">Set up and manage recurring expenses and income</p>
         </div>
 
         {/* KPI Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-10 md:mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-section">
           <div className="kpi-card">
             <p className="kpi-label text-blue-400">Total Recurring</p>
             <p className="kpi-value text-white">{kpiStats.totalRecurring}</p>
@@ -229,7 +229,7 @@ export default function RecurringTransactionsPage() {
           </div>
         </div>
 
-        <div className="flex gap-3 mb-10 md:mb-12 flex-wrap">
+        <div className="flex gap-3 mb-block flex-wrap">
           <button
             onClick={() => {
               setShowModalInline(true);
@@ -257,7 +257,7 @@ export default function RecurringTransactionsPage() {
           </button>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-2 md:gap-3 mb-6 md:mb-8">
+        <div className="flex flex-col md:flex-row gap-2 md:gap-3 mb-block">
           <input
             type="text"
             placeholder="Search recurring transactions..."
@@ -278,7 +278,7 @@ export default function RecurringTransactionsPage() {
 
         {/* Add/Edit Modal - Inline */}
         {showModalInline && (
-          <div className="card mb-6 md:mb-8">
+          <div className="card mb-block">
             <h2 className="heading-section mb-4">
               {editingId ? 'Edit Recurring Transaction' : 'Add Recurring Transaction'}
             </h2>
@@ -421,7 +421,7 @@ export default function RecurringTransactionsPage() {
         )}
 
         {filteredTransactions.length > 0 ? (
-          <div className="grid-responsive-3 mb-6 md:mb-8">
+          <div className="grid-responsive-3 mb-block">
             {filteredTransactions.map((transaction) => {
               const startDate = transaction.startDate instanceof Date
                 ? transaction.startDate.toLocaleDateString()
@@ -506,7 +506,7 @@ export default function RecurringTransactionsPage() {
         )}
 
         {filteredTransactions.length > 0 && (
-          <div className="card">
+          <div className="card mt-block">
             <p className="text-slate-300 text-xs md:text-sm">
               Showing <span className="font-semibold text-white">{filteredTransactions.length}</span> of{' '}
               <span className="font-semibold text-white">{recurringTransactions.length}</span> recurring transactions

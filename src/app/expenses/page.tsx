@@ -293,7 +293,7 @@ ${sortedExpenses
     <PageWrapper>
       <div className="py-4 sm:py-6 md:py-8">
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-3">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-block gap-3">
           <div>
             <h1 className="heading-page">💰 Expenses</h1>
             <p className="text-secondary">Track all your expenses</p>
@@ -318,7 +318,7 @@ ${sortedExpenses
 
         {/* Stats Cards - 2 col mobile, 3 col desktop */}
         {!showAnalytics && (
-          <div className="grid-responsive-3 gap-6 mb-10 md:mb-16">
+          <div className="grid-responsive-3 gap-6 mb-section">
             <div className="card">
               <p className="text-slate-400 text-xs mb-1">Total Expenses</p>
               <p className="text-lg md:text-2xl font-bold text-red-400">₹{(totalExpenses / 1000).toFixed(0)}K</p>
@@ -338,14 +338,14 @@ ${sortedExpenses
 
         {/* Analytics Section */}
         {showAnalytics && (
-          <div className="mb-6 md:mb-8">
+          <div className="mb-block">
             <ExpenseAnalytics expenses={sortedExpenses} />
           </div>
         )}
 
         {/* Form */}
         {isModalOpen && (
-          <div className="mb-6 md:mb-8">
+          <div className="mb-block">
             <AddExpenseModal
               isOpen={isModalOpen}
               onClose={() => setIsModalOpen(false)}
@@ -366,7 +366,7 @@ ${sortedExpenses
         />
 
         {/* Filter and Action Buttons */}
-        <div className="flex gap-3 mb-8 md:mb-12 flex-wrap">
+        <div className="flex gap-3 mb-block flex-wrap">
           <button
             onClick={() => setIsFilterOpen(true)}
             className={`px-3 md:px-4 py-2 rounded-lg transition font-semibold text-xs md:text-sm ${hasActiveFilters
@@ -394,7 +394,7 @@ ${sortedExpenses
         </div>
 
         {/* Category Filter Buttons - Horizontal scroll on mobile */}
-        <div className="mb-8 md:mb-12 flex gap-3 overflow-x-auto pb-4 px-2 -mx-2">
+        <div className="mb-block flex gap-3 overflow-x-auto pb-4 px-2 -mx-2">
           <button
             onClick={() => setFilterCategory('all')}
             className={`px-3 py-2 rounded-lg transition whitespace-nowrap text-xs md:text-sm ${filterCategory === 'all'
@@ -494,7 +494,7 @@ ${sortedExpenses
         </div>
 
         {sortedExpenses.length > 0 && (
-          <div className="mt-12 md:mt-16 card overflow-hidden border-slate-700/50">
+          <div className="mt-section card overflow-hidden border-slate-700/50">
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-purple-500/5 pointer-events-none"></div>
             <div className="relative grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 text-center md:text-left">
               <div>

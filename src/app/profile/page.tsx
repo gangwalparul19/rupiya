@@ -42,7 +42,7 @@ export default function ProfilePage() {
     <PageWrapper>
       <div className="py-4 sm:py-6 md:py-8">
         {/* Header */}
-        <div className="mb-6 md:mb-8">
+        <div className="mb-block">
           <h1 className="heading-page">Profile</h1>
           <p className="text-secondary">Manage your account settings</p>
         </div>
@@ -110,7 +110,7 @@ export default function ProfilePage() {
         </div>
 
         {/* Info Box */}
-        <div className="bg-blue-600 bg-opacity-20 border border-blue-600 rounded-lg p-4 max-w-2xl mt-6">
+        <div className="bg-blue-600 bg-opacity-20 border border-blue-600 rounded-lg p-4 max-w-2xl mt-block">
           <p className="text-blue-200 text-sm">
             💡 Your data is securely stored in Firebase and synced across all your devices.
           </p>

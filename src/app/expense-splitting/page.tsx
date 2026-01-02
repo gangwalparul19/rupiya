@@ -150,12 +150,12 @@ export default function ExpenseSplittingPage() {
   return (
     <PageWrapper>
       <div className="py-4 sm:py-6 md:py-8">
-        <div className="mb-6 md:mb-8">
+        <div className="mb-block">
           <h1 className="heading-page">💸 Expense Splitting</h1>
           <p className="text-secondary">Split expenses with friends and track settlements</p>
         </div>
 
-        <div className="flex gap-3 mb-10 md:mb-12 flex-wrap">
+        <div className="flex gap-3 mb-block flex-wrap">
           <button
             onClick={() => setIsAddModalOpen(true)}
             className="btn btn-primary px-8 shadow-lg shadow-blue-500/20"
@@ -170,7 +170,7 @@ export default function ExpenseSplittingPage() {
           </button>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-2 sm:gap-3 md:gap-4 mb-6">
+        <div className="flex flex-col md:flex-row gap-2 sm:gap-3 md:gap-4 mb-block">
           <input
             type="text"
             placeholder="Search split expenses..."
@@ -192,7 +192,7 @@ export default function ExpenseSplittingPage() {
 
         {/* Add Modal */}
         {isAddModalOpen && (
-          <div className="w-full animate-slide-up mb-8">
+          <div className="w-full animate-slide-up mb-block">
             <div className="card p-4 md:p-6 border-2 border-blue-500/50 bg-gradient-to-br from-slate-800/95 to-slate-900/95 w-full max-w-2xl mx-auto max-h-[90vh] overflow-y-auto">
               <div className="border-b border-slate-700 pb-4 mb-4 flex justify-between items-center text-white">
                 <h2 className="text-xl md:text-2xl font-bold">Create Split Expense</h2>
@@ -299,7 +299,7 @@ export default function ExpenseSplittingPage() {
         )}
 
         {filteredExpenses.length > 0 ? (
-          <div className="grid-responsive-3">
+          <div className="grid-responsive-3 mb-block">
             {filteredExpenses.map((expense) => {
               const date = expense.date instanceof Date ? expense.date.toLocaleDateString() : new Date(expense.date).toLocaleDateString();
               const statusColor = {
@@ -379,7 +379,7 @@ export default function ExpenseSplittingPage() {
         )}
 
         {filteredExpenses.length > 0 && (
-          <div className="card mt-6">
+          <div className="card mt-block">
             <p className="text-secondary">
               Showing <span className="font-semibold text-white">{filteredExpenses.length}</span> of{' '}
               <span className="font-semibold text-white">{splitExpenses.length}</span> split expenses

@@ -230,7 +230,7 @@ export default function GoalsPage() {
     <PageWrapper>
       <div className="py-4 sm:py-6 md:py-8">
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-3">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-block gap-3">
           <div>
             <h1 className="heading-page">🎯 Goals</h1>
             <p className="text-secondary">Track and manage your financial goals</p>
@@ -265,7 +265,7 @@ export default function GoalsPage() {
         </div>
 
         {/* KPI Cards */}
-        <div className="grid-responsive-4 mb-10 md:mb-16">
+        <div className="grid-responsive-4 mb-section">
           <div className="kpi-card">
             <p className="kpi-label text-blue-400">Total Goals</p>
             <p className="kpi-value text-white">{kpiStats.totalGoals}</p>
@@ -292,7 +292,7 @@ export default function GoalsPage() {
         </div>
 
         {/* Export Buttons */}
-        <div className="flex gap-3 mb-10 md:mb-12 flex-wrap">
+        <div className="flex gap-3 mb-block flex-wrap">
           <button
             onClick={handleExportCSV}
             className="btn btn-secondary border-green-500/20 hover:border-green-500/40 text-green-400"
@@ -310,7 +310,7 @@ export default function GoalsPage() {
         </div>
 
         {/* Search and Filters */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 md:gap-3 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-block">
           <input
             type="text"
             placeholder="Search goals..."
@@ -346,7 +346,7 @@ export default function GoalsPage() {
 
         {/* Analytics Section */}
         {showAnalytics && goals.length > 0 && (
-          <div className="mb-6 md:mb-8">
+          <div className="mb-block">
             <GoalAnalytics goals={goals} />
           </div>
         )}
@@ -440,7 +440,7 @@ export default function GoalsPage() {
 
         {/* Summary */}
         {filteredGoals.length > 0 && (
-          <div className="mt-4 md:mt-6 bg-gray-800 rounded-lg p-3 md:p-4 border border-gray-700">
+          <div className="mt-block bg-gray-800 rounded-lg p-3 md:p-4 border border-gray-700">
             <p className="text-xs md:text-sm text-gray-300">
               Showing <span className="font-semibold text-white">{filteredGoals.length}</span> of{' '}
               <span className="font-semibold text-white">{goals.length}</span> goals
@@ -451,7 +451,7 @@ export default function GoalsPage() {
 
       {/* Add Goal Modal */}
       {isAddModalOpen && (
-        <div className="w-full animate-slide-up mb-8">
+        <div className="w-full animate-slide-up mb-block">
           <div className="card p-4 md:p-6 border-2 border-cyan-500/50 bg-gradient-to-br from-slate-800/95 to-slate-900/95 w-full max-w-2xl mx-auto max-h-[90vh] overflow-y-auto">
             <div className="border-b border-slate-700 pb-4 mb-4 flex justify-between items-center text-white">
               <h2 className="text-xl md:text-2xl font-bold">Add Goal</h2>

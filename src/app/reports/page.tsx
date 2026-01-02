@@ -87,13 +87,13 @@ export default function ReportsPage() {
   return (
     <PageWrapper>
       <div className="py-4 sm:py-6 md:py-8">
-        <div className="mb-6 md:mb-8">
+        <div className="mb-block">
           <h1 className="heading-page">📑 Financial Reports</h1>
           <p className="text-secondary">Comprehensive financial insights and analysis</p>
         </div>
 
         {/* Month Selector - Compact */}
-        <div className="mb-6 md:mb-8">
+        <div className="mb-block">
           <input
             type="month"
             value={selectedMonth}
@@ -103,7 +103,7 @@ export default function ReportsPage() {
         </div>
 
         {/* Key Metrics - Compact Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-10 md:mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-section">
           <div className="kpi-card">
             <p className="kpi-label text-blue-400">Net Worth</p>
             <p className={`kpi-value ${netWorth >= 0 ? 'text-white' : 'text-red-400'}`}>
@@ -135,7 +135,7 @@ export default function ReportsPage() {
         </div>
 
         {/* Summary Cards Grid - 2x2 on mobile, 4x1 on desktop */}
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3 mb-6 md:mb-8">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3 mb-block">
           {/* Income */}
           <div className="card">
             <h4 className="text-xs md:text-sm font-bold mb-3">💵 Income</h4>
@@ -180,7 +180,7 @@ export default function ReportsPage() {
         </div>
 
         {/* Detailed Breakdowns */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3 mb-6 md:mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3 mb-block">
           {/* Expense Breakdown */}
           <div className="card">
             <h3 className="text-xs md:text-sm font-bold mb-3">💰 Expense Breakdown</h3>

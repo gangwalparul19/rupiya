@@ -157,6 +157,10 @@ function LandingPage() {
       </section>
 
       {/* Features Section */}
+      <div className="container-responsive">
+        <hr className="border-slate-800" />
+        <br /><br />
+      </div>
       <section className="relative py-24 sm:py-32 lg:py-48 px-4 sm:px-6 lg:px-8 bg-slate-950/30">
         <div className="container-responsive">
           {/* Section Header */}
@@ -226,7 +230,7 @@ function LandingPage() {
             ].map((feature, index) => (
               <div
                 key={index}
-                className={`group relative bg-slate-900/40 backdrop-blur-xl border-2 ${feature.borderColor} rounded-3xl p-8 lg:p-10 transition-all duration-500 hover:scale-[1.03] hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] cursor-pointer overflow-hidden`}
+                className={`group relative bg-slate-900/40 backdrop-blur-xl border-2 ${feature.borderColor} rounded-3xl p-10 lg:p-12 transition-all duration-500 hover:scale-[1.03] hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] cursor-pointer overflow-hidden`}
               >
                 {/* Accent Glow */}
                 <div className={`absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-20 blur-3xl transition-opacity duration-500`}></div>
@@ -257,6 +261,10 @@ function LandingPage() {
       </section>
 
       {/* How It Works */}
+      <div className="container-responsive">
+        <hr className="border-slate-800" />
+        <br /><br />
+      </div>
       <section className="relative py-24 sm:py-32 lg:py-48 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-900/50 to-slate-950">
         <div className="container-responsive">
           {/* Section Header */}
@@ -304,7 +312,7 @@ function LandingPage() {
                   </div>
                 )}
 
-                <div className="relative z-10 bg-slate-900/40 backdrop-blur-xl border-2 border-slate-800 hover:border-blue-500/50 rounded-3xl p-10 transition-all duration-500 hover:translate-y-[-8px] hover:shadow-2xl">
+                <div className="relative z-10 bg-slate-900/40 backdrop-blur-xl border-2 border-slate-800 hover:border-blue-500/50 rounded-3xl p-12 lg:p-14 transition-all duration-500 hover:translate-y-[-8px] hover:shadow-2xl">
                   {/* Step Number Badge */}
                   <div className="w-14 h-14 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg mb-8 group-hover:rotate-12 transition-transform duration-300">
                     {item.step}
@@ -527,13 +535,13 @@ export default function Home() {
     <PageWrapper>
       <div className="py-4 sm:py-6 md:py-8">
         {/* Header with fade-in animation */}
-        <div className="mb-8 md:mb-10 animate-fade-in">
+        <div className="mb-block animate-fade-in">
           <h1 className="heading-page text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent mb-2">Dashboard</h1>
           <p className="text-slate-400 text-base md:text-lg">Your complete financial management dashboard</p>
         </div>
 
         {/* KPI Cards with staggered animation */}
-        <div className="grid-responsive-4 mb-10 md:mb-16">
+        <div className="grid-responsive-4 mb-section">
           <div className="kpi-card animate-slide-up" style={{ animationDelay: '0ms' }}>
             <div className="flex items-start justify-between">
               <div>
@@ -605,7 +613,9 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 sm:gap-3 md:gap-4 mb-6 md:mb-8">
+
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 animate-slide-in-right">
           <div className="lg:col-span-2">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-3 md:mb-4 gap-2">
               <h2 className="heading-section">Recent Transactions</h2>
@@ -676,7 +686,7 @@ export default function Home() {
         </div>
 
         {/* Charts Grid with animation */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 animate-slide-in-right">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-section animate-slide-in-right">
           <div className="card space-y-4">
             <div>
               <h3 className="text-lg md:text-xl font-bold text-white">Income vs Expense Trend</h3>

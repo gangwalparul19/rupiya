@@ -238,13 +238,13 @@ export default function HousesPage() {
     <PageWrapper>
       <div className="py-4 sm:py-6 md:py-8">
         {/* Header */}
-        <div className="mb-6 md:mb-8">
+        <div className="mb-block">
           <h1 className="heading-page">🏠 House Management</h1>
           <p className="text-secondary">Manage your properties and track house-related expenses</p>
         </div>
 
         {/* KPI Cards */}
-        <div className="grid-responsive-3 mb-10 md:mb-16">
+        <div className="grid-responsive-3 mb-section">
           <div className="kpi-card">
             <p className="kpi-label text-blue-400">Total Houses</p>
             <p className="kpi-value text-white">{kpiStats.totalHouses}</p>
@@ -265,7 +265,7 @@ export default function HousesPage() {
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-3 mb-10 md:mb-12 flex-wrap">
+        <div className="flex gap-3 mb-block flex-wrap">
           <button
             onClick={() => {
               setShowModalInline(true);
@@ -288,7 +288,7 @@ export default function HousesPage() {
         </div>
 
         {/* Search and Filter */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3 md:gap-4 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-block">
           <input
             type="text"
             placeholder="Search by name or address..."
@@ -309,7 +309,7 @@ export default function HousesPage() {
 
         {/* Add House Modal - Inline */}
         {showModalInline && (
-          <div className="card mb-6 md:mb-8">
+          <div className="card mb-block">
             <h2 className="heading-section mb-4">Add House</h2>
 
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -391,7 +391,7 @@ export default function HousesPage() {
 
         {/* Houses Grid */}
         {filteredHouses.length > 0 ? (
-          <div className="grid-responsive-3 mb-6 md:mb-8">
+          <div className="grid-responsive-3 mb-block">
             {filteredHouses.map((house) => (
               <div key={house.id} className="card">
                 <div className="flex justify-between items-start mb-4">
@@ -452,7 +452,7 @@ export default function HousesPage() {
 
         {/* Summary */}
         {filteredHouses.length > 0 && (
-          <div className="card">
+          <div className="card mt-block">
             <p className="text-secondary">
               Showing <span className="font-semibold text-white">{filteredHouses.length}</span> of{' '}
               <span className="font-semibold text-white">{houses.length}</span> houses
@@ -464,7 +464,7 @@ export default function HousesPage() {
       {/* Modals */}
       {
         showExpenseModal && selectedHouseForExpense && (
-          <div className="w-full animate-slide-up mb-8">
+          <div className="w-full animate-slide-up mb-block">
             <div className="card p-4 md:p-6 border-2 border-blue-500/50 bg-gradient-to-br from-slate-800/95 to-slate-900/95 w-full max-w-2xl mx-auto">
               <div className="border-b border-slate-700 pb-4 mb-4 flex justify-between items-center text-white">
                 <h2 className="text-xl md:text-2xl font-bold">Add Expense</h2>
@@ -575,7 +575,7 @@ export default function HousesPage() {
       }
       {
         showIncomeModal && selectedHouseForIncome && (
-          <div className="w-full animate-slide-up mb-8">
+          <div className="w-full animate-slide-up mb-block">
             <div className="card p-4 md:p-6 border-2 border-green-500/50 bg-gradient-to-br from-slate-800/95 to-slate-900/95 w-full max-w-2xl mx-auto">
               <div className="border-b border-slate-700 pb-4 mb-4 flex justify-between items-center text-white">
                 <h2 className="text-xl md:text-2xl font-bold">Add Income</h2>

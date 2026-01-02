@@ -284,13 +284,13 @@ export default function BudgetsPage() {
     <PageWrapper>
       <div className="py-4 sm:py-6 md:py-8">
         {/* Header */}
-        <div className="mb-6 md:mb-8">
+        <div className="mb-block">
           <h1 className="heading-page">Budget Management</h1>
           <p className="text-secondary">Create and track your monthly budgets</p>
         </div>
 
         {/* KPI Cards - Mobile optimized */}
-        <div className="grid-responsive-4 mb-10 md:mb-16">
+        <div className="grid-responsive-4 mb-section">
           <div className="kpi-card">
             <p className="kpi-label text-blue-400">Total Budgets</p>
             <p className="kpi-value text-white">{kpiStats.totalBudgets}</p>
@@ -319,7 +319,7 @@ export default function BudgetsPage() {
         </div>
 
         {/* Action Buttons - Always visible */}
-        <div className="flex gap-3 mb-10 md:mb-12 flex-wrap">
+        <div className="flex gap-3 mb-block flex-wrap">
           <button
             onClick={() => {
               setIsAddModalOpen(true);
@@ -483,7 +483,7 @@ export default function BudgetsPage() {
         </FormModal>
 
         {/* Search and Filter */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-block">
           <input
             type="text"
             placeholder="Search by month..."
@@ -501,7 +501,7 @@ export default function BudgetsPage() {
 
         {/* Analytics Section */}
         {budgets.length > 0 && (
-          <div className="mb-8">
+          <div className="mb-block">
             <h2 className="text-lg md:text-2xl font-bold text-white mb-4">Analytics</h2>
             <BudgetAnalytics budgets={budgets} expenses={expenses} />
           </div>
@@ -579,7 +579,7 @@ export default function BudgetsPage() {
 
         {/* Summary */}
         {filteredBudgets.length > 0 && (
-          <div className="mt-6 bg-gray-800 rounded-lg p-3 md:p-4">
+          <div className="mt-block bg-gray-800 rounded-lg p-3 md:p-4">
             <p className="text-xs md:text-sm text-gray-300">
               Showing <span className="font-semibold text-white">{filteredBudgets.length}</span> of{' '}
               <span className="font-semibold text-white">{budgets.length}</span> budgets

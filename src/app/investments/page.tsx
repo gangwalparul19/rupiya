@@ -207,7 +207,7 @@ export default function InvestmentsPage() {
   return (
     <PageWrapper>
       <div className="py-4 sm:py-6 md:py-8">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-3">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-block gap-3">
           <div>
             <h1 className="heading-page">📈 Investments</h1>
             <p className="text-secondary">Manage your investment portfolio</p>
@@ -228,7 +228,7 @@ export default function InvestmentsPage() {
           </div>
         </div>
 
-        <div className="grid-responsive-4 mb-10 md:mb-16">
+        <div className="grid-responsive-4 mb-section">
           <div className="kpi-card">
             <p className="kpi-label text-blue-400">Total</p>
             <p className="kpi-value text-white">{kpiStats.totalInvestments}</p>
@@ -256,7 +256,7 @@ export default function InvestmentsPage() {
           </div>
         </div>
 
-        <div className="flex gap-3 mb-8 md:mb-12 flex-wrap">
+        <div className="flex gap-3 mb-block flex-wrap">
           <button
             onClick={handleExportCSV}
             className="btn btn-secondary border-green-500/20 hover:border-green-500/40 text-green-400"
@@ -271,7 +271,7 @@ export default function InvestmentsPage() {
           </button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-block">
           <input
             type="text"
             placeholder="Search investments..."

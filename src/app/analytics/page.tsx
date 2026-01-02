@@ -144,12 +144,12 @@ ${parseFloat(analytics.budgetUtilization) < 80
   return (
     <PageWrapper>
       <div className="py-4 sm:py-6 md:py-8">
-        <div className="mb-6 md:mb-8">
+        <div className="mb-block">
           <h1 className="heading-page">📊 Analytics & Reports</h1>
           <p className="text-secondary">Comprehensive financial analysis</p>
         </div>
 
-        <div className="flex gap-3 mb-10 md:mb-12 flex-wrap">
+        <div className="flex gap-3 mb-block flex-wrap">
           <button
             onClick={handleExportReport}
             className="btn btn-secondary border-green-500/20 hover:border-green-500/40 text-green-400"
@@ -159,7 +159,7 @@ ${parseFloat(analytics.budgetUtilization) < 80
         </div>
 
         {/* Key Metrics - 2 col mobile, 4 col desktop */}
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-10 md:mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-section">
           <div className="kpi-card border-green-500/20 bg-green-500/5">
             <p className="kpi-label text-green-400">Total Income</p>
             <p className="kpi-value text-white">{formatAmount(analytics.totalIncome)}</p>
@@ -188,7 +188,7 @@ ${parseFloat(analytics.budgetUtilization) < 80
         </div>
 
         {/* Detailed Analytics - Stacked on mobile */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3 mb-6 md:mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3 mb-block">
           {/* Expenses by Category */}
           <div className="card">
             <h3 className="text-xs md:text-sm font-bold text-white mb-3">Expenses by Category</h3>
@@ -239,7 +239,7 @@ ${parseFloat(analytics.budgetUtilization) < 80
         </div>
 
         {/* Investment & Goals */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3 mb-6 md:mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-3 mb-block">
           <div className="card">
             <h3 className="text-xs md:text-sm font-bold text-white mb-3">Investment Performance</h3>
             <div className="space-y-2">
@@ -289,7 +289,7 @@ ${parseFloat(analytics.budgetUtilization) < 80
         </div>
 
         {/* Budget Analysis */}
-        <div className="card mb-6 md:mb-8">
+        <div className="card mb-block">
           <h3 className="text-xs md:text-sm font-bold text-white mb-3">Budget Analysis</h3>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             <div>

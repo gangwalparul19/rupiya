@@ -179,7 +179,7 @@ export default function IncomePage() {
   return (
     <PageWrapper>
       <div className="py-4 sm:py-6 md:py-8">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 md:mb-8 gap-3">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-block gap-3">
           <div>
             <h1 className="heading-page">💵 Income</h1>
             <p className="text-secondary">Track all your income sources</p>
@@ -203,7 +203,7 @@ export default function IncomePage() {
         </div>
 
         {!showAnalytics && (
-          <div className="grid-responsive-3 mb-10 md:mb-16">
+          <div className="grid-responsive-3 mb-section">
             <div className="kpi-card">
               <p className="kpi-label text-green-400">Total Income</p>
               <p className="kpi-value text-white">₹{(totalIncome / 1000).toFixed(0)}K</p>
@@ -222,13 +222,13 @@ export default function IncomePage() {
           </div>
         )}
 
-        {showAnalytics && <div className="mb-6 md:mb-8"><IncomeAnalytics income={sortedIncome} /></div>}
+        {showAnalytics && <div className="mb-block"><IncomeAnalytics income={sortedIncome} /></div>}
 
-        {isModalOpen && <div className="mb-6 md:mb-8"><AddIncomeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onAddIncome={handleAddIncome} /></div>}
+        {isModalOpen && <div className="mb-block"><AddIncomeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onAddIncome={handleAddIncome} /></div>}
 
         <EditIncomeModal isOpen={isEditModalOpen} income={editingIncome} onClose={() => { setIsEditModalOpen(false); setEditingIncome(null); }} onSave={handleSaveIncome} />
 
-        <div className="flex gap-3 mb-8 md:mb-12 flex-wrap">
+        <div className="flex gap-3 mb-block flex-wrap">
           <button
             onClick={handleExportCSV}
             className="btn btn-secondary border-green-500/20 hover:border-green-500/40 text-green-400"
@@ -299,7 +299,7 @@ export default function IncomePage() {
         </div>
 
         {sortedIncome.length > 0 && (
-          <div className="mt-12 md:mt-16 card overflow-hidden border-slate-700/50">
+          <div className="mt-section card overflow-hidden border-slate-700/50">
             <div className="absolute inset-0 bg-gradient-to-r from-green-500/5 via-transparent to-blue-500/5 pointer-events-none"></div>
             <div className="relative grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 text-center md:text-left">
               <div>
