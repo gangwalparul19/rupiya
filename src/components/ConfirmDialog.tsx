@@ -71,20 +71,17 @@ export default function ConfirmDialog({
 
         {children && <div className="mb-4 text-sm text-gray-400">{children}</div>}
 
-        <div className="flex gap-3">
+        <div className="flex gap-3 pt-4">
           <button
             onClick={onCancel}
-            className="flex-1 px-3 md:px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium text-sm"
+            className="flex-1 btn btn-secondary text-sm"
             aria-label={`${cancelText} action`}
           >
             {cancelText}
           </button>
           <button
             onClick={onConfirm}
-            className={`flex-1 px-3 md:px-4 py-2 text-white rounded-lg transition-colors font-medium text-sm ${isDangerous
-                ? 'bg-red-600 hover:bg-red-700'
-                : 'bg-blue-600 hover:bg-blue-700'
-              }`}
+            className={`flex-1 btn btn-small text-sm ${isDangerous ? 'btn-danger' : 'btn-primary shadow-lg shadow-blue-500/20'}`}
             aria-label={`${confirmText} action`}
           >
             {confirmText}

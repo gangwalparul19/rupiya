@@ -265,43 +265,47 @@ export default function GoalsPage() {
         </div>
 
         {/* KPI Cards */}
-        <div className="grid-responsive-4 mb-6 md:mb-8">
-          <div className="card">
-            <p className="text-slate-400 text-xs mb-1">Total Goals</p>
-            <p className="text-lg md:text-2xl font-bold text-blue-400">{kpiStats.totalGoals}</p>
+        <div className="grid-responsive-4 mb-10 md:mb-16">
+          <div className="kpi-card">
+            <p className="kpi-label text-blue-400">Total Goals</p>
+            <p className="kpi-value text-white">{kpiStats.totalGoals}</p>
+            <p className="kpi-subtitle text-slate-400">Financial milestones</p>
           </div>
 
-          <div className="card">
-            <p className="text-slate-400 text-xs mb-1">Completed</p>
-            <p className="text-lg md:text-2xl font-bold text-green-400">{kpiStats.completedGoals}</p>
+          <div className="kpi-card">
+            <p className="kpi-label text-green-400">Completed</p>
+            <p className="kpi-value text-white">{kpiStats.completedGoals}</p>
+            <p className="kpi-subtitle text-slate-400">Goals reached</p>
           </div>
 
-          <div className="card">
-            <p className="text-slate-400 text-xs mb-1">Total Target</p>
-            <p className="text-lg md:text-2xl font-bold text-purple-400">{abbreviateNumber(kpiStats.totalTarget)}</p>
+          <div className="kpi-card">
+            <p className="kpi-label text-purple-400">Total Target</p>
+            <p className="kpi-value text-white">{abbreviateNumber(kpiStats.totalTarget)}</p>
+            <p className="kpi-subtitle text-slate-400">Total savings goal</p>
           </div>
 
-          <div className="card">
-            <p className="text-slate-400 text-xs mb-1">Total Saved</p>
-            <p className="text-lg md:text-2xl font-bold text-green-500">{abbreviateNumber(kpiStats.totalSaved)}</p>
+          <div className="kpi-card">
+            <p className="kpi-label text-emerald-400">Total Saved</p>
+            <p className="kpi-value text-white">{abbreviateNumber(kpiStats.totalSaved)}</p>
+            <p className="kpi-subtitle text-slate-400">Across all goals</p>
           </div>
         </div>
 
         {/* Export Buttons */}
-        <div className="flex gap-2 mb-4 md:mb-6 flex-wrap">
+        <div className="flex gap-3 mb-10 md:mb-12 flex-wrap">
           <button
             onClick={handleExportCSV}
-            className="bg-green-600 hover:bg-green-700 text-white px-3 md:px-4 py-2 rounded-lg transition font-semibold text-xs md:text-sm"
+            className="btn btn-secondary border-green-500/20 hover:border-green-500/40 text-green-400"
             aria-label="Export goals to CSV file"
           >
             📥 CSV
           </button>
           <button
             onClick={handleExportTXT}
-            className="bg-purple-600 hover:bg-purple-700 text-white px-3 md:px-4 py-2 rounded-lg transition font-semibold text-xs md:text-sm"
+            className="btn btn-secondary border-purple-500/20 hover:border-purple-500/40 text-purple-400"
             aria-label="Export goals to text file"
           >
-            📥 TXT
+            📄 TXT
           </button>
         </div>
 

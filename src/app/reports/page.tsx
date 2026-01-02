@@ -103,30 +103,34 @@ export default function ReportsPage() {
         </div>
 
         {/* Key Metrics - Compact Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 mb-6 md:mb-8">
-          <div className="card">
-            <p className="text-slate-400 text-xs mb-1">Net Worth</p>
-            <p className={`text-lg md:text-2xl font-bold ${netWorth >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-10 md:mb-16">
+          <div className="kpi-card">
+            <p className="kpi-label text-blue-400">Net Worth</p>
+            <p className={`kpi-value ${netWorth >= 0 ? 'text-white' : 'text-red-400'}`}>
               ₹{formatCompact(netWorth)}
             </p>
+            <p className="kpi-subtitle text-slate-400">Total valuation</p>
           </div>
-          <div className="card">
-            <p className="text-slate-400 text-xs mb-1">Cash Flow</p>
-            <p className={`text-lg md:text-2xl font-bold ${cashFlow >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+          <div className="kpi-card">
+            <p className="kpi-label text-slate-400">Cash Flow</p>
+            <p className={`kpi-value ${cashFlow >= 0 ? 'text-green-400' : 'text-red-400'}`}>
               ₹{formatCompact(cashFlow)}
             </p>
+            <p className="kpi-subtitle text-slate-400">Income vs Spent</p>
           </div>
-          <div className="card">
-            <p className="text-slate-400 text-xs mb-1">Savings Rate</p>
-            <p className={`text-lg md:text-2xl font-bold ${savingsRate >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+          <div className="kpi-card">
+            <p className="kpi-label text-purple-400">Savings Rate</p>
+            <p className="kpi-value text-white">
               {savingsRate.toFixed(0)}%
             </p>
+            <p className="kpi-subtitle text-slate-400">Portion preserved</p>
           </div>
-          <div className="card">
-            <p className="text-slate-400 text-xs mb-1">Inv. Return</p>
-            <p className={`text-lg md:text-2xl font-bold ${investmentReturn >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+          <div className="kpi-card">
+            <p className="kpi-label text-blue-500">Inv. Return</p>
+            <p className={`kpi-value ${investmentReturn >= 0 ? 'text-green-400' : 'text-red-400'}`}>
               {investmentReturn.toFixed(1)}%
             </p>
+            <p className="kpi-subtitle text-slate-400">Portfolio growth</p>
           </div>
         </div>
 

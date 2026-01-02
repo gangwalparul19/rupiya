@@ -155,18 +155,18 @@ export default function ExpenseSplittingPage() {
           <p className="text-secondary">Split expenses with friends and track settlements</p>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-2 sm:gap-3 md:gap-4 mb-6">
+        <div className="flex gap-3 mb-10 md:mb-12 flex-wrap">
           <button
             onClick={() => setIsAddModalOpen(true)}
-            className="btn btn-primary"
+            className="btn btn-primary px-8 shadow-lg shadow-blue-500/20"
           >
-            + Split Expense
+            + Create Split Expense
           </button>
           <button
             onClick={handleExportCSV}
-            className="btn btn-success"
+            className="btn btn-secondary border-green-500/20 hover:border-green-500/40 text-green-400"
           >
-            ↓ Export CSV
+            📥 Export CSV
           </button>
         </div>
 

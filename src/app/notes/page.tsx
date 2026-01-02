@@ -127,15 +127,16 @@ export default function NotesPage() {
         </div>
 
         {/* KPI Cards */}
-        <div className="grid-responsive-3 mb-6 md:mb-8">
-          <div className="card">
-            <p className="text-slate-400 text-xs mb-1">Total Notes</p>
-            <p className="text-lg md:text-2xl font-bold text-blue-400">{kpiStats.totalNotes}</p>
+        <div className="grid-responsive-3 mb-10 md:mb-16">
+          <div className="kpi-card">
+            <p className="kpi-label text-blue-400">Total Notes</p>
+            <p className="kpi-value text-white">{kpiStats.totalNotes}</p>
+            <p className="kpi-subtitle text-slate-400">Captured thoughts</p>
           </div>
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-2 md:gap-3 mb-6 md:mb-8">
+        <div className="flex gap-3 mb-10 md:mb-12 flex-wrap">
           <button
             onClick={() => {
               setShowModalInline(true);
@@ -144,15 +145,15 @@ export default function NotesPage() {
                 content: '',
               });
             }}
-            className="flex-1 btn btn-primary"
+            className="btn btn-primary px-8 shadow-lg shadow-blue-500/20"
           >
             + Add Note
           </button>
           <button
             onClick={handleExportCSV}
-            className="flex-1 btn btn-success"
+            className="btn btn-secondary border-green-500/20 hover:border-green-500/40 text-green-400"
           >
-            ↓ Export CSV
+            📥 CSV
           </button>
         </div>
 

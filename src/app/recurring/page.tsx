@@ -199,33 +199,37 @@ export default function RecurringTransactionsPage() {
         </div>
 
         {/* KPI Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3 mb-6 md:mb-8">
-          <div className="card">
-            <p className="text-slate-400 text-xs mb-1">Total Recurring</p>
-            <p className="text-lg md:text-2xl font-bold text-blue-400">{kpiStats.totalRecurring}</p>
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-10 md:mb-16">
+          <div className="kpi-card">
+            <p className="kpi-label text-blue-400">Total Recurring</p>
+            <p className="kpi-value text-white">{kpiStats.totalRecurring}</p>
+            <p className="kpi-subtitle text-slate-400">Active schedules</p>
           </div>
 
-          <div className="card">
-            <p className="text-slate-400 text-xs mb-1">Active</p>
-            <p className="text-lg md:text-2xl font-bold text-green-400">{kpiStats.activeRecurring}</p>
+          <div className="kpi-card">
+            <p className="kpi-label text-green-400">Active</p>
+            <p className="kpi-value text-white">{kpiStats.activeRecurring}</p>
+            <p className="kpi-subtitle text-slate-400">Running now</p>
           </div>
 
-          <div className="card">
-            <p className="text-slate-400 text-xs mb-1">Total Expenses</p>
-            <p className="text-lg md:text-2xl font-bold text-red-400">
+          <div className="kpi-card">
+            <p className="kpi-label text-red-400">Monthly Expenses</p>
+            <p className="kpi-value text-white">
               ₹{kpiStats.totalExpenseAmount.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
             </p>
+            <p className="kpi-subtitle text-slate-400">Projected costs</p>
           </div>
 
-          <div className="card">
-            <p className="text-slate-400 text-xs mb-1">Total Income</p>
-            <p className="text-lg md:text-2xl font-bold text-green-500">
+          <div className="kpi-card">
+            <p className="kpi-label text-green-500">Monthly Income</p>
+            <p className="kpi-value text-white">
               ₹{kpiStats.totalIncomeAmount.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
             </p>
+            <p className="kpi-subtitle text-slate-400">Scheduled earnings</p>
           </div>
         </div>
 
-        <div className="flex gap-2 md:gap-3 mb-6 md:mb-8">
+        <div className="flex gap-3 mb-10 md:mb-12 flex-wrap">
           <button
             onClick={() => {
               setShowModalInline(true);
@@ -241,15 +245,15 @@ export default function RecurringTransactionsPage() {
                 isActive: true,
               });
             }}
-            className="flex-1 btn btn-primary"
+            className="btn btn-primary px-8 shadow-lg shadow-blue-500/20"
           >
             + Add Recurring
           </button>
           <button
             onClick={handleExportCSV}
-            className="flex-1 btn btn-success"
+            className="btn btn-secondary border-green-500/20 hover:border-green-500/40 text-green-400"
           >
-            ↓ Export CSV
+            📥 CSV
           </button>
         </div>
 
@@ -440,8 +444,8 @@ export default function RecurringTransactionsPage() {
                     </div>
                     <span
                       className={`text-xs px-2 py-1 rounded font-medium ${transaction.type === 'expense'
-                          ? 'bg-red-600 text-white'
-                          : 'bg-green-600 text-white'
+                        ? 'bg-red-600 text-white'
+                        : 'bg-green-600 text-white'
                         }`}
                     >
                       {transaction.type}
@@ -468,8 +472,8 @@ export default function RecurringTransactionsPage() {
                     <button
                       onClick={() => handleToggleActive(transaction.id, transaction.isActive)}
                       className={`flex-1 btn btn-small ${transaction.isActive
-                          ? 'bg-yellow-600 hover:bg-yellow-700'
-                          : 'bg-green-600 hover:bg-green-700'
+                        ? 'bg-yellow-600 hover:bg-yellow-700'
+                        : 'bg-green-600 hover:bg-green-700'
                         } text-white`}
                     >
                       {transaction.isActive ? 'Pause' : 'Resume'}

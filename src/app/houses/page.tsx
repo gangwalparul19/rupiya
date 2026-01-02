@@ -244,25 +244,28 @@ export default function HousesPage() {
         </div>
 
         {/* KPI Cards */}
-        <div className="grid-responsive-3 mb-6 md:mb-8">
-          <div className="card">
-            <p className="text-tertiary text-xs md:text-sm mb-2">Total Houses</p>
-            <p className="text-2xl md:text-3xl font-bold text-blue-400">{kpiStats.totalHouses}</p>
+        <div className="grid-responsive-3 mb-10 md:mb-16">
+          <div className="kpi-card">
+            <p className="kpi-label text-blue-400">Total Houses</p>
+            <p className="kpi-value text-white">{kpiStats.totalHouses}</p>
+            <p className="kpi-subtitle text-slate-400">Property portfolio</p>
           </div>
 
-          <div className="card">
-            <p className="text-tertiary text-xs md:text-sm mb-2">Owned</p>
-            <p className="text-2xl md:text-3xl font-bold text-green-400">{kpiStats.ownedCount}</p>
+          <div className="kpi-card">
+            <p className="kpi-label text-green-400">Owned</p>
+            <p className="kpi-value text-white">{kpiStats.ownedCount}</p>
+            <p className="kpi-subtitle text-slate-400">Capital assets</p>
           </div>
 
-          <div className="card">
-            <p className="text-tertiary text-xs md:text-sm mb-2">Rented</p>
-            <p className="text-2xl md:text-3xl font-bold text-purple-400">{kpiStats.rentedCount}</p>
+          <div className="kpi-card">
+            <p className="kpi-label text-purple-400">Rented</p>
+            <p className="kpi-value text-white">{kpiStats.rentedCount}</p>
+            <p className="kpi-subtitle text-slate-400">Living space</p>
           </div>
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-2 sm:gap-3 md:gap-4 mb-6">
+        <div className="flex gap-3 mb-10 md:mb-12 flex-wrap">
           <button
             onClick={() => {
               setShowModalInline(true);
@@ -272,15 +275,15 @@ export default function HousesPage() {
                 address: '',
               });
             }}
-            className="btn btn-primary flex-1"
+            className="btn btn-primary shadow-lg shadow-blue-500/20"
           >
             + Add House
           </button>
           <button
             onClick={handleExportCSV}
-            className="btn btn-success flex-1"
+            className="btn btn-secondary border-green-500/20 hover:border-green-500/40 text-green-400"
           >
-            ↓ Export CSV
+            📥 CSV
           </button>
         </div>
 

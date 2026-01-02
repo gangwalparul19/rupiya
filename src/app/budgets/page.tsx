@@ -290,32 +290,36 @@ export default function BudgetsPage() {
         </div>
 
         {/* KPI Cards - Mobile optimized */}
-        <div className="grid-responsive-4 mb-6 md:mb-8">
-          <div className="card">
-            <p className="text-slate-400 text-xs mb-1 md:mb-2">Total Budgets</p>
-            <p className="text-xl md:text-3xl font-bold text-blue-400">{kpiStats.totalBudgets}</p>
+        <div className="grid-responsive-4 mb-10 md:mb-16">
+          <div className="kpi-card">
+            <p className="kpi-label text-blue-400">Total Budgets</p>
+            <p className="kpi-value text-white">{kpiStats.totalBudgets}</p>
+            <p className="kpi-subtitle text-slate-400">Active monthly budgets</p>
           </div>
 
-          <div className="card">
-            <p className="text-slate-400 text-xs mb-1 md:mb-2">Total Budget</p>
-            <p className="text-xl md:text-3xl font-bold text-green-400">{abbreviateNumber(kpiStats.totalBudgetAmount)}</p>
+          <div className="kpi-card">
+            <p className="kpi-label text-green-400">Total Budget</p>
+            <p className="kpi-value text-white">{abbreviateNumber(kpiStats.totalBudgetAmount)}</p>
+            <p className="kpi-subtitle text-slate-400">Allocated amount</p>
           </div>
 
-          <div className="card">
-            <p className="text-slate-400 text-xs mb-1 md:mb-2">Total Spent</p>
-            <p className="text-xl md:text-3xl font-bold text-red-400">{abbreviateNumber(kpiStats.totalSpent)}</p>
+          <div className="kpi-card">
+            <p className="kpi-label text-red-400">Total Spent</p>
+            <p className="kpi-value text-white">{abbreviateNumber(kpiStats.totalSpent)}</p>
+            <p className="kpi-subtitle text-slate-400">Across all months</p>
           </div>
 
-          <div className="card">
-            <p className="text-slate-400 text-xs mb-1 md:mb-2">Remaining</p>
-            <p className={`text-xl md:text-3xl font-bold ${kpiStats.remaining >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+          <div className="kpi-card">
+            <p className="kpi-label text-amber-400">Remaining</p>
+            <p className={`kpi-value ${kpiStats.remaining >= 0 ? 'text-green-500' : 'text-red-500'}`}>
               {abbreviateNumber(kpiStats.remaining)}
             </p>
+            <p className="kpi-subtitle text-slate-400">Unspent balance</p>
           </div>
         </div>
 
         {/* Action Buttons - Always visible */}
-        <div className="flex gap-2 md:gap-3 mb-6 sticky bottom-0 md:static bg-gray-950 p-3 md:p-0 -mx-3 md:mx-0 md:mb-6 z-40">
+        <div className="flex gap-3 mb-10 md:mb-12 flex-wrap">
           <button
             onClick={() => {
               setIsAddModalOpen(true);
@@ -332,24 +336,24 @@ export default function BudgetsPage() {
                 other: '',
               });
             }}
-            className="flex-1 px-3 md:px-4 py-2 text-xs md:text-base bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            className="btn btn-primary shadow-lg shadow-blue-500/20"
             aria-label="Add new budget"
           >
-            + Add
+            + Create Budget
           </button>
           <button
             onClick={handleExportCSV}
-            className="flex-1 px-3 md:px-4 py-2 text-xs md:text-base bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
+            className="btn btn-secondary border-green-500/20 hover:border-green-500/40 text-green-400"
             aria-label="Export budgets to CSV file"
           >
-            CSV
+            📥 CSV
           </button>
           <button
             onClick={handleExportTXT}
-            className="flex-1 px-3 md:px-4 py-2 text-xs md:text-base bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-medium"
+            className="btn btn-secondary border-purple-500/20 hover:border-purple-500/40 text-purple-400"
             aria-label="Export budgets to text file"
           >
-            TXT
+            📄 TXT
           </button>
         </div>
 

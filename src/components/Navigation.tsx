@@ -170,29 +170,30 @@ export default function Navigation() {
 
               {/* Profile Dropdown */}
               {isProfileOpen && (
-                <div className="absolute right-0 mt-2 w-40 bg-slate-700 rounded-md shadow-lg z-50">
+                <div className="absolute right-0 mt-4 w-52 bg-slate-800/95 backdrop-blur-xl rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-50 border border-white/5 p-2 overflow-hidden animate-slide-up">
                   <Link
                     href="/profile"
                     onClick={() => setIsProfileOpen(false)}
-                    className="block px-3 py-2 text-white hover:bg-slate-600 rounded-t-md border-b border-slate-600 text-xs"
+                    className="flex items-center gap-3 px-4 py-3 text-slate-300 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-200 text-sm font-medium"
                   >
-                    👤 Profile
+                    <span>👤</span> Profile
                   </Link>
                   <Link
                     href="/payment-methods"
                     onClick={() => setIsProfileOpen(false)}
-                    className="block px-3 py-2 text-white hover:bg-slate-600 border-b border-slate-600 text-xs"
+                    className="flex items-center gap-3 px-4 py-3 text-slate-300 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-200 text-sm font-medium"
                   >
-                    💳 Payment
+                    <span>💳</span> Payment Methods
                   </Link>
+                  <div className="h-px bg-slate-700/50 my-1 mx-2"></div>
                   <button
                     onClick={() => {
                       handleLogout();
                       setIsProfileOpen(false);
                     }}
-                    className="w-full text-left px-3 py-2 text-red-400 hover:bg-slate-600 rounded-b-md text-xs"
+                    className="w-full flex items-center gap-3 px-4 py-3 text-red-400 hover:text-white hover:bg-red-500/10 rounded-xl transition-all duration-200 text-sm font-medium"
                   >
-                    🚪 Logout
+                    <span>🚪</span> Logout
                   </button>
                 </div>
               )}

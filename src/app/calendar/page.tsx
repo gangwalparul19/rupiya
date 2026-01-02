@@ -226,27 +226,27 @@ export default function CalendarPage() {
         </div>
 
         {/* Action Buttons - Always visible */}
-        <div className="flex gap-2 md:gap-3 mb-6 sticky bottom-0 md:static bg-slate-900 p-3 md:p-0 -mx-3 md:mx-0 z-40">
+        <div className="flex gap-3 mb-10 md:mb-12 flex-wrap">
           <button
             onClick={() => setIsEventModalOpen(true)}
-            className="flex-1 btn btn-primary"
+            className="btn btn-primary px-8 shadow-lg shadow-blue-500/20"
             aria-label="Add new calendar event"
           >
-            + Event
+            + Add Event
           </button>
           <button
             onClick={() => setIsBillModalOpen(true)}
-            className="flex-1 btn btn-secondary"
+            className="btn btn-secondary border-orange-500/20 hover:border-orange-500/40 text-orange-400"
             aria-label="Add new bill reminder"
           >
-            + Bill
+            + Add Bill
           </button>
           <button
             onClick={() => setViewMode(viewMode === 'calendar' ? 'list' : 'calendar')}
-            className="flex-1 btn btn-secondary"
+            className="btn btn-secondary"
             aria-label={`Switch to ${viewMode === 'calendar' ? 'list' : 'calendar'} view`}
           >
-            {viewMode === 'calendar' ? '📋' : '📅'}
+            {viewMode === 'calendar' ? '📋 List View' : '📅 Calendar View'}
           </button>
         </div>
 
@@ -436,71 +436,72 @@ export default function CalendarPage() {
         {isPageLoading ? (
           <SkeletonLoader type="table" count={1} className="mb-6" />
         ) : viewMode === 'calendar' && (
-          <div className="card mb-6">
-            <div className="flex items-center justify-between mb-4 md:mb-6 gap-2">
+          <div className="card mb-10 overflow-hidden">
+            <div className="flex items-center justify-between p-4 md:p-6 bg-slate-800/50 border-b border-slate-700/50">
               <button
                 onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1))}
-                className="btn btn-secondary"
+                className="btn btn-secondary btn-small"
                 aria-label="Go to previous month"
               >
-                ← Prev
+                ←
               </button>
-              <h2 className="text-lg md:text-2xl font-bold text-white text-center flex-1">{monthName}</h2>
+              <h2 className="text-xl md:text-2xl font-bold text-white text-center flex-1">{monthName}</h2>
               <button
                 onClick={() => setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1))}
-                className="btn btn-secondary"
+                className="btn btn-secondary btn-small"
                 aria-label="Go to next month"
               >
-                Next →
+                →
               </button>
             </div>
 
-            {/* Calendar Grid - Mobile optimized with larger cells */}
-            <div className="grid grid-cols-7 gap-1 md:gap-2">
-              {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-                <div key={day} className="text-center font-bold text-gray-400 py-1 md:py-2 text-xs md:text-sm">
-                  {day}
-                </div>
-              ))}
+            <div className="p-4 md:p-6">
+              {/* Calendar Grid - Mobile optimized with larger cells */}
+              <div className="grid grid-cols-7 gap-px bg-slate-700/30 rounded-xl overflow-hidden border border-slate-700/50">
+                {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
+                  <div key={day} className="text-center font-bold text-slate-500 py-3 text-[10px] md:text-xs uppercase tracking-wider bg-slate-800/80">
+                    {day}
+                  </div>
+                ))}
 
-              {calendarDays.map((day, index) => (
-                <div
-                  key={index}
-                  className={`min-h-16 md:min-h-24 p-1 md:p-2 rounded border text-xs md:text-sm ${day
-                    ? 'bg-gray-700 border-gray-600 hover:bg-gray-600 transition-colors'
-                    : 'bg-gray-900 border-gray-800'
-                    }`}
-                >
-                  {day && (
-                    <div>
-                      <p className="font-bold text-white mb-0.5 md:mb-1">{day}</p>
-                      <div className="space-y-0.5">
-                        {getEventsForDay(day).slice(0, 2).map((event) => (
-                          <div
-                            key={event.id}
-                            className="bg-blue-600 text-white px-1 py-0.5 rounded truncate cursor-pointer hover:bg-blue-700 text-xs"
-                            title={event.title}
-                          >
-                            {event.title}
-                          </div>
-                        ))}
-                        {getBillsForDay(day).slice(0, 2).map((bill) => (
-                          <div
-                            key={bill.id}
-                            className="bg-orange-600 text-white px-1 py-0.5 rounded truncate cursor-pointer hover:bg-orange-700 text-xs"
-                            title={bill.name}
-                          >
-                            {bill.name}
-                          </div>
-                        ))}
-                        {(getEventsForDay(day).length + getBillsForDay(day).length > 4) && (
-                          <p className="text-gray-300 text-xs">+more</p>
-                        )}
+                {calendarDays.map((day, index) => (
+                  <div
+                    key={index}
+                    className={`min-h-20 md:min-h-32 p-1.5 md:p-3 relative ${day
+                      ? 'bg-slate-800/40 hover:bg-slate-700/40 transition-colors'
+                      : 'bg-slate-900/40'
+                      }`}
+                  >
+                    {day && (
+                      <div className="h-full flex flex-col">
+                        <span className={`text-[10px] md:text-xs font-bold mb-1.5 self-start ${new Date().getDate() === day && new Date().getMonth() === currentMonth.getMonth() ? 'bg-blue-500 text-white w-5 h-5 md:w-6 md:h-6 flex items-center justify-center rounded-full' : 'text-slate-400'}`}>
+                          {day}
+                        </span>
+                        <div className="space-y-1 overflow-y-auto max-h-12 md:max-h-20 custom-scrollbar">
+                          {getEventsForDay(day).map((event) => (
+                            <div
+                              key={event.id}
+                              className="bg-blue-500/10 border border-blue-500/20 text-blue-400 px-1.5 py-0.5 rounded text-[9px] md:text-xs truncate"
+                              title={event.title}
+                            >
+                              {event.title}
+                            </div>
+                          ))}
+                          {getBillsForDay(day).map((bill) => (
+                            <div
+                              key={bill.id}
+                              className="bg-orange-500/10 border border-orange-500/20 text-orange-400 px-1.5 py-0.5 rounded text-[9px] md:text-xs truncate"
+                              title={bill.name}
+                            >
+                              {bill.name}
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </div>
-              ))}
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         )}

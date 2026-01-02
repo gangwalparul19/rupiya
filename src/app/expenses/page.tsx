@@ -379,14 +379,14 @@ ${sortedExpenses
           </button>
           <button
             onClick={handleExportCSV}
-            className="bg-green-600 hover:bg-green-700 text-white px-3 md:px-4 py-2 rounded-lg transition font-semibold text-xs md:text-sm"
+            className="btn btn-secondary border-green-500/20 hover:border-green-500/40 text-green-400"
             aria-label="Export expenses to CSV file"
           >
             📥 CSV
           </button>
           <button
             onClick={handleExportReport}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-3 md:px-4 py-2 rounded-lg transition font-semibold text-xs md:text-sm"
+            className="btn btn-secondary border-blue-500/20 hover:border-blue-500/40 text-blue-400"
             aria-label="Export expenses report to text file"
           >
             📊 Report
@@ -494,25 +494,26 @@ ${sortedExpenses
         </div>
 
         {sortedExpenses.length > 0 && (
-          <div className="mt-6 md:mt-8 card">
-            <div className="grid grid-cols-3 gap-3 md:gap-4">
+          <div className="mt-12 md:mt-16 card overflow-hidden border-slate-700/50">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-purple-500/5 pointer-events-none"></div>
+            <div className="relative grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 text-center md:text-left">
               <div>
-                <p className="text-slate-300 text-xs md:text-sm">Total</p>
-                <p className="text-base md:text-2xl font-bold text-white">
+                <p className="kpi-label text-slate-400">Monthly Total</p>
+                <p className="kpi-value text-white">
                   ₹{sortedExpenses.reduce((sum, e) => sum + e.amount, 0).toLocaleString()}
                 </p>
               </div>
-              <div>
-                <p className="text-slate-300 text-xs md:text-sm">Count</p>
-                <p className="text-base md:text-2xl font-bold text-white">{sortedExpenses.length}</p>
+              <div className="border-t md:border-t-0 md:border-l border-slate-700/50 pt-6 md:pt-0 md:pl-8">
+                <p className="kpi-label text-slate-400">Total Entries</p>
+                <p className="kpi-value text-white">{sortedExpenses.length}</p>
               </div>
-              <div>
-                <p className="text-slate-300 text-xs md:text-sm">Average</p>
-                <p className="text-base md:text-2xl font-bold text-white">
+              <div className="border-t md:border-t-0 md:border-l border-slate-700/50 pt-6 md:pt-0 md:pl-8">
+                <p className="kpi-label text-slate-400">Average/Day</p>
+                <p className="kpi-value text-white">
                   ₹
                   {Math.round(
                     sortedExpenses.reduce((sum, e) => sum + e.amount, 0) /
-                    sortedExpenses.length
+                    new Date().getDate()
                   ).toLocaleString()}
                 </p>
               </div>

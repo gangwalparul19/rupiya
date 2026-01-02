@@ -132,47 +132,53 @@ export default function PaymentMethodsPage() {
         {activeTab === 'cards' && (
           <div className="space-y-4 md:space-y-6">
             {/* Add Card Form */}
-            <div className="bg-slate-800 rounded-lg border border-slate-700 overflow-hidden">
+            <div className="card overflow-hidden">
               <button
                 onClick={() => setExpandedForm(!expandedForm)}
-                className="w-full px-4 md:px-6 py-3 md:py-4 flex items-center justify-between hover:bg-slate-700 transition"
+                className="w-full py-2 flex items-center justify-between transition"
               >
                 <h2 className="text-lg md:text-xl font-bold text-white">Add Card</h2>
-                <span className={`text-2xl transition-transform ${expandedForm ? 'rotate-180' : ''}`}>▼</span>
+                <span className={`text-xl transition-transform ${expandedForm ? 'rotate-180' : ''}`}>▼</span>
               </button>
 
               {expandedForm && (
-                <form onSubmit={handleAddCard} className="px-4 md:px-6 py-4 md:py-6 border-t border-slate-700 space-y-3 md:space-y-4">
-                  <input
-                    type="text"
-                    name="cardName"
-                    value={formData.cardName}
-                    onChange={handleChange}
-                    placeholder="Card name (e.g., My Visa)"
-                    className="w-full px-3 md:px-4 py-2 md:py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
-                    required
-                  />
-                  <input
-                    type="text"
-                    name="cardNumber"
-                    value={formData.cardNumber}
-                    onChange={handleChange}
-                    placeholder="Card number (last 4 digits)"
-                    maxLength={4}
-                    className="w-full px-3 md:px-4 py-2 md:py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
-                    required
-                  />
-                  <div className="flex gap-2 pt-2">
+                <form onSubmit={handleAddCard} className="pt-6 mt-6 border-t border-slate-700/50 space-y-4">
+                  <div>
+                    <label className="form-label">Card Name</label>
+                    <input
+                      type="text"
+                      name="cardName"
+                      value={formData.cardName}
+                      onChange={handleChange}
+                      placeholder="e.g., My Visa"
+                      className="form-input"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="form-label">Card Number (Last 4 Digits)</label>
+                    <input
+                      type="text"
+                      name="cardNumber"
+                      value={formData.cardNumber}
+                      onChange={handleChange}
+                      placeholder="1234"
+                      maxLength={4}
+                      className="form-input"
+                      required
+                    />
+                  </div>
+                  <div className="flex gap-3 pt-4">
                     <button
                       type="submit"
-                      className="flex-1 px-4 py-2 md:py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium text-sm md:text-base"
+                      className="flex-1 btn btn-primary"
                     >
                       Add Card
                     </button>
                     <button
                       type="button"
                       onClick={() => setExpandedForm(false)}
-                      className="flex-1 px-4 py-2 md:py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-colors font-medium text-sm md:text-base"
+                      className="flex-1 btn btn-secondary"
                     >
                       Cancel
                     </button>
@@ -185,20 +191,20 @@ export default function PaymentMethodsPage() {
             {cards.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
                 {cards.map((card) => (
-                  <div key={card.id} className="bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg p-4 md:p-6 text-white">
-                    <div className="flex justify-between items-start mb-4">
-                      <h3 className="text-lg md:text-xl font-bold">{card.cardName}</h3>
-                      <span className="text-2xl">💳</span>
+                  <div key={card.id} className="card bg-gradient-to-br from-blue-600/20 to-blue-800/10 border-blue-500/20">
+                    <div className="flex justify-between items-start mb-6">
+                      <h3 className="text-lg font-bold text-white">{card.cardName}</h3>
+                      <span className="text-2xl opacity-80">💳</span>
                     </div>
-                    <p className="text-slate-200 text-sm md:text-base mb-4">•••• {card.cardNumber}</p>
+                    <p className="text-slate-300 font-mono tracking-widest mb-6">•••• •••• •••• {card.cardNumber}</p>
                     <button
                       onClick={() => {
                         removeCard(card.id);
                         showToast('Card deleted', 'success');
                       }}
-                      className="w-full px-3 py-2 text-sm md:text-base bg-red-600 hover:bg-red-700 text-white rounded transition-colors font-medium"
+                      className="w-full btn btn-danger btn-small"
                     >
-                      Delete
+                      Delete Card
                     </button>
                   </div>
                 ))}

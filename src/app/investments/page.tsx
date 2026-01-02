@@ -228,42 +228,46 @@ export default function InvestmentsPage() {
           </div>
         </div>
 
-        <div className="grid-responsive-4 mb-6 md:mb-8">
-          <div className="card">
-            <p className="text-slate-400 text-xs mb-1">Total</p>
-            <p className="text-lg md:text-2xl font-bold text-blue-400">{kpiStats.totalInvestments}</p>
+        <div className="grid-responsive-4 mb-10 md:mb-16">
+          <div className="kpi-card">
+            <p className="kpi-label text-blue-400">Total</p>
+            <p className="kpi-value text-white">{kpiStats.totalInvestments}</p>
+            <p className="kpi-subtitle text-slate-400">Fixed & variable assets</p>
           </div>
 
-          <div className="card">
-            <p className="text-slate-400 text-xs mb-1">Invested</p>
-            <p className="text-lg md:text-2xl font-bold text-purple-400">₹{(kpiStats.totalInvested / 100000).toFixed(1)}L</p>
+          <div className="kpi-card">
+            <p className="kpi-label text-purple-400">Invested</p>
+            <p className="kpi-value text-white">₹{(kpiStats.totalInvested / 100000).toFixed(1)}L</p>
+            <p className="kpi-subtitle text-slate-400">Principal amount</p>
           </div>
 
-          <div className="card">
-            <p className="text-slate-400 text-xs mb-1">Current</p>
-            <p className="text-lg md:text-2xl font-bold text-blue-500">₹{(kpiStats.totalCurrentValue / 100000).toFixed(1)}L</p>
+          <div className="kpi-card">
+            <p className="kpi-label text-blue-500">Current</p>
+            <p className="kpi-value text-white">₹{(kpiStats.totalCurrentValue / 100000).toFixed(1)}L</p>
+            <p className="kpi-subtitle text-slate-400">Present market value</p>
           </div>
 
-          <div className="card">
-            <p className="text-slate-400 text-xs mb-1">Gain/Loss</p>
-            <p className={`text-lg md:text-2xl font-bold ${kpiStats.totalGainLoss >= 0 ? 'text-green-400' : 'text-red-400'}`}>
+          <div className="kpi-card">
+            <p className="kpi-label text-green-400">Gain / Loss</p>
+            <p className={`kpi-value ${kpiStats.totalGainLoss >= 0 ? 'text-green-400' : 'text-red-400'}`}>
               ₹{(kpiStats.totalGainLoss / 100000).toFixed(1)}L
             </p>
+            <p className="kpi-subtitle text-slate-400">Cumulative performance</p>
           </div>
         </div>
 
-        <div className="flex gap-2 mb-4 md:mb-6 flex-wrap">
+        <div className="flex gap-3 mb-8 md:mb-12 flex-wrap">
           <button
             onClick={handleExportCSV}
-            className="btn btn-success"
+            className="btn btn-secondary border-green-500/20 hover:border-green-500/40 text-green-400"
           >
             📥 CSV
           </button>
           <button
             onClick={handleExportTXT}
-            className="btn btn-secondary"
+            className="btn btn-secondary border-purple-500/20 hover:border-purple-500/40 text-purple-400"
           >
-            📥 TXT
+            📄 TXT
           </button>
         </div>
 

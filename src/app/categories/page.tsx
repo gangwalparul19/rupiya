@@ -181,7 +181,7 @@ export default function CategoriesPage() {
         </div>
 
         {/* Action Buttons - Always visible */}
-        <div className="flex flex-wrap gap-4 mb-8">
+        <div className="flex flex-wrap gap-4 mb-10 md:mb-16">
           <button
             onClick={() => {
               setIsAddModalOpen(true);
@@ -193,17 +193,17 @@ export default function CategoriesPage() {
                 type: 'expense',
               });
             }}
-            className="btn btn-primary px-8"
+            className="btn btn-primary px-8 shadow-lg shadow-blue-500/20"
             aria-label="Add new category"
           >
             + Add New Category
           </button>
           <button
             onClick={handleExportCSV}
-            className="btn btn-secondary px-6"
+            className="btn btn-secondary px-6 border-slate-700/50"
             aria-label="Export categories to CSV file"
           >
-            Export CSV
+            📥 Export CSV
           </button>
         </div>
 

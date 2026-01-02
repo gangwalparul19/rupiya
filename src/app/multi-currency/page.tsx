@@ -97,12 +97,13 @@ export default function MultiCurrencyPage() {
           <p className="text-secondary">Manage multiple currencies and exchange rates</p>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-2 sm:gap-3 md:gap-4 mb-6">
+        {/* Settings Button */}
+        <div className="flex gap-3 mb-10 md:mb-12 flex-wrap">
           <button
             onClick={() => setIsEditModalOpen(true)}
-            className="btn btn-primary"
+            className="btn btn-primary px-8 shadow-lg shadow-blue-500/20"
           >
-            ⚙️ Settings
+            ⚙️ Currency Settings
           </button>
         </div>
 
@@ -203,25 +204,25 @@ export default function MultiCurrencyPage() {
         )}
 
         {/* Currency Overview */}
-        <div className="grid-responsive-3 mb-6 md:mb-8">
-          <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-lg p-4 md:p-6 text-white">
-            <p className="text-xs md:text-sm text-blue-100 mb-2">Base Currency</p>
-            <p className="text-2xl md:text-3xl font-bold">
+        <div className="grid-responsive-3 mb-10 md:mb-16">
+          <div className="kpi-card border-blue-500/20 bg-blue-500/5">
+            <p className="kpi-label text-blue-400">Base Currency</p>
+            <p className="kpi-value text-white">
               {SUPPORTED_CURRENCIES.find((c) => c.code === formData.baseCurrency)?.symbol}
             </p>
-            <p className="text-xs md:text-sm text-blue-100 mt-2">{formData.baseCurrency}</p>
+            <p className="kpi-subtitle text-slate-400">{formData.baseCurrency}</p>
           </div>
 
-          <div className="bg-gradient-to-br from-green-600 to-green-700 rounded-lg p-4 md:p-6 text-white">
-            <p className="text-xs md:text-sm text-green-100 mb-2">Display Currency</p>
-            <p className="text-2xl md:text-3xl font-bold">{displayCurrencyObj?.symbol}</p>
-            <p className="text-xs md:text-sm text-green-100 mt-2">{formData.displayCurrency}</p>
+          <div className="kpi-card border-green-500/20 bg-green-500/5">
+            <p className="kpi-label text-green-400">Display Currency</p>
+            <p className="kpi-value text-white">{displayCurrencyObj?.symbol}</p>
+            <p className="kpi-subtitle text-slate-400">{formData.displayCurrency}</p>
           </div>
 
-          <div className="bg-gradient-to-br from-purple-600 to-purple-700 rounded-lg p-4 md:p-6 text-white">
-            <p className="text-xs md:text-sm text-purple-100 mb-2">Auto-Convert</p>
-            <p className="text-2xl md:text-3xl font-bold">{formData.autoConvert ? 'ON' : 'OFF'}</p>
-            <p className="text-xs md:text-sm text-purple-100 mt-2">Conversion Status</p>
+          <div className="kpi-card border-purple-500/20 bg-purple-500/5">
+            <p className="kpi-label text-purple-400">Auto-Convert</p>
+            <p className="kpi-value text-white">{formData.autoConvert ? 'ON' : 'OFF'}</p>
+            <p className="kpi-subtitle text-slate-400">Conversion status</p>
           </div>
         </div>
 

@@ -130,11 +130,16 @@ export default function ReceiptsPage() {
         </div>
 
         {/* Info Card */}
-        <div className="bg-blue-900 border border-blue-700 rounded-lg p-3 sm:p-4 md:p-6 mb-6 md:mb-8 text-blue-100 text-xs md:text-sm">
-          <p>
-            💡 Upload receipt images to automatically extract expense details like amount, date, and
-            merchant. The extracted data can be used to quickly create expenses.
-          </p>
+        <div className="card border-blue-500/20 bg-blue-500/5 mb-8 md:mb-12">
+          <div className="flex gap-4 items-start">
+            <div className="p-2 bg-blue-500/10 rounded-lg text-xl">💡</div>
+            <div>
+              <p className="text-blue-100 text-sm leading-relaxed">
+                Upload receipt images to automatically extract expense details like amount, date, and
+                merchant. The extracted data can be used to quickly create expenses.
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Receipts Grid */}
@@ -202,8 +207,7 @@ export default function ReceiptsPage() {
                     </span>
                   </div>
 
-                  {/* Actions */}
-                  <div className="mt-2 md:mt-3 flex gap-2">
+                  <div className="mt-4 flex gap-2">
                     <button
                       onClick={(e) => {
                         e.stopPropagation();

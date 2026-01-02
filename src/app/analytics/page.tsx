@@ -149,35 +149,41 @@ ${parseFloat(analytics.budgetUtilization) < 80
           <p className="text-secondary">Comprehensive financial analysis</p>
         </div>
 
-        <div className="mb-6">
+        <div className="flex gap-3 mb-10 md:mb-12 flex-wrap">
           <button
             onClick={handleExportReport}
-            className="w-full md:w-auto btn btn-success"
+            className="btn btn-secondary border-green-500/20 hover:border-green-500/40 text-green-400"
           >
-            📄 Export Report
+            📥 Export Detailed Report
           </button>
         </div>
 
         {/* Key Metrics - 2 col mobile, 4 col desktop */}
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3 mb-6 md:mb-8">
-          <div className="bg-gradient-to-br from-green-600 to-green-700 rounded-lg p-3 md:p-4 text-white">
-            <p className="text-xs text-green-100 mb-1">Total Income</p>
-            <p className="text-lg md:text-2xl font-bold">{formatAmount(analytics.totalIncome)}</p>
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-10 md:mb-16">
+          <div className="kpi-card border-green-500/20 bg-green-500/5">
+            <p className="kpi-label text-green-400">Total Income</p>
+            <p className="kpi-value text-white">{formatAmount(analytics.totalIncome)}</p>
+            <p className="kpi-subtitle text-slate-400">Gross earnings</p>
           </div>
 
-          <div className="bg-gradient-to-br from-red-600 to-red-700 rounded-lg p-3 md:p-4 text-white">
-            <p className="text-xs text-red-100 mb-1">Total Expenses</p>
-            <p className="text-lg md:text-2xl font-bold">{formatAmount(analytics.totalExpenses)}</p>
+          <div className="kpi-card border-red-500/20 bg-red-500/5">
+            <p className="kpi-label text-red-400">Total Expenses</p>
+            <p className="kpi-value text-white">{formatAmount(analytics.totalExpenses)}</p>
+            <p className="kpi-subtitle text-slate-400">Accumulated spending</p>
           </div>
 
-          <div className={`bg-gradient-to-br ${analytics.netCashFlow >= 0 ? 'from-blue-600 to-blue-700' : 'from-orange-600 to-orange-700'} rounded-lg p-3 md:p-4 text-white`}>
-            <p className="text-xs mb-1">{analytics.netCashFlow >= 0 ? 'Net Savings' : 'Net Deficit'}</p>
-            <p className="text-lg md:text-2xl font-bold">{formatAmount(analytics.netCashFlow)}</p>
+          <div className={`kpi-card ${analytics.netCashFlow >= 0 ? 'border-blue-500/20 bg-blue-500/5' : 'border-orange-500/20 bg-orange-500/5'}`}>
+            <p className={`kpi-label ${analytics.netCashFlow >= 0 ? 'text-blue-400' : 'text-orange-400'}`}>
+              {analytics.netCashFlow >= 0 ? 'Net Savings' : 'Net Deficit'}
+            </p>
+            <p className="kpi-value text-white">{formatAmount(analytics.netCashFlow)}</p>
+            <p className="kpi-subtitle text-slate-400">Cash flow balance</p>
           </div>
 
-          <div className="bg-gradient-to-br from-purple-600 to-purple-700 rounded-lg p-3 md:p-4 text-white">
-            <p className="text-xs text-purple-100 mb-1">Savings Rate</p>
-            <p className="text-lg md:text-2xl font-bold">{analytics.savingsRate}%</p>
+          <div className="kpi-card border-purple-500/20 bg-purple-500/5">
+            <p className="kpi-label text-purple-400">Savings Rate</p>
+            <p className="kpi-value text-white">{analytics.savingsRate}%</p>
+            <p className="kpi-subtitle text-slate-400">Financial efficiency</p>
           </div>
         </div>
 

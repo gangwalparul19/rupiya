@@ -75,11 +75,11 @@ export default function FormModal({
           {children}
 
           {/* Footer Buttons */}
-          <div className="flex gap-2 pt-3 sm:pt-4 border-t border-gray-700">
+          <div className="flex gap-3 pt-6 mt-4 border-t border-slate-700/50">
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-2 sm:px-3 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition-colors font-medium text-xs sm:text-sm"
+              className="flex-1 btn btn-secondary text-sm"
               disabled={isLoading}
               aria-label={`${cancelText} ${title.toLowerCase()}`}
             >
@@ -87,11 +87,11 @@ export default function FormModal({
             </button>
             <button
               type="submit"
-              className="flex-1 px-2 sm:px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium text-xs sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex-1 btn btn-primary text-sm shadow-lg shadow-blue-500/20"
               disabled={isLoading}
               aria-label={submitText}
             >
-              {isLoading ? 'Loading...' : submitText}
+              {isLoading ? 'Processing...' : submitText}
             </button>
           </div>
         </form>

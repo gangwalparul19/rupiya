@@ -70,24 +70,29 @@ export default function ProfilePage() {
           </div>
 
           {/* Account Info */}
-          <div className="space-y-4 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
             <div>
-              <label className="form-label">Email Address</label>
-              <p className="text-white">{user.email}</p>
+              <label className="form-label text-slate-400">Email Address</label>
+              <p className="text-lg font-medium text-white">{user.email}</p>
             </div>
 
             <div>
-              <label className="form-label">Display Name</label>
-              <p className="text-white">{user.displayName || 'Not set'}</p>
+              <label className="form-label text-slate-400">Display Name</label>
+              <p className="text-lg font-medium text-white">{user.displayName || 'Not set'}</p>
             </div>
 
             <div>
-              <label className="form-label">Account Created</label>
-              <p className="text-white">
+              <label className="form-label text-slate-400">Account Created</label>
+              <p className="text-lg font-medium text-white">
                 {user.metadata?.creationTime
-                  ? new Date(user.metadata.creationTime).toLocaleDateString()
+                  ? new Date(user.metadata.creationTime).toLocaleDateString(undefined, { dateStyle: 'long' })
                   : 'Unknown'}
               </p>
+            </div>
+
+            <div>
+              <label className="form-label text-slate-400">Currency Preference</label>
+              <p className="text-lg font-medium text-white">INR (₹)</p>
             </div>
           </div>
 
