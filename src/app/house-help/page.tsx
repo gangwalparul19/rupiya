@@ -212,21 +212,18 @@ export default function HouseHelpPage() {
                 </div>
 
                 {/* KPI Stats */}
-                <div className="grid-responsive-3 mb-section">
-                    <div className="kpi-card border-blue-500/20 bg-blue-500/5">
-                        <p className="kpi-label text-blue-400">Monthly Budget</p>
-                        <p className="kpi-value text-white">₹{stats.totalMonthlyWage.toLocaleString()}</p>
-                        <p className="kpi-subtitle text-slate-400">Total active wages</p>
+                <div className="grid grid-cols-3 gap-2 mb-section">
+                    <div className="kpi-card !p-2 border-blue-500/20 bg-blue-500/5 min-h-0">
+                        <p className="kpi-label !text-[10px] text-blue-400 !mb-1 truncate">Budget</p>
+                        <p className="kpi-value !text-sm text-white">₹{(stats.totalMonthlyWage / 1000).toFixed(1)}k</p>
                     </div>
-                    <div className="kpi-card border-green-500/20 bg-green-500/5">
-                        <p className="kpi-label text-green-400">Paid This Month</p>
-                        <p className="kpi-value text-white">₹{stats.totalPaidThisMonth.toLocaleString()}</p>
-                        <p className="kpi-subtitle text-slate-400">Total disbursements</p>
+                    <div className="kpi-card !p-2 border-green-500/20 bg-green-500/5 min-h-0">
+                        <p className="kpi-label !text-[10px] text-green-400 !mb-1 truncate">Paid</p>
+                        <p className="kpi-value !text-sm text-white">₹{(stats.totalPaidThisMonth / 1000).toFixed(1)}k</p>
                     </div>
-                    <div className="kpi-card border-purple-500/20 bg-purple-500/5">
-                        <p className="kpi-label text-purple-400">Active Staff</p>
-                        <p className="kpi-value text-white">{stats.activeStaff}</p>
-                        <p className="kpi-subtitle text-slate-400">Helping hands</p>
+                    <div className="kpi-card !p-2 border-purple-500/20 bg-purple-500/5 min-h-0">
+                        <p className="kpi-label !text-[10px] text-purple-400 !mb-1 truncate">Staff</p>
+                        <p className="kpi-value !text-sm text-white">{stats.activeStaff}</p>
                     </div>
                 </div>
 
@@ -427,7 +424,8 @@ export default function HouseHelpPage() {
                 </div>
 
                 {/* Staff Cards */}
-                <div className="grid-3 mb-block">
+                {/* Staff Cards */}
+                <div className="grid grid-cols-3 gap-2 mb-block">
                     {filteredHelp.map((help) => {
                         const currentMonthPayments = houseHelpPayments.filter(p => {
                             const pDate = new Date(p.date);
@@ -437,57 +435,43 @@ export default function HouseHelpPage() {
                         const paidThisMonth = currentMonthPayments.reduce((sum, p) => sum + p.amount, 0);
 
                         return (
-                            <div key={help.id} className="card group hover:scale-[1.02] transition-all duration-300 border-slate-800 hover:border-blue-500/30">
-                                <div className="flex justify-between items-start mb-4">
-                                    <div>
-                                        <h3 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">{help.name}</h3>
-                                        <p className="text-sm text-slate-400 font-medium">{help.type}</p>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="text-lg font-bold text-white">₹{help.monthlyWage.toLocaleString()}</p>
-                                        <p className="text-[10px] uppercase tracking-wider text-slate-500">Monthly Wage</p>
-                                    </div>
+                            <div key={help.id} className="card !p-2 group hover:scale-[1.02] transition-all duration-300 border-slate-800 hover:border-blue-500/30">
+                                <div className="mb-2">
+                                    <h3 className="text-sm font-bold text-white group-hover:text-blue-400 transition-colors truncate">{help.name}</h3>
+                                    <p className="text-[10px] text-slate-400 font-medium truncate">{help.type}</p>
                                 </div>
 
-                                <div className="space-y-4">
-                                    <div className="bg-slate-800/50 rounded-xl p-3 border border-slate-700/50">
-                                        <div className="flex justify-between items-center mb-1">
-                                            <p className="text-xs text-slate-400">Paid this month</p>
-                                            <p className="text-xs font-bold text-white">₹{paidThisMonth.toLocaleString()} / ₹{help.monthlyWage.toLocaleString()}</p>
-                                        </div>
-                                        <div className="h-1.5 w-full bg-slate-700 rounded-full overflow-hidden">
+                                <div className="mb-2">
+                                    <p className="text-xs font-bold text-white text-right">₹{help.monthlyWage >= 1000 ? `${(help.monthlyWage / 1000).toFixed(1)}k` : help.monthlyWage}</p>
+                                </div>
+
+                                <div className="space-y-2">
+                                    <div className="bg-slate-800/50 rounded-lg p-1.5 border border-slate-700/50 text-center">
+                                        <div className="h-1 w-full bg-slate-700 rounded-full overflow-hidden mb-1">
                                             <div
                                                 className={`h-full transition-all duration-1000 ${paidThisMonth >= help.monthlyWage ? 'bg-red-500' : 'bg-blue-500'}`}
                                                 style={{ width: `${Math.min((paidThisMonth / help.monthlyWage) * 100, 100)}%` }}
                                             ></div>
                                         </div>
+                                        <p className="text-[8px] font-bold text-white">₹{paidThisMonth / 1000}k</p>
                                     </div>
 
-                                    <div className="grid grid-cols-2 gap-2">
+                                    <div className="grid grid-cols-1 gap-1">
                                         <button
                                             onClick={() => {
                                                 setSelectedHelpId(help.id);
                                                 setShowPaymentModal(true);
                                             }}
-                                            className="btn btn-secondary text-xs h-9 flex items-center justify-center gap-1 border-blue-500/20 hover:border-blue-500/50 text-blue-400"
+                                            className="btn btn-secondary !p-1 text-[10px] h-7 flex items-center justify-center gap-1 border-blue-500/20 hover:border-blue-500/50 text-blue-400"
                                         >
                                             💳 Pay
                                         </button>
                                         <button
                                             onClick={() => handleDeleteHelp(help.id)}
-                                            className="btn btn-secondary text-xs h-9 flex items-center justify-center gap-1 border-red-500/20 hover:border-red-500/50 text-red-400"
+                                            className="btn btn-secondary !p-1 text-[10px] h-7 flex items-center justify-center gap-1 border-red-500/20 hover:border-red-500/50 text-red-400"
                                         >
-                                            🗑️ Remove
+                                            🗑️ Del
                                         </button>
-                                    </div>
-                                </div>
-
-                                <div className="mt-4 pt-4 border-t border-slate-800/50 space-y-2">
-                                    <div className="flex items-center gap-2 text-xs text-slate-400">
-                                        <span>📱</span> {help.mobile || 'No mobile added'}
-                                    </div>
-                                    <div className="flex items-center gap-2 text-xs text-slate-400">
-                                        <span>📅</span> Joined {new Date(help.startDate).toLocaleDateString()}
                                     </div>
                                 </div>
                             </div>

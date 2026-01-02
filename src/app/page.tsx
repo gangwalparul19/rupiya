@@ -47,8 +47,8 @@ function LandingPage() {
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-slate-950/95 backdrop-blur-xl border-b border-slate-800 shadow-lg' : 'bg-transparent'
         }`}>
-        <div className="container-responsive py-4">
-          <div className="flex justify-start items-center">
+        <div className="lg:max-w-[1240px] lg:mx-auto px-6 sm:px-8 py-4">
+          <div className="flex justify-between items-center group">
             {/* Logo Aligned to Container Left */}
             <div className="relative h-10 w-auto transition-transform duration-300 hover:scale-105 cursor-pointer">
               <Image
@@ -64,300 +64,267 @@ function LandingPage() {
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="relative py-24 sm:py-32 lg:py-48 px-4 sm:px-6 lg:px-8 bg-slate-950/30">
-        <div className="container-responsive text-center z-10">
-          {/* Animated Badge */}
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full mb-8 animate-fade-in">
-          </div>
+      {/* Main Content Container with Desktop Frame */}
+      <div className="relative lg:max-w-[1240px] lg:mx-auto lg:my-16 lg:border lg:border-slate-800/60 lg:rounded-[4rem] lg:bg-slate-950/40 lg:shadow-[0_0_100px_rgba(0,0,0,0.3)] lg:backdrop-blur-xl lg:ring-1 lg:ring-white/5 overflow-hidden">
+        {/* Hero Section */}
+        <section className="relative py-24 sm:py-32 lg:py-40 px-4 sm:px-6 lg:px-8 bg-slate-950/30">
+          <div className="container-responsive text-center z-10 text-center flex flex-col items-center">
+            {/* Main Heading with Animation */}
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight animate-slide-up">
+              Rupiya
+              <br />
+              <span className="text-3xl bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent animate-gradient">
+                AI-Powered Finance
+              </span>
+            </h1>
 
-          {/* Main Heading with Animation */}
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight animate-slide-up">
-            Rupiya
+            <p className="text-lg sm:text-xl text-slate-400 mb-8 max-w-2xl mx-auto leading-relaxed animate-slide-up delay-100 text-center">
+              Take control of your finances with intelligent tracking, budgeting, and AI-powered insights. Built for modern professionals.
+            </p>
             <br />
-            <span className="text-3xl bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent animate-gradient">
-              AI-Powered Finance
-            </span>
-          </h1>
 
-          <p className="text-lg sm:text-xl text-slate-400 mb-8 max-w-2xl mx-auto leading-relaxed animate-slide-up delay-100">
-            Take control of your finances with intelligent tracking, budgeting, and AI-powered insights. Built for modern professionals.
-          </p>
-          <br />
-          {/* View Guide Button */}
-          <div className="flex justify-center mb-8 animate-slide-up delay-200">
-            <a href="/rupiya-guide.html" target="_blank" rel="noopener noreferrer">
-              <button className="px-8 py-3 border-2 border-slate-700 hover:border-blue-500 text-white rounded-xl font-semibold text-base hover:bg-slate-800/50 transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
-                View Guide
-              </button>
-            </a>
-          </div>
-          <br />
-
-          {/* Stats */}
-          <div className="grid grid-cols-3 gap-6 sm:gap-8 max-w-2xl mx-auto mb-8 animate-slide-up delay-300">
-            <div className="text-center transform hover:scale-110 transition-transform duration-300">
-              <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-2 animate-pulse-slow">10K+</div>
-              <div className="text-xs sm:text-sm text-slate-400">Active Users</div>
+            {/* View Guide Button */}
+            <div className="flex justify-center mb-12 animate-slide-up delay-200">
+              <a href="/rupiya-guide.html" target="_blank" rel="noopener noreferrer">
+                <button className="px-8 py-3 border-2 border-slate-700 hover:border-blue-500 text-white rounded-xl font-semibold text-base hover:bg-slate-800/50 transition-all duration-300 flex items-center justify-center gap-2 hover:scale-105">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                  View Guide
+                </button>
+              </a>
             </div>
-            <div className="text-center transform hover:scale-110 transition-transform duration-300">
-              <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent mb-2 animate-pulse-slow">₹50Cr+</div>
-              <div className="text-xs sm:text-sm text-slate-400">Tracked</div>
-            </div>
-            <div className="text-center transform hover:scale-110 transition-transform duration-300">
-              <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent mb-2 animate-pulse-slow">4.9★</div>
-              <div className="text-xs sm:text-sm text-slate-400">Rating</div>
-            </div>
-          </div>
-          <br />
 
-          {/* Call to Action - Login & Sign Up - PROMINENT */}
-          <div className="relative animate-slide-up delay-400">
-            {/* Glowing Background Effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-cyan-600/20 blur-3xl animate-pulse-glow"></div>
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-6 sm:gap-12 max-w-2xl mx-auto mb-16 animate-slide-up delay-300">
+              <div className="text-center group">
+                <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-2 animate-pulse-slow">10K+</div>
+                <div className="text-xs sm:text-sm text-slate-400 font-medium group-hover:text-blue-400 transition-colors">Active Users</div>
+              </div>
+              <div className="text-center group">
+                <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent mb-2 animate-pulse-slow">₹50Cr+</div>
+                <div className="text-xs sm:text-sm text-slate-400 font-medium group-hover:text-green-400 transition-colors">Tracked</div>
+              </div>
+              <div className="text-center group">
+                <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent mb-2 animate-pulse-slow">4.9★</div>
+                <div className="text-xs sm:text-sm text-slate-400 font-medium group-hover:text-yellow-400 transition-colors">Rating</div>
+              </div>
+            </div>
 
-            <div className="relative bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-xl border-2 border-blue-500/30 rounded-2xl p-6 sm:p-8 max-w-2xl mx-auto shadow-2xl">
-              <div className="text-center mb-6">
-                <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2 animate-fade-in">
+            {/* Call to Action Card */}
+            <div className="relative animate-slide-up delay-400 w-full max-w-2xl">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-cyan-600/20 blur-3xl animate-pulse-glow"></div>
+              <div className="relative bg-gradient-to-br from-slate-800/80 to-slate-900/80 backdrop-blur-xl border-2 border-blue-500/30 rounded-[3rem] p-8 sm:p-10 shadow-2xl">
+                <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3">
                   Ready to Transform Your Finances?
                 </h3>
-                <p className="text-slate-300 text-sm sm:text-base">
+                <p className="text-slate-300 text-sm sm:text-lg mb-8">
                   Join thousands of users managing their money smarter
                 </p>
-              </div>
 
-              <div className="flex flex-row gap-3 sm:gap-6 justify-center items-center">
-                <Link href="/auth/signup" className="flex-1 sm:flex-initial">
-                  <button className="w-full px-4 sm:px-8 py-4 sm:py-5 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white rounded-xl font-bold text-base sm:text-xl shadow-2xl shadow-blue-500/40 hover:shadow-blue-500/60 transition-all duration-300 hover:scale-105 transform flex items-center justify-center gap-2 group animate-shimmer">
-                    <span className="relative z-10">Sign Up</span>
-                    <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                    </svg>
-                  </button>
-                </Link>
-                <Link href="/auth/login" className="flex-1 sm:flex-initial">
-                  <button className="w-full px-4 sm:px-8 py-4 sm:py-5 border-2 border-slate-600 hover:border-blue-500 bg-slate-800/50 hover:bg-slate-700/50 text-white rounded-xl font-bold text-base sm:text-xl transition-all duration-300 hover:scale-105 transform flex items-center justify-center gap-2">
-                    <span>Login</span>
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
-                    </svg>
-                  </button>
-                </Link>
-              </div>
+                <div className="flex flex-row gap-4 sm:gap-6 justify-center items-center">
+                  <Link href="/auth/signup" className="flex-1 sm:flex-initial">
+                    <button className="w-full px-6 sm:px-10 py-4 sm:py-5 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white rounded-2xl font-bold text-lg shadow-2xl shadow-blue-500/40 hover:shadow-blue-500/60 transition-all duration-300 hover:scale-105 transform flex items-center justify-center gap-3 group animate-shimmer">
+                      <span>Sign Up</span>
+                      <svg className="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                      </svg>
+                    </button>
+                  </Link>
+                  <Link href="/auth/login" className="flex-1 sm:flex-initial">
+                    <button className="w-full px-6 sm:px-10 py-4 sm:py-5 border-2 border-slate-600 hover:border-blue-500 bg-slate-800/20 hover:bg-slate-700/40 text-white rounded-2xl font-bold text-lg transition-all duration-300 hover:scale-105 transform flex items-center justify-center gap-2">
+                      <span>Login</span>
+                      <svg className="w-6 h-6 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                      </svg>
+                    </button>
+                  </Link>
+                </div>
 
-              <p className="text-center text-slate-400 text-xs sm:text-sm mt-4">
-                No credit card required • Free forever • Cancel anytime
+                <p className="text-slate-400 text-xs sm:text-sm mt-6 font-medium">
+                  No credit card required • Free forever • Cancel anytime
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Features Section */}
+        <div className="container-responsive flex justify-center">
+          <div className="w-full max-w-5xl px-4 sm:px-6 lg:px-10">
+            <hr className="border-slate-800/50" />
+          </div>
+        </div>
+
+        <section className="relative py-24 sm:py-32 lg:py-40 px-4 sm:px-6 lg:px-8 bg-slate-950/30">
+          <div className="container-responsive">
+            <div className="text-center mb-16 sm:mb-24">
+              <div className="inline-block px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full mb-6">
+                <span className="text-blue-400 text-sm font-bold tracking-widest uppercase">Features</span>
+              </div>
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6">
+                Everything You Need
+              </h2>
+              <p className="text-lg sm:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
+                Powerful features designed to give you complete control over your financial life
               </p>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Features Section */}
-      <div className="container-responsive">
-        <hr className="border-slate-800" />
-        <br /><br />
-      </div>
-      <section className="relative py-24 sm:py-32 lg:py-48 px-4 sm:px-6 lg:px-8 bg-slate-950/30">
-        <div className="container-responsive">
-          {/* Section Header */}
-          <br /><br />
-          <div className="text-center mb-16 sm:mb-20">
-            <div className="inline-block px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full mb-6">
-              <span className="text-blue-400 text-sm font-semibold">FEATURES</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              Everything You Need
-            </h2>
-            <p className="text-base sm:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
-              Powerful features designed to give you complete control over your financial life
-            </p>
-          </div>
-
-          {/* Feature Cards */}
-          <div className="grid grid-cols-2 gap-4 sm:gap-8">
-            {[
-              {
-                icon: '📊',
-                title: 'Expense Tracking',
-                description: 'Categorize and track every expense with detailed analytics and real-time insights.',
-                gradient: 'from-blue-600 to-cyan-600',
-                bgGradient: 'from-blue-500/10 to-cyan-500/10',
-                borderColor: 'border-blue-500/20 hover:border-blue-500/40'
-              },
-              {
-                icon: '💳',
-                title: 'Smart Budgets',
-                description: 'Set intelligent budgets with AI-powered recommendations and instant alerts.',
-                gradient: 'from-purple-600 to-pink-600',
-                bgGradient: 'from-purple-500/10 to-pink-500/10',
-                borderColor: 'border-purple-500/20 hover:border-purple-500/40'
-              },
-              {
-                icon: '📈',
-                title: 'Investment Tracking',
-                description: 'Monitor stocks, mutual funds, and crypto portfolios in real-time.',
-                gradient: 'from-green-600 to-emerald-600',
-                bgGradient: 'from-green-500/10 to-emerald-500/10',
-                borderColor: 'border-green-500/20 hover:border-green-500/40'
-              },
-              {
-                icon: '🎯',
-                title: 'Goal Planning',
-                description: 'Set financial goals and track progress with visual milestones.',
-                gradient: 'from-orange-600 to-red-600',
-                bgGradient: 'from-orange-500/10 to-red-500/10',
-                borderColor: 'border-orange-500/20 hover:border-orange-500/40'
-              },
-              {
-                icon: '💱',
-                title: 'Multi-Currency',
-                description: 'Manage finances across currencies with live exchange rates.',
-                gradient: 'from-cyan-600 to-blue-600',
-                bgGradient: 'from-cyan-500/10 to-blue-500/10',
-                borderColor: 'border-cyan-500/20 hover:border-cyan-500/40'
-              },
-              {
-                icon: '🤖',
-                title: 'AI Insights',
-                description: 'Get personalized recommendations to optimize your spending patterns.',
-                gradient: 'from-violet-600 to-purple-600',
-                bgGradient: 'from-violet-500/10 to-purple-500/10',
-                borderColor: 'border-violet-500/20 hover:border-violet-500/40'
-              },
-              {
-                icon: '🧹',
-                title: 'House Help',
-                description: 'Manage staff wages and track mid-month advances with automated expense syncing.',
-                gradient: 'from-amber-600 to-yellow-600',
-                bgGradient: 'from-amber-500/10 to-yellow-500/10',
-                borderColor: 'border-amber-500/20 hover:border-amber-500/40'
-              }
-            ].map((feature, index) => (
-              <div
-                key={index}
-                className={`group relative bg-slate-900/40 backdrop-blur-xl border-2 ${feature.borderColor} rounded-2xl sm:rounded-[2rem] p-4 sm:p-8 lg:p-10 transition-all duration-500 hover:scale-[1.03] hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] cursor-pointer overflow-hidden flex flex-row items-start gap-4 sm:gap-6`}
-              >
-                {/* Accent Glow */}
-                <div className={`absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-20 blur-3xl transition-opacity duration-500`}></div>
-
-                {/* Icon Container */}
-                <div className={`shrink-0 inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br ${feature.gradient} shadow-2xl shadow-blue-500/20 transform group-hover:rotate-6 transition-transform duration-300`}>
-                  <span className="text-2xl sm:text-3xl lg:text-4xl">{feature.icon}</span>
-                </div>
-
-                <div className="flex-1">
-                  <h3 className="text-base sm:text-xl lg:text-2xl font-extrabold text-white mb-1 sm:mb-2 group-hover:translate-x-1 transition-transform">
-                    {feature.title}
-                  </h3>
-
-                  <p className="text-slate-400 text-xs sm:text-base lg:text-lg leading-relaxed mb-3 sm:mb-6 line-clamp-2 md:line-clamp-none">
-                    {feature.description}
-                  </p>
-
-                  <div className="flex items-center text-blue-400 font-semibold text-[10px] sm:text-sm uppercase tracking-wider group/link">
-                    <span>Learn more</span>
-                    <svg className="w-3 h-3 sm:w-5 sm:h-5 ml-1 sm:ml-2 transform group-hover/link:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                    </svg>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto px-4">
+              {[
+                {
+                  icon: '📊',
+                  title: 'Expense Tracking',
+                  description: 'Categorize and track every expense with detailed analytics and real-time insights.',
+                  gradient: 'from-blue-600 to-cyan-600',
+                  borderColor: 'border-blue-500/20 hover:border-blue-500/50'
+                },
+                {
+                  icon: '💳',
+                  title: 'Smart Budgets',
+                  description: 'Set intelligent budgets with AI-powered recommendations and instant alerts.',
+                  gradient: 'from-purple-600 to-pink-600',
+                  borderColor: 'border-purple-500/20 hover:border-purple-500/50'
+                },
+                {
+                  icon: '📈',
+                  title: 'Inventory Management',
+                  description: 'Monitor your investments, stocks, and assets in real-time.',
+                  gradient: 'from-green-600 to-emerald-600',
+                  borderColor: 'border-green-500/20 hover:border-green-500/50'
+                },
+                {
+                  icon: '🎯',
+                  title: 'Goal Planning',
+                  description: 'Set financial goals and track progress with visual milestones.',
+                  gradient: 'from-orange-600 to-red-600',
+                  borderColor: 'border-orange-500/20 hover:border-orange-500/50'
+                },
+                {
+                  icon: '💱',
+                  title: 'Multi-Currency',
+                  description: 'Manage finances across currencies with live exchange rates.',
+                  gradient: 'from-cyan-600 to-blue-600',
+                  borderColor: 'border-cyan-500/20 hover:border-cyan-500/50'
+                },
+                {
+                  icon: '🤖',
+                  title: 'AI Insights',
+                  description: 'Get personalized recommendations to optimize your spending patterns.',
+                  gradient: 'from-violet-600 to-purple-600',
+                  borderColor: 'border-violet-500/20 hover:border-violet-500/50'
+                },
+                {
+                  icon: '🧹',
+                  title: 'House Help',
+                  description: 'Manage staff wages and track advances with automated expense syncing.',
+                  gradient: 'from-amber-600 to-yellow-600',
+                  borderColor: 'border-amber-500/20 hover:border-amber-500/50'
+                }
+              ].map((feature, index) => (
+                <div
+                  key={index}
+                  className={`group relative bg-slate-900/40 backdrop-blur-xl border-2 ${feature.borderColor} rounded-3xl p-6 sm:p-10 transition-all duration-500 hover:scale-[1.02] hover:bg-slate-900/60 flex flex-row items-center gap-6 sm:gap-8`}
+                >
+                  <div className={`shrink-0 w-12 h-12 sm:w-20 sm:h-20 bg-gradient-to-br ${feature.gradient} rounded-2xl flex items-center justify-center text-3xl sm:text-4xl shadow-2xl shadow-blue-500/20 group-hover:scale-110 transition-transform`}>
+                    {feature.icon}
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
+                      {feature.title}
+                    </h3>
+                    <p className="text-slate-400 text-sm sm:text-base leading-relaxed line-clamp-2 md:line-clamp-none">
+                      {feature.description}
+                    </p>
                   </div>
                 </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* How It Works Section */}
+        <div className="container-responsive flex justify-center">
+          <div className="w-full max-w-5xl px-4 sm:px-6 lg:px-10">
+            <hr className="border-slate-800/50" />
+          </div>
+        </div>
+
+        <section className="relative py-24 sm:py-32 lg:py-40 px-4 sm:px-6 lg:px-8">
+          <div className="container-responsive">
+            <div className="text-center mb-16 sm:mb-24">
+              <div className="inline-block px-4 py-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full mb-6">
+                <span className="text-cyan-400 text-sm font-bold tracking-widest uppercase">Guide</span>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works */}
-      <div className="container-responsive">
-        <hr className="border-slate-800" />
-        <br /><br />
-      </div>
-      <section className="relative py-24 sm:py-32 lg:py-48 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-900/50 to-slate-950">
-        <div className="container-responsive">
-          <br /><br />
-          {/* Section Header */}
-          <div className="text-center mb-12 sm:mb-16 lg:mb-20">
-            <div className="inline-block px-4 py-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full mb-4 sm:mb-6">
-              <span className="text-cyan-400 text-xs sm:text-sm font-semibold">HOW IT WORKS</span>
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6">
+                Get Started in Minutes
+              </h2>
+              <p className="text-lg sm:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
+                Three simple steps to financial clarity
+              </p>
             </div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6 leading-tight px-4">
-              Get Started in Minutes
-            </h2>
-            <p className="text-sm sm:text-base lg:text-lg text-slate-400 max-w-2xl mx-auto px-4">
-              Three simple steps to financial clarity
-            </p>
-          </div>
 
-          {/* Steps */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8 lg:gap-12">
-            {[
-              {
-                step: '01',
-                title: 'Create Account',
-                description: 'Set up your secure profile in seconds with simple email or social login.',
-                icon: '👤'
-              },
-              {
-                step: '02',
-                title: 'Sync Data',
-                description: 'Securely link or manually add your data to get a bird\'s eye view of your wealth.',
-                icon: '📥'
-              },
-              {
-                step: '03',
-                title: 'Optimize Wealth',
-                description: 'Leverage AI to uncover hidden patterns and achieve your savings goals faster.',
-                icon: '💡'
-              }
-            ].map((item, index) => (
-              <div key={index} className="relative group p-1">
-                {/* Connecting Arrow - Desktop */}
-                {index < 2 && (
-                  <div className="hidden md:block absolute top-[20%] -right-10 w-20 h-10 z-0">
-                    <svg className="w-full h-full text-blue-500/30 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                    </svg>
-                  </div>
-                )}
-
-                <div className="relative z-10 bg-slate-900/40 backdrop-blur-xl border-2 border-slate-800 hover:border-blue-500/50 rounded-2xl sm:rounded-3xl p-4 sm:p-10 lg:p-12 transition-all duration-500 hover:translate-y-[-8px] hover:shadow-2xl h-full flex flex-col">
-                  {/* Step Header: Number, Icon, Title in one row */}
-                  <div className="flex flex-row items-center gap-3 sm:gap-4 mb-3 sm:mb-6">
-                    <div className="shrink-0 w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-lg sm:rounded-xl flex items-center justify-center text-white font-bold text-sm sm:text-lg shadow-lg group-hover:rotate-12 transition-transform duration-300">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-10 max-w-6xl mx-auto px-4">
+              {[
+                {
+                  step: '01',
+                  title: 'Create Account',
+                  description: 'Set up your secure profile in seconds with simple email or social login.',
+                  icon: '👤'
+                },
+                {
+                  step: '02',
+                  title: 'Sync Data',
+                  description: 'Securely link or manually add your data to get a bird\'s eye view of your wealth.',
+                  icon: '📥'
+                },
+                {
+                  step: '03',
+                  title: 'Optimize Wealth',
+                  description: 'Leverage AI to uncover hidden patterns and achieve your savings goals faster.',
+                  icon: '💡'
+                }
+              ].map((item, index) => (
+                <div key={index} className="group relative bg-slate-900/20 border border-slate-800/50 rounded-[2.5rem] p-8 sm:p-12 transition-all duration-500 hover:bg-slate-900/40 hover:border-blue-500/30">
+                  <div className="flex flex-row items-center gap-4 mb-6">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-cyan-600 rounded-2xl flex items-center justify-center text-white font-black text-xl shadow-lg ring-4 ring-blue-500/10 transition-transform group-hover:rotate-6">
                       {item.step}
                     </div>
-                    <div className="text-xl sm:text-3xl">{item.icon}</div>
-                    <h3 className="text-base sm:text-xl lg:text-2xl font-bold text-white group-hover:text-blue-400 transition-colors">
-                      {item.title}
-                    </h3>
+                    <div className="text-3xl text-white group-hover:scale-110 transition-transform duration-300">
+                      {item.icon}
+                    </div>
                   </div>
-
-                  <p className="text-slate-400 text-xs sm:text-base lg:text-lg leading-relaxed flex-1">
+                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">
+                    {item.title}
+                  </h3>
+                  <p className="text-slate-400 text-base sm:text-lg leading-relaxed">
                     {item.description}
                   </p>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="relative border-t border-slate-800 bg-slate-950/80 backdrop-blur-xl py-12 md:py-20">
-        <div className="container-responsive px-4 sm:px-6 lg:px-8">
-          <br /><br />
-          <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex gap-6 text-sm">
-              <span className="text-slate-500">Built with ❤️ for modern professionals</span>
+              ))}
             </div>
           </div>
-        </div>
-      </footer>
+        </section>
+        <footer className="relative border-t border-slate-800/50 py-12 md:py-20 mt-8">
+          <div className="container-responsive px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
+            <div className="flex flex-col items-center gap-8">
+              <Image
+                src="/logo.png"
+                alt="Rupiya"
+                width={100}
+                height={40}
+                className="opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
+              />
+              <div className="h-px w-24 bg-gradient-to-r from-transparent via-slate-700 to-transparent"></div>
+              <p className="text-slate-500 text-sm font-medium tracking-wide">
+                Built with ❤️ for modern professionals
+              </p>
+            </div>
+          </div>
+        </footer>
+      </div>
 
+      {/* Styles */}
       <style jsx>{`
         @keyframes gradient {
           0%, 100% { background-position: 0% 50%; }
@@ -394,12 +361,8 @@ function LandingPage() {
         }
         
         @keyframes shimmer {
-          0% {
-            background-position: -200% center;
-          }
-          100% {
-            background-position: 200% center;
-          }
+          0% { background-position: -200% center; }
+          100% { background-position: 200% center; }
         }
         
         .animate-shimmer {
@@ -409,14 +372,8 @@ function LandingPage() {
         }
         
         @keyframes pulse-slow {
-          0%, 100% {
-            opacity: 1;
-            transform: scale(1);
-          }
-          50% {
-            opacity: 0.8;
-            transform: scale(1.05);
-          }
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.8; transform: scale(1.05); }
         }
         
         .animate-pulse-slow {
@@ -424,43 +381,20 @@ function LandingPage() {
         }
         
         @keyframes pulse-glow {
-          0%, 100% {
-            opacity: 0.3;
-            transform: scale(1);
-          }
-          50% {
-            opacity: 0.5;
-            transform: scale(1.1);
-          }
+          0%, 100% { opacity: 0.3; transform: scale(1); }
+          50% { opacity: 0.5; transform: scale(1.1); }
         }
         
         .animate-pulse-glow {
           animation: pulse-glow 4s ease-in-out infinite;
         }
         
-        .delay-100 {
-          animation-delay: 0.1s;
-        }
-        
-        .delay-200 {
-          animation-delay: 0.2s;
-        }
-        
-        .delay-300 {
-          animation-delay: 0.3s;
-        }
-        
-        .delay-400 {
-          animation-delay: 0.4s;
-        }
-        
-        .delay-500 {
-          animation-delay: 0.5s;
-        }
-        
-        .delay-1000 {
-          animation-delay: 1s;
-        }
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+        .delay-1000 { animation-delay: 1s; }
       `}</style>
     </main>
   );
