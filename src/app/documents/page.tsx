@@ -272,8 +272,9 @@ export default function DocumentsPage() {
         </div>
 
         {/* Documents Grid */}
+        {/* Documents Grid - 3 columns on mobile */}
         {filteredDocuments.length > 0 ? (
-          <div className="grid-responsive-3 mb-6 md:mb-8">
+          <div className="grid-3 mb-6 md:mb-8">
             {filteredDocuments.map((doc) => {
               const uploadDate = doc.uploadedAt instanceof Date
                 ? doc.uploadedAt.toLocaleDateString()
@@ -281,11 +282,11 @@ export default function DocumentsPage() {
 
               return (
 
-                <div key={doc.id} className="card">
-                  <div className="mb-4">
-                    <h3 className="text-base md:text-lg font-bold text-white truncate">{doc.name}</h3>
-                    <p className="text-xs text-slate-400 mt-1">{doc.type}</p>
-                    <p className="text-xs text-slate-500 mt-1">{uploadDate}</p>
+                <div key={doc.id} className="card p-2 sm:p-4">
+                  <div className="mb-2 sm:mb-4 min-w-0">
+                    <h3 className="text-xs sm:text-base md:text-lg font-bold text-white truncate" title={doc.name}>{doc.name}</h3>
+                    <p className="text-[8px] sm:text-xs text-slate-400 mt-0.5">{doc.type}</p>
+                    <p className="text-[8px] sm:text-xs text-slate-500 mt-0.5">{uploadDate}</p>
                   </div>
 
                   {doc.tags.length > 0 && (
@@ -298,20 +299,22 @@ export default function DocumentsPage() {
                     </div>
                   )}
 
-                  <div className="flex gap-2 pt-4 border-t border-slate-700">
+                  <div className="flex gap-1 pt-3 border-t border-slate-700/50">
                     <a
                       href={doc.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 btn btn-success btn-small text-center"
+                      className="flex-1 btn btn-success p-1 text-[10px] sm:text-sm text-center"
+                      title="View"
                     >
-                      View
+                      👁️
                     </a>
                     <button
                       onClick={() => handleDelete(doc.id)}
-                      className="flex-1 btn btn-danger btn-small"
+                      className="flex-1 btn btn-danger p-1 text-[10px] sm:text-sm"
+                      title="Delete"
                     >
-                      Delete
+                      🗑️
                     </button>
                   </div>
                 </div>

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rupiya-v6';
+const CACHE_NAME = 'rupiya-v7';
 const urlsToCache = [
   '/',
   '/offline.html',

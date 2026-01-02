@@ -217,29 +217,57 @@ export default function Navigation() {
       </header>
 
       {/* Mobile Navigation Overlay - Moved outside header for better z-index behavior */}
-      {isOpen && (
-        <nav className="md:hidden bg-slate-950/98 backdrop-blur-3xl animate-fade-in fixed inset-0 top-0 pt-[120px] z-[110] overflow-y-auto">
-          <div className="p-4 space-y-3">
+      {/* Mobile Navigation Drawer */}
+      <div
+        className={`md:hidden fixed inset-0 z-[150] transition-all duration-500 ease-in-out ${isOpen ? 'visible' : 'invisible'
+          }`}
+      >
+        {/* Backdrop */}
+        <div
+          className={`absolute inset-0 bg-slate-950/80 backdrop-blur-md transition-opacity duration-500 ${isOpen ? 'opacity-100' : 'opacity-0'
+            }`}
+          onClick={() => setIsOpen(false)}
+        ></div>
+
+        {/* Drawer Content */}
+        <nav
+          className={`absolute right-0 top-0 bottom-0 w-[85%] max-w-[400px] bg-slate-900 shadow-2xl border-l border-white/10 transition-transform duration-500 ease-out flex flex-col ${isOpen ? 'translate-x-0' : 'translate-x-full'
+            }`}
+        >
+          {/* Drawer Header with Close Button */}
+          <div className="flex justify-between items-center p-6 border-b border-white/5">
+            <span className="text-xl font-black text-white tracking-tight italic">RUPIYA</span>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="p-2.5 rounded-xl bg-white/5 text-slate-400 hover:text-white"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          <div className="flex-1 overflow-y-auto p-4 space-y-3">
             {navItems.map((item) => {
               if ('submenu' in item && item.submenu) {
                 return (
                   <div key={item.label} className="space-y-1">
                     <button
                       onClick={() => toggleSubmenu(item.label)}
-                      className={`w-full flex items-center justify-between px-4 py-4 rounded-2xl transition-all duration-300 font-bold text-base ${expandedMenu === item.label ? 'bg-white/10 text-white' : 'text-slate-300 hover:text-white hover:bg-white/5'
+                      className={`w-full flex items-center justify-between px-6 py-5 rounded-2xl transition-all duration-300 font-extrabold text-lg sm:text-xl ${expandedMenu === item.label ? 'bg-blue-600/20 text-blue-400' : 'text-slate-100 hover:text-white hover:bg-white/5'
                         }`}
                     >
-                      <div className="flex items-center gap-3">
-                        <span className="text-2xl">{item.icon}</span>
+                      <div className="flex items-center gap-4">
+                        <span className="text-3xl">{item.icon}</span>
                         <span>{item.label}</span>
                       </div>
-                      <span className={`text-[10px] opacity-40 transition-transform duration-300 ${expandedMenu === item.label ? 'rotate-180' : ''}`}>
+                      <span className={`text-xs transition-transform duration-300 ${expandedMenu === item.label ? 'rotate-180' : ''}`}>
                         ▼
                       </span>
                     </button>
 
                     {expandedMenu === item.label && (
-                      <div className="grid grid-cols-1 gap-2 pl-2 pr-2 py-2 animate-slide-up">
+                      <div className="grid grid-cols-1 gap-2.5 pl-4 pr-2 py-3">
                         {item.submenu.map((subitem: any) => (
                           <Link
                             key={subitem.href}
@@ -248,13 +276,13 @@ export default function Navigation() {
                               setIsOpen(false);
                               setExpandedMenu(null);
                             }}
-                            className={`flex items-center gap-4 px-6 py-4 rounded-2xl transition-all duration-200 ${isActive(subitem.href)
-                              ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/25'
-                              : 'bg-white/5 text-slate-200 hover:text-white hover:bg-white/10'
+                            className={`flex items-center gap-5 px-6 py-4.5 rounded-2xl transition-all duration-200 ${isActive(subitem.href)
+                              ? 'bg-blue-600 text-white shadow-xl shadow-blue-500/30'
+                              : 'bg-white/5 text-slate-300 hover:text-white hover:bg-white/10'
                               }`}
                           >
-                            <span className="text-xl">{subitem.icon}</span>
-                            <span className="text-sm font-bold">{subitem.label}</span>
+                            <span className="text-2xl">{subitem.icon}</span>
+                            <span className="text-base sm:text-lg font-bold">{subitem.label}</span>
                           </Link>
                         ))}
                       </div>
@@ -266,37 +294,37 @@ export default function Navigation() {
             })}
 
             {/* Mobile Profile & Logout Section */}
-            <div className="pt-6 mt-6 border-t border-white/10 space-y-3">
+            <div className="pt-8 mt-6 border-t border-white/10 space-y-4">
               <Link
                 href="/profile"
                 onClick={() => setIsOpen(false)}
-                className="flex items-center gap-4 px-4 py-4 rounded-2xl bg-white/5 text-slate-200 font-bold hover:bg-white/10 hover:text-white transition-all duration-300"
+                className="flex items-center gap-5 px-6 py-5 rounded-2xl bg-white/5 text-slate-100 font-extrabold text-lg sm:text-xl hover:bg-white/10 transition-all duration-300"
               >
-                <span className="text-2xl">👤</span>
-                <span className="text-base">Profile</span>
+                <span className="text-3xl">👤</span>
+                <span>Profile</span>
               </Link>
               <Link
                 href="/payment-methods"
                 onClick={() => setIsOpen(false)}
-                className="flex items-center gap-4 px-4 py-4 rounded-2xl bg-white/5 text-slate-200 font-bold hover:bg-white/10 hover:text-white transition-all duration-300"
+                className="flex items-center gap-5 px-6 py-5 rounded-2xl bg-white/5 text-slate-100 font-extrabold text-lg sm:text-xl hover:bg-white/10 transition-all duration-300"
               >
-                <span className="text-2xl">💳</span>
-                <span className="text-base">Payment Methods</span>
+                <span className="text-3xl">💳</span>
+                <span>Payment Methods</span>
               </Link>
               <button
                 onClick={() => {
                   handleLogout();
                   setIsOpen(false);
                 }}
-                className="w-full flex items-center gap-4 px-4 py-4 rounded-2xl bg-red-500/10 text-red-400 font-bold hover:bg-red-500 hover:text-white transition-all duration-300"
+                className="w-full flex items-center gap-5 px-6 py-5 rounded-2xl bg-red-500/10 text-red-400 font-extrabold text-lg sm:text-xl hover:bg-red-500 hover:text-white transition-all duration-300"
               >
-                <span className="text-2xl">🚪</span>
-                <span className="text-base">Logout</span>
+                <span className="text-3xl">🚪</span>
+                <span>Logout</span>
               </button>
             </div>
           </div>
         </nav>
-      )}
+      </div>
     </>
   );
 }

@@ -232,18 +232,19 @@ export default function NotesPage() {
           />
         </div>
 
+        {/* Notes Grid - 3 columns on mobile */}
         {filteredNotes.length > 0 ? (
-          <div className="grid-responsive-3 mb-block">
+          <div className="grid-3 mb-block">
             {filteredNotes.map((note) => {
               const date = note.date instanceof Date ? note.date.toLocaleDateString() : new Date(note.date).toLocaleDateString();
               const isEditing = editingId === note.id;
 
               return (
 
-                <div key={note.id} className="card">
-                  <div className="mb-4">
-                    <h3 className="text-base md:text-lg font-bold text-white">{note.title}</h3>
-                    <p className="text-xs text-slate-400 mt-1">{date}</p>
+                <div key={note.id} className="card p-2 sm:p-4">
+                  <div className="mb-2 sm:mb-4 min-w-0">
+                    <h3 className="text-xs sm:text-lg font-bold text-white truncate">{note.title}</h3>
+                    <p className="text-[8px] sm:text-xs text-slate-400 mt-0.5">{date}</p>
                   </div>
 
                   {isEditing ? (
@@ -271,19 +272,21 @@ export default function NotesPage() {
                     </div>
                   ) : (
                     <>
-                      <p className="text-slate-300 text-xs md:text-sm mb-4 line-clamp-3">{note.content}</p>
-                      <div className="flex gap-2 pt-4 border-t border-slate-700">
+                      <p className="text-slate-300 text-[10px] sm:text-sm mb-3 line-clamp-3 leading-tight">{note.content}</p>
+                      <div className="flex gap-1 pt-3 border-t border-slate-700/50">
                         <button
                           onClick={() => handleEdit(note.id, note.content)}
-                          className="flex-1 btn btn-primary btn-small"
+                          className="flex-1 btn btn-primary p-1 text-[10px] sm:text-sm"
+                          title="Edit"
                         >
-                          Edit
+                          ✏️
                         </button>
                         <button
                           onClick={() => handleDelete(note.id)}
-                          className="flex-1 btn btn-danger btn-small"
+                          className="flex-1 btn btn-danger p-1 text-[10px] sm:text-sm"
+                          title="Delete"
                         >
-                          Delete
+                          🗑️
                         </button>
                       </div>
                     </>

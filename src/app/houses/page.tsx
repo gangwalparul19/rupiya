@@ -389,37 +389,39 @@ export default function HousesPage() {
           </div>
         )}
 
-        {/* Houses Grid */}
+        {/* Houses Grid - 3 columns on mobile */}
         {filteredHouses.length > 0 ? (
-          <div className="grid-responsive-3 mb-block">
+          <div className="grid-3 mb-block">
             {filteredHouses.map((house) => (
               <div key={house.id} className="card">
-                <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <h3 className="text-lg md:text-xl font-bold text-white">{house.name}</h3>
-                    <p className="text-xs md:text-sm text-secondary mt-1">{house.address}</p>
+                <div className="flex justify-between items-start mb-2 sm:mb-4">
+                  <div className="min-w-0">
+                    <h3 className="text-xs sm:text-base md:text-xl font-bold text-white truncate">{house.name}</h3>
+                    <p className="text-[8px] sm:text-xs md:text-sm text-secondary mt-0.5 truncate">{house.address}</p>
                   </div>
-                  <span className={`px-2 sm:px-3 py-1 rounded-full text-xs font-semibold ${house.type === 'owned' ? 'bg-green-900 text-green-200' : 'bg-blue-900 text-blue-200'
+                  <span className={`px-1.5 py-0.5 rounded-full text-[8px] sm:text-xs font-semibold ${house.type === 'owned' ? 'bg-green-900/40 text-green-300' : 'bg-blue-900/40 text-blue-300'
                     }`}>
-                    {house.type.charAt(0).toUpperCase() + house.type.slice(1)}
+                    {house.type.charAt(0).toUpperCase()}
                   </span>
                 </div>
 
-                <div className="flex gap-2 pt-4 border-t border-gray-700">
+                <div className="flex gap-1 pt-3 border-t border-gray-700/50">
                   <button
                     onClick={() => handleEdit(house)}
-                    className="btn btn-primary btn-small flex-1"
+                    className="btn btn-primary p-1 flex-1 text-[8px] sm:text-xs"
+                    title="Edit"
                   >
-                    Edit
+                    ✏️
                   </button>
                   <button
                     onClick={() => {
                       setSelectedHouseForExpense(house.id);
                       setShowExpenseModal(true);
                     }}
-                    className="btn btn-success btn-small flex-1"
+                    className="btn btn-success p-1 flex-1 text-[8px] sm:text-xs"
+                    title="Add Expense"
                   >
-                    + Expense
+                    💸
                   </button>
                   {house.type === 'owned' && (
                     <button
@@ -427,16 +429,18 @@ export default function HousesPage() {
                         setSelectedHouseForIncome(house.id);
                         setShowIncomeModal(true);
                       }}
-                      className="btn btn-secondary btn-small flex-1"
+                      className="btn btn-secondary p-1 flex-1 text-[8px] sm:text-xs"
+                      title="Add Income"
                     >
-                      + Income
+                      💰
                     </button>
                   )}
                   <button
                     onClick={() => handleDelete(house.id)}
-                    className="btn btn-danger btn-small flex-1"
+                    className="btn btn-danger p-1 flex-1 text-[8px] sm:text-xs"
+                    title="Delete"
                   >
-                    Delete
+                    🗑️
                   </button>
                 </div>
               </div>

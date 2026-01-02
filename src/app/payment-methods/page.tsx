@@ -104,26 +104,56 @@ export default function PaymentMethodsPage() {
     <PageWrapper>
       <div className="py-4 sm:py-6 md:py-8">
         {/* Header */}
-        <div className="mb-block">
+        <div className="mb-section">
           <h1 className="heading-page">Payment Methods</h1>
           <p className="text-secondary">Manage your cards, UPI, bank accounts, and wallets</p>
         </div>
 
-        {/* Tabs - Mobile optimized */}
-        <div className="flex gap-1 md:gap-2 mb-block overflow-x-auto border-b border-slate-700 pb-0">
+        {/* Dashboard KPIs */}
+        <div className="grid-responsive-4 mb-section">
+          <div className="kpi-card border-blue-500/20">
+            <p className="kpi-label text-blue-400">Cards</p>
+            <p className="kpi-value text-white">{cards.length}</p>
+            <p className="kpi-subtitle text-slate-400">Total Cards</p>
+          </div>
+          <div className="kpi-card border-purple-500/20">
+            <p className="kpi-label text-purple-400">UPI</p>
+            <p className="kpi-value text-white">{upiAccounts.length}</p>
+            <p className="kpi-subtitle text-slate-400">UPI Handles</p>
+          </div>
+          <div className="kpi-card border-green-500/20">
+            <p className="kpi-label text-green-400">Bank</p>
+            <p className="kpi-value text-white">{bankAccounts.length}</p>
+            <p className="kpi-subtitle text-slate-400">Accounts</p>
+          </div>
+          <div className="kpi-card border-orange-500/20">
+            <p className="kpi-label text-orange-400">Wallet</p>
+            <p className="kpi-value text-white">{wallets.length}</p>
+            <p className="kpi-subtitle text-slate-400">Active Wallets</p>
+          </div>
+        </div>
+
+        {/* Tabs - Professional UI */}
+        <div className="flex gap-6 mb-block border-b border-slate-700/50 overflow-x-auto no-scrollbar">
           {(['cards', 'upi', 'bank', 'wallet'] as const).map((tab) => (
             <button
               key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`px-3 md:px-4 py-2 md:py-3 font-medium text-sm md:text-base whitespace-nowrap transition-colors ${activeTab === tab
-                ? 'text-blue-400 border-b-2 border-blue-400'
-                : 'text-slate-400 hover:text-slate-300'
+              onClick={() => {
+                setActiveTab(tab);
+                setExpandedForm(false);
+              }}
+              className={`pb-4 px-1 font-bold text-sm md:text-base whitespace-nowrap transition-all relative ${activeTab === tab
+                ? 'text-blue-400'
+                : 'text-slate-500 hover:text-slate-300'
                 }`}
             >
-              {tab === 'cards' && '💳 Cards'}
-              {tab === 'upi' && '📱 UPI'}
-              {tab === 'bank' && '🏦 Bank'}
-              {tab === 'wallet' && '👛 Wallet'}
+              {tab === 'cards' && 'Cards'}
+              {tab === 'upi' && 'UPI'}
+              {tab === 'bank' && 'Bank'}
+              {tab === 'wallet' && 'Wallet'}
+              {activeTab === tab && (
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-blue-500 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
+              )}
             </button>
           ))}
         </div>
@@ -199,8 +229,10 @@ export default function PaymentMethodsPage() {
                     <p className="text-slate-300 font-mono tracking-widest mb-6">•••• •••• •••• {card.cardNumber}</p>
                     <button
                       onClick={() => {
-                        removeCard(card.id);
-                        showToast('Card deleted', 'success');
+                        if (confirm('Are you sure you want to delete this card?')) {
+                          removeCard(card.id);
+                          showToast('Card deleted', 'success');
+                        }
                       }}
                       className="w-full btn btn-danger btn-small"
                     >
@@ -221,49 +253,44 @@ export default function PaymentMethodsPage() {
         {activeTab === 'upi' && (
           <div className="space-y-4 md:space-y-6">
             {/* Add UPI Form */}
-            <div className="bg-slate-800 rounded-lg border border-slate-700 overflow-hidden">
+            <div className="card overflow-hidden">
               <button
                 onClick={() => setExpandedForm(!expandedForm)}
-                className="w-full px-4 md:px-6 py-3 md:py-4 flex items-center justify-between hover:bg-slate-700 transition"
+                className="w-full py-2 flex items-center justify-between transition"
               >
-                <h2 className="text-lg md:text-xl font-bold text-white">Add UPI Account</h2>
-                <span className={`text-2xl transition-transform ${expandedForm ? 'rotate-180' : ''}`}>▼</span>
+                <h2 className="text-lg md:text-xl font-bold text-white">Add UPI</h2>
+                <span className={`text-xl transition-transform ${expandedForm ? 'rotate-180' : ''}`}>▼</span>
               </button>
 
               {expandedForm && (
-                <form onSubmit={handleAddUPI} className="px-4 md:px-6 py-4 md:py-6 border-t border-slate-700 space-y-3 md:space-y-4">
-                  <input
-                    type="text"
-                    name="upiName"
-                    value={formData.upiName}
-                    onChange={handleChange}
-                    placeholder="UPI name (e.g., My Google Pay)"
-                    className="w-full px-3 md:px-4 py-2 md:py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
-                    required
-                  />
-                  <input
-                    type="text"
-                    name="upiHandle"
-                    value={formData.upiHandle}
-                    onChange={handleChange}
-                    placeholder="UPI handle (e.g., user@upi)"
-                    className="w-full px-3 md:px-4 py-2 md:py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
-                    required
-                  />
-                  <div className="flex gap-2 pt-2">
-                    <button
-                      type="submit"
-                      className="flex-1 px-4 py-2 md:py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium text-sm md:text-base"
-                    >
-                      Add UPI
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setExpandedForm(false)}
-                      className="flex-1 px-4 py-2 md:py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-colors font-medium text-sm md:text-base"
-                    >
-                      Cancel
-                    </button>
+                <form onSubmit={handleAddUPI} className="pt-6 mt-6 border-t border-slate-700/50 space-y-4">
+                  <div>
+                    <label className="form-label">UPI Name</label>
+                    <input
+                      type="text"
+                      name="upiName"
+                      value={formData.upiName}
+                      onChange={handleChange}
+                      placeholder="e.g., Google Pay"
+                      className="form-input"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="form-label">UPI Handle</label>
+                    <input
+                      type="text"
+                      name="upiHandle"
+                      value={formData.upiHandle}
+                      onChange={handleChange}
+                      placeholder="user@upi"
+                      className="form-input"
+                      required
+                    />
+                  </div>
+                  <div className="flex gap-3 pt-4">
+                    <button type="submit" className="flex-1 btn btn-primary">Add UPI</button>
+                    <button type="button" onClick={() => setExpandedForm(false)} className="flex-1 btn btn-secondary">Cancel</button>
                   </div>
                 </form>
               )}
@@ -273,20 +300,22 @@ export default function PaymentMethodsPage() {
             {upiAccounts.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
                 {upiAccounts.map((upi) => (
-                  <div key={upi.id} className="bg-gradient-to-br from-purple-600 to-purple-800 rounded-lg p-4 md:p-6 text-white">
+                  <div key={upi.id} className="card bg-gradient-to-br from-purple-600/20 to-purple-800/10 border-purple-500/20">
                     <div className="flex justify-between items-start mb-4">
-                      <h3 className="text-lg md:text-xl font-bold">{upi.upiName}</h3>
-                      <span className="text-2xl">📱</span>
+                      <h3 className="text-lg font-bold text-white truncate">{upi.upiName}</h3>
+                      <span className="text-xl opacity-80">📱</span>
                     </div>
-                    <p className="text-slate-200 text-sm md:text-base mb-4 break-all">{upi.upiHandle}</p>
+                    <p className="text-slate-300 text-sm mb-6 truncate">{upi.upiHandle}</p>
                     <button
                       onClick={() => {
-                        removeUPI(upi.id);
-                        showToast('UPI deleted', 'success');
+                        if (confirm('Are you sure you want to delete this UPI handle?')) {
+                          removeUPI(upi.id);
+                          showToast('UPI deleted', 'success');
+                        }
                       }}
-                      className="w-full px-3 py-2 text-sm md:text-base bg-red-600 hover:bg-red-700 text-white rounded transition-colors font-medium"
+                      className="w-full btn btn-danger btn-small"
                     >
-                      Delete
+                      Delete UPI
                     </button>
                   </div>
                 ))}
@@ -303,59 +332,57 @@ export default function PaymentMethodsPage() {
         {activeTab === 'bank' && (
           <div className="space-y-4 md:space-y-6">
             {/* Add Bank Form */}
-            <div className="bg-slate-800 rounded-lg border border-slate-700 overflow-hidden">
+            <div className="card overflow-hidden">
               <button
                 onClick={() => setExpandedForm(!expandedForm)}
-                className="w-full px-4 md:px-6 py-3 md:py-4 flex items-center justify-between hover:bg-slate-700 transition"
+                className="w-full py-2 flex items-center justify-between transition"
               >
-                <h2 className="text-lg md:text-xl font-bold text-white">Add Bank Account</h2>
-                <span className={`text-2xl transition-transform ${expandedForm ? 'rotate-180' : ''}`}>▼</span>
+                <h2 className="text-lg md:text-xl font-bold text-white">Add Bank</h2>
+                <span className={`text-xl transition-transform ${expandedForm ? 'rotate-180' : ''}`}>▼</span>
               </button>
 
               {expandedForm && (
-                <form onSubmit={handleAddBank} className="px-4 md:px-6 py-4 md:py-6 border-t border-slate-700 space-y-3 md:space-y-4">
-                  <input
-                    type="text"
-                    name="bankName"
-                    value={formData.bankName}
-                    onChange={handleChange}
-                    placeholder="Bank name"
-                    className="w-full px-3 md:px-4 py-2 md:py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
-                    required
-                  />
-                  <input
-                    type="text"
-                    name="accountNumber"
-                    value={formData.accountNumber}
-                    onChange={handleChange}
-                    placeholder="Account number (last 4 digits)"
-                    maxLength={4}
-                    className="w-full px-3 md:px-4 py-2 md:py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
-                    required
-                  />
-                  <input
-                    type="text"
-                    name="ifscCode"
-                    value={formData.ifscCode}
-                    onChange={handleChange}
-                    placeholder="IFSC code"
-                    className="w-full px-3 md:px-4 py-2 md:py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
-                    required
-                  />
-                  <div className="flex gap-2 pt-2">
-                    <button
-                      type="submit"
-                      className="flex-1 px-4 py-2 md:py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium text-sm md:text-base"
-                    >
-                      Add Bank
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setExpandedForm(false)}
-                      className="flex-1 px-4 py-2 md:py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-colors font-medium text-sm md:text-base"
-                    >
-                      Cancel
-                    </button>
+                <form onSubmit={handleAddBank} className="pt-6 mt-6 border-t border-slate-700/50 space-y-4">
+                  <div>
+                    <label className="form-label">Bank Name</label>
+                    <input
+                      type="text"
+                      name="bankName"
+                      value={formData.bankName}
+                      onChange={handleChange}
+                      placeholder="Bank name"
+                      className="form-input"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="form-label">Account Number (Last 4 Digits)</label>
+                    <input
+                      type="text"
+                      name="accountNumber"
+                      value={formData.accountNumber}
+                      onChange={handleChange}
+                      placeholder="1234"
+                      maxLength={4}
+                      className="form-input"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="form-label">IFSC Code</label>
+                    <input
+                      type="text"
+                      name="ifscCode"
+                      value={formData.ifscCode}
+                      onChange={handleChange}
+                      placeholder="IFSC code"
+                      className="form-input"
+                      required
+                    />
+                  </div>
+                  <div className="flex gap-3 pt-4">
+                    <button type="submit" className="flex-1 btn btn-primary">Add Bank</button>
+                    <button type="button" onClick={() => setExpandedForm(false)} className="flex-1 btn btn-secondary">Cancel</button>
                   </div>
                 </form>
               )}
@@ -365,21 +392,23 @@ export default function PaymentMethodsPage() {
             {bankAccounts.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
                 {bankAccounts.map((bank) => (
-                  <div key={bank.id} className="bg-gradient-to-br from-green-600 to-green-800 rounded-lg p-4 md:p-6 text-white">
+                  <div key={bank.id} className="card bg-gradient-to-br from-green-600/20 to-green-800/10 border-green-500/20">
                     <div className="flex justify-between items-start mb-4">
-                      <h3 className="text-lg md:text-xl font-bold">{bank.bankName}</h3>
-                      <span className="text-2xl">🏦</span>
+                      <h3 className="text-lg font-bold text-white truncate">{bank.bankName}</h3>
+                      <span className="text-xl opacity-80">🏦</span>
                     </div>
-                    <p className="text-slate-200 text-sm md:text-base mb-2">•••• {bank.accountNumber}</p>
-                    <p className="text-slate-300 text-xs md:text-sm mb-4">{bank.ifscCode}</p>
+                    <p className="text-slate-300 font-mono tracking-widest mb-1">•••• {bank.accountNumber}</p>
+                    <p className="text-slate-400 text-xs mb-6 uppercase tracking-wider">{bank.ifscCode}</p>
                     <button
                       onClick={() => {
-                        removeBankAccount(bank.id);
-                        showToast('Bank account deleted', 'success');
+                        if (confirm('Are you sure you want to delete this bank account?')) {
+                          removeBankAccount(bank.id);
+                          showToast('Bank account deleted', 'success');
+                        }
                       }}
-                      className="w-full px-3 py-2 text-sm md:text-base bg-red-600 hover:bg-red-700 text-white rounded transition-colors font-medium"
+                      className="w-full btn btn-danger btn-small"
                     >
-                      Delete
+                      Delete Account
                     </button>
                   </div>
                 ))}
@@ -396,61 +425,59 @@ export default function PaymentMethodsPage() {
         {activeTab === 'wallet' && (
           <div className="space-y-4 md:space-y-6">
             {/* Add Wallet Form */}
-            <div className="bg-slate-800 rounded-lg border border-slate-700 overflow-hidden">
+            <div className="card overflow-hidden">
               <button
                 onClick={() => setExpandedForm(!expandedForm)}
-                className="w-full px-4 md:px-6 py-3 md:py-4 flex items-center justify-between hover:bg-slate-700 transition"
+                className="w-full py-2 flex items-center justify-between transition"
               >
                 <h2 className="text-lg md:text-xl font-bold text-white">Add Wallet</h2>
-                <span className={`text-2xl transition-transform ${expandedForm ? 'rotate-180' : ''}`}>▼</span>
+                <span className={`text-xl transition-transform ${expandedForm ? 'rotate-180' : ''}`}>▼</span>
               </button>
 
               {expandedForm && (
-                <form onSubmit={handleAddWallet} className="px-4 md:px-6 py-4 md:py-6 border-t border-slate-700 space-y-3 md:space-y-4">
-                  <input
-                    type="text"
-                    name="walletName"
-                    value={formData.walletName}
-                    onChange={handleChange}
-                    placeholder="Wallet name"
-                    className="w-full px-3 md:px-4 py-2 md:py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
-                    required
-                  />
-                  <select
-                    name="walletType"
-                    value={formData.walletType}
-                    onChange={handleChange}
-                    className="w-full px-3 md:px-4 py-2 md:py-3 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
-                  >
-                    <option value="cash">Cash</option>
-                    <option value="card">Card</option>
-                    <option value="upi">UPI</option>
-                    <option value="bank">Bank</option>
-                    <option value="wallet">Wallet</option>
-                  </select>
-                  <input
-                    type="number"
-                    name="walletBalance"
-                    value={formData.walletBalance}
-                    onChange={handleChange}
-                    placeholder="Balance (optional)"
-                    className="w-full px-3 md:px-4 py-2 md:py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm md:text-base"
-                    step="0.01"
-                  />
-                  <div className="flex gap-2 pt-2">
-                    <button
-                      type="submit"
-                      className="flex-1 px-4 py-2 md:py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium text-sm md:text-base"
+                <form onSubmit={handleAddWallet} className="pt-6 mt-6 border-t border-slate-700/50 space-y-4">
+                  <div>
+                    <label className="form-label">Wallet Name</label>
+                    <input
+                      type="text"
+                      name="walletName"
+                      value={formData.walletName}
+                      onChange={handleChange}
+                      placeholder="Wallet name"
+                      className="form-input"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="form-label">Type</label>
+                    <select
+                      name="walletType"
+                      value={formData.walletType}
+                      onChange={handleChange}
+                      className="form-select"
                     >
-                      Add Wallet
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setExpandedForm(false)}
-                      className="flex-1 px-4 py-2 md:py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-lg transition-colors font-medium text-sm md:text-base"
-                    >
-                      Cancel
-                    </button>
+                      <option value="cash">Cash</option>
+                      <option value="card">Card</option>
+                      <option value="upi">UPI</option>
+                      <option value="bank">Bank</option>
+                      <option value="wallet">Digital Wallet</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="form-label">Initial Balance (Optional)</label>
+                    <input
+                      type="number"
+                      name="walletBalance"
+                      value={formData.walletBalance}
+                      onChange={handleChange}
+                      placeholder="0.00"
+                      className="form-input"
+                      step="0.01"
+                    />
+                  </div>
+                  <div className="flex gap-3 pt-4">
+                    <button type="submit" className="flex-1 btn btn-primary">Add Wallet</button>
+                    <button type="button" onClick={() => setExpandedForm(false)} className="flex-1 btn btn-secondary">Cancel</button>
                   </div>
                 </form>
               )}
@@ -460,23 +487,25 @@ export default function PaymentMethodsPage() {
             {wallets.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
                 {wallets.map((wallet) => (
-                  <div key={wallet.id} className="bg-gradient-to-br from-orange-600 to-orange-800 rounded-lg p-4 md:p-6 text-white">
+                  <div key={wallet.id} className="card bg-gradient-to-br from-orange-600/20 to-orange-800/10 border-orange-500/20">
                     <div className="flex justify-between items-start mb-4">
-                      <h3 className="text-lg md:text-xl font-bold">{wallet.name}</h3>
-                      <span className="text-2xl">👛</span>
+                      <h3 className="text-lg font-bold text-white truncate">{wallet.name}</h3>
+                      <span className="text-xl opacity-80">👛</span>
                     </div>
-                    <p className="text-slate-200 text-sm md:text-base mb-2 capitalize">{wallet.type}</p>
+                    <p className="text-slate-300 text-sm mb-1 capitalize">{wallet.type}</p>
                     {wallet.balance !== undefined && wallet.balance > 0 && (
-                      <p className="text-green-300 text-sm md:text-base font-semibold mb-4">₹{wallet.balance.toLocaleString('en-IN', { maximumFractionDigits: 2 })}</p>
+                      <p className="text-green-400 text-lg font-bold mb-6">₹{wallet.balance.toLocaleString('en-IN')}</p>
                     )}
                     <button
                       onClick={() => {
-                        removeWallet(wallet.id);
-                        showToast('Wallet deleted', 'success');
+                        if (confirm('Are you sure you want to delete this wallet?')) {
+                          removeWallet(wallet.id);
+                          showToast('Wallet deleted', 'success');
+                        }
                       }}
-                      className="w-full px-3 py-2 text-sm md:text-base bg-red-600 hover:bg-red-700 text-white rounded transition-colors font-medium"
+                      className="w-full btn btn-danger btn-small"
                     >
-                      Delete
+                      Delete Wallet
                     </button>
                   </div>
                 ))}
