@@ -8,7 +8,7 @@ import { useToast } from '@/lib/toastContext';
 import PageWrapper from '@/components/PageWrapper';
 
 export default function RecurringTransactionsPage() {
-  const { recurringTransactions, addRecurringTransaction, removeRecurringTransaction, updateRecurringTransaction } = useAppStore();
+  const { recurringTransactions, addRecurringTransaction, removeRecurringTransaction, updateRecurringTransaction, categories } = useAppStore();
   const { success, error } = useToast();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [showModalInline, setShowModalInline] = useState(false);
@@ -342,15 +342,20 @@ export default function RecurringTransactionsPage() {
 
                 <div>
                   <label className="form-label">Category</label>
-                  <input
-                    type="text"
+                  <select
                     name="category"
                     value={formData.category}
                     onChange={handleChange}
-                    placeholder="e.g., Rent"
-                    className="form-input"
+                    className="form-select"
                     required
-                  />
+                  >
+                    <option value="">Select a category</option>
+                    {categories.map((cat) => (
+                      <option key={cat.id} value={cat.name}>
+                        {cat.emoji} {cat.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
                 <div>

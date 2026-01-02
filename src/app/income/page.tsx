@@ -245,19 +245,19 @@ export default function IncomePage() {
           </button>
         </div>
 
-        <div className="space-y-2 md:space-y-3">
+        <div className="space-y-4 md:space-y-6">
           {isLoading ? (
-            <div className="bg-slate-800 p-6 md:p-8 rounded-lg border border-slate-700 text-center text-slate-300">
+            <div className="card text-center text-slate-300">
               <p className="text-sm md:text-base">Loading income...</p>
             </div>
           ) : sortedIncome.length === 0 ? (
-            <div className="bg-slate-800 p-6 md:p-8 rounded-lg border border-slate-700 text-center text-slate-300">
+            <div className="card text-center text-slate-300">
               <p className="text-sm md:text-base">No income found</p>
               <p className="text-xs md:text-sm mt-2">Add your first income to get started</p>
             </div>
           ) : (
             sortedIncome.map((inc) => (
-              <div key={inc.id} className="bg-slate-800 p-3 md:p-4 rounded-lg border border-slate-700 hover:border-slate-600 transition">
+              <div key={inc.id} className="card hover:border-slate-600">
                 <div className="flex justify-between items-start mb-2">
                   <div className="flex items-start gap-2 flex-1 min-w-0">
                     <span className="text-xl md:text-2xl flex-shrink-0">

@@ -397,7 +397,7 @@ ${sortedExpenses
         <div className="mb-block flex gap-3 overflow-x-auto pb-4 px-2 -mx-2">
           <button
             onClick={() => setFilterCategory('all')}
-            className={`px-3 py-2 rounded-lg transition whitespace-nowrap text-xs md:text-sm ${filterCategory === 'all'
+            className={`px-3 py-2 rounded-lg transition whitespace-nowrap text-sm md:text-base font-medium ${filterCategory === 'all'
               ? 'bg-blue-600 text-white'
               : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
               }`}
@@ -408,7 +408,7 @@ ${sortedExpenses
             <button
               key={cat.id}
               onClick={() => setFilterCategory(cat.name)}
-              className={`px-3 py-2 rounded-lg transition whitespace-nowrap text-xs md:text-sm ${filterCategory === cat.name
+              className={`px-3 py-2 rounded-lg transition whitespace-nowrap text-sm md:text-base font-medium ${filterCategory === cat.name
                 ? 'bg-blue-600 text-white'
                 : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
                 }`}
